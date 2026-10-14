@@ -1,0 +1,59 @@
+/* Existing paper colors and typography remain authoritative. */
+.metric-value.is-empty{font-size:23px;line-height:1.45;letter-spacing:0}
+.overview>div{min-width:0}
+.metric-value{max-width:100%;overflow-wrap:anywhere}
+.metric-caption,.chart-value,.plan-day-state{overflow-wrap:anywhere}
+.save-feedback{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:14px}
+.save-feedback[hidden],.permission-status[hidden]{display:none}
+.save-feedback[role=alert]{border-left:2px solid var(--ink);padding-left:12px}
+.save-feedback .text-button{margin:0;min-height:44px}
+.permission-status{margin:10px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:14px}
+.permission-status .text-button{margin:0}
+.settings-links .setting-action:first-child{border-top:0}
+.section>.setting-action:last-child{border-bottom:0}
+.rest-hours{display:grid;grid-template-columns:max-content 1fr;gap:10px 20px;margin:16px 0}
+.rest-hours dt{font-weight:600}
+.rest-hours dd{margin:0}
+.bar.zero{min-height:2px}
+.card-attribution{font-size:13px;line-height:1.65;color:var(--muted);overflow-wrap:anywhere;margin:16px 0}
+.card-attribution p{margin:4px 0}
+.startup-content .card-attribution{text-align:left;margin:14px 0 0}
+.actual-input{flex-wrap:wrap}
+.actual-input input{flex:1 1 80px;max-width:100%}
+.actual-input span{white-space:normal}
+.sheet .save-row{flex-wrap:wrap}
+.sheet .save-row .primary{min-width:140px}
+#app-update{border-top:1px solid var(--line);margin-top:20px;padding-top:20px;min-width:0}
+#app-update button{margin-top:12px;width:100%}
+#app-update h3{margin-top:0}
+.update-notes{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8}
+.tracking-tabs,.subject-actions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tracking-tabs button,.subject-actions button{min-height:44px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:transparent}
+.tracking-tabs [aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.plan-switch{display:flex;align-items:center;gap:10px;max-width:100%;overflow-wrap:anywhere;margin-bottom:18px}
+.plan-switch svg{width:18px;height:18px;flex-shrink:0}
+.draft-status{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px;margin:12px 0}
+.draft-status .text-button{margin:0;min-height:44px}
+.draft-status[role=alert]{border-left:2px solid var(--ink);padding-left:10px}
+.backup-date{font-size:14px;overflow-wrap:anywhere}
+.plan-picker .setting-action:disabled{opacity:1}
+#update-progress{display:block;width:100%;height:12px;margin:10px 0;accent-color:var(--ink)}
+#update-action-feedback[hidden]{display:none}
+.large-text .overview,.large-text .field-inline{grid-template-columns:1fr}
+.large-text .overview>div+div{border-left:0;border-top:1px solid var(--line);padding:14px 0 0}
+.large-text .actual-row{flex-wrap:wrap}
+.large-text .actual-input{flex-basis:100%}
+.large-text .brand small{white-space:normal}
+.large-text .brand-mark{width:48px;height:52px;flex-shrink:0}
+.large-text .date-line{flex-wrap:wrap}
+.large-text .date-line>div:first-child{flex-basis:100%}
+.large-text .date-title{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.large-text .date-title small{margin-left:0}
+.large-text .week-strip{grid-template-columns:repeat(7,minmax(44px,1fr));overflow-x:auto}
+.large-text .status-options{grid-template-columns:1fr 1fr}
+@media(max-width:360px){
+ .overview>div+div{padding-left:14px}
+ .actual-input{padding:4px 10px}
+ .actual-input span{padding:0 0 5px}
+ .rest-hours{gap:8px 12px}
+}

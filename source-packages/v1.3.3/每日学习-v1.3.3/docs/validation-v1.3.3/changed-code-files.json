@@ -1,0 +1,295 @@
+{
+  "baselineFiles": 107,
+  "currentFiles": 122,
+  "modifiedOrAdded": [
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "change": "modified",
+      "beforeSha256": "e186a3bd2652e4558252d096b66f4a30d1c5f2c4ea579d1046d2f75dd8171bae",
+      "afterSha256": "620f28078ba4430998ce1568abd1c758742ffd0d095dd3f2cb422f3e7f63dd2c"
+    },
+    {
+      "path": "app/src/main/assets/app.js",
+      "change": "modified",
+      "beforeSha256": "f862ecc2622b792e8f61277c724978f3f6abbf79f3b0ba9ba2fc20959ce8b45c",
+      "afterSha256": "8cc0b59d34686e080a80c96595edcebe53a41cab2beb33f35d5ff988eb62762a"
+    },
+    {
+      "path": "app/src/main/assets/drafts.js",
+      "change": "modified",
+      "beforeSha256": "1d5b6750528c1a9e080349fd6ee8a6aceba3377a560e3e78ef0a4fdbf03c1c9e",
+      "afterSha256": "bbf53e7500610de865dd1743752eddbd93a6774c19091b11d82ef86e5c378ea9"
+    },
+    {
+      "path": "app/src/main/assets/index.html",
+      "change": "modified",
+      "beforeSha256": "944db85b26484bb2fea6ead05df7562066acdbb64e7fae4f883fece2a59cb6da",
+      "afterSha256": "cabc76c0ceadd26c426a36672191cc7405c7d426c6fd7bce24e8348d3581ec87"
+    },
+    {
+      "path": "app/src/main/assets/model.js",
+      "change": "modified",
+      "beforeSha256": "47678fa1b755c0fc387b6d99f40bc94a3b684a4605609021985819d6b34543f5",
+      "afterSha256": "7e16cc01ee0f543960344f3249f56f52f49ae9f503de4865253b953a01de66ff"
+    },
+    {
+      "path": "app/src/main/assets/polish.css",
+      "change": "modified",
+      "beforeSha256": "78534f9894b4cef709160b466c1f5c31528458904d305c082bad6bc28e5b657e",
+      "afterSha256": "6ef4ad8d20c67357bb505601c9dcb8aab0384ee7c32970f3d8ed4693de9b04f9"
+    },
+    {
+      "path": "app/src/main/assets/report-font-OFL.txt",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "app/src/main/assets/report-font.ttf",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "91bbf3b62daf774a14edd0eac36b121e678af9e7228a97f52f23e1c6cb8c011c"
+    },
+    {
+      "path": "app/src/main/assets/tracking.js",
+      "change": "modified",
+      "beforeSha256": "e3c4e14dae7d1e61679dfad0b24f716dc9b4c2aac9a82e3d741670c05431bb6a",
+      "afterSha256": "59c69a7a723138a31eec9beef08dfdad926eb70e4ee36f6f63112cc5e107a6e3"
+    },
+    {
+      "path": "app/src/main/assets/words.js",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "63f39e6767a8c7147490095d8ac971e42db526a90d1afc8f478a73b1be49d64e"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/BackupManager.java",
+      "change": "modified",
+      "beforeSha256": "1421c5043c6c8ea46d1007cf866f66e479a691d9b6684c610f81321df7be1f93",
+      "afterSha256": "22b51f85f65c7912aa9289d7f61216937577fe6119538d2f2c1e635f3e03154e"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
+      "change": "modified",
+      "beforeSha256": "f4ffbf40940a08e4385f09a01b781afb483bec168c223587d506d4742e102d76",
+      "afterSha256": "15380abe81a611b1cf1462bd21a2fbcc14d58608bf5c1a84188a4f714a172035"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/DraftStore.java",
+      "change": "modified",
+      "beforeSha256": "8001716c7837756c29a06e28455bbe761d3e68dc78f6d71d3a41c9ccbf05b301",
+      "afterSha256": "ccda24a125b465e5bf7b41528d79ab264a07ef75815966874e166eef12b93267"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationPoster.java",
+      "change": "modified",
+      "beforeSha256": "6f635c3bffd8327ecfe983bfcd30d7d5513e7ecaf151177e5bd639ed58a7f42f",
+      "afterSha256": "99a68911580179c5b0b9d6a775530de631bd61a270025c6bee037b75e02e7569"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationSearch.java",
+      "change": "modified",
+      "beforeSha256": "1ceede56503eb6df306efd5f6026cdfb2313d86eb2a8f2e755dcb1a7949192f8",
+      "afterSha256": "99f63245f3e0c03dae7c2918c65ee25a9e856469e5854eaec19c092b2be5caa1"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationStore.java",
+      "change": "modified",
+      "beforeSha256": "2bc8ba964ed9010597ea7a313164243af2e9b82f8ec0a169b615d95c76e2c8e4",
+      "afterSha256": "9af293a1bd4d6744b88d5d759949ad8a00fcbedf2ad4ce4bd9532790f8298e40"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
+      "change": "modified",
+      "beforeSha256": "4a77b7e1588c148ab027ae0bca4b8253e77cf06de02086154d3699256e4d76e4",
+      "afterSha256": "8b0dd826d0d5fc119f5b6f31a1e1746a2ce4b2c32269361ee81f78f2c84a7ac1"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReminderReceiver.java",
+      "change": "modified",
+      "beforeSha256": "468814bc133e23af7df4d39dc479e462b8d0d1c40ae742c6fbda7dec7569e416",
+      "afterSha256": "db54b97f94fe7be562a167f9822744fc63af0a23add867aa076ebee9e9f7f7c6"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReminderScheduler.java",
+      "change": "modified",
+      "beforeSha256": "2ead0d648b1c191c9686d00b250c6bd9290702949de7d8a2bc445fd69a0b9e9f",
+      "afterSha256": "7459859f90aefa365a2826ee812d74509ee43068a39dd00149856b718f900cea"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
+      "change": "modified",
+      "beforeSha256": "1556722acc63e9549de28edd12d8a5642b11c5d6eef2b65c8209ced5a6a81eed",
+      "afterSha256": "2f80f05709fd3084c27af7a783517be45f90b0682faf502c2a2a106a4664c86c"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
+      "change": "modified",
+      "beforeSha256": "b2412b65e32ab9117ae6cc0116e1b23639b2b98be98e91b0f92e9fbef7857592",
+      "afterSha256": "87b3588efd2b93bf1e12f27991422ce8390f993f8f69eb0559b0fffd5f54ec1e"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/TimerStore.java",
+      "change": "modified",
+      "beforeSha256": "6865dd45462cf9bf667f4173b91e6a9a136c80f9785d8f650fda7231ef2c7557",
+      "afterSha256": "34f51eed809e7049ff0febbfc0edb03d361a56060721948df9a3831b9a98e69d"
+    },
+    {
+      "path": "tests/accessibility-polish-ui.cjs",
+      "change": "modified",
+      "beforeSha256": "78133ec2a3f46f0c0a09566262d64f595756ee81fcf332f0e6bb81375a60cfcb",
+      "afterSha256": "d3809725d263255e5b9b16bede5d3964a9ed0950e01914438d97989587c81b6d"
+    },
+    {
+      "path": "tests/audit-algorithms.test.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "c1c296011fae19de86039b5a1014b1dbe5ca5e6bff1d64b7a394a379c80b34ac"
+    },
+    {
+      "path": "tests/audit-workload.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "f1b622b8e8cb154e50f2591c7d36037fe6d3aaf0e00d3e4461dca643ca19ca58"
+    },
+    {
+      "path": "tests/backup-ui-smoke.cjs",
+      "change": "modified",
+      "beforeSha256": "45da92016b1f419bb53dba9dc2798810d67008349a6184b0231a0daeb44376bf",
+      "afterSha256": "08c19b6201a1f891ea54d2dbd198ecb7ba2cfffd743d44825325eeda46029fee"
+    },
+    {
+      "path": "tests/benchmark-algorithms.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "fdf214082430eb61499ec6fcd72c6dae102c8778df83f9555c792aa5017d97fa"
+    },
+    {
+      "path": "tests/fixtures/reference-model-v1.3.2.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "47678fa1b755c0fc387b6d99f40bc94a3b684a4605609021985819d6b34543f5"
+    },
+    {
+      "path": "tests/java/cn/edu/njupt/studycheckin/AuditTests.java",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "be9437554d26a08b71f3071cd04786ef43edc459c5a9cac1c779a850a513dd39"
+    },
+    {
+      "path": "tests/java/cn/edu/njupt/studycheckin/DraftTests.java",
+      "change": "modified",
+      "beforeSha256": "87681f61f2b5f4d127a16f416360cc10d0c15c9b076777054aa7e4c8cd141b06",
+      "afterSha256": "200a5fe90867664bceea4f4779c9b512e83a91548440b73eadddfd46664096d9"
+    },
+    {
+      "path": "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
+      "change": "modified",
+      "beforeSha256": "2e9a02c00ef63a57b463c3d96bcfb4ba87647163f584117afe58ee6ce7e90925",
+      "afterSha256": "88657b59cb6eaf234c7daa5075b225bffef9c411f22dd8962e1b205802df580c"
+    },
+    {
+      "path": "tests/report-recovery-ui.cjs",
+      "change": "modified",
+      "beforeSha256": "7d21def0ccf6b81b41f1c6b12efc2923cecf283b3cc129dfa66c6e0a4802dad0",
+      "afterSha256": "cf11e0df6747b1d291b9114861fc6c6defae9b6b11f9f0598035f1584cb7b196"
+    },
+    {
+      "path": "tests/update-install-ui.cjs",
+      "change": "modified",
+      "beforeSha256": "eb3b57859162e272540a30d335350dbb25451485a73fbb37977e86ad18a36794",
+      "afterSha256": "fd3121e9c1986ddd59f5662ab42546964585ad4cbfe3f35228a0b74835ce00ad"
+    },
+    {
+      "path": "tests/v133-ui.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "573f8916601b1ae77e84fbc81bf046979a345259b009895bd84d5802512462a8"
+    },
+    {
+      "path": "tests/words-model.test.cjs",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "4815a3407328119411dd6f7e73c3963db0bc368e03879267bdfddbc95586e4d3"
+    },
+    {
+      "path": "scripts/package-delivery.py",
+      "change": "modified",
+      "beforeSha256": "e4e622b3c31075bcf099f1608be0c7ebe022ad705d00f910e234ab3fb7735845",
+      "afterSha256": "5162bec68f77d79f0d93acde77757b4141436471bb448132cb981e2ba62b870b"
+    },
+    {
+      "path": "scripts/prepare-report-font.py",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "c703c085e95d0de4ee3d10dd747d13eda9dc674990e38c326eba2689daa2f686"
+    },
+    {
+      "path": "docs/APP-UPDATES.md",
+      "change": "modified",
+      "beforeSha256": "7d66f18be8fdf8013ccadf2bfc769b8de2f3906693fbebdbaebf178b73e53c49",
+      "afterSha256": "4fd2d78b4182295abf6fcedc1c0cc9932e245b3ef993a96c7eee93c6900ac7f8"
+    },
+    {
+      "path": "docs/CODE-REVIEW-v1.3.3.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "283d06d19a9d625a635d5331172b0380ddf56b68acec6c38a515efe98485ed38"
+    },
+    {
+      "path": "docs/CONTRACT.md",
+      "change": "modified",
+      "beforeSha256": "05070881abc4c9011a4af789d8ae27ecb8f12ab56467e4e6ad3098b9102e9608",
+      "afterSha256": "a9f95d5a84cf51c476e437d8887b96c052155fbe3e1f8ca520fcae817b15ca7b"
+    },
+    {
+      "path": "docs/NEXT-DEVELOPMENT.md",
+      "change": "modified",
+      "beforeSha256": "0c4962e5b5c8eed40107855231fc59bd34a7ccc55b0474186c314b5954ea954b",
+      "afterSha256": "574cdf4934ee4b6671b8d8f08f9c2cf236bdbe2e59f36dbb1acfa684113f68f8"
+    },
+    {
+      "path": "docs/NEXT-STAGE-PLAN.md",
+      "change": "modified",
+      "beforeSha256": "744357fcf72f14662f65c26fb68ec34c7fde3e456e8128416d55fac24ccf9b90",
+      "afterSha256": "e9f7737664f51b280c497c71f6e1266b05cc630e72922a91d1aa371e767a69b6"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.3.3.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "c224c45b1d1b6ff3ffb8e902fc4e60e28e5ca111d8231fa68d8a007bc8877c20"
+    },
+    {
+      "path": "docs/THIRD-PARTY-NOTICES.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "eed35a3c2058d906f52a766b67ea8ed5dcfb8c1db5556e4ab63b039e57a2e35e"
+    },
+    {
+      "path": "docs/ux-copy-audit.md",
+      "change": "modified",
+      "beforeSha256": "e87428529044026f0b4b3d0c1f97b260d3c27690b771027e2c6e1e0174e630ce",
+      "afterSha256": "88723275fc05ce2672f007b06ecef6213e371e8282f85e4938bcefceb2d956f0"
+    },
+    {
+      "path": "docs/V1.3.3.md",
+      "change": "added",
+      "beforeSha256": null,
+      "afterSha256": "de48355f50304065c53cdb7d8fb71e8f46096c08cd858cee2f172660c6194a05"
+    },
+    {
+      "path": "docs/使用说明.md",
+      "change": "modified",
+      "beforeSha256": "0dc9b4ff2b917010221c252396ccf86afc17c8118a75d5164789095490f7b549",
+      "afterSha256": "d45c390b02ceb2c859e37f218408b3e23fd03e2b84551d668bd11bc0c1a4e1c7"
+    },
+    {
+      "path": "README.md",
+      "change": "modified",
+      "beforeSha256": "a8c4784f7659f3361f0612db0264199d495f5ad03b57b14376113c564907fb5d",
+      "afterSha256": "c5a1c4d74cc1f3156c78f152f72d7c1d02fada112ac02080d2fe2e9f35936876"
+    }
+  ],
+  "deleted": []
+}

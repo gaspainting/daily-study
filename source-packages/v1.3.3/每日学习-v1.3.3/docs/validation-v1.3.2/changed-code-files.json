@@ -1,0 +1,182 @@
+{
+  "codeBaseline": "baseline-files.json",
+  "documentBaseline": "D:\\南京邮电大学\\learning\\output\\android\\每日学习-v1.3.1-源码.zip",
+  "codeAndTests": [
+    {
+      "file": "README.md",
+      "status": "modified",
+      "before": "57477b86ef82345b67c8520541cdfc300c98dcb495cc7f29c3650e683d63bb9f",
+      "after": "a8c4784f7659f3361f0612db0264199d495f5ad03b57b14376113c564907fb5d"
+    },
+    {
+      "file": "app/src/main/AndroidManifest.xml",
+      "status": "modified",
+      "before": "937409065d74a7e729be2a3be5d1e8204ce7764990fc28fd0fb797fd7f51b480",
+      "after": "e186a3bd2652e4558252d096b66f4a30d1c5f2c4ea579d1046d2f75dd8171bae"
+    },
+    {
+      "file": "app/src/main/assets/app.js",
+      "status": "modified",
+      "before": "cffaab7472f6c99a631275b8f288dc08c24ad0f3818b7b55570797ab0994b686",
+      "after": "f862ecc2622b792e8f61277c724978f3f6abbf79f3b0ba9ba2fc20959ce8b45c"
+    },
+    {
+      "file": "app/src/main/assets/model.js",
+      "status": "modified",
+      "before": "097eb8cc6234d19ddea1a0f5d9712f60cd575d879e4743feb683c6f945ab6a67",
+      "after": "47678fa1b755c0fc387b6d99f40bc94a3b684a4605609021985819d6b34543f5"
+    },
+    {
+      "file": "app/src/main/assets/polish.css",
+      "status": "modified",
+      "before": "fa0cb1c349312d95ebbe27cce14ac8994c4e12a144e9639d996344ccc9cd6525",
+      "after": "78534f9894b4cef709160b466c1f5c31528458904d305c082bad6bc28e5b657e"
+    },
+    {
+      "file": "app/src/main/assets/seed.json",
+      "status": "modified",
+      "before": "e10cb5624817f71e1e8a8755b2af3e545c4bdc58e7ac8cd4f2a4faa6331d8fd9",
+      "after": "0c4ffa6de139762073be75444d088f7dfa048dedc3cae6f825b04833781c2dac"
+    },
+    {
+      "file": "app/src/main/assets/tracking.js",
+      "status": "modified",
+      "before": "0cbd721bf78dbe97937cfd5fd2b50f5b67fcedcb9e42ba49c09375735ef5118c",
+      "after": "e3c4e14dae7d1e61679dfad0b24f716dc9b4c2aac9a82e3d741670c05431bb6a"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
+      "status": "modified",
+      "before": "57419b3d344517c936b724e426f3ff1d2ee36ad48829ce71b990156774b3de00",
+      "after": "f4ffbf40940a08e4385f09a01b781afb483bec168c223587d506d4742e102d76"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
+      "status": "modified",
+      "before": "8a8084faa058004193ad204b7ffda4a8e68a57af4c5d666efa85a42de3036f2e",
+      "after": "1556722acc63e9549de28edd12d8a5642b11c5d6eef2b65c8209ced5a6a81eed"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
+      "status": "modified",
+      "before": "dedef66ba2e2ef927d06e6775cb427b8997b9124527a798f181082f393102cba",
+      "after": "b2412b65e32ab9117ae6cc0116e1b23639b2b98be98e91b0f92e9fbef7857592"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/TimerStore.java",
+      "status": "modified",
+      "before": "aae7bded91e8cf41be9954aeedc602444e6a95f04066e43e7eb8aa3cedcb67cb",
+      "after": "6865dd45462cf9bf667f4173b91e6a9a136c80f9785d8f650fda7231ef2c7557"
+    },
+    {
+      "file": "generate_seed.py",
+      "status": "modified",
+      "before": "dcc3c642644a60b7298c8741428497469ca6e0130c4737ed67a21a194f424e02",
+      "after": "683d0098837d82608c0462d7d736beca9d14724445d4f798bf3250a4a03c6a48"
+    },
+    {
+      "file": "tests/backup-ui-smoke.cjs",
+      "status": "modified",
+      "before": "f16571e1588531d27f8b81e044d1d54a952c1ac1ae1c3da52021e72c06b35ddf",
+      "after": "45da92016b1f419bb53dba9dc2798810d67008349a6184b0231a0daeb44376bf"
+    },
+    {
+      "file": "tests/fixtures/legacy-seed-v1.3.1.json",
+      "status": "added",
+      "before": null,
+      "after": "e10cb5624817f71e1e8a8755b2af3e545c4bdc58e7ac8cd4f2a4faa6331d8fd9"
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/FeatureModelTests.java",
+      "status": "modified",
+      "before": "2f5ff580c26a017b0981e2672e0e4720098792feb78dcb562978c5372413664a",
+      "after": "a4f1cd28fdc4c3c901706b2480a0ba62f0972e0953a37edb5ab14ba22a0e5381"
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/ReportTests.java",
+      "status": "modified",
+      "before": "ff98f28cb76b75496d04f60d0eb37c4555edc68e56b4a96308a24975624c3a8c",
+      "after": "16530e52d421c1fb4fc3b95ca28d34a644dca21d190141f60811a5adcb78bb3c"
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
+      "status": "modified",
+      "before": "d3641787d7fb013112194d524a618015b7e6d3968c7e72788b15f4f8c658cc2f",
+      "after": "2e9a02c00ef63a57b463c3d96bcfb4ba87647163f584117afe58ee6ce7e90925"
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/VocabularyTests.java",
+      "status": "added",
+      "before": null,
+      "after": "9c2cc897198dd6fcf170a1271e5d92202f87954eb9085738f580a88800f7d0db"
+    },
+    {
+      "file": "tests/report-recovery-ui.cjs",
+      "status": "modified",
+      "before": "126a940347fe8be186298fdcf7cb9b950f0048b02f5e66170b381b83e144c9e0",
+      "after": "7d21def0ccf6b81b41f1c6b12efc2923cecf283b3cc129dfa66c6e0a4802dad0"
+    },
+    {
+      "file": "tests/update-install-ui.cjs",
+      "status": "modified",
+      "before": "e6a434fdcaca06869db89e90d3aba7f19dc556e98b107de566691e74e6f4800a",
+      "after": "eb3b57859162e272540a30d335350dbb25451485a73fbb37977e86ad18a36794"
+    },
+    {
+      "file": "tests/vocabulary-model.test.cjs",
+      "status": "added",
+      "before": null,
+      "after": "67912b2751199a9945587f778dc63026dd4d0610ae4389d1fbb1e97b1c32bcc4"
+    },
+    {
+      "file": "tests/vocabulary-ui.cjs",
+      "status": "added",
+      "before": null,
+      "after": "8b4d0c0a3112fe1eb54812e6047fb5e74d82e124bc6ebf1c190f63a09ffc8426"
+    }
+  ],
+  "documents": [
+    {
+      "file": "docs/APP-UPDATES.md",
+      "status": "modified",
+      "before": "5ddd4c41ef3ce3d1737d69bb50c2b437a72772f18233b313769e98936e936858",
+      "after": "7d66f18be8fdf8013ccadf2bfc769b8de2f3906693fbebdbaebf178b73e53c49"
+    },
+    {
+      "file": "docs/CONTRACT.md",
+      "status": "modified",
+      "before": "dfdfb7d07d3b91a37dcca6098c65eb01956d8e1b7bf355540bc1fb467f307d2e",
+      "after": "05070881abc4c9011a4af789d8ae27ecb8f12ab56467e4e6ad3098b9102e9608"
+    },
+    {
+      "file": "docs/NEXT-DEVELOPMENT.md",
+      "status": "modified",
+      "before": "dafe4f672673a63a00e480a75a70865dc680eca541b73909c9f241d01d082978",
+      "after": "0ebf5b7703ad2ffdb781f2b0a4c0444695780d06c95f54cb21d4349aeabbb722"
+    },
+    {
+      "file": "docs/RELEASE-NOTES-v1.3.2.md",
+      "status": "added",
+      "before": null,
+      "after": "36a49cdaeaaecdee3aef89c46cb1d699c957d1fc258beec3bbf9292102f4661e"
+    },
+    {
+      "file": "docs/ux-copy-audit.md",
+      "status": "modified",
+      "before": "a250a898fcd4a58ed3b78490a8285fccf6a8dc22372594c0be2cf07d3d443b27",
+      "after": "e87428529044026f0b4b3d0c1f97b260d3c27690b771027e2c6e1e0174e630ce"
+    },
+    {
+      "file": "docs/V1.3.2.md",
+      "status": "added",
+      "before": null,
+      "after": "2bd62849fd936ad6f7b1859d44cd7cf4143db3c02fb056979a26669eaefab483"
+    },
+    {
+      "file": "docs/使用说明.md",
+      "status": "modified",
+      "before": "31372ad3df4ed5fe8bdbd45467e22bce6df19b719dc8287bcb5bb5c4c6bf8ee8",
+      "after": "0dc9b4ff2b917010221c252396ccf86afc17c8118a75d5164789095490f7b549"
+    }
+  ]
+}

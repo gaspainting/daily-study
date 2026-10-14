@@ -1,0 +1,42 @@
+{
+  "version": "1.3.1",
+  "from": "actual public release 1.3.0/code4",
+  "to": "actual public release 1.3.1/code5",
+  "passed": 24,
+  "checks": [
+    "test-only emulator root available for exact post-install file checks",
+    "actual previous public version is installed",
+    "actual update test does not interrupt an existing timer",
+    "real stable GitHub manifest offers the configured newer version",
+    "real download cancellation returns to available without stale ready completion",
+    "actual public APK download passes native size/hash/package/version/certificate checks",
+    "actual downloaded byte count matches published APK",
+    "actual cached APK bytes match public manifest SHA256",
+    "denied install permission is read from actual Android state",
+    "rapid repeated installation requests are guarded",
+    "explicit install action opens unknown-source settings with permission off",
+    "permission denial and Settings return preserve verified download",
+    "user enabling permission is reflected after returning from system Settings",
+    "verified APK opens actual Android installation confirmation",
+    "cancelling actual installer keeps original version and retryable APK",
+    "cancelling actual installation preserves learning records",
+    "actual stored images exist for update preservation check",
+    "actual system cover-install preserves exact study file bytes",
+    "actual system cover-install preserves exact daily history/favorites and image bytes",
+    "cover-install preserves exact plan catalog and retained drafts",
+    "installed public APK has the actual target code and is not debuggable",
+    "after installation About reads the genuinely installed version",
+    "after normal startup preserved null/zero/rest records remain readable",
+    "public installed version checks as current via actual GitHub endpoint"
+  ],
+  "exactPreserved": {
+    "studySha256": "a57f4bfc17397689685a6deeb5fb15fa84fa1565d5bb5a6f23a56d51ed121e97",
+    "mediaSha256": "f9c07d5e6efc2e931c1bd0a1cd1355ad5ec6ef73498f1b00d5cc3930df41b161",
+    "photoFiles": 20
+  },
+  "error": null,
+  "cleanupErrors": [],
+  "unverified": [
+    "Physical vivo X100s network and installer UI; Android8-15 installation behavior."
+  ]
+}

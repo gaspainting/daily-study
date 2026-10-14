@@ -1,0 +1,118 @@
+INSTRUMENTATION_RESULT: stream=PASS 115 checks
+seed covers exactly70 days
+initial actual records are empty
+week7 exact reference totals
+week8 exact reference totals
+week9 exact reference totals
+week10 exact reference totals
+week11 exact reference totals
+week12 exact reference totals
+week13 exact reference totals
+week14 exact reference totals
+week15 exact reference totals
+week16 exact reference totals
+weekday20:29 allowed
+weekday20:30 excluded
+weekend09:29 excluded
+weekend09:30 allowed
+weekend19:00 excluded
+blank and explicit0 survive storage
+backup roundtrip preserves rest record
+backup rejects reminder during rest
+backup rejects negative actual minutes
+timer starts on Android16
+pause retains elapsed learning
+paused time excluded
+resume starts next segment
+finish stores actual record
+timer writes actual rather than reference
+finish creates exactly1 session
+repeat finish cannot double count
+historical date timer rejected
+cutoff auto pause clips segment precisely
+reminders default disabled
+widget refresh and disabled reminder scheduling do not crash
+enabled reminder posts native notification
+same day reminder delivered once
+no downloaded image means no draw and no consumed chance
+text dedup normalizes spacing/case/punctuation
+daily image and text both avoid startup history
+new daily illustration differs from startup
+same calendar date reuses fixed daily card
+repeated daily draw does not consume new content
+daily cards never rewrite existing study state
+concurrent daily draws commit exactly once
+next date gets a different text
+favorite appears in separate history
+re-pairing same image cannot bypass separate dedup
+cache cleanup preserves histories/favorites
+untranslated foreign card is rejected before draw
+card media paths cannot escape private image directory
+downloaded image checks actual format and decoding
+truncated image rejected before becoming a candidate
+original foreign card 56 has Chinese meaning
+original foreign card 57 has Chinese meaning
+original foreign card 58 has Chinese meaning
+original foreign card 59 has Chinese meaning
+original foreign card 60 has Chinese meaning
+original foreign card 61 has Chinese meaning
+original foreign card 62 has Chinese meaning
+original foreign card 63 has Chinese meaning
+original foreign card 64 has Chinese meaning
+original foreign card 65 has Chinese meaning
+original foreign card 66 has Chinese meaning
+original foreign card 67 has Chinese meaning
+original foreign card 68 has Chinese meaning
+original foreign card 69 has Chinese meaning
+original foreign card 70 has Chinese meaning
+original foreign card 71 has Chinese meaning
+original foreign card 72 has Chinese meaning
+original foreign card 73 has Chinese meaning
+original foreign card 74 has Chinese meaning
+original foreign card 75 has Chinese meaning
+original foreign card 76 has Chinese meaning
+original foreign card 77 has Chinese meaning
+original foreign card 78 has Chinese meaning
+original foreign card 79 has Chinese meaning
+original foreign card 80 has Chinese meaning
+offline library covers multiple foreign languages
+complete backup is an actual ZIP with media
+complete ZIP is recognized
+ZIP restore preserves card/history/favorite/dedup metadata
+ZIP restore retains actual history image
+ZIP restore preserves original learning fields
+legacy v1 JSON remains importable
+legacy JSON import leaves card library and favorites intact
+ZIP traversal rejected without writing user records
+corrupted ZIP image digest rejected
+interrupted two-file restore rolls back from recovery journal
+long text poster splits into multiple readable images
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+long posters share all pages with temporary read grants
+share provider opens only generated poster
+share provider refuses private study file
+share provider rejects writes
+offline mode does not request remote materials
+widget both unknown has no zero or inferred daily outcome
+widget zero plus unknown remains partial record
+widget exposes explicit zero and unknown separately
+rest status does not fill or alter actual values
+widget two explicit zeros count as two records
+widget shows real fraction and maps enum only for display
+widget display label leaves stored enum unchanged
+poster text distinguishes quote and picture authors
+poster and share text retain license and translation
+poster has no generic originality or cache explanation
+missing author is not fabricated from source category
+AI assistance is assigned to words without claiming picture authorship
+widget success callback without real widget ID is rejected
+widget success callback wrong action is rejected
+weekend end boundary remains eighteen fifty nine versus nineteen
+weekend rule is not widened across Monday
+timer refusal explains the actual weekend boundary
+timer refusal explains the actual weekday boundary
+
+INSTRUMENTATION_CODE: -1

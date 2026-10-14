@@ -1,0 +1,11 @@
+{
+  "passed": 6,
+  "checks": [
+    "v1.0 saves representative learning/review/settings data",
+    "cover upgrade to v1.1 preserves entire v1.0 state and revision",
+    "upgrade keeps actual minutes and explicit zero",
+    "upgrade keeps review and reminder preferences",
+    "daily-card module available after covering old APK",
+    "installed package reports v1.1.0"
+  ]
+}

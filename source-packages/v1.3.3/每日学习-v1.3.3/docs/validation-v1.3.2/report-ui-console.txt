@@ -1,0 +1,26 @@
+PASS fixture target is owned emulator
+PASS no existing timer interrupted
+PASS persist real draft before transient read failure
+PASS real draft read failure is visible
+PASS retry rereads retained draft rather than overwriting it
+PASS incomplete recovery shows blocking read error and retry
+PASS failed journal recovery blocks formal writes without changing records
+PASS failed journal recovery also blocks daily-card mutations
+PASS retry loads existing records after journal issue resolved
+PASS backup notification route opens Settings on existing activity
+PASS optional backup reminder stores enabled and interval
+PASS backup interval reads actual stored value
+PASS turning backup reminder off removes scheduled delivery
+PASS save representative report fixture with zero and unknown
+PASS report export launches real CSV create-document
+PASS cancelled report does not mark a backup complete
+AssertionError [ERR_ASSERTION]: real csv export request accepted
+    at check (D:\南京邮电大学\learning\study-checkin-android\tests\report-recovery-ui.cjs:7:58)
+    at D:\南京邮电大学\learning\study-checkin-android\tests\report-recovery-ui.cjs:34:135 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}

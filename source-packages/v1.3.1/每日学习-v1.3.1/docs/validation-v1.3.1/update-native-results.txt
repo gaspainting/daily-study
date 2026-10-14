@@ -1,0 +1,45 @@
+INSTRUMENTATION_RESULT: stream=PASS 42 update checks
+update accepts exact repository HTTPS manifest with installed signer
+update reads actual Android signing certificate digest
+update compares actual integer build codes
+same build code is current rather than available
+older build code cannot be offered as update
+update rejects string integer for formatVersion
+update rejects string integer for versionCode
+update rejects string integer for minSdk
+update rejects string integer for apkBytes
+update rejects fractional version code
+update rejects different application package
+update rejects manifest with different signing key
+update rejects oversized APK manifest
+update rejects empty APK manifest
+update rejects incompatible Android minimum
+update rejects unknown manifest schema
+update rejects invalid release date
+update rejects malformed download digest
+update rejects unsafe or mutable asset address 0
+update rejects unsafe or mutable asset address 1
+update rejects unsafe or mutable asset address 2
+update rejects unsafe or mutable asset address 3
+update rejects unsafe or mutable asset address 4
+update rejects unsafe or mutable asset address 5
+update rejects unsafe or mutable asset address 6
+update allows actual GitHub release asset redirect hosts
+update rejects unrelated redirect hosts
+update redirect transport cannot become cleartext
+update accepts bounded manifest maximum
+update rejects streamed manifest exceeding maximum
+update rejects downloaded digest mismatch
+update rejects truncated APK
+update rejects non APK even with matching digest
+update revalidation prevents same version installation
+update provider cannot expose study records by path traversal
+update provider refuses APK writes
+update provider refuses unverified APK
+update installation blocks unresolved paused timer
+blocked installation preserves timer and elapsed time
+update cancel exits busy state without reporting installed
+cancelled check cannot publish stale async completion
+update validation cancellation and install refusal preserve learning records
+
+INSTRUMENTATION_CODE: -1

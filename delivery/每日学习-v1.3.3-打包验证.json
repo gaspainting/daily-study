@@ -1,0 +1,23 @@
+{
+  "version": "1.3.3",
+  "versionCode": 7,
+  "apkBytes": 6543150,
+  "apkSha256": "536976799cdd8eaa6a9df3b5e600d7e44abf41089efa68466639bedbc7e6223d",
+  "publicAssetsVerified": 3,
+  "archiveIntegrityPassed": true,
+  "reportLinksExist": true,
+  "archives": [
+    {
+      "name": "每日学习-v1.3.3-源码.zip",
+      "bytes": 36623305,
+      "entries": 416,
+      "sha256": "d2aae38e197e1a0cec3bf03eaee6c59889f73fb0e2b5dfd41cf66ae80b70e091"
+    },
+    {
+      "name": "每日学习-v1.3.3-验证资料.zip",
+      "bytes": 3931857,
+      "entries": 81,
+      "sha256": "24bc9c7d172f3259553e6b63abeb1457566d5053bf5e989b939134fb12213a3e"
+    }
+  ]
+}

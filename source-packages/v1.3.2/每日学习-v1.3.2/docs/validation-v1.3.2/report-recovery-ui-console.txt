@@ -1,0 +1,30 @@
+PASS fixture target is owned emulator
+PASS no existing timer interrupted
+PASS persist real draft before transient read failure
+PASS real draft read failure is visible
+PASS retry rereads retained draft rather than overwriting it
+PASS incomplete recovery shows blocking read error and retry
+PASS failed journal recovery blocks formal writes without changing records
+PASS failed journal recovery also blocks daily-card mutations
+PASS retry loads existing records after journal issue resolved
+PASS backup notification route opens Settings on existing activity
+PASS optional backup reminder stores enabled and interval
+PASS backup interval reads actual stored value
+PASS turning backup reminder off removes scheduled delivery
+PASS save representative report fixture with zero and unknown
+PASS report export launches real CSV create-document
+PASS cancelled report does not mark a backup complete
+PASS real csv export request accepted
+/sdcard/Download/daily-study-v131-report.csv: 1 file pulled, 0 skipped. 0.4 MB/s (1170 bytes in 0.003s)
+PASS CSV has UTF-8 BOM
+PASS CSV preserves explicit zero, unknown and plan name
+PASS CSV escapes quotes and retains multiline content
+PASS real pdf export request accepted
+/sdcard/Download/daily-study-v131-report.pdf: 1 file pulled, 0 skipped. 32.4 MB/s (142598 bytes in 0.004s)
+PASS actual SAF output is nonempty PDF
+PASS readable reports do not update complete-backup timestamp
+PASS new month controls expose accessible names
+PASS new history controls expose accessible names
+PASS new sessions controls expose accessible names
+/sdcard/v131-extra.png: 1 file pulled, 0 skipped. 32.0 MB/s (140606 bytes in 0.004s)
+PASS new recovery/report flows have no uncaught WebView exceptions

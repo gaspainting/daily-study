@@ -1,0 +1,49 @@
+{
+  "records": 5000,
+  "sessions": 10000,
+  "stateBytes": 2629681,
+  "runtime": "v24.15.0",
+  "samples": 9,
+  "results": [
+    {
+      "method": "historySearch",
+      "filters": {},
+      "beforeMedianMs": 84.01379999999995,
+      "afterMedianMs": 63.68769999999995,
+      "improvementPercent": 24.19376340553577,
+      "exactResultMatch": true
+    },
+    {
+      "method": "historySearch",
+      "filters": {
+        "from": "2020-01-01",
+        "to": "2020-01-31",
+        "keyword": "查找目标"
+      },
+      "beforeMedianMs": 32.035399999999754,
+      "afterMedianMs": 33.195000000000164,
+      "improvementPercent": -3.61974565636895,
+      "exactResultMatch": true
+    },
+    {
+      "method": "sessionSearch",
+      "filters": {},
+      "beforeMedianMs": 43.13060000000041,
+      "afterMedianMs": 39.72769999999991,
+      "improvementPercent": 7.8897580835890695,
+      "exactResultMatch": true
+    },
+    {
+      "method": "sessionSearch",
+      "filters": {
+        "from": "2020-01-01",
+        "to": "2020-01-31",
+        "subjectId": "math"
+      },
+      "beforeMedianMs": 38.553499999999985,
+      "afterMedianMs": 32.820699999999306,
+      "improvementPercent": 14.86972648397858,
+      "exactResultMatch": true
+    }
+  ]
+}

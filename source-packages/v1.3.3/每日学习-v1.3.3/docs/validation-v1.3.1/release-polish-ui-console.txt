@@ -1,0 +1,86 @@
+PASS unknown summary is not zero or a dash with minutes
+PASS unknown subjects have zero recorded count
+/sdcard/daily-polish-shot.png: 1 file pulled, 0 skipped. 53.4 MB/s (182661 bytes in 0.003s)
+PASS draft zero is not claimed as persisted
+PASS saving explicit zero leaves other subject unknown
+PASS zero plus unknown renders zero minutes with partial count
+PASS partial zero has no inferred whole-day outcome
+/sdcard/daily-polish-shot.png: 1 file pulled, 0 skipped. 40.7 MB/s (177487 bytes in 0.004s)
+PASS weekly statistics retain existing null and zero semantics
+PASS clearing explicit zero persists null while other subject remains recorded
+PASS fractional partial total is truthful
+PASS rest selection does not convert unknown actuals to zero
+PASS two explicit zeros are two recorded subjects
+PASS repeat saving unchanged data does not write or duplicate sessions
+PASS save feedback does not migrate to another date
+PASS review reports actual successful save
+PASS save feedback does not migrate to another week
+PASS real filesystem save failure preserves input and offers retry
+PASS failed save leaves persisted records unchanged
+/sdcard/daily-polish-shot.png: 1 file pulled, 0 skipped. 37.7 MB/s (192414 bytes in 0.005s)
+PASS retry performs actual successful save
+PASS successful draft retention allows navigation
+PASS returning to date recovers retained draft
+PASS about uses installed package metadata
+PASS ordinary settings has no system-version implementation footer
+/sdcard/daily-polish-shot.png: 1 file pulled, 0 skipped. 37.0 MB/s (125854 bytes in 0.003s)
+PASS rest entry exposes unchanged day-specific boundaries
+/sdcard/daily-polish-shot.png: 1 file pulled, 0 skipped. 47.3 MB/s (161881 bytes in 0.003s)
+PASS restore exposes active-timer action instead of entering file picker
+PASS cancel restore leaves active timer untouched
+PASS restore discard names the actual timer action
+PASS cancel discard preserves active timer
+PASS no horizontal overflow today
+PASS retired interface copy absent today
+PASS no horizontal overflow plan
+PASS retired interface copy absent plan
+PASS no horizontal overflow review
+PASS retired interface copy absent review
+PASS no horizontal overflow settings
+PASS retired interface copy absent settings
+PASS no horizontal overflow inspiration
+PASS retired interface copy absent inspiration
+PASS no uncaught WebView exception in release state flows
+{
+  "passed": 38,
+  "checks": [
+    "unknown summary is not zero or a dash with minutes",
+    "unknown subjects have zero recorded count",
+    "draft zero is not claimed as persisted",
+    "saving explicit zero leaves other subject unknown",
+    "zero plus unknown renders zero minutes with partial count",
+    "partial zero has no inferred whole-day outcome",
+    "weekly statistics retain existing null and zero semantics",
+    "clearing explicit zero persists null while other subject remains recorded",
+    "fractional partial total is truthful",
+    "rest selection does not convert unknown actuals to zero",
+    "two explicit zeros are two recorded subjects",
+    "repeat saving unchanged data does not write or duplicate sessions",
+    "save feedback does not migrate to another date",
+    "review reports actual successful save",
+    "save feedback does not migrate to another week",
+    "real filesystem save failure preserves input and offers retry",
+    "failed save leaves persisted records unchanged",
+    "retry performs actual successful save",
+    "successful draft retention allows navigation",
+    "returning to date recovers retained draft",
+    "about uses installed package metadata",
+    "ordinary settings has no system-version implementation footer",
+    "rest entry exposes unchanged day-specific boundaries",
+    "restore exposes active-timer action instead of entering file picker",
+    "cancel restore leaves active timer untouched",
+    "restore discard names the actual timer action",
+    "cancel discard preserves active timer",
+    "no horizontal overflow today",
+    "retired interface copy absent today",
+    "no horizontal overflow plan",
+    "retired interface copy absent plan",
+    "no horizontal overflow review",
+    "retired interface copy absent review",
+    "no horizontal overflow settings",
+    "retired interface copy absent settings",
+    "no horizontal overflow inspiration",
+    "retired interface copy absent inspiration",
+    "no uncaught WebView exception in release state flows"
+  ]
+}

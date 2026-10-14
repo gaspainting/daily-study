@@ -1,0 +1,11 @@
+{
+  "version": "1.3.2",
+  "versionCode": 6,
+  "apkBytes": 153188,
+  "apkSha256": "c7dbac561649343e2eb1682c642b7963b3bdcf2790f86597c333a45afa2cbd98",
+  "localOnly": [
+    "每日学习-v1.3.2-源码.zip",
+    "每日学习-v1.3.2-验证资料.zip"
+  ],
+  "publicRelease": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.3.2/daily-study-v1.3.2.apk"
+}

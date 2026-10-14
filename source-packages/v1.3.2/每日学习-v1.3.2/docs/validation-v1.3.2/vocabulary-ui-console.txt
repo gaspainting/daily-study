@@ -1,0 +1,53 @@
+/sdcard/features-v131.png: 1 file pulled, 0 skipped. 10.0 MB/s (139897 bytes in 0.013s)
+/sdcard/features-v131.png: 1 file pulled, 0 skipped. 38.9 MB/s (140891 bytes in 0.003s)
+/sdcard/features-v131.png: 1 file pulled, 0 skipped. 48.4 MB/s (181312 bytes in 0.004s)
+/sdcard/features-v131.png: 1 file pulled, 0 skipped. 44.9 MB/s (158974 bytes in 0.003s)
+{
+  "passed": 44,
+  "checks": [
+    "fixture writes use debuggable owned emulator",
+    "UI build matches manifest",
+    "old preset goals and timetable hints are absent after upgrade",
+    "read-only migration leaves original file intact before a save",
+    "vocabulary primary fields are counts and no vocabulary timer exists",
+    "default goal is fifty new words",
+    "fragmented new and review additions remain independent",
+    "quick addition announces quantity without focusing a text field",
+    "quantity increments remain drafts before explicit save",
+    "quantity draft restores after process restart",
+    "manual save stores independent counts without fabricating time",
+    "repeat save does not duplicate quantity or revision",
+    "actual filesystem save failure preserves formal quantity and typed value",
+    "failed quantity save has usable retry action",
+    "retry saves fifty new words without adding review count",
+    "explicit zero and empty review remain zero and null",
+    "word zero does not become zero minutes",
+    "review-only fragmented learning leaves new words unknown",
+    "first weekly editor opens empty fields",
+    "user weekly goal saves on selected week",
+    "next week starts empty instead of copying the previous goal",
+    "returning week restores its own goal",
+    "plan list labels word targets with count units",
+    "changing daily goal applies from today and preserves past word targets",
+    "goal edit preserves actual zero and legacy minute references",
+    "daily goal editor uses word quantity",
+    "date-specific word goal leaves actual count unchanged",
+    "unchanged default-goal save preserves date override",
+    "new plan copies count default and begins without weekly goals",
+    "word-only plan has no empty time overview or timer container",
+    "switching plan retains each plan quantity",
+    "weekly review shows independent new and review totals",
+    "monthly calendar shows vocabulary zero as count",
+    "month statistics include review-only day",
+    "history distinguishes zero new words and review-only quantity",
+    "quantity save preserves existing legacy vocabulary minutes",
+    "pre-upgrade paused vocabulary timer can still finish",
+    "legacy timer adds time without changing new or review words",
+    "cancel quantity conflict preserves newer record and unsaved input",
+    "confirmed quantity conflict saves selected input",
+    "count controls fit at large text size",
+    "quantity controls expose accessible names",
+    "quantity and weekly-goal interactions have no uncaught WebView exception",
+    "original study catalog drafts and stopwatch bytes restored"
+  ]
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8f7f3">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self'; style-src 'self'; img-src 'self' data: https://study.local; connect-src 'self'; object-src 'none'; base-uri 'none'">
+  <title>每日学习</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="inspiration.css">
+  <link rel="stylesheet" href="polish.css">
+  <link rel="stylesheet" href="tracking.css">
+  <link rel="stylesheet" href="inspiration-filter.css">
+  <script src="model.js" defer></script>
+  <script src="tracking.js" defer></script>
+  <script src="drafts.js" defer></script>
+  <script src="inspiration.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-today" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 11h16m-11 5 2 2 4-4"/></symbol>
+    <symbol id="i-plan" viewBox="0 0 24 24"><path d="M4 4h7a3 3 0 0 1 3 3v14a4 4 0 0 0-3-1H4zM14 7a3 3 0 0 1 3-3h3v16h-3a4 4 0 0 0-3 1"/></symbol>
+    <symbol id="i-review" viewBox="0 0 24 24"><path d="M4 3v18h17M8 16v-5m5 5V6m5 10v-8"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="16" cy="17" r="3"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m8 4 12 8-12 8z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M4 16v5h16v-5"/></symbol>
+    <symbol id="i-widget" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="14" y="3" width="7" height="8" rx="1"/><rect x="3" y="14" width="8" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 8h6m-6 4h6m-6 4h4"/></symbol>
+    <symbol id="i-inspiration" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="m7 13 3-3 3 3 2-2 3 3M7 17h7"/><circle cx="15" cy="7" r="1"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12z"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3m-4 4 4-4 4 4M5 11v10h14V11"/></symbol>
+  </svg>
+  <div class="app-shell">
+    <header class="masthead"><a href="#today" class="brand" data-nav="today" aria-label="每日学习，返回今日"><span class="brand-mark">日</span><span>每日学习<small>留一点时间，也留一点余地</small></span></a><span id="header-tag" class="header-tag" hidden></span></header>
+    <main id="app" tabindex="-1"><div class="loading"><span class="brand-mark">日</span><p>正在打开学习手记…</p></div></main>
+    <nav class="bottom-nav" aria-label="主要页面">
+      <button type="button" data-nav="today" aria-current="page"><svg><use href="#i-today"/></svg><span>今日</span></button>
+      <button type="button" data-nav="plan"><svg><use href="#i-plan"/></svg><span>计划</span></button>
+      <button type="button" data-nav="review"><svg><use href="#i-review"/></svg><span>复盘</span></button>
+      <button type="button" data-nav="inspiration"><svg><use href="#i-inspiration"/></svg><span>日签</span></button>
+      <button type="button" data-nav="settings"><svg><use href="#i-settings"/></svg><span>设置</span></button>
+    </nav>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="sheet" class="sheet" aria-labelledby="sheet-title"></dialog>
+  <div id="startup-screen" class="startup-screen" role="dialog" aria-modal="true" aria-label="每日图文，5秒后进入" hidden></div>
+  <dialog id="inspiration-detail" class="inspiration-detail" aria-labelledby="inspiration-detail-title"></dialog>
+  <input id="preview-import" type="file" accept="application/json,.json" hidden>
+</body>
+</html>

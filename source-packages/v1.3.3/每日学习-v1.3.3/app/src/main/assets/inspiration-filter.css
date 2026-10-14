@@ -1,0 +1,11 @@
+.inspiration-filters { margin: 1.5rem 0 1rem; }
+.inspiration-search-row { display: flex; gap: .75rem; align-items: end; }
+.inspiration-search-row .field { flex: 1; min-width: 0; margin: 0; }
+.inspiration-search-row button { flex: none; min-height: 3rem; margin-bottom: 0; }
+.inspiration-filter-selects { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+.inspiration-filter-selects .field { min-width: 0; margin: 0; }
+.inspiration-filters .text-button { margin-top: .75rem; }
+@media (max-width: 340px) {
+  .inspiration-search-row { align-items: stretch; flex-direction: column; }
+  .inspiration-filter-selects { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,24 @@
+.tracking-filters{margin-bottom:20px}
+.tracking-list{margin-top:14px}
+.tracking-record{align-items:flex-start;gap:12px}
+.tracking-record .plan-day-meta{display:flex;flex-direction:column;gap:3px;overflow-wrap:anywhere}
+.tracking-record .saved-mark{white-space:normal;text-align:right;max-width:30%;flex:none}
+.tracking-note{display:block;color:var(--muted);font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.month-calendar{max-width:100%;min-width:0;overflow-x:auto;padding:4px 3px;margin:0 -3px}
+.month-weekdays,.month-grid{display:grid;grid-template-columns:repeat(7,minmax(44px,1fr));gap:4px;min-width:332px}
+.month-weekdays{padding:9px 0;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line)}
+.month-grid{border-bottom:1px solid var(--line);padding-bottom:12px}
+.month-day{display:flex;flex-direction:column;justify-content:flex-start;gap:3px;min-height:72px;min-width:44px;padding:8px 3px;border:0;border-radius:2px;font-weight:400;line-height:1.5}
+.month-day strong{font-size:17px;font-weight:550;font-variant-numeric:tabular-nums}
+.month-day span,.month-day small{font-size:11px;line-height:1.45;overflow-wrap:anywhere;color:var(--muted)}
+.month-day.has-record{border:1px solid var(--line)}
+.month-day:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.month-calendar+.section .settings-row{border-bottom:1px solid var(--line);align-items:flex-start;flex-wrap:wrap}
+.month-calendar+.section .settings-row:last-child{border-bottom:0}
+.month-calendar+.section .chart-value{margin-left:auto}
+.large-text .month-weekdays,.large-text .month-grid{grid-template-columns:repeat(7,minmax(80px,1fr));min-width:584px}
+.large-text .month-day{min-height:106px;padding:8px 5px}
+.large-text .tracking-record{flex-wrap:wrap}
+.large-text .tracking-record .saved-mark{max-width:100%;text-align:left}
+.large-text .tracking-record .plan-day-meta{flex-basis:100%}
+@media(max-width:360px){.tracking-record .saved-mark{max-width:35%}.month-day{padding-left:2px;padding-right:2px}}

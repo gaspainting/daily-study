@@ -1,0 +1,29 @@
+PASS test-only emulator root available for exact post-install file checks
+PASS actual previous public version is installed
+PASS actual update test does not interrupt an existing timer
+AssertionError [ERR_ASSERTION]: 日期格式应为YYYY-MM-DD
+    at D:\南京邮电大学\learning\study-checkin-android\tests\update-install-ui.cjs:45:122 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+{
+  "version": "1.3.3",
+  "from": "actual public release 1.3.2/code6",
+  "to": "actual public release 1.3.3/code7",
+  "passed": 3,
+  "checks": [
+    "test-only emulator root available for exact post-install file checks",
+    "actual previous public version is installed",
+    "actual update test does not interrupt an existing timer"
+  ],
+  "exactPreserved": {},
+  "error": "日期格式应为YYYY-MM-DD",
+  "cleanupErrors": [],
+  "unverified": [
+    "Physical vivo X100s network and installer UI; Android8-15 installation behavior."
+  ]
+}

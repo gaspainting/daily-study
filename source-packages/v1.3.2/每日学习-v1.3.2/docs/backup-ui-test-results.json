@@ -1,0 +1,15 @@
+{
+  "passed": 9,
+  "checks": [
+    "backup scenario contains a real daily image and favorite",
+    "Android create-document picker requests complete ZIP",
+    "system picker wrote a nonempty actual ZIP file",
+    "return from export picker does not replay splash",
+    "temporary favorite change is visible before restore",
+    "native restore dialog reports image history before replacement",
+    "actual SAF ZIP import restores complete learning fields",
+    "actual ZIP import restores fixed daily and favorite",
+    "import confirmation does not create another startup"
+  ],
+  "fileBytes": 833312
+}

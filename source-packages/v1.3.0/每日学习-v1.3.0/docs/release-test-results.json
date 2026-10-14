@@ -1,0 +1,27 @@
+{
+  "versionName": "1.1.0",
+  "versionCode": 2,
+  "minSdk": 26,
+  "targetSdk": 36,
+  "apkSha256": "07b883e8ca133179cc193dfbd2b24f41144727e991866987fa948a8c65f5db8a",
+  "apkBytes": 103707,
+  "certificateSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "sameSignerAsV1": true,
+  "debuggable": false,
+  "testEntrypoints": false,
+  "embeddedDailyPictures": false,
+  "generatedDailyPictures": false,
+  "initialStudyRecords": 0,
+  "initialReviews": 0,
+  "initialSessions": 0,
+  "initialPlanDays": 70,
+  "initialRemindersEnabled": false,
+  "releaseInstall": "Success on Android 16 / API 36 emulator-5572",
+  "freshUse": "No-image loading state; actual network photographs displayed on subsequent startup and daily draw",
+  "screenshots": [
+    "screenshots/v1.1-release-first.png",
+    "screenshots/v1.1-release-startup.png",
+    "screenshots/v1.1-release-daily.png"
+  ],
+  "physicalVivoTested": false
+}

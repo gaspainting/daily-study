@@ -1,0 +1,13 @@
+{
+  "source": "https://github.com/google/fonts/blob/2894aab31764f10f29c421bdfd2340d3b382d384/ofl/notosanssc/NotoSansSC%5Bwght%5D.ttf",
+  "revision": "2894aab31764f10f29c421bdfd2340d3b382d384",
+  "sourceSha256": "a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da",
+  "modifiedFontSha256": "91bbf3b62daf774a14edd0eac36b121e678af9e7228a97f52f23e1c6cb8c011c",
+  "modifiedFontBytes": 10688144,
+  "weight": 400,
+  "clonedUnicodeAliases": 497,
+  "uniqueUnicodeGlyphMapping": true,
+  "family": "Daily Study Report",
+  "license": "SIL OFL 1.1",
+  "fontTools": "4.66.1"
+}

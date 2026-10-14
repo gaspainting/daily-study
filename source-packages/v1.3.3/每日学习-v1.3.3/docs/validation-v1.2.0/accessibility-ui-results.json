@@ -1,0 +1,40 @@
+{
+  "passed": 32,
+  "checks": [
+    "200% system font reaches native WebView and responsive layout",
+    "200% no horizontal overflow today",
+    "200% named accessibility controls today",
+    "200% button heights at least 44 CSS pixels today",
+    "200% no horizontal overflow plan",
+    "200% named accessibility controls plan",
+    "200% button heights at least 44 CSS pixels plan",
+    "200% no horizontal overflow review",
+    "200% named accessibility controls review",
+    "200% button heights at least 44 CSS pixels review",
+    "chart accessibility name includes actual and reference records",
+    "200% no horizontal overflow settings",
+    "200% named accessibility controls settings",
+    "200% button heights at least 44 CSS pixels settings",
+    "200% no horizontal overflow inspiration",
+    "200% named accessibility controls inspiration",
+    "200% button heights at least 44 CSS pixels inspiration",
+    "time input exposes nearby constraint to screen reader",
+    "dialog focuses a contained control",
+    "320px and 200% no horizontal overflow today",
+    "320px and 200% named accessibility controls today",
+    "320px and 200% button heights at least 44 CSS pixels today",
+    "320px and 200% no horizontal overflow settings",
+    "320px and 200% named accessibility controls settings",
+    "320px and 200% button heights at least 44 CSS pixels settings",
+    "320px and 200% no horizontal overflow inspiration",
+    "320px and 200% named accessibility controls inspiration",
+    "320px and 200% button heights at least 44 CSS pixels inspiration",
+    "actual TalkBack service is enabled",
+    "TalkBack no horizontal overflow settings",
+    "TalkBack named accessibility controls settings",
+    "TalkBack button heights at least 44 CSS pixels settings"
+  ],
+  "unverified": [
+    "Spoken output and gesture navigation on the physical vivo X100s; emulator runs without audio."
+  ]
+}

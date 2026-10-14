@@ -1,0 +1,50 @@
+{
+  "modified": [
+    "app/src/main/AndroidManifest.xml",
+    "app/src/main/assets/app.js",
+    "app/src/main/assets/index.html",
+    "app/src/main/assets/inspiration.js",
+    "app/src/main/java/cn/edu/njupt/studycheckin/AppRules.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/InspirationPoster.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/InspirationSources.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/InspirationStore.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/ReminderReceiver.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/ReminderScheduler.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/TimerService.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/TimerStore.java",
+    "app/src/main/res/layout/widget_study.xml",
+    "tests/backup-ui-smoke.cjs",
+    "tests/inspiration-ui-smoke.cjs",
+    "tests/ui-smoke.cjs",
+    "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
+    "README.md",
+    "build.ps1"
+  ],
+  "added": [
+    "app/src/main/assets/polish.css",
+    "app/src/main/java/cn/edu/njupt/studycheckin/WidgetPinReceiver.java",
+    "tests/accessibility-polish-ui.cjs",
+    "tests/native-ui.cjs",
+    "tests/platform-polish-ui.cjs",
+    "tests/release-polish-ui.cjs",
+    "tests/release-upgrade-ui.cjs",
+    "tests/java/cn/edu/njupt/studycheckin/ReleasePolishTests.java"
+  ],
+  "removed": [],
+  "unchangedDataAndRules": [
+    "app/src/main/assets/model.js",
+    "app/src/main/assets/seed.json",
+    "app/src/main/assets/inspiration-library.json",
+    "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
+    "app/src/main/java/cn/edu/njupt/studycheckin/BackupManager.java"
+  ],
+  "documentation": [
+    "docs/ux-copy-audit.md",
+    "docs/V1.2.0.md",
+    "docs/使用说明.md",
+    "docs/validation-v1.2.0/",
+    "docs/screenshots/v1.2.0/"
+  ]
+}

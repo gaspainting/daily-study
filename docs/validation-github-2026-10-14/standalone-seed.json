@@ -1,8 +1,0 @@
-{
-  "passed": true,
-  "referenceDays": 70,
-  "weekTotals": 10,
-  "zeroActualRecords": true,
-  "exactSeedBytesMatch": true,
-  "seedSha256": "0c4ffa6de139762073be75444d088f7dfa048dedc3cae6f825b04833781c2dac"
-}

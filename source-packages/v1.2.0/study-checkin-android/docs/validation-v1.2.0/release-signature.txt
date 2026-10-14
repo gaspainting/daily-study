@@ -1,0 +1,4 @@
+Signer #1 certificate DN: CN=Daily Study Personal Build, OU=Personal, O=Local, C=CN
+Signer #1 certificate SHA-256 digest: fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5
+Signer #1 certificate SHA-1 digest: 7ee4a93054a77abe1355c1056d5886599909db15
+Signer #1 certificate MD5 digest: a03c9d2cb2d5e0316b8405f482392c14

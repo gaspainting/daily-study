@@ -1,0 +1,23 @@
+{
+  "platform": "Android APK WebView",
+  "passed": 17,
+  "checks": [
+    "filter UI uses an existing real daily card",
+    "history exposes labelled search form",
+    "keyword theme and language have programmatic labels",
+    "selectors apply exact stored theme and language",
+    "filter change retains keyboard and screen reader focus",
+    "full quote search retains matching fixed card",
+    "matching results appear in history list",
+    "unmatched filter shows factual empty state",
+    "filtered count reflects zero actual results",
+    "clear resets all controls and applied filters",
+    "asynchronous material refresh retains query being typed",
+    "favorites expose same search and filter controls",
+    "startup history exposes same search controls",
+    "current-day card remains outside history filters",
+    "filtering and changing scope never redraw fixed daily card",
+    "filter controls fit at large text size",
+    "filter interactions have no uncaught WebView exception"
+  ]
+}

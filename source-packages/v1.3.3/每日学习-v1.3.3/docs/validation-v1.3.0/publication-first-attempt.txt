@@ -1,0 +1,7 @@
+gh.exe : gh: Not Found (HTTP 404)
+At D:\南京邮电大学\learning\study-checkin-android\scripts\release-common.ps1:8 char:16
++     $lines = @(& $Tool @Arguments 2>&1)
++                ~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (gh: Not Found (HTTP 404):String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

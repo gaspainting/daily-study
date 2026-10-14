@@ -1,0 +1,32 @@
+✔ 真实70天种子覆盖教学周7—16，保留全部周参考合计 (5.224ms)
+✔ 空模板不写入state、不借用参考分钟，也不共享引用 (0.831ms)
+✔ 记录空白、休息和确认0各自保留语义 (1.1647ms)
+✔ 每科已记录天数分别汇总，计时分数分钟不截断 (1.0115ms)
+✔ 休息边界按本地时间精准检查，补记真实历史不受时间限制 (0.9519ms)
+✔ 改日期范围保留范围外历史、原参考量与复盘 (1.2332ms)
+✔ 新增科目填当前范围参考，已有记录保留空值，新defaults不覆写已排参考 (1.5646ms)
+✔ 部分末周统计只含计划内日期，日期计算不受夏令时影响 (2.0471ms)
+✔ 计时sessions与手动编辑共存，保存不丢失原始sessions (1.5998ms)
+✔ 提醒配置和备份导入始终遵守休息边界，包括开关关闭时 (4.0069ms)
+✔ 无效输入在写入前失败，不破坏状态 (1.3892ms)
+✔ 严格备份校验拒绝版本、非法日期、范围、类型、未知字段和污染字段 (5.8434ms)
+✔ schema 1 migrates without mutating original null/zero/status/rest/session values (5.0444ms)
+✔ archive keeps IDs and history, ends at date, restoring keeps inactive gap (1.9812ms)
+✔ archiving on an existing recorded day keeps actual totals and historical denominators (1.4205ms)
+✔ subject reordering preserves all actual/reference totals and maps (24.1369ms)
+✔ new subjects can start today without backfilling historical denominators (1.8374ms)
+✔ history search includes records beyond current plan and distinguishes partial zero from complete zero (3.5468ms)
+✔ month counts explicit zero as a time entry and note-only as an entry without invented minutes (4.015ms)
+✔ custom subject review map retains legacy aliases and rejects unknown IDs (1.3397ms)
+✔ session detail merges legacy per-record sessions without duplicating global IDs and exposes only actual fields (1.451ms)
+✔ sessions sort by actual instant across timezone offsets (1.0604ms)
+✔ active periods reject overlaps, open periods followed by periods and legacy unknown additions (2.064ms)
+✔ history/calendar/session HTML escapes content and carries visible accurate state and accessible date actions (50.9174ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 221.7489

@@ -1,0 +1,54 @@
+{
+  "fromVersion": "1.1.0",
+  "toVersion": "1.2.0",
+  "versionCode": 3,
+  "platform": "Android16/API36 actual APK WebView",
+  "passed": 17,
+  "checks": [
+    "v1.1 and target APK certificates are identical",
+    "existing genuine downloaded images available for upgrade verification",
+    "known local v1.1 test APK is installed before preparing upgrade state",
+    "v1.1 saves null and explicit zero as distinct values",
+    "pre-upgrade image bytes agree with all recorded image digests",
+    "cover install reports manifest version and versionCode",
+    "cover install preserves complete learning file and revision before first launch",
+    "cover install preserves complete media metadata before first launch",
+    "cover install preserves every downloaded image byte digest",
+    "first target launch preserves plan, all subject fields, nulls, zeros, arrangements, reviews, reminders and completed sessions",
+    "first launch preserves existing card IDs, text/image attribution and favorite flags",
+    "first launch preserves every daily and startup history ID and record",
+    "first launch preserves fixed daily card date indexes",
+    "first launch retains genuine picture bytes alongside metadata",
+    "favorite ID set is unchanged by cover upgrade",
+    "fixed card for today is unchanged when one existed before upgrade",
+    "no uncaught target WebView exception after cover upgrade"
+  ],
+  "apkSha256": {
+    "source": "293443d580ad78ddada6af308edab8f23795aaf67f48c852780f60e7285c4d68",
+    "target": "107a9a8ec33e8c382a27af7c64f2aeb1e110a64e52b3e443e789eb307c26e9c6"
+  },
+  "certificateSha256": {
+    "source": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "target": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5"
+  },
+  "preserved": {
+    "studyHash": "7ca19882e9d625a455f1d30d8485cc4628e8a0a763b5f3a5c49b9cbb4435a024",
+    "mediaMetadataHash": "3f5767ede2611266187bd7a7391ac1a1bba18b01478be829c0912ccab66c785a",
+    "cards": 42,
+    "historyIds": 40,
+    "favoriteIds": [
+      "online_414d16b6-9cf5-4ba8-8631-89715130078f"
+    ]
+  },
+  "cleanup": {
+    "installedTarget": true,
+    "restoredStudy": true,
+    "restoredOnline": true,
+    "restoredPermission": true,
+    "errors": []
+  },
+  "unverified": [
+    "Physical vivo X100s installation is not tested"
+  ],
+  "error": null
+}

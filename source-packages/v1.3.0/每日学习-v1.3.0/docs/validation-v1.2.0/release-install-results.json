@@ -1,0 +1,16 @@
+{
+  "version": "1.2.0",
+  "versionCode": 3,
+  "install": "Success",
+  "coldLaunch": "Status: ok",
+  "packageDebuggable": false,
+  "aboutVerified": true,
+  "settingsCopyVerified": true,
+  "screenReaderService": "TalkBack enabled; actual Settings/About controls activated by double taps",
+  "spokenOutputVerified": false,
+  "webViewAppSetting": false,
+  "webViewRuntimeObserved": true,
+  "webViewRuntimeOverride": "Android userdebug/ro.debuggable=1; Chromium 133 SharedStatics ignores setWebContentsDebuggingEnabled on debug Android builds",
+  "webViewRuntimeProductionVerified": false,
+  "source": "https://raw.githubusercontent.com/chromium/chromium/133.0.6943.137/android_webview/glue/java/src/com/android/webview/chromium/SharedStatics.java"
+}

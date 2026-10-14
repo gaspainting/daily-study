@@ -1,0 +1,2 @@
+{"version": "1.3.3", "versionCode": 7, "packageName": "cn.edu.njupt.studycheckin", "apkBytes": 6543150, "apkSha256": "536976799cdd8eaa6a9df3b5e600d7e44abf41089efa68466639bedbc7e6223d", "debuggable": false, "testInstrumentation": false, "assetFiles": 16, "allAssetsMatchSource": true}
+Changed files: 48 Chinese source lines: 597

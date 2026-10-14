@@ -1,0 +1,29 @@
+{
+  "platform": "Android16/API36 real APK WebView",
+  "version": "1.2.0",
+  "passed": 22,
+  "checks": [
+    "today page loads in real WebView",
+    "native APK preserves70-day plan",
+    "initial actuals stay empty",
+    "no horizontal overflow today",
+    "no horizontal overflow plan",
+    "no horizontal overflow review",
+    "no horizontal overflow settings",
+    "manual blank/0/rest roundtrip",
+    "single-day reference editable",
+    "weekly goal editable",
+    "new subject has references and no fake actuals",
+    "resize preserves history",
+    "weekly reflection saved",
+    "rest-time reminder cannot be persisted",
+    "reminder editing preserves default off",
+    "UI starts native foreground timer",
+    "native timer pause excludes elapsed rest",
+    "background/reopen retains native timer",
+    "UI finish commits actual once",
+    "finish clears active timer",
+    "APK uses ordinary reminders",
+    "no uncaught WebView exceptions"
+  ]
+}

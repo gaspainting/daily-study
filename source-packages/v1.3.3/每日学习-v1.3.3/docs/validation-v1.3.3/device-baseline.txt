@@ -1,0 +1,178 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        285554f cn.edu.njupt.studycheckin/.MainActivity filter cdd94dc
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      android.intent.action.TIMEZONE_CHANGED:
+        bdb99e5 cn.edu.njupt.studycheckin/.BackupReminderReceiver filter 1827cba
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+        86bf76b cn.edu.njupt.studycheckin/.ReminderReceiver filter 31d22c8
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "cn.edu.njupt.studycheckin.REMINDER"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      android.intent.action.TIME_SET:
+        bdb99e5 cn.edu.njupt.studycheckin/.BackupReminderReceiver filter 1827cba
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+        86bf76b cn.edu.njupt.studycheckin/.ReminderReceiver filter 31d22c8
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "cn.edu.njupt.studycheckin.REMINDER"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      android.intent.action.BOOT_COMPLETED:
+        bdb99e5 cn.edu.njupt.studycheckin/.BackupReminderReceiver filter 1827cba
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+        86bf76b cn.edu.njupt.studycheckin/.ReminderReceiver filter 31d22c8
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "cn.edu.njupt.studycheckin.REMINDER"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      cn.edu.njupt.studycheckin.REMINDER:
+        86bf76b cn.edu.njupt.studycheckin/.ReminderReceiver filter 31d22c8
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "cn.edu.njupt.studycheckin.REMINDER"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+      android.appwidget.action.APPWIDGET_UPDATE:
+        2b0ef61 cn.edu.njupt.studycheckin/.StudyWidget filter 44baa86
+          Action: "android.appwidget.action.APPWIDGET_UPDATE"
+      android.intent.action.MY_PACKAGE_REPLACED:
+        bdb99e5 cn.edu.njupt.studycheckin/.BackupReminderReceiver filter 1827cba
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+        86bf76b cn.edu.njupt.studycheckin/.ReminderReceiver filter 31d22c8
+          Action: "android.intent.action.TIMEZONE_CHANGED"
+          Action: "android.intent.action.TIME_SET"
+          Action: "android.intent.action.BOOT_COMPLETED"
+          Action: "cn.edu.njupt.studycheckin.REMINDER"
+          Action: "android.intent.action.MY_PACKAGE_REPLACED"
+
+Domain verification status:
+
+Registered ContentProviders:
+  cn.edu.njupt.studycheckin/.UpdateApkProvider:
+    Provider{9db20a7 cn.edu.njupt.studycheckin/.UpdateApkProvider}
+  cn.edu.njupt.studycheckin/.CardShareProvider:
+    Provider{e69f954 cn.edu.njupt.studycheckin/.CardShareProvider}
+
+ContentProvider Authorities:
+  [cn.edu.njupt.studycheckin.updates]:
+    Provider{9db20a7 cn.edu.njupt.studycheckin/.UpdateApkProvider}
+      applicationInfo=ApplicationInfo{80ef0fd cn.edu.njupt.studycheckin}
+  [cn.edu.njupt.studycheckin.cards]:
+    Provider{e69f954 cn.edu.njupt.studycheckin/.CardShareProvider}
+      applicationInfo=ApplicationInfo{c77e1f2 cn.edu.njupt.studycheckin}
+
+Key Set Manager:
+  [cn.edu.njupt.studycheckin]
+      Signing KeySets: 61
+
+Packages:
+  Package [cn.edu.njupt.studycheckin] (1865c25):
+    appId=10216
+    pkg=Package{90f2043 cn.edu.njupt.studycheckin}
+    codePath=/data/app/~~Mf8D7v6oCt5ECuzCoQ-NYw==/cn.edu.njupt.studycheckin-XjnZ9hAw0nwClqBTMaGt5Q==
+    resourcePath=/data/app/~~Mf8D7v6oCt5ECuzCoQ-NYw==/cn.edu.njupt.studycheckin-XjnZ9hAw0nwClqBTMaGt5Q==
+    legacyNativeLibraryDir=/data/app/~~Mf8D7v6oCt5ECuzCoQ-NYw==/cn.edu.njupt.studycheckin-XjnZ9hAw0nwClqBTMaGt5Q==/lib
+    extractNativeLibs=true
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=7 minSdk=26 targetSdk=36
+    minExtensionVersions=[]
+    versionName=1.3.3
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=3
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    pageSizeCompat=0
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-14 11:20:53
+    lastUpdateTime=2026-10-14 11:20:53
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{e1756c0 version:3, signatures:[96523293], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    requested permissions:
+      android.permission.POST_NOTIFICATIONS
+      android.permission.FOREGROUND_SERVICE
+      android.permission.RECEIVE_BOOT_COMPLETED
+      android.permission.FOREGROUND_SERVICE_SPECIAL_USE
+      android.permission.INTERNET
+      android.permission.REQUEST_INSTALL_PACKAGES
+    install permissions:
+      android.permission.FOREGROUND_SERVICE: granted=true
+      android.permission.RECEIVE_BOOT_COMPLETED: granted=true
+      android.permission.FOREGROUND_SERVICE_SPECIAL_USE: granted=true
+      android.permission.INTERNET: granted=true
+      android.permission.REQUEST_INSTALL_PACKAGES: granted=false, flags=[ USER_SET]
+    User 0: ceDataInode=353563 deDataInode=90141 installed=true hidden=false suspended=false distractionFlags=0 stopped=true notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/cn.edu.njupt.studycheckin
+      firstInstallTime=2026-10-13 13:06:52
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/EmulationPixel5/EmulationPixel5Overlay.apk
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      legacy overlay paths:
+        /product/overlay/EmulationPixel5/EmulationPixel5Overlay.apk
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      gids=[3003]
+      runtime permissions:
+        android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+  queries via component:
+    com.google.android.settings.intelligence:
+      cn.edu.njupt.studycheckin
+    com.google.android.as:
+      cn.edu.njupt.studycheckin
+    com.google.android.apps.accessibility.voiceaccess:
+      cn.edu.njupt.studycheckin
+  queryable via interaction:
+    User 0:
+  queryable via uses-library:
+
+Dexopt state:
+  [cn.edu.njupt.studycheckin]
+    path: /data/app/~~Mf8D7v6oCt5ECuzCoQ-NYw==/cn.edu.njupt.studycheckin-XjnZ9hAw0nwClqBTMaGt5Q==/base.apk
+      x86_64: [status=run-from-apk] [reason=unknown] [primary-abi]
+        [location is error]
+
+Compiler stats:
+  [cn.edu.njupt.studycheckin]
+    (No recorded stats)

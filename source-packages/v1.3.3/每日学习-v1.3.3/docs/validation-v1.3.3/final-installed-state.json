@@ -1,0 +1,23 @@
+{
+  "packageInfo": {
+    "versionName": "1.3.3",
+    "versionCode": 7,
+    "packageName": "cn.edu.njupt.studycheckin"
+  },
+  "checks": [
+    "installed formal version comes from actual package metadata",
+    "formal installed package is not debuggable",
+    "no test timer remains",
+    "normal formal startup preserves exact original study file",
+    "learning date count matches original emulator data",
+    "formal About displays v1.3.3",
+    "formal package recognizes current stable GitHub version",
+    "formal cold launch and update check have no uncaught JS exceptions"
+  ],
+  "passed": 8,
+  "learningDates": 1,
+  "studySha256": "35c7fa774167ef42253a00684abd275c32c00d95a19e9fab44833868de20d6ce",
+  "unverified": [
+    "Physical device WebView debugging endpoint closure; userdebug emulator exposes CDP despite non-debuggable package."
+  ]
+}
