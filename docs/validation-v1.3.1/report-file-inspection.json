@@ -1,0 +1,12 @@
+{
+  "pdfPages": 1,
+  "pdfReadableChineseAfterNFKC": true,
+  "csvRows": 7,
+  "csvColumns": 15,
+  "zeroAndUnknownSeparate": true,
+  "multilineQuotedCells": true,
+  "renderedAndVisuallyReviewed": [
+    "report-page-1.png"
+  ],
+  "limitation": "Android Skia PDF text extraction uses compatibility CJK glyph mappings; NFKC and whitespace normalization needed for exact text comparison. Visual rendering is correct."
+}

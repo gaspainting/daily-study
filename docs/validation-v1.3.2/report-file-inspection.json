@@ -1,0 +1,13 @@
+{
+  "pdfPages": 1,
+  "csvColumns": 17,
+  "newWords": 25,
+  "reviewWords": 60,
+  "wordGoal": 50,
+  "legacyMinutes": 15,
+  "pdfQuantityTextCheckedAfterNFKC": true,
+  "pdfCjkSearchLimit": "Some Skia fallback glyphs map to CJK radicals; exact copy/search depends on reader.",
+  "visualScreenshots": [
+    "report-page-1.png"
+  ]
+}

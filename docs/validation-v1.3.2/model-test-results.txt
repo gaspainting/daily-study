@@ -1,0 +1,41 @@
+✔ 真实70天种子覆盖教学周7—16，保留全部周参考合计 (6.7986ms)
+✔ 空模板不写入state、不借用参考分钟，也不共享引用 (2.5783ms)
+✔ 记录空白、休息和确认0各自保留语义 (2.8197ms)
+✔ 每科已记录天数分别汇总，计时分数分钟不截断 (1.8658ms)
+✔ 休息边界按本地时间精准检查，补记真实历史不受时间限制 (2.2768ms)
+✔ 改日期范围保留范围外历史、原参考量与复盘 (2.3005ms)
+✔ 新增科目填当前范围参考，已有记录保留空值，新defaults不覆写已排参考 (2.4086ms)
+✔ 部分末周统计只含计划内日期，日期计算不受夏令时影响 (3.0439ms)
+✔ 计时sessions与手动编辑共存，保存不丢失原始sessions (1.8499ms)
+✔ 提醒配置和备份导入始终遵守休息边界，包括开关关闭时 (13.2689ms)
+✔ 无效输入在写入前失败，不破坏状态 (2.5502ms)
+✔ 严格备份校验拒绝版本、非法日期、范围、类型、未知字段和污染字段 (25.0013ms)
+✔ schema 1 migrates without mutating original null/zero/status/rest/session values (5.5494ms)
+✔ archive keeps IDs and history, ends at date, restoring keeps inactive gap (1.902ms)
+✔ archiving on an existing recorded day keeps actual totals and historical denominators (1.2608ms)
+✔ subject reordering preserves all actual/reference totals and maps (21.7598ms)
+✔ new subjects can start today without backfilling historical denominators (1.6278ms)
+✔ history search includes records beyond current plan and distinguishes partial zero from complete zero (3.0124ms)
+✔ month counts explicit zero as a time entry and note-only as an entry without invented minutes (2.9691ms)
+✔ custom subject review map retains legacy aliases and rejects unknown IDs (1.1967ms)
+✔ session detail merges legacy per-record sessions without duplicating global IDs and exposes only actual fields (1.1259ms)
+✔ sessions sort by actual instant across timezone offsets (0.6348ms)
+✔ active periods reject overlaps, open periods followed by periods and legacy unknown additions (2.2142ms)
+✔ history/calendar/session HTML escapes content and carries visible accurate state and accessible date actions (44.7486ms)
+✔ new default weeks are empty and legacy built-in week goals/hints migrate out exactly once (5.1123ms)
+✔ default new-word goal is 50, independently of legacy minutes and review counts (1.8204ms)
+✔ changing daily goal preserves past targets, actuals and original minute references (2.1032ms)
+✔ empty, explicit zero, review-only and partial zero stay distinct (1.0206ms)
+✔ words never enter time totals; time history remains unchanged by word goals (2.64ms)
+✔ archived subjects retain counts without inventing inactive goals (1.3048ms)
+✔ history, calendar and weekly quantity markup label each unit and omit empty vocabulary time summaries (2.834ms)
+✔ word goal validation rejects wrong type, wrong subject, unknown date, fractional or negative counts (3.92ms)
+✔ resaving an unchanged daily goal preserves explicit date overrides (1.1565ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 226.2145

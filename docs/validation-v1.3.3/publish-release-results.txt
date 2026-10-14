@@ -1,0 +1,4 @@
+Published and verified: https://github.com/gaspainting/daily-study-releases/releases/tag/v1.3.3
+Update manifest: https://github.com/gaspainting/daily-study-releases/releases/latest/download/update.json
+APK: https://github.com/gaspainting/daily-study-releases/releases/download/v1.3.3/daily-study-v1.3.3.apk
+APK SHA256: 536976799cdd8eaa6a9df3b5e600d7e44abf41089efa68466639bedbc7e6223d

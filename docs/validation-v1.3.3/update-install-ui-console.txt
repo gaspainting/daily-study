@@ -1,0 +1,76 @@
+PASS test-only emulator root available for exact post-install file checks
+PASS actual previous public version is installed
+PASS actual update test does not interrupt an existing timer
+PASS real stable GitHub manifest offers the configured newer version
+/sdcard/daily-update-install.png: 1 file pulled, 0 skipped. 27.1 MB/s (230239 bytes in 0.008s)
+PASS real download cancellation returns to available without stale ready completion
+PASS actual public APK download passes native size/hash/package/version/certificate checks
+PASS actual downloaded byte count matches published APK
+PASS actual cached APK bytes match public manifest SHA256
+PASS denied install permission is read from actual Android state
+PASS rapid repeated installation requests are guarded
+PASS explicit install action opens unknown-source settings with permission off
+/sdcard/daily-update-install.png: 1 file pulled, 0 skipped. 11.6 MB/s (107571 bytes in 0.009s)
+PASS permission denial and Settings return preserve verified download
+PASS user enabling permission is reflected after returning from system Settings
+PASS verified APK opens actual Android installation confirmation
+/sdcard/daily-update-install.png: 1 file pulled, 0 skipped. 9.1 MB/s (172997 bytes in 0.018s)
+PASS cancelling actual installer keeps original version and retryable APK
+PASS cancelling actual installation preserves learning records
+PASS actual stored images exist for update preservation check
+PASS actual system cover-install preserves exact study file bytes
+PASS actual system cover-install preserves exact daily history/favorites and image bytes
+PASS cover-install preserves exact plan catalog and retained drafts
+PASS installed public APK has the actual target code and is not debuggable
+PASS after installation About reads the genuinely installed version
+PASS after normal startup preserved null/zero/rest records remain readable
+PASS actual upgrade preserves existing new and review counts without converting minutes
+PASS actual upgrade preserves user-written weekly goals and notes
+PASS old subject acquires default shortcuts without changing its learning records
+PASS public installed version checks as current via actual GitHub endpoint
+/sdcard/daily-update-install.png: 1 file pulled, 0 skipped. 31.6 MB/s (129903 bytes in 0.004s)
+{
+  "version": "1.3.3",
+  "from": "actual public release 1.3.2/code6",
+  "to": "actual public release 1.3.3/code7",
+  "passed": 27,
+  "checks": [
+    "test-only emulator root available for exact post-install file checks",
+    "actual previous public version is installed",
+    "actual update test does not interrupt an existing timer",
+    "real stable GitHub manifest offers the configured newer version",
+    "real download cancellation returns to available without stale ready completion",
+    "actual public APK download passes native size/hash/package/version/certificate checks",
+    "actual downloaded byte count matches published APK",
+    "actual cached APK bytes match public manifest SHA256",
+    "denied install permission is read from actual Android state",
+    "rapid repeated installation requests are guarded",
+    "explicit install action opens unknown-source settings with permission off",
+    "permission denial and Settings return preserve verified download",
+    "user enabling permission is reflected after returning from system Settings",
+    "verified APK opens actual Android installation confirmation",
+    "cancelling actual installer keeps original version and retryable APK",
+    "cancelling actual installation preserves learning records",
+    "actual stored images exist for update preservation check",
+    "actual system cover-install preserves exact study file bytes",
+    "actual system cover-install preserves exact daily history/favorites and image bytes",
+    "cover-install preserves exact plan catalog and retained drafts",
+    "installed public APK has the actual target code and is not debuggable",
+    "after installation About reads the genuinely installed version",
+    "after normal startup preserved null/zero/rest records remain readable",
+    "actual upgrade preserves existing new and review counts without converting minutes",
+    "actual upgrade preserves user-written weekly goals and notes",
+    "old subject acquires default shortcuts without changing its learning records",
+    "public installed version checks as current via actual GitHub endpoint"
+  ],
+  "exactPreserved": {
+    "studySha256": "ae53ceb16683d337f92080bacf475324eba44d7010eaec15cfa09ab8b82aab10",
+    "mediaSha256": "4e2958052a1f58d4c587fdfd36cf560b1b199ca3e879e7420b74541ebc0e4a13",
+    "photoFiles": 20
+  },
+  "error": null,
+  "cleanupErrors": [],
+  "unverified": [
+    "Physical vivo X100s network and installer UI; Android8-15 installation behavior."
+  ]
+}

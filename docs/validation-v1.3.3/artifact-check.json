@@ -1,0 +1,93 @@
+{
+  "version": "1.3.3",
+  "versionCode": 7,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "apkBytes": 6543150,
+  "apkSha256": "536976799cdd8eaa6a9df3b5e600d7e44abf41089efa68466639bedbc7e6223d",
+  "debuggable": false,
+  "testInstrumentation": false,
+  "assetFiles": 16,
+  "allAssetsMatchSource": true,
+  "assets": [
+    {
+      "path": "assets/app.js",
+      "bytes": 85350,
+      "sha256": "8cc0b59d34686e080a80c96595edcebe53a41cab2beb33f35d5ff988eb62762a"
+    },
+    {
+      "path": "assets/drafts.js",
+      "bytes": 5473,
+      "sha256": "bbf53e7500610de865dd1743752eddbd93a6774c19091b11d82ef86e5c378ea9"
+    },
+    {
+      "path": "assets/index.html",
+      "bytes": 4864,
+      "sha256": "cabc76c0ceadd26c426a36672191cc7405c7d426c6fd7bce24e8348d3581ec87"
+    },
+    {
+      "path": "assets/inspiration-filter.css",
+      "bytes": 672,
+      "sha256": "e554ce6df9286eea585b5febecb34b29edf276e9730c33022ae6d9bac2f10f03"
+    },
+    {
+      "path": "assets/inspiration-library.json",
+      "bytes": 11813,
+      "sha256": "a316937dc2c5f0624c9bfe5a238403f228f35b43037395b444d16f840e7baace"
+    },
+    {
+      "path": "assets/inspiration.css",
+      "bytes": 6801,
+      "sha256": "113f2553bfff4c335292af6945476892b89bd947c6da972dd0a94291baa1ef1f"
+    },
+    {
+      "path": "assets/inspiration.js",
+      "bytes": 20775,
+      "sha256": "f4b078a8bbb3ffb2c5c6f05229f24c84a213d1f205aa31f2beb81a182a3130f4"
+    },
+    {
+      "path": "assets/model.js",
+      "bytes": 32854,
+      "sha256": "7e16cc01ee0f543960344f3249f56f52f49ae9f503de4865253b953a01de66ff"
+    },
+    {
+      "path": "assets/polish.css",
+      "bytes": 4805,
+      "sha256": "6ef4ad8d20c67357bb505601c9dcb8aab0384ee7c32970f3d8ed4693de9b04f9"
+    },
+    {
+      "path": "assets/report-font-OFL.txt",
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "assets/report-font.ttf",
+      "bytes": 10688144,
+      "sha256": "91bbf3b62daf774a14edd0eac36b121e678af9e7228a97f52f23e1c6cb8c011c"
+    },
+    {
+      "path": "assets/seed.json",
+      "bytes": 6200,
+      "sha256": "0c4ffa6de139762073be75444d088f7dfa048dedc3cae6f825b04833781c2dac"
+    },
+    {
+      "path": "assets/styles.css",
+      "bytes": 18696,
+      "sha256": "d54be3b40d942a0c8aacd20e7792f7720f5487baab88aeb3bd40fdbca51d0a4f"
+    },
+    {
+      "path": "assets/tracking.css",
+      "bytes": 2014,
+      "sha256": "9a0956d51ef5c688d90c01fd89d1ccc05c1c04c9f87e26ba9a6195c23645393a"
+    },
+    {
+      "path": "assets/tracking.js",
+      "bytes": 13084,
+      "sha256": "59c69a7a723138a31eec9beef08dfdad926eb70e4ee36f6f63112cc5e107a6e3"
+    },
+    {
+      "path": "assets/words.js",
+      "bytes": 908,
+      "sha256": "63f39e6767a8c7147490095d8ac971e42db526a90d1afc8f478a73b1be49d64e"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+PASS test target is an owned emulator
+PASS platform is Android 16/API 36
+PASS no pre-existing timer is altered by platform tests
+PASS temporary disabled reminder baseline saved
+PASS opening app/settings does not request notification permission
+PASS user enabling reminders opens actual notification permission prompt
+PASS permission refusal is a real visible state with working settings action
+PASS permission interaction does not silently save reminder draft
+/sdcard/platform-polish-shot.png: 1 file pulled, 0 skipped. 40.4 MB/s (154359 bytes in 0.004s)
+PASS notification action opens Android settings
+PASS system settings return clears denied-permission state
+PASS enabled reminders persist only after explicit successful save
+PASS turning reminders off persists false
+PASS turning reminders off does not revoke unrelated notification permission
+PASS disabled reminders have no permission fallback block
+/sdcard/platform-polish-shot.png: 1 file pulled, 0 skipped. 32.6 MB/s (153746 bytes in 0.004s)
+PASS widget request reports requested, not added
+PASS launcher presents real widget confirmation
+PASS canceling pin request creates no study widget
+PASS cancel/no callback is not reported as widget success
+PASS success callback refers to a newly bound StudyWidget ID
+/sdcard/platform-polish-shot.png: 1 file pulled, 0 skipped. 36.3 MB/s (178452 bytes in 0.005s)
+{
+  "version": "1.3.3",
+  "platform": "Android 16/API 36 actual APK permission/Settings/Launcher UI",
+  "passed": 19,
+  "checks": [
+    "test target is an owned emulator",
+    "platform is Android 16/API 36",
+    "no pre-existing timer is altered by platform tests",
+    "temporary disabled reminder baseline saved",
+    "opening app/settings does not request notification permission",
+    "user enabling reminders opens actual notification permission prompt",
+    "permission refusal is a real visible state with working settings action",
+    "permission interaction does not silently save reminder draft",
+    "notification action opens Android settings",
+    "system settings return clears denied-permission state",
+    "enabled reminders persist only after explicit successful save",
+    "turning reminders off persists false",
+    "turning reminders off does not revoke unrelated notification permission",
+    "disabled reminders have no permission fallback block",
+    "widget request reports requested, not added",
+    "launcher presents real widget confirmation",
+    "canceling pin request creates no study widget",
+    "cancel/no callback is not reported as widget success",
+    "success callback refers to a newly bound StudyWidget ID"
+  ],
+  "unverified": [],
+  "cleanupErrors": [],
+  "restored": true,
+  "failure": null
+}

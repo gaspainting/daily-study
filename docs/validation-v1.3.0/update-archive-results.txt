@@ -1,0 +1,12 @@
+INSTRUMENTATION_RESULT: stream=PASS 9 signed archive checks
+signed APK fixture has genuinely newer code than installed bootstrap
+native archive check accepts real newer APK with same package version minSdk and certificate
+native archive check rejects modified manifest checksum for real APK
+native archive check rejects APK signed with different private key despite correct checksum
+native archive check rejects real APK with different package despite correct checksum
+native archive check rejects real old version disguised as newer manifest
+native archive check rejects genuine APK whose code differs from manifest
+native archive check rejects genuine APK whose minimum Android differs from manifest
+real signed APK validation preserves learning records
+
+INSTRUMENTATION_CODE: -1

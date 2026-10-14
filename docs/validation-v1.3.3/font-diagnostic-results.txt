@@ -1,0 +1,320 @@
+INSTRUMENTATION_RESULT: stream=PASS 317 checks
+FONT_DIAG assets=[]
+FONT_DIAG bytes=10591168 sha=942a5e4b4238510db53cb95a2ec1420548fd221e73f2431ba8230e42ec6a5e7f
+FONT_DIAG asset=android.graphics.Typeface@c4a31ebb
+FONT_DIAG file=android.graphics.Typeface@c4a3077b
+seed covers exactly70 days
+initial actual records are empty
+week7 exact reference totals
+week8 exact reference totals
+week9 exact reference totals
+week10 exact reference totals
+week11 exact reference totals
+week12 exact reference totals
+week13 exact reference totals
+week14 exact reference totals
+week15 exact reference totals
+week16 exact reference totals
+weekday20:29 allowed
+weekday20:30 excluded
+weekend09:29 excluded
+weekend09:30 allowed
+weekend19:00 excluded
+blank and explicit0 survive storage
+backup roundtrip preserves rest record
+backup rejects reminder during rest
+backup rejects negative actual minutes
+timer starts on Android16
+pause retains elapsed learning
+paused time excluded
+resume starts next segment
+finish stores actual record
+timer writes actual rather than reference
+finish creates exactly1 session
+repeat finish cannot double count
+historical date timer rejected
+cutoff auto pause clips segment precisely
+reminders default disabled
+widget refresh and disabled reminder scheduling do not crash
+enabled reminder posts native notification
+same day reminder delivered once
+no downloaded image means no draw and no consumed chance
+text dedup normalizes spacing/case/punctuation
+daily image and text both avoid startup history
+new daily illustration differs from startup
+same calendar date reuses fixed daily card
+repeated daily draw does not consume new content
+daily cards never rewrite existing study state
+concurrent daily draws commit exactly once
+next date gets a different text
+favorite appears in separate history
+re-pairing same image cannot bypass separate dedup
+cache cleanup preserves histories/favorites
+untranslated foreign card is rejected before draw
+card media paths cannot escape private image directory
+downloaded image checks actual format and decoding
+truncated image rejected before becoming a candidate
+original foreign card 56 has Chinese meaning
+original foreign card 57 has Chinese meaning
+original foreign card 58 has Chinese meaning
+original foreign card 59 has Chinese meaning
+original foreign card 60 has Chinese meaning
+original foreign card 61 has Chinese meaning
+original foreign card 62 has Chinese meaning
+original foreign card 63 has Chinese meaning
+original foreign card 64 has Chinese meaning
+original foreign card 65 has Chinese meaning
+original foreign card 66 has Chinese meaning
+original foreign card 67 has Chinese meaning
+original foreign card 68 has Chinese meaning
+original foreign card 69 has Chinese meaning
+original foreign card 70 has Chinese meaning
+original foreign card 71 has Chinese meaning
+original foreign card 72 has Chinese meaning
+original foreign card 73 has Chinese meaning
+original foreign card 74 has Chinese meaning
+original foreign card 75 has Chinese meaning
+original foreign card 76 has Chinese meaning
+original foreign card 77 has Chinese meaning
+original foreign card 78 has Chinese meaning
+original foreign card 79 has Chinese meaning
+original foreign card 80 has Chinese meaning
+offline library covers multiple foreign languages
+complete backup is an actual ZIP with media
+complete ZIP is recognized
+ZIP restore preserves card/history/favorite/dedup metadata
+ZIP restore retains actual history image
+ZIP restore preserves original learning fields
+legacy v1 JSON remains importable
+legacy JSON import leaves card library and favorites intact
+ZIP traversal rejected without writing user records
+corrupted ZIP image digest rejected
+interrupted two-file restore rolls back from recovery journal
+long text poster splits into multiple readable images
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+long posters share all pages with temporary read grants
+share provider opens only generated poster
+share provider refuses private study file
+share provider rejects writes
+offline mode does not request remote materials
+widget both unknown has no zero or inferred daily outcome
+widget zero plus unknown remains partial record
+widget exposes explicit zero and unknown separately
+rest status does not fill or alter actual values
+widget two explicit zeros count as two records
+widget shows real fraction and maps enum only for display
+widget display label leaves stored enum unchanged
+poster text distinguishes quote and picture authors
+poster and share text retain license and translation
+poster has no generic originality or cache explanation
+missing author is not fabricated from source category
+AI assistance is assigned to words without claiming picture authorship
+widget success callback without real widget ID is rejected
+widget success callback wrong action is rejected
+weekend end boundary remains eighteen fifty nine versus nineteen
+weekend rule is not widened across Monday
+timer refusal explains the actual weekend boundary
+timer refusal explains the actual weekday boundary
+missing draft remains absent without creating default values
+draft preserves explicit zero and unrecorded raw input separately
+draft rest selection does not infer missing field values
+draft preserves whitespace multiline content and checkbox value
+draft stores unchanged base for conflict detection
+draft includes actual key and persistence timestamp
+restart reloads persisted draft independent of mutable input and returned objects
+daily dates and each form context have isolated drafts
+delete is idempotent and only removes its selected context
+draft rejects unsafe identifier ../study-state.json
+draft rejects unsafe identifier 
+draft rejects unsafe identifier __proto__
+draft rejects unsafe identifier constructor
+draft rejects unsafe identifier prototype
+draft rejects unsafe identifier daily/2026-10-14
+draft rejects unsafe identifier kkkkkkkkkkkkkkkkkkkk
+draft rejects unsafe identifier 日期
+draft rejects non raw primitive field 0
+draft rejects non raw primitive field 1
+draft rejects non raw primitive field 2
+draft rejects non raw primitive field 3
+draft rejects polluted base field identifier
+draft rejects oversized string before replacement
+draft rejects more than 250 fields
+draft measures UTF8 entry limit rather than character count alone
+invalid save attempts leave previously stored draft unchanged
+draft reports actual filesystem save failure
+failed atomic write preserves existing draft
+draft save can retry after real filesystem failure
+clear removes all contexts
+draft maximum refuses new entries without evicting old drafts
+existing draft stays editable at entry limit
+draft refuses reading an oversized file before parsing
+oversized draft file is not overwritten by autosave
+draft read and autosave overflow leave the original file unchanged
+corrupt draft file is not silently overwritten by autosave
+draft save delete clear and failures never change saved learning records
+migration returns schema 2 without modifying legacy input
+migration preserves outside-plan records null zero rest enum and note
+migration preserves saved timer session identity seconds and endedAt
+migration copies legacy review aliases to stable subject IDs
+migration retains review alias fields and optional rest values
+schema 2 migration is idempotent
+load upgrades legacy view without changing revision
+read-only load leaves legacy file bytes unchanged
+actual save persists current schema and increments revision once
+legacy restore migrates schema while retaining revision concurrency
+absent activity periods preserve always-active legacy semantics
+archive keeps active historical dates
+archive and restore preserve half-open inactive gap
+reactivation includes its first date
+activity periods persist through atomic storage
+current review text is not overwritten by legacy alias during migration
+review validation rejects unknown subject IDs
+activity period validation rejects malformed range 0
+activity period validation rejects malformed range 1
+activity period validation rejects malformed range 2
+empty periods mean archived for every date
+future unsupported schema remains rejected
+invalid migrated restore fails before atomic overwrite
+failed restore preserves saved record file bytes
+widget denominator retains archived explicit zero and active unknown subject
+widget omits inactive empty subject while retaining archived actual zero
+widget does not present a reference for archived subject today
+widget omits archived empty subject after actual field is cleared
+native timer rejects archived subject start without creating a timer
+native timer can start active subject after archived rejection
+native timer resume rejects archived subject and preserves paused elapsed time
+existing archived subject timer can finish and save its original session
+archived timer finish retains actual minutes and session identity
+CSV has UTF8 BOM for Chinese Excel text
+CSV has separate reference and observed headers with daily rows and subject totals
+CSV distinguishes unrecorded and explicit zero in a partial rest day
+CSV rest label leaves unknown rest and time values unknown
+CSV quoted comma multiline and quote roundtrip without corruption
+CSV neutralizes formula content after leading whitespace
+CSV counts duplicated legacy and root session ID once using stored net seconds
+CSV rows retain actual plan title to distinguish independent plan reports
+CSV totals distinguish no observations from an observed zero
+CSV export does not change input state or infer actual minutes
+CSV selected subject does not emit unrelated subjects
+CSV outside plan has no invented reference or actual zero
+CSV retains archived historical actual and skips inactive empty dates
+CSV keeps day level notes and rest when all subjects are inactive without inventing time
+report rejects invalid date range 0
+report rejects invalid date range 1
+report rejects invalid date range 2
+report rejects invalid date range 3
+report rejects unsupported format before writing
+report rejects nonexistent subject
+PDF real renderer opens multiple wrapped Chinese pages
+PDF final page is a valid A4 page
+PDF final page contains rendered text rather than an empty overflow page
+backup status initially has no completion date and reminder is off
+backup reminder rejects unsupported interval without changing status
+invalid backup interval leaves reminder disabled
+report propagates actual output failure
+failed or readable report exports do not mark a full backup complete
+full backup completion stores an actual persisted timestamp
+backup reminder accepts and persists selected interval
+disabled backup reminder cancels scheduled metadata
+backup reminder weekly slot respects weekend rest boundaries
+late backup reminder does not deliver during rest and schedules a future allowed slot
+report and backup status operations leave saved learning data unchanged
+missing plan catalog exposes original plan without rewriting records
+create stores a clean independent plan without switching or modifying active records
+switch to new plan shows empty observations and reviews
+plan switch preserves null explicit zero and rest selection
+plan switch preserves notes timer net seconds and weekly reviews
+old review fields migrate into per subject reviews across plan switch
+switching to already active plan avoids a duplicate data write
+plan listing takes current title from actual active records
+switch rejects nonexistent plan
+new plan cannot silently duplicate previous actual records
+invalid plan actions leave catalog and learning data intact
+plan backup rejects duplicate identifiers
+plan backup rejects mismatched active study snapshot before restore
+plan backup rejects missing inactive records
+paused unsaved timer blocks plan switch
+unsaved timer blocks plan creation
+interrupted switch rolls both active state and catalog back from journal
+real catalog write failure reports a failed plan switch
+failed switch preserves original study and catalog bytes
+failed plan switch can recover after filesystem write access returns
+complete backup version two contains every named plan
+import identifies complete all plan backup scope
+canceling a validated all plan restore does not change records or images
+legacy JSON retains current plan only restore scope
+legacy JSON replaces active records and leaves inactive plans intact
+inactive plan history survives a legacy JSON import
+version one ZIP remains accepted with single active plan scope
+old ZIP restore keeps other plans and current plan identifier
+version two ZIP restores catalog active identifier and original observations
+all plan ZIP restores global daily card metadata and exact media bytes
+conflicting all plan backup rejected during reading before overwrite
+invalid all plan restore leaves current records and catalog unchanged
+all plan restore propagates actual catalog write failure
+failed all plan restore recovers study catalog and daily card files together
+restore failure leaves validated imported study snapshot unchanged for retry
+validated all plan restore can retry successfully after real filesystem failure
+plan count limit rejects a ninth plan
+plan limit does not evict existing saved plans
+isolated multi plan tests never replace user's saved learning records
+empty inspiration search has no fabricated results
+history returns true total and preserves latest-first page order
+history pagination runs after full stored-event selection
+search reaches older history outside first page
+quote search covers full text and normalizes case width and query whitespace
+foreign quote search includes Chinese gloss
+image caption and real author metadata are searchable
+theme filter uses exact stored theme
+language filter uses exact stored language
+keyword theme and language combine rather than replace each other
+no match remains empty without loosening filters
+favorites show each card once using its latest displayed event
+favorite search retains collection membership while filtering
+startup filter preserves startup-only scope
+filter options come from displayed metadata and exclude pending cards
+page bounds clamp without inventing results
+search never replaces or clears fixed current-day card
+search rejects unknown card scope
+search rejects oversized query
+filtering facets and pagination do not write card events favorites or study records
+fresh seed has no prescribed weekly goal or textbook hint
+weekly migration clones input instead of overwriting source
+migration removes built in material and retains user written weekly goal
+manual week marker preserves a deliberately reentered goal
+new word goal defaults to fifty without converting legacy minutes
+per day zero word goal and daily default stay distinct
+widget counts vocabulary zero separately from unknown timed subject
+widget shows new learning target and unknown review without invented zero
+widget distinguishes new review and retained legacy time
+CSV exposes count goal and new versus review fields
+report retains legacy time and never turns reviews into new words
+JSON backup read preserves count goal zero and review quantity
+reject invalid word goal -1
+reject invalid word goal 0.5
+reject invalid word goal 50
+reject invalid word goal 100001
+reject invalid word goal null
+reject word target on timed subject
+native start rejects new vocabulary timer without creating a session
+timed subject still starts normally
+weekly migration matches preset texts only within the corresponding field
+native vocabulary shortcuts preserve exact configuration
+native rejects invalid shortcut array []
+native rejects invalid shortcut array [1,2]
+native rejects invalid shortcut array [0,5,10]
+native rejects invalid shortcut array [1,1,10]
+native rejects invalid shortcut array [1.5,5,10]
+native rejects invalid shortcut array ["1",5,10]
+native rejects invalid shortcut array [1,5,100001]
+native rejects word shortcuts on a timed subject
+atomic study save verifies persisted shortcut bytes
+unchanged draft saves preserve timestamp and file bytes
+changed draft values still persist
+valid ZIP with one byte stream reads is recognized and retains shortcuts
+short read legacy JSON still imports without inventing actual records
+
+INSTRUMENTATION_CODE: -1

@@ -1,0 +1,240 @@
+{
+  "baseline": "delivered v1.3.0 source archive",
+  "baselineArchiveSha256": "89ad8454cc8e4eb0f33d87eb92e01249833caf3b5764e6a1b135c0cb99aa6a21",
+  "files": [
+    {
+      "file": "app/src/main/AndroidManifest.xml",
+      "change": "modified",
+      "sha256": "937409065d74a7e729be2a3be5d1e8204ce7764990fc28fd0fb797fd7f51b480",
+      "previousSha256": "7a11f368670dc3a8714c33340468d13b18fa18e7717b9a1fb861b3e773fb36c5"
+    },
+    {
+      "file": "app/src/main/assets/app.js",
+      "change": "modified",
+      "sha256": "cffaab7472f6c99a631275b8f288dc08c24ad0f3818b7b55570797ab0994b686",
+      "previousSha256": "b68b7ca30c67ae065ceb9f9b67a89d442e3a3dbb192526e5646164bc1d5e8bb8"
+    },
+    {
+      "file": "app/src/main/assets/drafts.js",
+      "change": "new",
+      "sha256": "1d5b6750528c1a9e080349fd6ee8a6aceba3377a560e3e78ef0a4fdbf03c1c9e",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/assets/index.html",
+      "change": "modified",
+      "sha256": "944db85b26484bb2fea6ead05df7562066acdbb64e7fae4f883fece2a59cb6da",
+      "previousSha256": "8a47e231f16a28bd69e99708a8025148ac19bb99ff3b213a9ca3ad64170d1c9d"
+    },
+    {
+      "file": "app/src/main/assets/inspiration-filter.css",
+      "change": "new",
+      "sha256": "e554ce6df9286eea585b5febecb34b29edf276e9730c33022ae6d9bac2f10f03",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/assets/inspiration.js",
+      "change": "modified",
+      "sha256": "f4b078a8bbb3ffb2c5c6f05229f24c84a213d1f205aa31f2beb81a182a3130f4",
+      "previousSha256": "2a8e40c2b00e8bec2c81d8eb10aba449ce7c22b58f8201f2e53023538c7b7981"
+    },
+    {
+      "file": "app/src/main/assets/model.js",
+      "change": "modified",
+      "sha256": "097eb8cc6234d19ddea1a0f5d9712f60cd575d879e4743feb683c6f945ab6a67",
+      "previousSha256": "c706193c1a90035f9f665b9387c93bb09c37de444efde0ac597b86e117e8c12e"
+    },
+    {
+      "file": "app/src/main/assets/polish.css",
+      "change": "modified",
+      "sha256": "fa0cb1c349312d95ebbe27cce14ac8994c4e12a144e9639d996344ccc9cd6525",
+      "previousSha256": "e8422c8f3b2391179d12cb74068dde6163a9dacaaac4657be30c1a4775b636f9"
+    },
+    {
+      "file": "app/src/main/assets/tracking.css",
+      "change": "new",
+      "sha256": "9a0956d51ef5c688d90c01fd89d1ccc05c1c04c9f87e26ba9a6195c23645393a",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/assets/tracking.js",
+      "change": "new",
+      "sha256": "0cbd721bf78dbe97937cfd5fd2b50f5b67fcedcb9e42ba49c09375735ef5118c",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/BackupManager.java",
+      "change": "modified",
+      "sha256": "1421c5043c6c8ea46d1007cf866f66e479a691d9b6684c610f81321df7be1f93",
+      "previousSha256": "85f8c4a23ee336b46f98437dacd526ac8b236ec0e8a8bf11b82d1604ac8e0b9f"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/BackupReminderReceiver.java",
+      "change": "new",
+      "sha256": "4e0f8f5b03c5268481288711478f4c6a4ddd0697ee76641c7e5a66255bdab9b7",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/BackupStatus.java",
+      "change": "new",
+      "sha256": "9aaa613b6265cb2f2be9a26972701d0b95abe2fb2f4c8b59465afd594e4b5386",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
+      "change": "modified",
+      "sha256": "57419b3d344517c936b724e426f3ff1d2ee36ad48829ce71b990156774b3de00",
+      "previousSha256": "6a69c7ffa06018bea7697e89a6578dd68af046d697fa46d9af7434c9a4b4e8dc"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/DraftStore.java",
+      "change": "new",
+      "sha256": "8001716c7837756c29a06e28455bbe761d3e68dc78f6d71d3a41c9ccbf05b301",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationSearch.java",
+      "change": "new",
+      "sha256": "1ceede56503eb6df306efd5f6026cdfb2313d86eb2a8f2e755dcb1a7949192f8",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
+      "change": "modified",
+      "sha256": "4a77b7e1588c148ab027ae0bca4b8253e77cf06de02086154d3699256e4d76e4",
+      "previousSha256": "99b820a95853b785fb46cabb2ea9c051501389f4fe3f2f9d06dcab5dc92b6501"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/PlanStore.java",
+      "change": "new",
+      "sha256": "091e477249eeb3dc5e65500f1e22b5625be8548fd3b0b904d3f7cc36d738c7c8",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
+      "change": "new",
+      "sha256": "8a8084faa058004193ad204b7ffda4a8e68a57af4c5d666efa85a42de3036f2e",
+      "previousSha256": null
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
+      "change": "modified",
+      "sha256": "dedef66ba2e2ef927d06e6775cb427b8997b9124527a798f181082f393102cba",
+      "previousSha256": "3139d0428579ded550c0598f3658c7e883797a5f1b92fb6cd3bb33f26c9ed287"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/TimerStore.java",
+      "change": "modified",
+      "sha256": "aae7bded91e8cf41be9954aeedc602444e6a95f04066e43e7eb8aa3cedcb67cb",
+      "previousSha256": "1825fa5553d88787a63971ce16370f8c368243fcab708c9cb949e7fbb2a214e9"
+    },
+    {
+      "file": "README.md",
+      "change": "modified",
+      "sha256": "57477b86ef82345b67c8520541cdfc300c98dcb495cc7f29c3650e683d63bb9f",
+      "previousSha256": "bb511a3ed2a416bd1d9ad5bd62c11927e14749076ab7ed04356b83bddccc179a"
+    },
+    {
+      "file": "tests/accessibility-polish-ui.cjs",
+      "change": "modified",
+      "sha256": "78133ec2a3f46f0c0a09566262d64f595756ee81fcf332f0e6bb81375a60cfcb",
+      "previousSha256": "355bdca5eb9438e758e84da7b3754df2295fda8e1ca62d07760c3eca8451a376"
+    },
+    {
+      "file": "tests/backup-ui-smoke.cjs",
+      "change": "modified",
+      "sha256": "f16571e1588531d27f8b81e044d1d54a952c1ac1ae1c3da52021e72c06b35ddf",
+      "previousSha256": "0e0c5baeb9aa4de39f61d20da7e3d459fca41e883450097ef7409f003cd0e24e"
+    },
+    {
+      "file": "tests/features-v131-ui.cjs",
+      "change": "new",
+      "sha256": "61dbff28370f1a3b8ac1034ec2c93e4d2a0700034191ebee38b808b6c14e0e20",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/inspiration-filter-ui.cjs",
+      "change": "new",
+      "sha256": "19e41bc945f7c70e507f062b8dbd5046fe3de3a2f6b5cd279bdd5d3516c130bf",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/DraftTests.java",
+      "change": "new",
+      "sha256": "87681f61f2b5f4d127a16f416360cc10d0c15c9b076777054aa7e4c8cd141b06",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/FeatureModelTests.java",
+      "change": "new",
+      "sha256": "2f5ff580c26a017b0981e2672e0e4720098792feb78dcb562978c5372413664a",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/InspirationSearchTests.java",
+      "change": "new",
+      "sha256": "3b96d572b7e2d89942e085149b00ad59b1f0ba5db35853e35d77f4dbbb71b930",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/PlanTests.java",
+      "change": "new",
+      "sha256": "b76fa316e242a3b111db619366b04f9171c5f08bf3ad4fd832c0ab33c07ec337",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/ReportTests.java",
+      "change": "new",
+      "sha256": "ff98f28cb76b75496d04f60d0eb37c4555edc68e56b4a96308a24975624c3a8c",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
+      "change": "modified",
+      "sha256": "d3641787d7fb013112194d524a618015b7e6d3968c7e72788b15f4f8c658cc2f",
+      "previousSha256": "0c41ef7fef75ad56e83322a5dd5557e280419218ac3b959b6e87a1118c82c5b1"
+    },
+    {
+      "file": "tests/model.test.cjs",
+      "change": "modified",
+      "sha256": "394d58a279be7c7740bc1f756b7c4475f4d20d7f7e8b2b7ef443c9fc9131e89b",
+      "previousSha256": "7e89903a35111201151b1c74bc23512e97a4b1f2330d78c081d937ce12003a2c"
+    },
+    {
+      "file": "tests/native-ui.cjs",
+      "change": "modified",
+      "sha256": "176c73350c7761b9f8a15f7cd8caff115836af4ae915132bb331516f7af5f194",
+      "previousSha256": "2d8fdf62ff490976dc0fe1c70e9020afa07325f5bef4905a30a53f0bfe1a1733"
+    },
+    {
+      "file": "tests/release-polish-ui.cjs",
+      "change": "modified",
+      "sha256": "c8b698759242652cd73d3d21bffb8d69a2b71ec3cbdbf56003396144c35a0600",
+      "previousSha256": "1aba361c4ca02f265078a483cdff7fdb32c308c7d5901ab97bc8500aa4d6d870"
+    },
+    {
+      "file": "tests/report-recovery-ui.cjs",
+      "change": "new",
+      "sha256": "126a940347fe8be186298fdcf7cb9b950f0048b02f5e66170b381b83e144c9e0",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/tracking-model.test.cjs",
+      "change": "new",
+      "sha256": "dc3aced721cd703f7b8dc41b599efbebc54eacdee7a9651ae53bc00944e7976e",
+      "previousSha256": null
+    },
+    {
+      "file": "tests/update-install-ui.cjs",
+      "change": "modified",
+      "sha256": "e6a434fdcaca06869db89e90d3aba7f19dc556e98b107de566691e74e6f4800a",
+      "previousSha256": "8cb7353be252b7598319616301418f4b8ad20333577795fbf971a0f147b747a4"
+    },
+    {
+      "file": "tests/update-ui.cjs",
+      "change": "modified",
+      "sha256": "6d1adbb8af69a01a0c807bec68481da7766a18970383f5164905fd08fd6671af",
+      "previousSha256": "46b9ed56b1111b065499af1dfe7bee96d93197fe28aeff8e9e00ceab8ead2082"
+    }
+  ]
+}

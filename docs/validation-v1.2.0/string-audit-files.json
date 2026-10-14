@@ -1,0 +1,109 @@
+{
+  "files": [
+    {
+      "file": "app/src/main/AndroidManifest.xml",
+      "matchedLines": 1,
+      "sha256": "c89d42d9cf8087735b02833792f0b2c43e0a6d1342d92a59d0eec04001d1ada7"
+    },
+    {
+      "file": "app/src/main/assets/app.js",
+      "matchedLines": 94,
+      "sha256": "f6c00bf94a840160ebe65e7c9fa0ad4e07465d701e57b813179f6f9b93997a12"
+    },
+    {
+      "file": "app/src/main/assets/index.html",
+      "matchedLines": 10,
+      "sha256": "8a47e231f16a28bd69e99708a8025148ac19bb99ff3b213a9ca3ad64170d1c9d"
+    },
+    {
+      "file": "app/src/main/assets/inspiration.js",
+      "matchedLines": 27,
+      "sha256": "2a8e40c2b00e8bec2c81d8eb10aba449ce7c22b58f8201f2e53023538c7b7981"
+    },
+    {
+      "file": "app/src/main/assets/model.js",
+      "matchedLines": 47,
+      "sha256": "c706193c1a90035f9f665b9387c93bb09c37de444efde0ac597b86e117e8c12e"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/AppRules.java",
+      "matchedLines": 1,
+      "sha256": "a67fa3b6ba62659a5604d516502f642ebedae0b78fdc8300ae705bfd7ebebb28"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/BackupManager.java",
+      "matchedLines": 9,
+      "sha256": "85f8c4a23ee336b46f98437dacd526ac8b236ec0e8a8bf11b82d1604ac8e0b9f"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/CardShareProvider.java",
+      "matchedLines": 2,
+      "sha256": "f130bb243f2e42eab98cdf6fc47056d494e224643fa3cf9be76fb6a4e693aa4d"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
+      "matchedLines": 35,
+      "sha256": "6a69c7ffa06018bea7697e89a6578dd68af046d697fa46d9af7434c9a4b4e8dc"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/ImageChecks.java",
+      "matchedLines": 6,
+      "sha256": "53e5f3824ad91fe08d269aca2d4a770f0ffef85fb647178b34d0507d1a5ffc5d"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationPoster.java",
+      "matchedLines": 15,
+      "sha256": "6f635c3bffd8327ecfe983bfcd30d7d5513e7ecaf151177e5bd639ed58a7f42f"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationSources.java",
+      "matchedLines": 12,
+      "sha256": "8bdd65271398f5f50db30140aea8017dc98201cd51dd1094d880efa6e367c0ac"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/InspirationStore.java",
+      "matchedLines": 25,
+      "sha256": "2bc8ba964ed9010597ea7a313164243af2e9b82f8ec0a169b615d95c76e2c8e4"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
+      "matchedLines": 29,
+      "sha256": "0c04dd7c8f1e1982fd4958281a075ecba9dd18bd84ce4fb7bd27f6a20b3b4b47"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/ReminderReceiver.java",
+      "matchedLines": 3,
+      "sha256": "468814bc133e23af7df4d39dc479e462b8d0d1c40ae742c6fbda7dec7569e416"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
+      "matchedLines": 8,
+      "sha256": "3139d0428579ded550c0598f3658c7e883797a5f1b92fb6cd3bb33f26c9ed287"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/TimerService.java",
+      "matchedLines": 4,
+      "sha256": "15f58ec29e45fddba14a9656a0dd82e4d17a892c0c16790421f9a0ae4e8f0acb"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/TimerStore.java",
+      "matchedLines": 14,
+      "sha256": "1825fa5553d88787a63971ce16370f8c368243fcab708c9cb949e7fbb2a214e9"
+    },
+    {
+      "file": "app/src/main/java/cn/edu/njupt/studycheckin/WidgetPinReceiver.java",
+      "matchedLines": 1,
+      "sha256": "ec5508f9e8dad49051253a9271497d4d0cdfc826ed185341683dc5d986f04367"
+    },
+    {
+      "file": "app/src/main/res/layout/widget_study.xml",
+      "matchedLines": 4,
+      "sha256": "b5ba91780b6e3812361dff1448dd1cfeca61e26976b858676dfcf2ecb575dae5"
+    }
+  ],
+  "excludedData": [
+    "seed.json",
+    "inspiration-library.json"
+  ],
+  "reason": "Stored plan, notes and daily quote content is not subject to prose filtering."
+}

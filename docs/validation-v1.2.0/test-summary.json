@@ -1,0 +1,72 @@
+{
+  "version": "1.2.0",
+  "versionCode": 3,
+  "testApkSha256": "107a9a8ec33e8c382a27af7c64f2aeb1e110a64e52b3e443e789eb307c26e9c6",
+  "releaseApkSha256": "c449980da2f1c6ecb4cf66e17aa533938fc8029b4d4aa977bbdc7ce070c2dae3",
+  "executedAssertions": 313,
+  "note": "Assertion counts include repeated checks across scenarios; they are not a count of distinct product requirements.",
+  "runs": [
+    {
+      "command": "node --test tests/model.test.cjs",
+      "result": "passed",
+      "assertions": 12,
+      "report": "model-test-results.txt"
+    },
+    {
+      "command": "adb -s emulator-5572 shell am instrument -w -r cn.edu.njupt.studycheckin/cn.edu.njupt.studycheckin.SmokeTests",
+      "result": "passed",
+      "assertions": 115,
+      "report": "native-test-results.txt"
+    },
+    {
+      "command": "node tests/ui-smoke.cjs",
+      "result": "passed",
+      "assertions": 22,
+      "report": "ui-test-results.json"
+    },
+    {
+      "command": "node tests/release-polish-ui.cjs",
+      "result": "passed",
+      "assertions": 37,
+      "report": "release-polish-ui-results.json"
+    },
+    {
+      "command": "node tests/inspiration-ui-smoke.cjs",
+      "result": "passed",
+      "assertions": 30,
+      "report": "inspiration-ui-test-results.json"
+    },
+    {
+      "command": "node tests/accessibility-polish-ui.cjs",
+      "result": "passed",
+      "assertions": 32,
+      "report": "accessibility-ui-results.json"
+    },
+    {
+      "command": "node tests/release-upgrade-ui.cjs",
+      "result": "passed",
+      "assertions": 17,
+      "report": "upgrade-ui-results.json"
+    },
+    {
+      "command": "node tests/platform-polish-ui.cjs",
+      "result": "passed",
+      "assertions": 19,
+      "report": "platform-polish-ui-results.json"
+    },
+    {
+      "command": "node tests/backup-ui-smoke.cjs",
+      "result": "passed",
+      "assertions": 29,
+      "report": "backup-ui.json"
+    }
+  ],
+  "releaseInstallationReport": "release-install-results.json",
+  "unverified": [
+    "Physical vivo X100s, device vendor background/power and reminder timing behavior",
+    "Android8-15 device runs",
+    "Spoken Chinese output and complete screen-reader gesture navigation",
+    "Production Android WebView runtime debugger absence; userdebug emulator forces this endpoint",
+    "Long-term third-party network source availability"
+  ]
+}
