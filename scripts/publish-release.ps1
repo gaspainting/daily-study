@@ -36,7 +36,8 @@ try {
         if (@($old.assets | Where-Object { $_.name -ceq 'update.json' }).Count -ne 1) { throw ('Existing release has no unique update manifest: ' + $old.tag_name) }
         $oldDirectory = Join-Path $temporary ([Guid]::NewGuid().ToString('N'))
         New-Item -ItemType Directory -Path $oldDirectory | Out-Null
-        Invoke-ReleaseCommand 'gh' @('release','download',$old.tag_name,'--repo',$repository,'--dir',$oldDirectory,'--pattern','update.json') | Out-Null
+        $oldManifestAsset = @($old.assets | Where-Object { $_.name -ceq 'update.json' })[0]
+        Save-ReleaseAsset $oldManifestAsset.id (Join-Path $oldDirectory 'update.json')
         $oldManifest = [IO.File]::ReadAllText((Join-Path $oldDirectory 'update.json'),$script:ReleaseUtf8) | ConvertFrom-Json
         if ($oldManifest.packageName -cne $release.Apk.PackageName -or $oldManifest.signerSha256 -cne $release.Apk.SignerSha256 -or
             $oldManifest.formatVersion -ne 1 -or ($oldManifest.versionCode -isnot [int] -and $oldManifest.versionCode -isnot [long]) -or
