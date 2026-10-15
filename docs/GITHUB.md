@@ -1,6 +1,6 @@
 # GitHub项目与归档
 
-仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前源码版本为v1.3.3/code7。
+仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前源码版本为v1.3.4/code8。
 
 **main分支**
 
@@ -37,6 +37,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 
 **仓库改名与版本来源**
 
-仓库由daily-study-releases改名为daily-study；旧更新路径通过GitHub重定向兼容已安装App。已发布APK、清单及原版本标签不替换。当前源码另标记为source-v1.3.3，可从该标签下载完整源码。此轮修改构建输入的仓库后备路径、Git目录规则和发布脚本，App生产源文件及已发布APK保留原字节。
+仓库由daily-study-releases改名为daily-study；旧更新路径通过GitHub重定向兼容已安装App。已发布APK、清单及原版本标签不替换。初次导入的源码标记为source-v1.3.3；该标签保留导入时的完整源码。本轮v1.3.4在其基础上继续开发。
 
 [GitHub仓库改名说明](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository)。
+
+
+v1.3.4的课程安排源码、当前文档与验证材料随main分支更新。历史source-v1.3.3标签与已发布资源保留；v1.3.4发布标签对应本轮实现。

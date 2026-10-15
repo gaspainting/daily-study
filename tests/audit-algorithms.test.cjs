@@ -18,7 +18,7 @@ test('statistical results stay unchanged across archive periods, old time record
 });
 test('word only monthly statistics omit the contradictory no subject record message',()=>{
  const s=workload(1);s.plan.subjects=s.plan.subjects.filter(x=>x.id==='vocab');s.records={};s.sessions=[];
- Object.values(s.plan.targets).forEach(t=>delete t.math);
+ Object.values(s.plan.targets).forEach(t=>Object.keys(t).filter(id=>id!=='vocab').forEach(id=>delete t[id]));
  const day='2026-10-14';s.records[day]={subjects:{vocab:{minutes:null,content:'',problem:'',newWords:0,reviewWords:10,forgotWords:''}},status:null,restKept:null,note:''};
  const html=Tracking.renderMonth(s,'2026-10');assert.ok(html.includes('10 个'));assert.ok(!html.includes('暂无科目记录'));
 });

@@ -1,0 +1,134 @@
+✔ history optimization retains exact rows, order, null/zero states and combined filter behavior (186.9817ms)
+✔ session optimization preserves root precedence, legacy deduplication, filtering and timestamp order (80.8875ms)
+✔ statistical results stay unchanged across archive periods, old time records and count goals (4.1422ms)
+✖ word only monthly statistics omit the contradictory no subject record message (0.9725ms)
+✔ 真实70天种子覆盖教学周7—16，保留全部周参考合计 (16.7231ms)
+✔ 空模板不写入state、不借用参考分钟，也不共享引用 (1.3085ms)
+✔ 记录空白、休息和确认0各自保留语义 (1.522ms)
+✔ 每科已记录天数分别汇总，计时分数分钟不截断 (1.787ms)
+✔ 休息边界按本地时间精准检查，补记真实历史不受时间限制 (1.0977ms)
+✔ 改日期范围保留范围外历史、原参考量与复盘 (1.5984ms)
+✔ 新增科目填当前范围参考，已有记录保留空值，新defaults不覆写已排参考 (1.9679ms)
+✔ 部分末周统计只含计划内日期，日期计算不受夏令时影响 (1.4663ms)
+✔ 计时sessions与手动编辑共存，保存不丢失原始sessions (1.9157ms)
+✔ 提醒配置和备份导入始终遵守休息边界，包括开关关闭时 (12.8641ms)
+✔ 无效输入在写入前失败，不破坏状态 (1.8876ms)
+✔ 严格备份校验拒绝版本、非法日期、范围、类型、未知字段和污染字段 (19.4926ms)
+✔ schema 1 migrates without mutating original null/zero/status/rest/session values (5.8956ms)
+✖ archive keeps IDs and history, ends at date, restoring keeps inactive gap (2.3478ms)
+✔ archiving on an existing recorded day keeps actual totals and historical denominators (1.8685ms)
+✖ subject reordering preserves all actual/reference totals and maps (2.1718ms)
+✔ new subjects can start today without backfilling historical denominators (1.8427ms)
+✔ history search includes records beyond current plan and distinguishes partial zero from complete zero (4.7476ms)
+✔ month counts explicit zero as a time entry and note-only as an entry without invented minutes (4.1117ms)
+✔ custom subject review map retains legacy aliases and rejects unknown IDs (1.4455ms)
+✔ session detail merges legacy per-record sessions without duplicating global IDs and exposes only actual fields (1.5417ms)
+✔ sessions sort by actual instant across timezone offsets (0.8443ms)
+✖ active periods reject overlaps, open periods followed by periods and legacy unknown additions (2.7546ms)
+✔ history/calendar/session HTML escapes content and carries visible accurate state and accessible date actions (57.4162ms)
+✔ new default weeks are empty and legacy built-in week goals/hints migrate out exactly once (6.7189ms)
+✔ default new-word goal is 50, independently of legacy minutes and review counts (1.3914ms)
+✔ changing daily goal preserves past targets, actuals and original minute references (2.2756ms)
+✔ empty, explicit zero, review-only and partial zero stay distinct (1.313ms)
+✔ words never enter time totals; time history remains unchanged by word goals (2.8886ms)
+✔ archived subjects retain counts without inventing inactive goals (1.5839ms)
+✔ history, calendar and weekly quantity markup label each unit and omit empty vocabulary time summaries (3.9317ms)
+✔ word goal validation rejects wrong type, wrong subject, unknown date, fractional or negative counts (6.6561ms)
+✔ resaving an unchanged daily goal preserves explicit date overrides (1.4897ms)
+✔ undo restores the exact prior blank, explicit zero, and alternate numeric spelling (0.552ms)
+✔ undo never overrides subsequent manual edits and consecutive increments restore only the latest prior value (0.0954ms)
+✔ word additions reject invalid inputs or overflow without altering a caller snapshot (0.2154ms)
+✔ shortcut settings are independently cloned per vocabulary subject and leave historical records and goals intact (7.1986ms)
+✔ shortcut validation is strict about subject kind, three positive integral values, uniqueness and upper bound (9.1531ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 38
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 447.608
+
+✖ failing tests:
+
+test at tests\audit-algorithms.test.cjs:19:1
+✖ word only monthly statistics omit the contradictory no subject record message (0.9725ms)
+  Error: 参考量的科目不存在：course-review
+      at fail (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:15:34)
+      at D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:201:23
+      at Array.forEach (<anonymous>)
+      at D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:200:39
+      at Array.forEach (<anonymous>)
+      at validateState (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:197:31)
+      at Object.monthStats (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:463:5)
+      at Object.renderMonth (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\tracking.js:39:50)
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\audit-algorithms.test.cjs:23:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+
+test at tests\tracking-model.test.cjs:38:1
+✖ archive keeps IDs and history, ends at date, restoring keeps inactive gap (2.3478ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\tracking-model.test.cjs:43:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tracking-model.test.cjs:69:1
+✖ subject reordering preserves all actual/reference totals and maps (2.1718ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   'course-review',
+      'vocab',
+      'math'
+    ]
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\tracking-model.test.cjs:74:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'course-review', 'vocab', 'math' ],
+    expected: [ 'vocab', 'math' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\tracking-model.test.cjs:151:1
+✖ active periods reject overlaps, open periods followed by periods and legacy unknown additions (2.7546ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\tracking-model.test.cjs:161:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

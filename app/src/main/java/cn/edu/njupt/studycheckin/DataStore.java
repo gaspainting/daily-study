@@ -199,6 +199,7 @@ public final class DataStore {
         state.put("version",2);clearPresetWeeks(state.getJSONObject("plan"));
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
         while(dates.hasNext()) {JSONObject review=reviews.getJSONObject(dates.next());JSONObject text=review.optJSONObject("subjects");if(text==null){text=new JSONObject();review.put("subjects",text);}for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String kind=subject.getString("kind"),field=kind.equals("math")?"mathProblem":kind.equals("vocab")?"vocabReview":null;String id=subject.getString("id");if(field!=null&&!text.has(id))text.put(id,review.getString(field));}}
+        CourseSchedule.upgrade(state,LocalDate.now());
         validate(state);
     }
     public static boolean activeSubject(JSONObject subject,LocalDate day) throws Exception {

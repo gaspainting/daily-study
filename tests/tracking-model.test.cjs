@@ -40,15 +40,15 @@ test('archive keeps IDs and history, ends at date, restoring keeps inactive gap'
   record(state, '2026-10-12', 20, 0);
   const before = copy(state.records);
   Model.archiveSubject(state, 'math', '2026-10-14');
-  assert.equal(Model.subjectActive(state.plan.subjects[0], '2026-10-13'), true);
-  assert.equal(Model.subjectActive(state.plan.subjects[0], '2026-10-14'), false);
+  assert.equal(Model.subjectActive(state.plan.subjects.find(s=>s.id==='math'), '2026-10-13'), true);
+  assert.equal(Model.subjectActive(state.plan.subjects.find(s=>s.id==='math'), '2026-10-14'), false);
   assert.deepEqual(Model.subjectsForDate(state, '2026-10-14').map(item => item.id), ['vocab']);
   assert.equal(Model.record(state, '2026-10-14').subjects.math.minutes, null);
   assert.deepEqual(state.records, before);
   Model.restoreSubject(state, 'math', '2026-10-17');
-  assert.equal(Model.subjectActive(state.plan.subjects[0], '2026-10-16'), false);
-  assert.equal(Model.subjectActive(state.plan.subjects[0], '2026-10-17'), true);
-  assert.deepEqual(state.plan.subjects[0].activePeriods, [{ from: '1900-01-01', to: '2026-10-14' }, { from: '2026-10-17', to: null }]);
+  assert.equal(Model.subjectActive(state.plan.subjects.find(s=>s.id==='math'), '2026-10-16'), false);
+  assert.equal(Model.subjectActive(state.plan.subjects.find(s=>s.id==='math'), '2026-10-17'), true);
+  assert.deepEqual(state.plan.subjects.find(s=>s.id==='math').activePeriods, [{ from: '1900-01-01', to: '2026-10-14' }, { from: '2026-10-17', to: null }]);
   assert.equal(Model.validateState(state), true);
 });
 
@@ -71,7 +71,7 @@ test('subject reordering preserves all actual/reference totals and maps', () => 
   record(state, '2026-10-12', 12, 0);
   const before = Model.weekStats(state, '2026-10-12'), records = copy(state.records), targets = copy(state.plan.targets);
   Model.moveSubject(state, 'vocab', 'up');
-  assert.deepEqual(state.plan.subjects.map(item => item.id), ['vocab', 'math']);
+  assert.deepEqual(state.plan.subjects.filter(item=>item.id!=='course-review').map(item => item.id), ['vocab', 'math']);
   const after = Model.weekStats(state, '2026-10-12');
   assert.deepEqual(after.subjects.slice().sort((a, b) => a.id.localeCompare(b.id)), before.subjects.slice().sort((a, b) => a.id.localeCompare(b.id)));
   assert.deepEqual(state.records, records);
@@ -155,10 +155,10 @@ test('active periods reject overlaps, open periods followed by periods and legac
   }
   const legacy = copy(seed); legacy.plan.subjects[0].activePeriods = [];
   assert.throws(() => Model.validateState(legacy), /未知字段/);
-  const inactive = fresh(); inactive.plan.subjects[0].activePeriods = [];
-  assert.equal(Model.subjectActive(inactive.plan.subjects[0], '2026-10-12'), false);
+  const inactive = fresh(); inactive.plan.subjects.find(s=>s.id==='math').activePeriods = [];
+  assert.equal(Model.subjectActive(inactive.plan.subjects.find(s=>s.id==='math'), '2026-10-12'), false);
   Model.restoreSubject(inactive, 'math', '2026-10-14');
-  assert.equal(Model.subjectActive(inactive.plan.subjects[0], '2026-10-14'), true);
+  assert.equal(Model.subjectActive(inactive.plan.subjects.find(s=>s.id==='math'), '2026-10-14'), true);
 });
 
 test('history/calendar/session HTML escapes content and carries visible accurate state and accessible date actions', () => {

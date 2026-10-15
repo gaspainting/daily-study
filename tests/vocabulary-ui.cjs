@@ -78,7 +78,7 @@ async function injectPausedTimer(seconds){
 (async()=>{let error;
 try{
   saveOriginalFiles();binaryWrite('files/study-state.json',fs.readFileSync(path.join(__dirname,'fixtures/legacy-seed-v1.3.1.json')));await boot();
-  const catalog=await native('getPlans');originalPlanId=catalog.activeId;let s=await state();[firstSubject,secondSubject]=s.plan.subjects;today=await c.evaluate('StudyModel.today()');yesterday=await c.evaluate(`StudyModel.today(new Date(Date.parse(${JSON.stringify(today)}+'T12:00:00')-86400000))`);
+  const catalog=await native('getPlans');originalPlanId=catalog.activeId;let s=await state();firstSubject=s.plan.subjects.find(x=>x.id==='math');secondSubject=s.plan.subjects.find(x=>x.id==='vocab');today=await c.evaluate('StudyModel.today()');yesterday=await c.evaluate(`StudyModel.today(new Date(Date.parse(${JSON.stringify(today)}+'T12:00:00')-86400000))`);
   check((await native('getAppInfo')).versionName===version,'UI build matches manifest');
   check(Object.keys(s.plan.weekGoals).length===0&&Object.keys(s.plan.weekHints).length===0,'old preset goals and timetable hints are absent after upgrade');
   check(JSON.parse(binaryRead('files/study-state.json')).plan.weekGoals['2026-10-12'],'read-only migration leaves original file intact before a save');
@@ -117,7 +117,7 @@ try{
   check((await state()).plan.wordTargets[today].vocab===80&&(await state()).records[today].subjects.vocab.newWords===0,'date-specific word goal leaves actual count unchanged');await c.evaluate('document.querySelector("#subject-vocab").closest("details").open=true');await submit('#subject-vocab');check((await state()).plan.wordTargets[today].vocab===80,'unchanged default-goal save preserves date override');
   await nav('today');await click('[data-action="plan-picker"]');await click('[data-action="new-plan"]');await input('#new-plan-name','词数隔离验证');await submit('#new-plan-form');testPlanId=(await native('getPlans')).activeId;
   check(testPlanId!==originalPlanId&&(await state()).plan.subjects.find(x=>x.id==='vocab').wordGoal===70&&Object.keys((await state()).plan.weekGoals).length===0,'new plan copies count default and begins without weekly goals');
-  let onlyWords=await state();onlyWords.plan.subjects.find(x=>x.kind==='math').activePeriods=[];await native('saveState',JSON.stringify(onlyWords));await c.evaluate('onNativeResume()');check(await c.evaluate('!document.querySelector("#daily-total")&&!document.querySelector(".quick-timers")'),'word-only plan has no empty time overview or timer container');
+  let onlyWords=await state();for(const subject of onlyWords.plan.subjects)if(subject.kind!=='vocab')subject.activePeriods=[];await native('saveState',JSON.stringify(onlyWords));await c.evaluate('onNativeResume()');check(await c.evaluate('!document.querySelector("#daily-total")&&!document.querySelector(".quick-timers")'),'word-only plan has no empty time overview or timer container');
   await click('[data-action="add-words"][data-field="newWords-vocab"][data-amount="5"]');await submit('#daily-form');await uiSwitch(originalPlanId);
   check((await state()).records[today].subjects.vocab.newWords===0,'switching plan retains each plan quantity');
   await nav('review');check(await c.evaluate('document.querySelector(".word-summary").textContent.includes("复习")&&document.querySelector(".word-summary").textContent.includes("10 个")'),'weekly review shows independent new and review totals');await capture('weekly-vocabulary-stats');

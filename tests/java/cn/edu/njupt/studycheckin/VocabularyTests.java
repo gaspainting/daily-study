@@ -28,7 +28,7 @@ final class VocabularyTests {
         check(p,DataStore.migrateState(state).getJSONObject("plan").getJSONObject("weekGoals").has("2026-10-12"),"manual week marker preserves a deliberately reentered goal");
         String day="2026-10-14";
         check(p,DataStore.wordTarget(state,day,"vocab")==50&&plan.getJSONObject("targets").getJSONObject(day).getInt("vocab")==20,"new word goal defaults to fifty without converting legacy minutes");
-        plan.getJSONArray("subjects").getJSONObject(1).put("wordGoal",80);
+        TestSubjects.inPlan(plan,"vocab").put("wordGoal",80);
         plan.put("wordTargets",new JSONObject().put(day,new JSONObject().put("vocab",0)));
         DataStore.validate(state);
         check(p,DataStore.wordTarget(state,day,"vocab")==0&&DataStore.wordTarget(state,"2026-10-15","vocab")==80,"per day zero word goal and daily default stay distinct");
@@ -44,7 +44,7 @@ final class VocabularyTests {
         check(p,csv.contains("新学目标（个）")&&csv.contains("计量方式")&&csv.contains("\"词数\"")&&csv.contains("\"20\",\"100\""),"CSV exposes count goal and new versus review fields");
         check(p,csv.contains("\"7.5\"")&&entry.getInt("newWords")==20&&entry.getInt("reviewWords")==100,"report retains legacy time and never turns reviews into new words");
         try(BackupManager.Imported imported=BackupManager.read(original,new ByteArrayInputStream(state.toString().getBytes(StandardCharsets.UTF_8)))){check(p,DataStore.wordTarget(imported.study,day,"vocab")==0&&imported.study.getJSONObject("records").getJSONObject(day).getJSONObject("subjects").getJSONObject("vocab").getInt("reviewWords")==100,"JSON backup read preserves count goal zero and review quantity");}
-        for(Object bad:new Object[]{-1,0.5,"50",100001,JSONObject.NULL}){JSONObject invalid=new JSONObject(state.toString());invalid.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("wordGoal",bad);reject(p,()->DataStore.validate(invalid),"reject invalid word goal "+bad);}
+        for(Object bad:new Object[]{-1,0.5,"50",100001,JSONObject.NULL}){JSONObject invalid=new JSONObject(state.toString());TestSubjects.inState(invalid,"vocab").put("wordGoal",bad);reject(p,()->DataStore.validate(invalid),"reject invalid word goal "+bad);}
         JSONObject invalid=new JSONObject(state.toString());invalid.getJSONObject("plan").getJSONObject("wordTargets").getJSONObject(day).put("math",50);reject(p,()->DataStore.validate(invalid),"reject word target on timed subject");
         File dir=new File(original.getCacheDir(),"v132-words-"+UUID.randomUUID());dir.mkdirs();String prefs="v132-words-"+UUID.randomUUID();
         Context context=new ContextWrapper(original){@Override public File getFilesDir(){return dir;}@Override public android.content.SharedPreferences getSharedPreferences(String n,int m){return original.getSharedPreferences(prefs+n,m);}};

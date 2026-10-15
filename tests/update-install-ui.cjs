@@ -1,5 +1,5 @@
 'use strict';
-// Actual HTTPS download and Android permission/installer flow from public v1.3.2.
+// Actual HTTPS download and Android permission/installer flow from the previous public release.
 // All fixture records stay on the owned emulator.
 const {connect,android,delay}=require('./cdp-client.cjs'),ui=require('./native-ui.cjs');
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
@@ -79,7 +79,7 @@ function sameContent(a,b){a=Model.migrateState(a);b=Model.migrateState(b);delete
   android('shell','am','force-stop',pkg);android('shell','am','start','-W','-n',pkg+'/.MainActivity');await attach();await about();
   check(await c.evaluate('document.querySelector("[data-build-version]").dataset.buildVersion')===version,'after installation About reads the genuinely installed version');
   check(sameContent(await study(),representative),'after normal startup preserved null/zero/rest records remain readable');
-  const migrated=await study();check(migrated.records[day].subjects.vocab.newWords===30&&migrated.records[day].subjects.vocab.reviewWords===80,'actual upgrade preserves existing new and review counts without converting minutes');
+  const migrated=await study();check(migrated.plan.subjects[0].id==='course-review'&&migrated.plan.targets[await c.evaluate('StudyModel.today()')]['course-review']>=30,'actual upgrade adds course reference without rewriting observed records');check(migrated.records[day].subjects.vocab.newWords===30&&migrated.records[day].subjects.vocab.reviewWords===80,'actual upgrade preserves existing new and review counts without converting minutes');
   check(migrated.plan.weekGoals[week]==='教材第3章，用户填写目标'&&migrated.plan.weekHints[week]==='先复习例题'&&migrated.plan.manualWeekGoals===true,'actual upgrade preserves user-written weekly goals and notes');
   check(await c.evaluate('JSON.stringify(StudyModel.wordSteps(JSON.parse(Native.getState()),"vocab"))')==='[5,10,20]','old subject acquires default shortcuts without changing its learning records');
   await click('[data-action=update-check]');await until(async()=>!['idle','checking'].includes((await update()).phase),'Post-install check did not settle');check((await update()).phase==='current','public installed version checks as current via actual GitHub endpoint');capture('update-current-real');
@@ -87,6 +87,6 @@ function sameContent(a,b){a=Model.migrateState(a);b=Model.migrateState(b);delete
   const cleanup=[];
   if(c&&originalStudy){try{const current=await study();originalStudy._revision=current._revision||0;const result=await c.evaluate(`JSON.parse(Native.saveState(${JSON.stringify(JSON.stringify(originalStudy))}))`);assert.ok(result.ok,result.error);if(typeof originalOnline==='boolean')await c.evaluate('Native.setInspirationOnline('+originalOnline+')');}catch(e){cleanup.push(e.message);}}
   if(c)c.close();
-  const result={version,from:'actual public release 1.3.2/code6',to:'actual public release '+version+'/code'+targetCode,passed:checks.length,checks,exactPreserved:{studySha256:studyBefore,mediaSha256:mediaBefore,photoFiles:photosBefore?.length},error:failure?.message||null,cleanupErrors:cleanup,unverified:['Physical vivo X100s network and installer UI; Android8-15 installation behavior.']};
+  const result={version,from:'actual public release 1.3.3/code7',to:'actual public release '+version+'/code'+targetCode,passed:checks.length,checks,exactPreserved:{studySha256:studyBefore,mediaSha256:mediaBefore,photoFiles:photosBefore?.length},error:failure?.message||null,cleanupErrors:cleanup,unverified:['Physical vivo X100s network and installer UI; Android8-15 installation behavior.']};
   fs.writeFileSync(path.join(reports,'update-install-ui-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));if(failure||cleanup.length)process.exitCode=1;
 }})();

@@ -67,3 +67,14 @@
 }
 
 .word-add-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}.word-add-row>span{min-width:5em;color:var(--muted);font-size:.875rem}.word-add-row button{min-width:52px;min-height:44px;border:1px solid var(--line);border-radius:8px;padding:8px 12px}.word-summary{border-bottom:1px solid var(--line);padding:18px 0;margin:12px 0 24px}.word-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.word-summary-grid span{display:block;color:var(--muted);font-size:.875rem}.word-summary-grid strong{display:block;margin-top:6px;font-size:1.1rem}.large-text .word-summary-grid{grid-template-columns:1fr}.word-entry .field-inline{margin-top:20px}.word-entry .actual-input{width:100%}
+.course-agenda{margin:28px 0;padding:24px 0;border-top:1px solid var(--line)}
+.course-agenda .section-heading{margin-bottom:20px}
+.course-agenda ol{margin:0;padding:0;list-style:none}
+.course-agenda li{padding:10px 0}
+.agenda-heading{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:600}
+.agenda-heading strong{white-space:normal}
+.agenda-detail{font-size:var(--small,14px);color:var(--muted,#66655f)}
+.agenda-detail{line-height:1.7;margin:7px 0 0;overflow-wrap:anywhere}
+.schedule-budget{margin:20px 0}
+.schedule-budget div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
+.schedule-budget dd{margin:0}

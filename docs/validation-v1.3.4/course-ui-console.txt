@@ -1,0 +1,36 @@
+PASS installed APK version matches build metadata
+PASS old default plan upgrades to course 40 then math 50
+PASS vocabulary keeps fifty-new-word quantity goal
+PASS today lists actual Thursday courses before exam review
+PASS agenda has references with no prescribed daily start or break times
+PASS course problem input does not show a calculus example
+/sdcard/course-ui.png: 1 file pulled, 0 skipped. 19.7 MB/s (154900 bytes in 0.008s)
+PASS past day keeps original two-subject scope
+PASS past reference remains unchanged
+PASS Saturday offers sixty course and thirty calculus minutes
+/sdcard/course-ui.png: 1 file pulled, 0 skipped. 6.0 MB/s (147456 bytes in 0.023s)
+PASS Sunday reference is thirty plus thirty minutes
+PASS course zero leaves unrecorded calculus unknown
+PASS partial zero day displays one-of-two timed subjects recorded
+PASS real write failure keeps input and offers retry
+PASS retry confirms actual course minutes
+PASS unchanged repeated save does not duplicate records
+PASS course draft survives restart separately from saved minutes
+PASS course timer starts with its own subject identity
+PASS background return retains course timer without a launch card
+PASS pause is active and not a saved completion
+PASS finishing course timer stores its own net session
+PASS edited reference appears directly in agenda
+PASS preview identifies affected reference range and Sunday morning allocation
+/sdcard/course-ui.png: 1 file pulled, 0 skipped. 40.6 MB/s (188069 bytes in 0.004s)
+PASS cancelling schedule preview leaves all state unchanged
+PASS failed schedule write keeps preview open and reference unchanged
+PASS successful explicit apply updates only confirmed references
+PASS custom independent plan is not silently rescheduled
+PASS switching plans retains the main course records and references
+PASS course agenda and fields fit 320 CSS pixels at large text
+PASS course actual field exposes its name and unit to accessibility
+PASS schedule preview fits small viewport at large text
+/sdcard/course-ui.png: 1 file pulled, 0 skipped. 43.0 MB/s (183823 bytes in 0.004s)
+PASS course scheduling interactions have no uncaught WebView exceptions
+PASS 32 checks

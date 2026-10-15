@@ -20,16 +20,16 @@ final class AuditTests {
         seed.getJSONObject("plan").getJSONObject("weekHints").put("2026-10-12","极限运算与初等函数基础。");
         JSONObject migrated=DataStore.migrateState(seed);
         check(p,migrated.getJSONObject("plan").getJSONObject("weekGoals").has("2026-10-12")&&migrated.getJSONObject("plan").getJSONObject("weekHints").has("2026-10-12"),"weekly migration matches preset texts only within the corresponding field");
-        migrated.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("wordSteps",new JSONArray("[1,5,10]"));DataStore.validate(migrated);
-        check(p,migrated.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).getJSONArray("wordSteps").getInt(0)==1,"native vocabulary shortcuts preserve exact configuration");
+        TestSubjects.inState(migrated,"vocab").put("wordSteps",new JSONArray("[1,5,10]"));DataStore.validate(migrated);
+        check(p,TestSubjects.inState(migrated,"vocab").getJSONArray("wordSteps").getInt(0)==1,"native vocabulary shortcuts preserve exact configuration");
         for(String raw:new String[]{"[]","[1,2]","[0,5,10]","[1,1,10]","[1.5,5,10]","[\"1\",5,10]","[1,5,100001]"}){
-            JSONObject bad=new JSONObject(migrated.toString());bad.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("wordSteps",new JSONArray(raw));reject(p,()->DataStore.validate(bad),"native rejects invalid shortcut array "+raw);
+            JSONObject bad=new JSONObject(migrated.toString());TestSubjects.inState(bad,"vocab").put("wordSteps",new JSONArray(raw));reject(p,()->DataStore.validate(bad),"native rejects invalid shortcut array "+raw);
         }
-        JSONObject bad=new JSONObject(migrated.toString());bad.getJSONObject("plan").getJSONArray("subjects").getJSONObject(0).put("wordSteps",new JSONArray("[1,5,10]"));reject(p,()->DataStore.validate(bad),"native rejects word shortcuts on a timed subject");
+        JSONObject bad=new JSONObject(migrated.toString());TestSubjects.inState(bad,"math").put("wordSteps",new JSONArray("[1,5,10]"));reject(p,()->DataStore.validate(bad),"native rejects word shortcuts on a timed subject");
         File dir=new File(original.getCacheDir(),"v133-audit-"+UUID.randomUUID());if(!dir.mkdirs())throw new Exception("test directory unavailable");
         Context c=new ContextWrapper(original){@Override public File getFilesDir(){return dir;}};
         try{
-            DataStore.save(c,migrated);check(p,DataStore.load(c).getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).getJSONArray("wordSteps").toString().equals("[1,5,10]"),"atomic study save verifies persisted shortcut bytes");
+            DataStore.save(c,migrated);check(p,TestSubjects.inState(DataStore.load(c),"vocab").getJSONArray("wordSteps").toString().equals("[1,5,10]"),"atomic study save verifies persisted shortcut bytes");
             JSONObject base=new JSONObject().put("newWords-vocab",""),values=new JSONObject().put("newWords-vocab","10");DraftStore.save(c,"main:daily:2026-10-14",base,values);
             JSONObject first=DraftStore.get(c,"main:daily:2026-10-14");byte[] before=InspirationStore.read(new FileInputStream(new File(dir,"drafts.json")),DraftStore.MAX_BYTES);
             android.os.SystemClock.sleep(10);DraftStore.save(c,"main:daily:2026-10-14",base,values);
@@ -39,7 +39,7 @@ final class AuditTests {
             DraftStore.save(c,"main:daily:2026-10-15",longBase,longValue);check(p,DraftStore.get(c,"main:daily:2026-10-15").getJSONObject("base").getString("daily-note").length()==8000,"legacy maximum length record text does not block quantity drafts");
             ByteArrayOutputStream zip=new ByteArrayOutputStream();BackupManager.export(c,zip);
             InputStream shortReads=new FilterInputStream(new ByteArrayInputStream(zip.toByteArray())){@Override public int read(byte[] b,int off,int len)throws IOException{return super.read(b,off,Math.min(1,len));}@Override public int available(){return 0;}};
-            try(BackupManager.Imported imported=BackupManager.read(c,shortReads)){check(p,imported.allPlans()&&imported.study.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).getJSONArray("wordSteps").getInt(2)==10,"valid ZIP with one byte stream reads is recognized and retains shortcuts");}
+            try(BackupManager.Imported imported=BackupManager.read(c,shortReads)){check(p,imported.allPlans()&&TestSubjects.inState(imported.study,"vocab").getJSONArray("wordSteps").getInt(2)==10,"valid ZIP with one byte stream reads is recognized and retains shortcuts");}
             InputStream jsonReads=new FilterInputStream(new ByteArrayInputStream(migrated.toString().getBytes(StandardCharsets.UTF_8))){@Override public int read(byte[] b,int off,int len)throws IOException{return super.read(b,off,Math.min(1,len));}@Override public int available(){return 0;}};
             try(BackupManager.Imported imported=BackupManager.read(c,jsonReads)){check(p,!imported.complete()&&imported.study.getJSONObject("records").length()==0,"short read legacy JSON still imports without inventing actual records");}
             File pending=new File(dir,"plan-switch-journal.json");String beforeRecovery=DataStore.load(c).toString();

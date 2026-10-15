@@ -241,6 +241,17 @@
     const quick=(field,label)=>'<div class="word-add-row"><span>'+label+'累加</span>'+M().wordSteps(state,id).map(n=>'<button type="button" data-action="add-words" data-field="'+field+'-'+id+'" data-amount="'+n+'" aria-label="'+escape(subject.name)+' '+label+'增加'+n+'个">+'+n+'</button>').join('')+'<button type="button" class="word-undo" data-action="undo-words" data-field="'+field+'-'+id+'" aria-label="撤销'+escape(subject.name)+'最近一次'+label+'累加" hidden>撤销</button></div>';
     return '<div class="subject-entry word-entry"><div class="subject-heading"><h3><span class="subject-index">'+String(index+1).padStart(2,'0')+'</span>'+escape(subject.name)+'</h3><span class="reference-pill">'+(!M().subjectActive(subject,selectedDate)?'已归档':goal===null?'计划范围外':'新学目标 '+goal+' 个')+'</span></div><div class="field-inline">'+field('新学（个）','newWords-'+id,r.newWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+field('复习（个）','reviewWords-'+id,r.reviewWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+'</div>'+quick('newWords','新学')+quick('reviewWords','复习')+'<span class="visually-hidden" role="status" aria-live="polite" data-word-feedback></span><details class="details-toggle"'+(r.content||r.forgotWords?' open':'')+'><summary>内容与易忘词</summary>'+field('学习内容','content-'+id,r.content,{maxLength:3000})+field('易忘词','forgotWords-'+id,r.forgotWords,{textarea:true,maxLength:3000})+'</details>'+(r.minutes!=null?'<details class="details-toggle"><summary>时长记录</summary>'+field('历史时长（分钟）','minutes-'+id,r.minutes,{type:'number',min:0,max:1440,step:'any',placeholder:'未记录'})+'</details>':'')+'</div>';
   }
+  function courseAgenda(date) {
+    const schedule=window.StudySchedule,a=schedule.agenda(state,date);
+    if(!a)return '';
+    const item=(name,value,detail)=>'<li><div class="agenda-heading"><span>'+escape(name)+'</span><strong>'+escape(value)+'</strong></div>'+(detail?'<p class="agenda-detail">'+escape(detail)+'</p>':'')+'</li>';
+    const detail=a.weekday===5?'本周课堂笔记、例题与作业':a.weekday===6?'本周易错点与未理清的问题':a.courses&&a.courses.length?a.courses.join('、'):'近期课程笔记与作业';
+    let html='<section class="course-agenda" aria-label="复习顺序"><div class="section-heading"><h2>复习顺序</h2><span class="section-number">'+(a.weekday===6?'早间参考量':'参考量')+'</span></div><ol>'+item(a.courseName,a.courseMinutes+' 分钟',detail);
+    if(a.mathMinutes!==null)html+=item(a.mathName,a.mathMinutes+' 分钟','');
+    const vocab=M().subjectsForDate(state,date).find(s=>s.id==='vocab'&&s.kind==='vocab');
+    if(vocab)html+=item(vocab.name,'新学 '+M().wordTarget(state,date,vocab.id)+' 个','');
+    return html+'</ol></section>';
+  }
   function todayView() {
     const w = weekOf(selectedDate), date = localDate(selectedDate), today = iso();
     const record = M().record(state, selectedDate);
@@ -256,6 +267,7 @@
 
     if (selectedDate === today && within(selectedDate) && M().subjectsForDate(state,selectedDate).some(s=>s.kind!=='vocab')) html += '<div class="quick-timers" aria-label="开始今日学习计时">' + M().subjectsForDate(state, selectedDate).filter(s => s.kind !== 'vocab').map(subject => '<button type="button" data-action="start-timer" data-subject="' + escape(subject.id) + '"' + (!M().allowed() ? ' disabled' : '') + '>' + icon('play') + escape(subject.name) + '计时</button>').join('') + '</div>' + (!M().allowed() ? '<p class="inline-form-note">' + escape(restReason()) + '</p>' : '');
     html += '<div id="timer-panel" class="timer-panel" hidden></div>';
+    html += courseAgenda(selectedDate);
     if (within(selectedDate)) html += '<div class="section"><div class="section-heading"><h2>本周目标</h2><span class="section-number">01 / PLAN</span></div>' + (goal ? '<p class="goal-copy">' + escape(goal) + '</p>' : '') + (weekHint ? '<p class="hint">' + escape(weekHint) + '</p>' : '') + '<button class="text-button" type="button" data-action="edit-week" data-scope="today">' + (goal ? '编辑本周目标' : '填写本周目标') + '</button></div>';
     html += '<form id="daily-form" data-dirty="daily"><div class="section"><div class="section-heading"><h2>今日记录</h2><span class="section-number">02 / RECORD</span></div>';
     html += subjects.map((subject, index) => {
@@ -263,7 +275,7 @@
       if (subject.kind === 'vocab') return vocabEntry(subject, r, index);
       const ref = within(selectedDate) ? M().target(state, selectedDate, id) : 0;
       const editable = selectedDate === today && within(selectedDate) && M().allowed() && M().subjectActive(subject, selectedDate);
-      return '<div class="subject-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3><span class="reference-pill">' + (M().subjectActive(subject, selectedDate) ? '参考 ' + ref + ' 分钟' : '已归档') + '</span></div><label class="visually-hidden" for="minutes-' + id + '">' + escape(subject.name) + '实际净学习分钟</label><div class="actual-row"><div class="actual-input"><input type="number" id="minutes-' + id + '" name="minutes-' + id + '" min="0" max="1440" step="any" inputmode="decimal" value="' + escape(r.minutes) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际分钟"><span>实际分钟</span></div><button type="button" class="start-button" data-action="start-timer" data-subject="' + id + '"' + (!editable ? ' disabled' : '') + '>' + icon('play') + '计时</button></div><details class="details-toggle"' + (r.content || r.problem || r.newWords != null || r.reviewWords != null || r.forgotWords ? ' open' : '') + '><summary>内容与' + '问题' + ' <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: subject.kind === 'math' ? '例如：左右极限；教材第 12 页' : '这次主要学习了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, placeholder: '例如：链式求导漏乘内层导数', maxLength: 3000 }) + '</details></div>';
+      return '<div class="subject-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3><span class="reference-pill">' + (M().subjectActive(subject, selectedDate) ? '参考 ' + ref + ' 分钟' : '已归档') + '</span></div><label class="visually-hidden" for="minutes-' + id + '">' + escape(subject.name) + '实际净学习分钟</label><div class="actual-row"><div class="actual-input"><input type="number" id="minutes-' + id + '" name="minutes-' + id + '" min="0" max="1440" step="any" inputmode="decimal" value="' + escape(r.minutes) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际分钟"><span>实际分钟</span></div><button type="button" class="start-button" data-action="start-timer" data-subject="' + id + '"' + (!editable ? ' disabled' : '') + '>' + icon('play') + '计时</button></div><details class="details-toggle"' + (r.content || r.problem || r.newWords != null || r.reviewWords != null || r.forgotWords ? ' open' : '') + '><summary>内容与' + '问题' + ' <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: subject.kind === 'math' ? '例如：左右极限；教材第 12 页' : '这次主要学习了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, placeholder: subject.kind === 'math' ? '例如：链式求导漏乘内层导数' : '', maxLength: 3000 }) + '</details></div>';
     }).join('');
     html += (selectedDate !== today ? '<p class="hint">历史日期 · 手动记录</p>' : '') + '</div><div class="section"><div class="section-heading"><h2>今日安排</h2><span class="section-number">03 / REST</span></div><fieldset class="status-fieldset"><legend class="field-label">今日安排（选填）</legend><div class="status-options">' + statuses.map(status => '<label class="status-option"><input type="radio" name="status" value="' + status + '"' + (record.status === status ? ' checked' : '') + '><span>' + statusLabel(status) + '</span></label>').join('') + '</div></fieldset><div class="rest-control"><label for="rest-kept">休息记录（选填）</label><select id="rest-kept" name="restKept"><option value=""' + (record.restKept == null ? ' selected' : '') + '>未记录</option><option value="true"' + (record.restKept === true ? ' selected' : '') + '>已保留</option><option value="false"' + (record.restKept === false ? ' selected' : '') + '>需要调整</option></select></div>' + field('随记', 'daily-note', record.note, { textarea: true, placeholder: '', maxLength: 5000 }) + '<div class="save-row"><button type="submit" class="primary">' + icon('check') + '保存这一天</button></div></div></form>';
     return html;
@@ -276,6 +288,7 @@
     const w = weekOf(planDate), dates = M().dates(w.start || w.key, w.end).filter(within);
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><div class="eyebrow">PLAN / 低强度参考</div><h1>学习计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
+    if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程优先安排</button>';
     const goal = state.plan.weekGoals[w.key];
     if (goal) html += '<p class="goal-copy">' + escape(goal) + '</p>';
     if (state.plan.weekHints[w.key]) html += '<p class="hint">' + escape(state.plan.weekHints[w.key]) + '</p>';
@@ -445,6 +458,12 @@
     dialog.close();
     return true;
   }
+  function showCourseSchedule() {
+    if(dirty.size){tell('请先保存当前修改');return;}
+    const latest=readState(),from=window.StudySchedule.from(latest,iso()),b=window.StudySchedule.budgets;
+    if(!window.StudySchedule.canApply(latest,iso()))throw new Error('当前计划无法应用课程优先安排');
+    openSheet('课程优先安排','<p>'+fullDate(from)+' — '+fullDate(latest.plan.endDate)+'</p><dl class="schedule-budget"><div><dt>工作日</dt><dd>'+b.weekday+' 分钟</dd></div><div><dt>周六</dt><dd>'+b.saturday+' 分钟</dd></div><div><dt>周日早间</dt><dd>'+b.sunday+' 分钟</dd></div></dl><p>先课程复习，再高数。单词按数量记录。</p><p>替换上述日期内课程复习和高数的自定参考量。</p><div class="save-row"><button class="cancel-button" data-action="close-sheet">取消</button><button class="primary" data-action="apply-course-schedule" data-plan="'+escape(activePlanId)+'" data-from="'+from+'" data-to="'+latest.plan.endDate+'">应用安排</button></div>');
+  }
   function editWeek(date = planDate) {
     const w = weekOf(date);
     openSheet('第 ' + w.number + ' 周目标', '<form id="week-form" data-dirty="sheet" data-key="' + w.key + '">' + field('本周目标', 'week-goal', state.plan.weekGoals[w.key], { textarea: true, rows: 3, maxLength: 5000 }) + field('随记', 'week-hint', state.plan.weekHints[w.key], { textarea: true, rows: 3, maxLength: 5000 }) + '<div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存目标</button></div></form>');
@@ -589,6 +608,12 @@
         render(); return;
       }
       if (action === 'edit-week') editWeek(button.dataset.scope === 'today' ? selectedDate : planDate);
+      if (action === 'course-schedule') showCourseSchedule();
+      if (action === 'apply-course-schedule') {
+        const latest=readState();
+        if(call('getPlans').activeId!==button.dataset.plan||latest.plan.endDate!==button.dataset.to||window.StudySchedule.from(latest,iso())!==button.dataset.from)throw new Error('计划已变化，请重新打开安排');
+        persist(M().applyCourseSchedule(latest,iso()));closeSheet();render();tell('安排已更新');
+      }
       if (action === 'add-words') changeWords(document.getElementById(button.dataset.field), Number(button.dataset.amount));
       if (action === 'undo-words') undoWords(document.getElementById(button.dataset.field));
       if (action === 'edit-reference') editReference();

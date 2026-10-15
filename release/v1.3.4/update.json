@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  8,
+    "versionName":  "1.3.4",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v1.3.4/daily-study-v1.3.4.apk",
+    "apkBytes":  6547385,
+    "apkSha256":  "3748a5af4775862d2dd316c809e900cdb073a9d1ba37a93e417a71193c108f39",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v1.3.4\n\n- 今日新增课程复习，先回顾当天课程，再进行考研高数复习。\n- 工作日参考90分钟：课多日课程40分钟、高数50分钟；课少日课程30分钟、高数60分钟。\n- 周六集中回顾60分钟、高数30分钟；周日早间各30分钟，下午休息。\n- 按教学周匹配当天课程，随单双周和课程结束周调整。\n- 每天灵活安排，展示参考量和复习顺序。单词沿用数量目标，新学、复习分别记录。\n- 「计划 → 课程优先安排」可预览并应用新的参考量。\n",
+    "releaseDate":  "2026-10-15"
+}

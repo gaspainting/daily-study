@@ -66,17 +66,17 @@ final class FeatureModelTests {
             DataStore.restore(context, legacy);
             check(passes, DataStore.load(context).getInt("version") == 2 && DataStore.load(context).getLong("_revision") == 5, "legacy restore migrates schema while retaining revision concurrency");
 
-            JSONObject archived = DataStore.load(context).getJSONObject("plan").getJSONArray("subjects").getJSONObject(0);
+            JSONObject archived = TestSubjects.inState(DataStore.load(context),"math");
             check(passes, DataStore.activeSubject(archived, LocalDate.of(1900, 1, 1)) && DataStore.activeSubject(archived, LocalDate.of(2100, 12, 31)), "absent activity periods preserve always-active legacy semantics");
             archived.put("activePeriods", new JSONArray().put(new JSONObject().put("from", "1900-01-01").put("to", "2026-10-14")).put(new JSONObject().put("from", "2026-10-17").put("to", JSONObject.NULL)));
             check(passes, DataStore.activeSubject(archived, LocalDate.of(2026, 10, 13)), "archive keeps active historical dates");
             check(passes, !DataStore.activeSubject(archived, LocalDate.of(2026, 10, 14)) && !DataStore.activeSubject(archived, LocalDate.of(2026, 10, 16)), "archive and restore preserve half-open inactive gap");
             check(passes, DataStore.activeSubject(archived, LocalDate.of(2026, 10, 17)), "reactivation includes its first date");
             JSONObject state = DataStore.load(context);
-            state.getJSONObject("plan").getJSONArray("subjects").put(0, archived);
+            TestSubjects.inState(state,"math").put("activePeriods",archived.getJSONArray("activePeriods"));
             DataStore.validate(state);
             DataStore.save(context, state);
-            check(passes, DataStore.load(context).getJSONObject("plan").getJSONArray("subjects").getJSONObject(0).getJSONArray("activePeriods").length() == 2, "activity periods persist through atomic storage");
+            check(passes, TestSubjects.inState(DataStore.load(context),"math").getJSONArray("activePeriods").length() == 2, "activity periods persist through atomic storage");
             state.getJSONObject("reviews").getJSONObject("2026-10-12").getJSONObject("subjects").put("math", "新复盘");
             check(passes, DataStore.migrateState(state).getJSONObject("reviews").getJSONObject("2026-10-12").getJSONObject("subjects").getString("math").equals("新复盘"), "current review text is not overwritten by legacy alias during migration");
             JSONObject badReview = new JSONObject(state.toString());
@@ -88,14 +88,14 @@ final class FeatureModelTests {
                 if (index == 0) periods.put(new JSONObject().put("from", "2026-10-14").put("to", "2026-10-14"));
                 if (index == 1) periods.put(new JSONObject().put("from", "2026-10-12").put("to", "2026-10-16")).put(new JSONObject().put("from", "2026-10-14").put("to", JSONObject.NULL));
                 if (index == 2) periods.put(new JSONObject().put("from", "2026-10-12").put("to", JSONObject.NULL)).put(new JSONObject().put("from", "2026-10-17").put("to", JSONObject.NULL));
-                invalid.getJSONObject("plan").getJSONArray("subjects").getJSONObject(0).put("activePeriods", periods);
+                TestSubjects.inState(invalid,"math").put("activePeriods", periods);
                 final JSONObject bad = invalid;
                 rejects(passes, () -> DataStore.validate(bad), "activity period validation rejects malformed range " + index);
             }
             JSONObject inactive = new JSONObject(state.toString());
-            inactive.getJSONObject("plan").getJSONArray("subjects").getJSONObject(0).put("activePeriods", new JSONArray());
+            TestSubjects.inState(inactive,"math").put("activePeriods", new JSONArray());
             DataStore.validate(inactive);
-            check(passes, !DataStore.activeSubject(inactive.getJSONObject("plan").getJSONArray("subjects").getJSONObject(0), LocalDate.of(2026, 10, 14)), "empty periods mean archived for every date");
+            check(passes, !DataStore.activeSubject(TestSubjects.inState(inactive,"math"), LocalDate.of(2026, 10, 14)), "empty periods mean archived for every date");
             JSONObject unknown = new JSONObject(state.toString()).put("version", 3);
             rejects(passes, () -> DataStore.validate(unknown), "future unsupported schema remains rejected");
             String before = DataStore.readText(new FileInputStream(file));
@@ -104,7 +104,7 @@ final class FeatureModelTests {
 
             JSONObject widget=DataStore.load(context);
             JSONObject widgetPlan=widget.getJSONObject("plan");
-            widgetPlan.getJSONArray("subjects").getJSONObject(0).put("activePeriods",new JSONArray().put(new JSONObject().put("from","1900-01-01").put("to","2026-10-14")));
+            TestSubjects.inPlan(widgetPlan,"math").put("activePeriods",new JSONArray().put(new JSONObject().put("from","1900-01-01").put("to","2026-10-14")));
             widgetPlan.getJSONArray("subjects").put(new JSONObject().put("id","custom_archived").put("name","旧科目").put("kind","custom").put("defaults",new JSONArray("[10,10,10,10,10,10,10]")).put("activePeriods",new JSONArray()));
             JSONObject widgetRecord=new JSONObject().put("subjects",new JSONObject().put("math",subject(0)).put("vocab",subject(JSONObject.NULL)).put("custom_archived",subject(JSONObject.NULL))).put("status",JSONObject.NULL).put("restKept",JSONObject.NULL).put("note","");
             widget.getJSONObject("records").put("2026-10-14",widgetRecord);
@@ -121,14 +121,14 @@ final class FeatureModelTests {
             if(AppRules.allowed(LocalDateTime.now())) {
                 String today=LocalDate.now().toString();JSONObject timerState=DataStore.migrateState(new JSONObject(DataStore.readText(original.getAssets().open("seed.json"))));
                 timerState.getJSONObject("plan").put("startDate",today).put("endDate",today);
-                timerState.getJSONObject("plan").getJSONArray("subjects").getJSONObject(0).put("activePeriods",new JSONArray());
-                timerState.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("kind","custom");
+                TestSubjects.inState(timerState,"math").put("activePeriods",new JSONArray());
+                TestSubjects.inState(timerState,"vocab").put("kind","custom");
                 DataStore.save(context,timerState);
                 JSONObject rejected=TimerStore.start(context,"math","高数",today);
                 check(passes,rejected.optString("error").equals("该科目已归档")&&!TimerStore.snapshot(context).optBoolean("active"),"native timer rejects archived subject start without creating a timer");
                 check(passes,!TimerStore.start(context,"vocab","单词",today).has("error"),"native timer can start active subject after archived rejection");
                 SystemClock.sleep(40);JSONObject paused=TimerStore.action(context,"pause");long milliseconds=paused.getLong("elapsedMs");
-                timerState=DataStore.load(context);timerState.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("activePeriods",new JSONArray());DataStore.save(context,timerState);
+                timerState=DataStore.load(context);TestSubjects.inState(timerState,"vocab").put("activePeriods",new JSONArray());DataStore.save(context,timerState);
                 check(passes,TimerStore.action(context,"resume").optString("error").equals("该科目已归档")&&!TimerStore.snapshot(context).getBoolean("running")&&TimerStore.snapshot(context).getLong("elapsedMs")==milliseconds,"native timer resume rejects archived subject and preserves paused elapsed time");
                 check(passes,TimerStore.action(context,"finish").optBoolean("finished"),"existing archived subject timer can finish and save its original session");
                 JSONObject saved=DataStore.load(context);

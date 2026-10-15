@@ -1,0 +1,78 @@
+{
+  "matchedAssets": 18,
+  "formalDexExcludesTestClasses": true,
+  "files": [
+    {
+      "path": "assets/app.js",
+      "sha256": "eb3621ff2c167657dea89ba71cdf3be7b3700e45b8a3a2542c5ac43f9d4ed634"
+    },
+    {
+      "path": "assets/course-schedule-data.js",
+      "sha256": "57ed8d9d7fa98360a29ce40d3b185ae2fdaf2c1015e2660d2dfe05e8ca487f70"
+    },
+    {
+      "path": "assets/drafts.js",
+      "sha256": "bbf53e7500610de865dd1743752eddbd93a6774c19091b11d82ef86e5c378ea9"
+    },
+    {
+      "path": "assets/index.html",
+      "sha256": "664bb6f2be1a91a3eb84ce85d87c94fe6a2284ff221ccb0687096e89e1385c9a"
+    },
+    {
+      "path": "assets/inspiration-filter.css",
+      "sha256": "e554ce6df9286eea585b5febecb34b29edf276e9730c33022ae6d9bac2f10f03"
+    },
+    {
+      "path": "assets/inspiration-library.json",
+      "sha256": "a316937dc2c5f0624c9bfe5a238403f228f35b43037395b444d16f840e7baace"
+    },
+    {
+      "path": "assets/inspiration.css",
+      "sha256": "113f2553bfff4c335292af6945476892b89bd947c6da972dd0a94291baa1ef1f"
+    },
+    {
+      "path": "assets/inspiration.js",
+      "sha256": "f4b078a8bbb3ffb2c5c6f05229f24c84a213d1f205aa31f2beb81a182a3130f4"
+    },
+    {
+      "path": "assets/model.js",
+      "sha256": "a73ae934d5a4c7472c249fba546c233a41f14f8d56532b5f2e38776911e4d696"
+    },
+    {
+      "path": "assets/polish.css",
+      "sha256": "640be186d713d33347178fd6e15216648c2187ee5800b40c9d8842b3caebecc2"
+    },
+    {
+      "path": "assets/report-font-OFL.txt",
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    {
+      "path": "assets/report-font.ttf",
+      "sha256": "91bbf3b62daf774a14edd0eac36b121e678af9e7228a97f52f23e1c6cb8c011c"
+    },
+    {
+      "path": "assets/schedule.js",
+      "sha256": "ed4a34a5f25c34741ec9c5bdad4b46d8360b852806d316f26a31b1a54e9ce35d"
+    },
+    {
+      "path": "assets/seed.json",
+      "sha256": "0c4ffa6de139762073be75444d088f7dfa048dedc3cae6f825b04833781c2dac"
+    },
+    {
+      "path": "assets/styles.css",
+      "sha256": "d54be3b40d942a0c8aacd20e7792f7720f5487baab88aeb3bd40fdbca51d0a4f"
+    },
+    {
+      "path": "assets/tracking.css",
+      "sha256": "9a0956d51ef5c688d90c01fd89d1ccc05c1c04c9f87e26ba9a6195c23645393a"
+    },
+    {
+      "path": "assets/tracking.js",
+      "sha256": "59c69a7a723138a31eec9beef08dfdad926eb70e4ee36f6f63112cc5e107a6e3"
+    },
+    {
+      "path": "assets/words.js",
+      "sha256": "63f39e6767a8c7147490095d8ac971e42db526a90d1afc8f478a73b1be49d64e"
+    }
+  ]
+}

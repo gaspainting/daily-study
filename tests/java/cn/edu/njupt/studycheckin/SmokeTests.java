@@ -20,7 +20,7 @@ public class SmokeTests extends Instrumentation {
         Context c=getTargetContext();JSONObject original=null;Bundle results=new Bundle();int resultCode=ActivityCodes.OK;
         try {
             original=DataStore.load(c);TimerStore.action(c,"discard");
-            JSONObject seed=new JSONObject(DataStore.readText(c.getAssets().open("seed.json")));DataStore.restore(c,seed);
+            JSONObject seed=new JSONObject(DataStore.readText(c.getAssets().open("seed.json")));DataStore.restore(c,new JSONObject(seed.toString()));
             JSONObject p=seed.getJSONObject("plan"),targets=p.getJSONObject("targets");check(targets.length()==70,"seed covers exactly70 days");
             check(seed.getJSONObject("records").length()==0,"initial actual records are empty");
             int[] expectedMath={340,340,390,390,430,430,430,465,465,465},expectedVocab={140,140,155,155,175,175,175,175,175,175};
@@ -73,6 +73,7 @@ public class SmokeTests extends Instrumentation {
             InspirationSearchTests.run(c,passes);
             VocabularyTests.run(c,passes);
             AuditTests.run(c,passes);
+            CourseScheduleTests.run(c,passes);
             results.putString("stream","PASS "+passes.size()+" checks\n"+String.join("\n",passes)+"\n");
         } catch(Exception e){results.putString("stream","FAILED after "+passes.size()+" checks: "+e+"\n"+String.join("\n",passes)+"\n");resultCode=ActivityCodes.FAIL;}
         finally{TimerStore.action(c,"discard");if(original!=null)try{DataStore.restore(c,original);}catch(Exception ignored){}}

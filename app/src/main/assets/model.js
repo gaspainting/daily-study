@@ -1,9 +1,9 @@
 (function (root, factory) {
   'use strict';
-  var model = factory();
+  var model = factory(root.StudySchedule || (typeof module === 'object' && module.exports ? require('./schedule.js') : null));
   if (typeof module === 'object' && module.exports) module.exports = model;
   root.StudyModel = model;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule) {
   'use strict';
 
   var DAY = 86400000;
@@ -277,7 +277,7 @@
       return {id:item.id,name:item.name,target:goalDays ? target : null,newWords:newDays ? learned : null,reviewWords:reviewDays ? reviewed : null,newRecordedDays:newDays,reviewRecordedDays:reviewDays,totalDays:totalDays};
     });
   }
-  function migrateState(state) {
+  function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
     result.version = 2;
@@ -290,8 +290,13 @@
         if (field && !has(review.subjects, item.id)) review.subjects[item.id] = review[field];
       });
     });
+    if (schedule) { now = now === undefined ? today() : now; dateStamp(now); schedule.upgrade(result, now); }
     validateState(result);
     return result;
+  }
+  function applyCourseSchedule(state, now) {
+    validateState(state); now = now === undefined ? today() : now; dateStamp(now);
+    var result = clone(state); schedule.apply(result, now, true); validateState(result); return result;
   }
   function archiveSubject(state, id, date) {
     validateState(state); dateStamp(date);
@@ -501,7 +506,7 @@
     resizePlan: resizePlan, addSubject: addSubject, updateSubject: updateSubject,
     wordTarget: wordTarget, setWordGoal: setWordGoal, wordStats: wordStats, wordSteps: wordSteps, setWordSteps: setWordSteps,
     weekStats: weekStats, monthStats: monthStats, recordSummary: recordSummary, historySearch: historySearch, sessionSearch: sessionSearch,
-    migrateState: migrateState, archiveSubject: archiveSubject, restoreSubject: restoreSubject, moveSubject: moveSubject,
+    migrateState: migrateState, applyCourseSchedule: applyCourseSchedule, archiveSubject: archiveSubject, restoreSubject: restoreSubject, moveSubject: moveSubject,
     validateState: validateState, validate: validateState, allowed: allowed
   });
 });

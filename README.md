@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前发行版本 v1.3.3 / versionCode 7。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前发行版本 v1.3.4 / versionCode 8。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 
@@ -17,6 +17,8 @@ v1.3.0 增加「设置 → 关于 → 检查更新」。[gaspainting/daily-study
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -TestBuild
+node --test .\tests\course-schedule.test.cjs
+python .\scripts\generate-course-schedule.py
 node --test .\tests\model.test.cjs .\tests\tracking-model.test.cjs .\tests\vocabulary-model.test.cjs .\tests\words-model.test.cjs .\tests\audit-algorithms.test.cjs
 ```
 
@@ -28,7 +30,7 @@ node --test .\tests\model.test.cjs .\tests\tracking-model.test.cjs .\tests\vocab
 adb -s emulator-5572 shell am instrument -w -r cn.edu.njupt.studycheckin/cn.edu.njupt.studycheckin.SmokeTests
 ```
 
-真实 WebView 交互脚本位于 tests，逐个运行；不要并行操作同一模拟器。更新流程与发布命令见 [更新通道](docs/APP-UPDATES.md)。本轮报告见 [v1.3.3报告](docs/V1.3.3.md)，代码审查见 [审查记录](docs/CODE-REVIEW-v1.3.3.md)，截图和结果位于 docs/screenshots/v1.3.3 与 docs/validation-v1.3.3。旧版本报告保留其原版本，不作为本轮通过证明。实际公开 APK 已在 API36 通过下载、权限、取消和覆盖安装，学习/图文文件与20张图片摘要一致；vivo 真机未连接。
+真实 WebView 交互脚本位于 tests，逐个运行；不要并行操作同一模拟器。更新流程与发布命令见 [更新通道](docs/APP-UPDATES.md)。本轮报告见 [v1.3.4报告](docs/V1.3.4.md)，分配见 [课程优先安排](docs/课程优先安排-v1.3.4.md)。截图和原始结果位于 docs/screenshots/v1.3.4 与 docs/validation-v1.3.4；历史报告保留原验证范围。
 
 **数据和项目材料**
 
@@ -45,3 +47,6 @@ v1.3.2 将单词改为按数量记录，默认每日新学目标50个，复习�
 
 
 v1.3.3 增加单词累加撤销与按科目配置快捷加数。修复独立表单草稿丢失、单日目标草稿日期混用、旧长文本草稿与原生周目标识别问题；统一恢复异常的后台保护，优化历史/计时查询、报表合计、日签检索与小组件刷新。PDF使用独立报表字体，许可可在「关于」查看。
+
+
+v1.3.4 加入课程复习，按当天课程与教学周分配参考量。工作日课程与高数合计90分钟；周六90分钟、周日早间60分钟。先课程复习再考研复习，每天灵活安排。单词数量目标、自填周目标与过去记录延续；「计划 → 课程优先安排」可预览并应用参考量。

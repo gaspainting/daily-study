@@ -53,14 +53,14 @@ final class ReportTests {
         check(passes, rows.size() == 3 && rows.get(1)[1].equals("单词"), "CSV selected subject does not emit unrelated subjects");
         output.reset(); ReportExport.write(original, state, output, "csv", "2026-10-11", "2026-10-11", "math"); rows = parse(new String(output.toByteArray(), StandardCharsets.UTF_8));
         check(passes, rows.get(1)[2].equals("—") && rows.get(2)[2].equals("—") && rows.get(1)[3].equals("未记录"), "CSV outside plan has no invented reference or actual zero");
-        JSONObject archived = DataStore.migrateState(state); archived.getJSONObject("plan").getJSONArray("subjects").getJSONObject(1).put("activePeriods", new JSONArray().put(new JSONObject().put("from", "1900-01-01").put("to", "2026-10-14")));
+        JSONObject archived = DataStore.migrateState(state); TestSubjects.inState(archived,"vocab").put("activePeriods", new JSONArray().put(new JSONObject().put("from", "1900-01-01").put("to", "2026-10-14")));
         output.reset(); ReportExport.write(original, archived, output, "csv", "2026-10-14", "2026-10-15", "vocab"); rows = parse(new String(output.toByteArray(), StandardCharsets.UTF_8));
         check(passes, rows.size() == 3 && rows.get(1)[3].equals("0") && rows.get(1)[2].equals("—") && rows.get(2)[4].equals("1/1 天已记录"), "CSV retains archived historical actual and skips inactive empty dates");
         JSONObject noteOnly = DataStore.migrateState(state);
         for (int i = 0; i < noteOnly.getJSONObject("plan").getJSONArray("subjects").length(); i++) noteOnly.getJSONObject("plan").getJSONArray("subjects").getJSONObject(i).put("activePeriods", new JSONArray().put(new JSONObject().put("from", "1900-01-01").put("to", "2026-10-14")));
         noteOnly.getJSONObject("records").put("2026-10-15", new JSONObject().put("subjects", new JSONObject()).put("status", "休息").put("restKept", true).put("note", "归档后仍保留随记"));
         output.reset(); ReportExport.write(original, noteOnly, output, "csv", "2026-10-15", "2026-10-15", "all"); rows = parse(new String(output.toByteArray(), StandardCharsets.UTF_8));
-        check(passes, rows.size() == 4 && rows.get(1)[1].equals("—") && rows.get(1)[6].equals("归档后仍保留随记") && rows.get(1)[4].equals("休息") && rows.get(1)[5].equals("是") && rows.get(1)[3].equals("未记录") && rows.get(1)[16].equals("—"), "CSV keeps day level notes and rest when all subjects are inactive without inventing time");
+        check(passes, rows.size() == 2+noteOnly.getJSONObject("plan").getJSONArray("subjects").length() && rows.get(1)[1].equals("—") && rows.get(1)[6].equals("归档后仍保留随记") && rows.get(1)[4].equals("休息") && rows.get(1)[5].equals("是") && rows.get(1)[3].equals("未记录") && rows.get(1)[16].equals("—"), "CSV keeps day level notes and rest when all subjects are inactive without inventing time");
         final JSONObject valid = state;
         String[][] badRanges = {{"2026-10-15", "2026-10-14"}, {"2026-02-30", "2026-03-01"}, {"1899-01-01", "1899-01-02"}, {"2000-01-01", "2026-10-14"}};
         for (int i = 0; i < badRanges.length; i++) { final String[] range = badRanges[i]; rejects(passes, () -> ReportExport.write(original, valid, new ByteArrayOutputStream(), "csv", range[0], range[1], "all"), "report rejects invalid date range " + i); }
