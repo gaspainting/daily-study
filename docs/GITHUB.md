@@ -43,3 +43,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 
 
 v1.3.4的课程安排源码、当前文档与验证材料随main分支更新。历史source-v1.3.3标签与已发布资源保留；v1.3.4发布标签对应本轮实现。
+
+最终v1.3.4源码和验证资料也可从[source-v1.3.4](https://github.com/gaspainting/daily-study/tree/source-v1.3.4)标签下载；正式发行标签保留发布时的实现与构建输入。

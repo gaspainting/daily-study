@@ -1,0 +1,10 @@
+{
+  "passed": 3,
+  "checks": [
+    "actual prior check error remains visible with retry",
+    "actual user retry reads public current version",
+    "installed formal v1.3.4 displays current state"
+  ],
+  "before": "error",
+  "after": "current"
+}

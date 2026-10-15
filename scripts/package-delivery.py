@@ -24,13 +24,14 @@ dest.with_suffix('.apk.sha256').write_text(f'{sha(dest)}  {dest.name}\n', encodi
 materials = out / f'{label}-v{version}_资料'
 materials.mkdir(exist_ok=True)
 documents = [f'V{version}.md', 'APP-UPDATES.md', 'NEXT-DEVELOPMENT.md', '使用说明.md', 'ux-copy-audit.md']
-documents += [name for name in [f'CODE-REVIEW-v{version}.md', 'THIRD-PARTY-NOTICES.md'] if (root / 'docs' / name).is_file()]
+documents += [name for name in [f'CODE-REVIEW-v{version}.md', f'课程优先安排-v{version}.md', 'THIRD-PARTY-NOTICES.md'] if (root / 'docs' / name).is_file()]
 for name in documents:
     shutil.copy2(root / 'docs' / name, materials / name)
 shutil.copytree(root / 'docs' / f'validation-v{version}', materials / f'validation-v{version}', dirs_exist_ok=True)
 shutil.copytree(root / 'docs/screenshots' / f'v{version}', materials / 'screenshots' / f'v{version}', dirs_exist_ok=True)
 guide = (root / 'docs/使用说明.md').read_text('utf-8')
-guide = guide.replace(f'(V{version}.md)', f'({materials.name}/V{version}.md)').replace('(ux-copy-audit.md)', f'({materials.name}/ux-copy-audit.md)')
+for name in documents:
+    guide = guide.replace(f'({name})', f'({materials.name}/{name})')
 for name in [f'{label}-v{version}_使用说明.md', f'{label}_使用说明.md']:
     (out / name).write_text(guide, encoding='utf-8')
 source = out / f'{label}-v{version}-源码.zip'

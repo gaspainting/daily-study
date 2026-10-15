@@ -296,8 +296,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 2883,
-      "sha256": "3229a2b6230149faf2bc55e76eb4e64f659a2d45c0282b8695c34caddea4b25f"
+      "bytes": 3082,
+      "sha256": "ef10066f4f5d6f7a6ea768c7363a296e6a7152bb9febda3e07b4b73116aa741d"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -306,8 +306,8 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4860,
-      "sha256": "7d04d16f33e1b84e96d03c6d9a79bd69303dfcf3866cf9c29fb6b433f738a7f7"
+      "bytes": 4896,
+      "sha256": "d220afc420dd8554f259828a75f3084ac74386d9a244fd3a165072557152f306"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
@@ -1105,6 +1105,31 @@
       "sha256": "c175be1a0549e924814c7cd250fe20b185225b996cbe74a6037fd0a1515d18f1"
     },
     {
+      "path": "docs/screenshots/v1.3.4/update-available-real.png",
+      "bytes": 256483,
+      "sha256": "07af78ae4954f7a35ca72e4f4455258c8df0426040461d489ec16d7eac75fff9"
+    },
+    {
+      "path": "docs/screenshots/v1.3.4/update-check-retry.png",
+      "bytes": 133643,
+      "sha256": "ca6b9a8e980091827a7716735981bbfe661474f02123214a9a7d5aba9ea68588"
+    },
+    {
+      "path": "docs/screenshots/v1.3.4/update-current-real.png",
+      "bytes": 127753,
+      "sha256": "57cdb32810ca5ad12296c0855a8d2eee2ac45be71015f0cdc9578f1015130b9b"
+    },
+    {
+      "path": "docs/screenshots/v1.3.4/update-install-confirm.png",
+      "bytes": 194453,
+      "sha256": "d7b19a37f97297692cdbd8176cb13d4e68552a2c8e41433e6b81e55d5f4a7f30"
+    },
+    {
+      "path": "docs/screenshots/v1.3.4/update-install-permission.png",
+      "bytes": 105153,
+      "sha256": "71fd96c7c9ddbf278cb857a26725ba6fbcfc409a829b11e388fd73e09494ead9"
+    },
+    {
       "path": "docs/screenshots/v1.3.4/vocabulary-quantity.png",
       "bytes": 149673,
       "sha256": "9ef8e648aaaba9552a4d8f1b40d026ab366fcb5dc10dbddbd26b27e5b7ebd679"
@@ -1186,8 +1211,8 @@
     },
     {
       "path": "docs/V1.3.4.md",
-      "bytes": 5143,
-      "sha256": "c82cc1ff6d7702cb072ac4d02b03952ff621f540f91e103dc9a9618648288076"
+      "bytes": 7026,
+      "sha256": "89f449fa449c48e3d96932ad38360ef5e02c26e82d3db8dbfbf72c46a50caecb"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2040,6 +2065,11 @@
       "sha256": "edb71bb37bf57c509447f382124cb6b12bacde32ef716685050e877a2d8f43a3"
     },
     {
+      "path": "docs/validation-v1.3.4/device-restore-results.txt",
+      "bytes": 757,
+      "sha256": "41b69834cfece64c32631b0167a765dacbf247b03e5093b55e724524c8a0468d"
+    },
+    {
       "path": "docs/validation-v1.3.4/model-initial-results.txt",
       "bytes": 8151,
       "sha256": "7f45f347474cd6c259bb60ddce5f58f2ad208c2ea00915c7a754791236a3f66f"
@@ -2060,14 +2090,24 @@
       "sha256": "8a557781f5a4f330eb349f9427452beaa7942272f15a9d255f997408550876a8"
     },
     {
+      "path": "docs/validation-v1.3.4/public-release-results.json",
+      "bytes": 849,
+      "sha256": "1530eb1d6b788f668750370cce2cc7385065957bfefce8fb4a7063ec44c7f155"
+    },
+    {
       "path": "docs/validation-v1.3.4/release-prepare-results.txt",
       "bytes": 317,
       "sha256": "caf5b6a9b77de9ab8f638052efdd921168f25eb2111e91a5d1decb37d7675d15"
     },
     {
+      "path": "docs/validation-v1.3.4/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "b08e1573d203cc33e5ff4a986c9524ed2c8d87946617f7c0d905c36983747fb5"
+    },
+    {
       "path": "docs/validation-v1.3.4/release-tooling-results.txt",
       "bytes": 404,
-      "sha256": "79ffd64af859f4e5fec7985149eeb89d803e3b0749a064ac52e28953223aa21d"
+      "sha256": "cd869c085a3843aec9ae236a5828cce93ca0b70327d710be4949b16a9b142bab"
     },
     {
       "path": "docs/validation-v1.3.4/report-page-1.png",
@@ -2093,6 +2133,21 @@
       "path": "docs/validation-v1.3.4/schedule-generation-results.txt",
       "bytes": 591,
       "sha256": "bebbe01d23f932852fb3f3f38a48b7337312cb81ba0eb90bd85b65bf292242bd"
+    },
+    {
+      "path": "docs/validation-v1.3.4/update-install-ui-console.txt",
+      "bytes": 5254,
+      "sha256": "b289334ce1d0c3e6048f664eceeaea4b117ceed0494339cf6b158f27a945e562"
+    },
+    {
+      "path": "docs/validation-v1.3.4/update-install-ui-results.json",
+      "bytes": 2550,
+      "sha256": "faab73cddccaa63eec64102fb4ec505379f4e9cfabc26f3956c5c468a83501d2"
+    },
+    {
+      "path": "docs/validation-v1.3.4/update-post-install-retry.json",
+      "bytes": 245,
+      "sha256": "8281ef6a5e13fb6b890474dce296ac495f49693e54e4562821b1ac4bf5c036c2"
     },
     {
       "path": "docs/validation-v1.3.4/v133-regression-console.txt",
@@ -2122,7 +2177,7 @@
     {
       "path": "docs/使用说明.md",
       "bytes": 6426,
-      "sha256": "3eb37183caf6a130344aca51028aa997f2a5f1f62137f2a0fdda26c9f7e18f28"
+      "sha256": "f3a6e3e5af1e87b5c6aff5fd7ccb1eae49c83ea03959809546e5957b1e369617"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -2136,8 +2191,8 @@
     },
     {
       "path": "docs/课程优先安排-v1.3.4.md",
-      "bytes": 3544,
-      "sha256": "a03fd48a0241162a5048c2381c75aad2008fb9db9329814e78221d706bb563d9"
+      "bytes": 3583,
+      "sha256": "a546cf70bea3c60cb23f7e604add10d074d93e51c51b76c6ec05599ba63cea77"
     },
     {
       "path": "generate_seed.py",
@@ -2206,8 +2261,8 @@
     },
     {
       "path": "scripts/package-delivery.py",
-      "bytes": 3406,
-      "sha256": "5162bec68f77d79f0d93acde77757b4141436471bb448132cb981e2ba62b870b"
+      "bytes": 3386,
+      "sha256": "21f925f273179888ce4fdb5cce8f02db593ebddb9f413be15b37fc0e7cf7cc44"
     },
     {
       "path": "scripts/prepare-release.ps1",
@@ -2221,13 +2276,13 @@
     },
     {
       "path": "scripts/publish-release.ps1",
-      "bytes": 7094,
-      "sha256": "76de598da0cca888c95157e5e473bf26a16e210287e1a69739ac11c3345a53cf"
+      "bytes": 7120,
+      "sha256": "933bc9f2c3c719f38f1e596f41843222a38b3df04f6b22368d9bf9fbe6666249"
     },
     {
       "path": "scripts/release-common.ps1",
-      "bytes": 12753,
-      "sha256": "7d94e02ef1e702b4dc32f6268af70a3af21d54caf6ab39747cb5a799e08091c2"
+      "bytes": 14095,
+      "sha256": "7d93be92d06679e60ee657697f2a11b53a999cff7182f728f5b1eccd8019ba16"
     },
     {
       "path": "scripts/source-manifest.py",
@@ -2401,8 +2456,8 @@
     },
     {
       "path": "tests/release-tooling.test.ps1",
-      "bytes": 9198,
-      "sha256": "9cb5969b69d84fdf70194106cdcc357f83fd8e356627e3d8b2a5a5371c3fbe94"
+      "bytes": 10901,
+      "sha256": "5811cfca6677131a924d0f021c0c23a32b48e7135f56234662600ea3607e4735"
     },
     {
       "path": "tests/release-upgrade-ui.cjs",
