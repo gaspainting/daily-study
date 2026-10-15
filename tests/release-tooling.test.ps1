@@ -116,5 +116,25 @@ try {
     if ($apk.VersionName -cne '1.2.0' -and (Test-Path -LiteralPath $previousApk)) {
         Assert-Reject { Get-ReleaseApkInfo $previousApk } 'A stale release APK must not be published as the current source version.'
     }
+    # Exercise retry decisions without contacting GitHub or modifying authentication.
+    $script:MockAttempts=0; $script:MockAlwaysFail=$false; $script:MockFailure='network EOF'
+    function gh {
+        $script:MockAttempts++
+        if ($script:MockAlwaysFail -or $script:MockAttempts -lt 3) { Write-Error $script:MockFailure; $global:LASTEXITCODE=1 }
+        else { Write-Output '{"ok":true}'; $global:LASTEXITCODE=0 }
+    }
+    try {
+        $read=Invoke-ReleaseCommand 'gh' @('api','repos/example/project/releases')
+        Assert ($script:MockAttempts -eq 3 -and ($read | ConvertFrom-Json).ok) 'Transient read failures retry and return the confirmed response.'
+        $script:MockAttempts=0; $script:MockAlwaysFail=$true
+        Assert-Reject { Invoke-ReleaseCommand 'gh' @('api','--method','PATCH','repos/example/project/releases/1','--input','unused.json') } 'A failed publish request must propagate its error.'
+        Assert ($script:MockAttempts -eq 1) 'Mutations never retry after an uncertain response.'
+        $script:MockAttempts=0; $script:MockFailure='HTTP 401 Unauthorized'
+        Assert-Reject { Invoke-ReleaseCommand 'gh' @('api','repos/example/project/releases') } 'Permanent authorization failure remains an error.'
+        Assert ($script:MockAttempts -eq 1) 'Permanent errors do not consume transient retries.'
+        $script:MockAttempts=0; $script:MockFailure='network EOF'
+        Assert-Reject { Invoke-ReleaseCommand 'gh' @('api','repos/example/project/releases','-f','draft=false') } 'Implicit POST is never treated as a read.'
+        Assert ($script:MockAttempts -eq 1) 'Field-based implicit POST requests are not retried.'
+    } finally { Remove-Item Function:gh }
     Write-Output ('PASS: ' + $script:Checks + ' release tooling assertions; no remote mutations.')
 } finally { Remove-ReleaseTemporaryDirectory $temporary }

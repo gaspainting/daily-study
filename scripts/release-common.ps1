@@ -6,10 +6,28 @@ $script:ReleaseSigner = 'fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f807536691
 $script:ReleaseProject = Split-Path -Parent $PSScriptRoot
 $script:ReleaseUtf8 = [Text.UTF8Encoding]::new($false)
 
+function Test-ReleaseReadCommand([string]$Tool, [string[]]$Arguments) {
+    if ($Tool -notmatch '^gh(\.exe)?$' -or $Arguments.Count -lt 2 -or $Arguments[0] -cne 'api' -or $Arguments[1] -notmatch '^repos/') { return $false }
+    # gh api switches to POST when fields/input are supplied, even without --method.
+    foreach ($argument in $Arguments) {
+        if ($argument -match '^(--method|--input|--field|--raw-field)(=|$)' -or $argument -cmatch '^(-X|-f|-F)') { return $false }
+    }
+    return $true
+}
+function Test-ReleaseTransientError([string]$Message) {
+    return $Message -match '(?i)\bEOF\b|connection reset|TLS handshake timeout|i/o timeout|HTTP 50[234]'
+}
 function Invoke-ReleaseCommand([string]$Tool, [string[]]$Arguments) {
-    $lines = @(& $Tool @Arguments 2>&1)
-    if ($LASTEXITCODE -ne 0) { throw ($Tool + ' failed: ' + ($lines -join "`n")) }
-    return ($lines -join "`n")
+    $attempts = if (Test-ReleaseReadCommand $Tool $Arguments) { 3 } else { 1 }
+    for ($attempt=1; $attempt -le $attempts; $attempt++) {
+        $previousErrorAction=$ErrorActionPreference
+        try { $ErrorActionPreference='Continue'; $lines=@(& $Tool @Arguments 2>&1); $code=$LASTEXITCODE }
+        finally { $ErrorActionPreference=$previousErrorAction }
+        if ($code -eq 0) { return ($lines -join "`n") }
+        $message=$Tool + ' failed: ' + ($lines -join "`n")
+        if ($attempt -eq $attempts -or !(Test-ReleaseTransientError $message)) { throw $message }
+        Start-Sleep -Seconds $attempt
+    }
 }
 
 function ConvertTo-ReleaseNativeArgument([string]$Argument) {
@@ -50,7 +68,10 @@ function Invoke-ReleaseBinaryCommand([string]$Tool, [string[]]$Arguments, [strin
 function Save-ReleaseAsset([long]$AssetId, [string]$Destination) {
     if ($AssetId -le 0) { throw 'Invalid release asset ID.' }
     # gh supplies authentication internally; raw stdout is streamed without text conversion.
-    Invoke-ReleaseBinaryCommand 'gh' @('api',('repos/' + $script:ReleaseRepository + '/releases/assets/' + $AssetId),'--header','Accept: application/octet-stream') $Destination
+    for ($attempt=1; $attempt -le 3; $attempt++) {
+        try { Invoke-ReleaseBinaryCommand 'gh' @('api',('repos/' + $script:ReleaseRepository + '/releases/assets/' + $AssetId),'--header','Accept: application/octet-stream') $Destination; return }
+        catch { if ($attempt -eq 3 -or !(Test-ReleaseTransientError $_.Exception.Message)) { throw }; Start-Sleep -Seconds $attempt }
+    }
 }
 
 function Assert-ReleaseDraft($Remote, [string]$Tag, $Release) {
