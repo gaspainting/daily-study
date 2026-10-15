@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib
 import json
+import re
 import shutil
 import zipfile
 import xml.etree.ElementTree as ET
@@ -25,11 +26,15 @@ materials = out / f'{label}-v{version}_资料'
 materials.mkdir(exist_ok=True)
 documents = [f'V{version}.md', 'APP-UPDATES.md', 'NEXT-DEVELOPMENT.md', '使用说明.md', 'ux-copy-audit.md']
 documents += [name for name in [f'CODE-REVIEW-v{version}.md', f'课程优先安排-v{version}.md', 'THIRD-PARTY-NOTICES.md'] if (root / 'docs' / name).is_file()]
+guide = (root / 'docs/使用说明.md').read_text('utf-8')
+for name in re.findall(r'\]\(([^/\\:#()]+\.md)\)', guide):
+    linked = root / 'docs' / name
+    if name not in documents and linked.is_file() and linked.resolve().is_relative_to((root / 'docs').resolve()):
+        documents.append(name)
 for name in documents:
     shutil.copy2(root / 'docs' / name, materials / name)
 shutil.copytree(root / 'docs' / f'validation-v{version}', materials / f'validation-v{version}', dirs_exist_ok=True)
 shutil.copytree(root / 'docs/screenshots' / f'v{version}', materials / 'screenshots' / f'v{version}', dirs_exist_ok=True)
-guide = (root / 'docs/使用说明.md').read_text('utf-8')
 for name in documents:
     guide = guide.replace(f'({name})', f'({materials.name}/{name})')
 for name in [f'{label}-v{version}_使用说明.md', f'{label}_使用说明.md']:

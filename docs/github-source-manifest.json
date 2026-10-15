@@ -1,8 +1,8 @@
 {
   "date": "2026-10-15",
   "repository": "gaspainting/daily-study",
-  "version": "1.3.4",
-  "versionCode": 8,
+  "version": "1.3.5",
+  "versionCode": 9,
   "files": [
     {
       "path": ".gitattributes",
@@ -17,12 +17,12 @@
     {
       "path": "app/src/main/AndroidManifest.xml",
       "bytes": 3387,
-      "sha256": "fbc82b63941f465b4167b5f93dbde1d29abd9d4c7fb1c01e702e79c61d694882"
+      "sha256": "f7b1b4e25e8defdd718f802331464c8534626c7f9982f507137263bc3b5a4fcb"
     },
     {
       "path": "app/src/main/assets/app.js",
-      "bytes": 88213,
-      "sha256": "eb3621ff2c167657dea89ba71cdf3be7b3700e45b8a3a2542c5ac43f9d4ed634"
+      "bytes": 88263,
+      "sha256": "38aac5e89eab4770bcb0afe51f3dea16677b6dec32db508b5bfe1ae3102887f4"
     },
     {
       "path": "app/src/main/assets/course-schedule-data.js",
@@ -66,8 +66,8 @@
     },
     {
       "path": "app/src/main/assets/polish.css",
-      "bytes": 5504,
-      "sha256": "640be186d713d33347178fd6e15216648c2187ee5800b40c9d8842b3caebecc2"
+      "bytes": 6490,
+      "sha256": "e5cb691df4b24d0e0359a5e1d1dd13fc95278314f63906655fa5666c1e3df6e7"
     },
     {
       "path": "app/src/main/assets/report-font-OFL.txt",
@@ -296,8 +296,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 3082,
-      "sha256": "ef10066f4f5d6f7a6ea768c7363a296e6a7152bb9febda3e07b4b73116aa741d"
+      "bytes": 3209,
+      "sha256": "5624e92693a270124e5d5b10e56cd21a78899a4885818ae30bb4123cc414fc3a"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -306,8 +306,8 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4896,
-      "sha256": "d220afc420dd8554f259828a75f3084ac74386d9a244fd3a165072557152f306"
+      "bytes": 5050,
+      "sha256": "143c31008768e123746ed36a4dc1440a8561d3d6bcd2c5797301acc43b9599b3"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
@@ -338,6 +338,11 @@
       "path": "docs/RELEASE-NOTES-v1.3.4.md",
       "bytes": 575,
       "sha256": "92bcb2c6cebbf777d7677e035afc1d13c561eb80ed852d9a31fd3445cd019f24"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.3.5.md",
+      "bytes": 251,
+      "sha256": "1f088913520cf731b71add1b124bfdfab54cd4f2d6afa58c8d0513089faee8af"
     },
     {
       "path": "docs/release-test-results.json",
@@ -1150,6 +1155,26 @@
       "sha256": "627ae7f10b697588c313d0255ddf01e6dfaafe65227c0b5fe66ef223c3753189"
     },
     {
+      "path": "docs/screenshots/v1.3.5/plan-before.png",
+      "bytes": 226639,
+      "sha256": "d3ad5bf34ab0fb0c03a28f9db2e5965fcd92334e0da274e901c5131a753e5991"
+    },
+    {
+      "path": "docs/screenshots/v1.3.5/plan-large-text.png",
+      "bytes": 164023,
+      "sha256": "fd13c61e08795858e06f39afece9d00790ca5571b4b6b493f7042485adb5a213"
+    },
+    {
+      "path": "docs/screenshots/v1.3.5/plan-long-subjects.png",
+      "bytes": 268732,
+      "sha256": "0f9b94ae63403ff2bf46759ab0752ccc624090082d99825854bfa448888cdb87"
+    },
+    {
+      "path": "docs/screenshots/v1.3.5/plan-recorded.png",
+      "bytes": 238500,
+      "sha256": "b38ccd5bf7344efda216045894270d9fe4e5ea83f57c344687a7d3ceda0927a2"
+    },
+    {
       "path": "docs/source/course-review-policy.json",
       "bytes": 1856,
       "sha256": "4c12390efb145f62d20c8168afeef0c3d47027a31b748327c26ffe51f381e902"
@@ -1176,8 +1201,8 @@
     },
     {
       "path": "docs/ux-copy-audit.md",
-      "bytes": 18831,
-      "sha256": "2b331f6deaece6b64d1c94c29844880f97b75631980bec7519c3a6a2418b5d9f"
+      "bytes": 19154,
+      "sha256": "b985bcbc83f896fbd95e92ec2d47608e96ad6d97db3ac3f7bbf4f80d98277e1b"
     },
     {
       "path": "docs/V1.1.0.md",
@@ -1213,6 +1238,11 @@
       "path": "docs/V1.3.4.md",
       "bytes": 7026,
       "sha256": "89f449fa449c48e3d96932ad38360ef5e02c26e82d3db8dbfbf72c46a50caecb"
+    },
+    {
+      "path": "docs/V1.3.5.md",
+      "bytes": 2513,
+      "sha256": "4b25285caf844faba650fa7b43f1a2dd34f673d34b252975161c7eacf04c23f6"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2170,6 +2200,61 @@
       "sha256": "b80539175bd2d0e8cda5108d120ee98e6efd09d2eb8a49f4c1e6f472dcf219d8"
     },
     {
+      "path": "docs/validation-v1.3.5/apk-identity-results.json",
+      "bytes": 204,
+      "sha256": "f9af005d54c6ac3f4616bbcae91102f74d9315be9e5dc5a42d614bc67be244a5"
+    },
+    {
+      "path": "docs/validation-v1.3.5/baseline-commit.txt",
+      "bytes": 42,
+      "sha256": "0684a8846c008d85361780fdbd02d48b4c9780043d3d3acbad13bb35445884fb"
+    },
+    {
+      "path": "docs/validation-v1.3.5/build-release-results.txt",
+      "bytes": 674,
+      "sha256": "692ba88891d0aeb78fa2aa7facfae8598b926690294f583b3759323a05169118"
+    },
+    {
+      "path": "docs/validation-v1.3.5/device-baseline-hashes.txt",
+      "bytes": 1155,
+      "sha256": "edb71bb37bf57c509447f382124cb6b12bacde32ef716685050e877a2d8f43a3"
+    },
+    {
+      "path": "docs/validation-v1.3.5/model-test-results.txt",
+      "bytes": 5238,
+      "sha256": "ee099e033cdabfc8a8839ec5bed976170b05859c3b830b2e0735caa465ccc35b"
+    },
+    {
+      "path": "docs/validation-v1.3.5/plan-layout-baseline-console.txt",
+      "bytes": 165,
+      "sha256": "d0de21ae6746e1da5b617af095e9cff804c548b2094784b470f2c1ad1561687c"
+    },
+    {
+      "path": "docs/validation-v1.3.5/plan-layout-baseline.json",
+      "bytes": 10639,
+      "sha256": "d5bb20c114aaa3895fac56d4ceadc8f8bd40e12df3d6a8c84dc60c3f46564e4d"
+    },
+    {
+      "path": "docs/validation-v1.3.5/plan-layout-console.txt",
+      "bytes": 5170,
+      "sha256": "d12c1ea2a5bc7c862795a3c8c6d62ce7543311ea112ccbf6996c2c9fcbbb0c96"
+    },
+    {
+      "path": "docs/validation-v1.3.5/plan-layout-results.json",
+      "bytes": 83456,
+      "sha256": "0ce5be58854a64b8da756cf4de41ffb94397e318cf31481be443e684ad69de9e"
+    },
+    {
+      "path": "docs/validation-v1.3.5/release-prepare-results.txt",
+      "bytes": 317,
+      "sha256": "e153cc6dd08291606e2d4981cf4e9eab734cf7383be68501346da404033478c2"
+    },
+    {
+      "path": "docs/validation-v1.3.5/release-tooling-results.txt",
+      "bytes": 404,
+      "sha256": "0ab371b839ef6a7d601f1f48696b385933972b203472136038d44b7438a070d5"
+    },
+    {
       "path": "docs/VERIFICATION.md",
       "bytes": 2544,
       "sha256": "dcb947cbd8d937e1c87c044f9fa6e077b99256600c81445c61d6372d91f845ee"
@@ -2177,7 +2262,7 @@
     {
       "path": "docs/使用说明.md",
       "bytes": 6426,
-      "sha256": "f3a6e3e5af1e87b5c6aff5fd7ccb1eae49c83ea03959809546e5957b1e369617"
+      "sha256": "63e514082f5515ada073b614a08f06ef494246d2433999dc3a90deaf04076999"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -2201,8 +2286,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5072,
-      "sha256": "72a26b4bf35db709e2785cac6d7da126a48c70fd1908802d43a54353f0794237"
+      "bytes": 5247,
+      "sha256": "37e8642853ef2fa01274955be082277211ba0593bf58646e190599160d8bea7b"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -2255,14 +2340,24 @@
       "sha256": "bb9f70fcaf8db5b410bfb2fba211aaf4f6812ae21a45cdcac5352bc5cf3cba74"
     },
     {
+      "path": "release/v1.3.5/RELEASE-NOTES.md",
+      "bytes": 251,
+      "sha256": "1f088913520cf731b71add1b124bfdfab54cd4f2d6afa58c8d0513089faee8af"
+    },
+    {
+      "path": "release/v1.3.5/update.json",
+      "bytes": 793,
+      "sha256": "6368b618751dc118d2b9723ad20c6bf159fbc102a6cdb8f18a061e29b6d73ffb"
+    },
+    {
       "path": "scripts/generate-course-schedule.py",
       "bytes": 2761,
       "sha256": "10a5870070c618e7004ae13629efa2e8488c26e6329937958509c3328dbfb770"
     },
     {
       "path": "scripts/package-delivery.py",
-      "bytes": 3386,
-      "sha256": "21f925f273179888ce4fdb5cce8f02db593ebddb9f413be15b37fc0e7cf7cc44"
+      "bytes": 3634,
+      "sha256": "d48e4aa4943829644cdb36ed1ecf52fa46328532f54276ce6f2959c8858b309a"
     },
     {
       "path": "scripts/prepare-release.ps1",
@@ -2443,6 +2538,11 @@
       "path": "tests/native-ui.cjs",
       "bytes": 1360,
       "sha256": "176c73350c7761b9f8a15f7cd8caff115836af4ae915132bb331516f7af5f194"
+    },
+    {
+      "path": "tests/plan-layout-ui.cjs",
+      "bytes": 9315,
+      "sha256": "36232f5d1021420f02079f20d7c778a402a3a68d22e1e4ac73555a96a84dfcd8"
     },
     {
       "path": "tests/platform-polish-ui.cjs",

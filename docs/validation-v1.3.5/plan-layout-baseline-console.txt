@@ -1,0 +1,3 @@
+PASS original signed APK reproduces squeezed reference column
+/sdcard/plan-layout.png: 1 file pulled, 0 skipped. 11.6 MB/s (226639 bytes in 0.019s)
+PASS 2 checks

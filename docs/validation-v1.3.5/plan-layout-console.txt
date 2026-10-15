@@ -1,0 +1,79 @@
+PASS actual formal APK matches the build version
+PASS 390px default text no page overflow
+PASS 390px default text reference text keeps a readable column
+PASS 390px default text saved summary sits below reference text
+PASS 390px default text full row remains tappable and content fits
+PASS 390px default text saved minute and quantity values remain visible
+PASS 390px default text partial zero remains distinct from a complete zero day
+PASS 390px default text unknown and fully recorded zero keep distinct states
+PASS 390px default text unknown status is shown once
+/sdcard/plan-layout.png: 1 file pulled, 0 skipped. 25.8 MB/s (238500 bytes in 0.009s)
+PASS 320px default text no page overflow
+PASS 320px default text reference text keeps a readable column
+PASS 320px default text saved summary sits below reference text
+PASS 320px default text full row remains tappable and content fits
+PASS 320px default text saved minute and quantity values remain visible
+PASS 320px default text partial zero remains distinct from a complete zero day
+PASS 320px default text unknown and fully recorded zero keep distinct states
+PASS 320px default text unknown status is shown once
+PASS 360px default text no page overflow
+PASS 360px default text reference text keeps a readable column
+PASS 360px default text saved summary sits below reference text
+PASS 360px default text full row remains tappable and content fits
+PASS 360px default text saved minute and quantity values remain visible
+PASS 360px default text partial zero remains distinct from a complete zero day
+PASS 360px default text unknown and fully recorded zero keep distinct states
+PASS 360px default text unknown status is shown once
+PASS 430px default text no page overflow
+PASS 430px default text reference text keeps a readable column
+PASS 430px default text saved summary sits below reference text
+PASS 430px default text full row remains tappable and content fits
+PASS 430px default text saved minute and quantity values remain visible
+PASS 430px default text partial zero remains distinct from a complete zero day
+PASS 430px default text unknown and fully recorded zero keep distinct states
+PASS 430px default text unknown status is shown once
+PASS 760px default text no page overflow
+PASS 760px default text reference text keeps a readable column
+PASS 760px default text saved summary sits below reference text
+PASS 760px default text full row remains tappable and content fits
+PASS 760px default text saved minute and quantity values remain visible
+PASS 760px default text partial zero remains distinct from a complete zero day
+PASS 760px default text unknown and fully recorded zero keep distinct states
+PASS 760px default text unknown status is shown once
+PASS plan date buttons retain accessible names
+PASS tapping a completed day opens its original values
+PASS opening the plan and date does not rewrite saved records
+PASS actual system font scale 1.3 reaches WebView
+PASS 320px 1.3x system font no page overflow
+PASS 320px 1.3x system font reference text keeps a readable column
+PASS 320px 1.3x system font saved summary sits below reference text
+PASS 320px 1.3x system font full row remains tappable and content fits
+PASS 320px 1.3x system font saved minute and quantity values remain visible
+PASS 320px 1.3x system font partial zero remains distinct from a complete zero day
+PASS 320px 1.3x system font unknown and fully recorded zero keep distinct states
+PASS 320px 1.3x system font unknown status is shown once
+PASS actual system font scale 1.5 reaches WebView
+PASS 320px 1.5x system font no page overflow
+PASS 320px 1.5x system font reference text keeps a readable column
+PASS 320px 1.5x system font saved summary sits below reference text
+PASS 320px 1.5x system font full row remains tappable and content fits
+PASS 320px 1.5x system font saved minute and quantity values remain visible
+PASS 320px 1.5x system font partial zero remains distinct from a complete zero day
+PASS 320px 1.5x system font unknown and fully recorded zero keep distinct states
+PASS 320px 1.5x system font unknown status is shown once
+PASS actual system font scale 2 reaches WebView
+PASS 320px 2x system font no page overflow
+PASS 320px 2x system font reference text keeps a readable column
+PASS 320px 2x system font saved summary sits below reference text
+PASS 320px 2x system font full row remains tappable and content fits
+PASS 320px 2x system font saved minute and quantity values remain visible
+PASS 320px 2x system font partial zero remains distinct from a complete zero day
+PASS 320px 2x system font unknown and fully recorded zero keep distinct states
+PASS 320px 2x system font unknown status is shown once
+/sdcard/plan-layout.png: 1 file pulled, 0 skipped. 36.0 MB/s (164023 bytes in 0.004s)
+PASS six subjects and a long name remain intact in the reference column
+PASS long subject names do not overflow the page
+PASS long subject references do not collide with actual summary
+/sdcard/plan-long.png: 1 file pulled, 0 skipped. 47.5 MB/s (268732 bytes in 0.005s)
+PASS plan layout interactions have no uncaught WebView exceptions
+PASS 76 checks
