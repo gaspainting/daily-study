@@ -1,0 +1,26 @@
+{
+  "version": "1.3.5",
+  "versionCode": 9,
+  "release": "https://github.com/gaspainting/daily-study/releases/tag/v1.3.5",
+  "latest": true,
+  "publishedAt": "2026-10-15T10:11:28Z",
+  "tagCommit": "5e541c899bd6bc742822e2eae415e2012c68bd98",
+  "assetsMatchLocal": true,
+  "assets": [
+    {
+      "name": "daily-study-v1.3.5.apk",
+      "bytes": 6547385,
+      "sha256": "16c8bd5fcf46dcad79bb6510213e91f987cbba08e6a4d68074942f6177942fa5"
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "bytes": 251,
+      "sha256": "1f088913520cf731b71add1b124bfdfab54cd4f2d6afa58c8d0513089faee8af"
+    },
+    {
+      "name": "update.json",
+      "bytes": 793,
+      "sha256": "6368b618751dc118d2b9723ad20c6bf159fbc102a6cdb8f18a061e29b6d73ffb"
+    }
+  ]
+}

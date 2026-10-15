@@ -1241,8 +1241,8 @@
     },
     {
       "path": "docs/V1.3.5.md",
-      "bytes": 2513,
-      "sha256": "4b25285caf844faba650fa7b43f1a2dd34f673d34b252975161c7eacf04c23f6"
+      "bytes": 3009,
+      "sha256": "3331b1aafc583c149511ace17c93acf7fa8f094acac6eac03f2e5f3a8260eaf6"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2220,6 +2220,11 @@
       "sha256": "edb71bb37bf57c509447f382124cb6b12bacde32ef716685050e877a2d8f43a3"
     },
     {
+      "path": "docs/validation-v1.3.5/device-restore-results.txt",
+      "bytes": 757,
+      "sha256": "481ddffa36be53e89422c7b20cc7960567b699fcb5d777ee6703b6686feaf26e"
+    },
+    {
       "path": "docs/validation-v1.3.5/model-test-results.txt",
       "bytes": 5238,
       "sha256": "ee099e033cdabfc8a8839ec5bed976170b05859c3b830b2e0735caa465ccc35b"
@@ -2245,9 +2250,19 @@
       "sha256": "0ce5be58854a64b8da756cf4de41ffb94397e318cf31481be443e684ad69de9e"
     },
     {
+      "path": "docs/validation-v1.3.5/public-release-results.json",
+      "bytes": 769,
+      "sha256": "0ffeb121127b7002665cfd504fd5918ced5b7aafe612f48e270699c9bb22a6e6"
+    },
+    {
       "path": "docs/validation-v1.3.5/release-prepare-results.txt",
       "bytes": 317,
       "sha256": "e153cc6dd08291606e2d4981cf4e9eab734cf7383be68501346da404033478c2"
+    },
+    {
+      "path": "docs/validation-v1.3.5/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "6c25cfb41e6794abe3e61c8dd9293b6e938ad5cc2bb689736d44dd3308847a8b"
     },
     {
       "path": "docs/validation-v1.3.5/release-tooling-results.txt",
