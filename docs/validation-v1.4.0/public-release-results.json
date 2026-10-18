@@ -1,0 +1,22 @@
+{
+  "tag": "v1.4.0",
+  "url": "https://github.com/gaspainting/daily-study/releases/tag/v1.4.0",
+  "publishedAt": "2026-10-18T09:45:08Z",
+  "assets": [
+    {
+      "name": "daily-study-v1.4.0.apk",
+      "bytes": 6559806,
+      "digest": "sha256:7dbe9b8c9ec9d434b064ce76753110ab1516f1e8d8d0b85aea7b2a1ea47f13f0"
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "bytes": 492,
+      "digest": "sha256:a82e1b6a73da5a6b5131a81a264aeabdd204d61d2ceea7a235a7a70c594f2c53"
+    },
+    {
+      "name": "update.json",
+      "bytes": 1045,
+      "digest": "sha256:dbde723a218d7fb0e1f0a93667745309e51c05a6a6a3effe3f94c117d5fc4edc"
+    }
+  ]
+}

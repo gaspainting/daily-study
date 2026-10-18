@@ -48,3 +48,10 @@ v1.3.4的课程安排源码、当前文档与验证材料随main分支更新。�
 
 
 v1.3.5修复计划列表布局，源码与本轮截图、测量结果位于main；旧版本标签和发行文件保留。
+
+
+**v1.4.0（2026年10月18日）**
+
+[发行版本](https://github.com/gaspainting/daily-study/releases/tag/v1.4.0)，versionCode10。三项公开资源为APK、update.json和RELEASE-NOTES.md；下载校验及公开API记录见validation-v1.4.0。
+
+实现提交d9efacb，main同步后发布，source-v1.4.0保留最终源码与验证文档。原有发行标签及source-archive不变。源码包包含发行文本元数据，独立解压可运行source-manifest.py --verify；私钥、设备快照及APK副本不入源码包。

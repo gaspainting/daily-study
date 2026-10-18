@@ -316,8 +316,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 3209,
-      "sha256": "5624e92693a270124e5d5b10e56cd21a78899a4885818ae30bb4123cc414fc3a"
+      "bytes": 3744,
+      "sha256": "07032c224e91abf0b2b6dfcf22c98a6d7950965e7e8ac4c8c4fdb1c071558ab9"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -327,12 +327,12 @@
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
       "bytes": 4041,
-      "sha256": "7e0bbb7b8df62104fd9f53179468f8c79fa7e62f32f4a7cf92b8b3bdd2dfe2a1"
+      "sha256": "6ea40707ae062e23dcb36fbb51fb8a8364ae7b397f40b0466e445e2f9873e976"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1226,
-      "sha256": "d26ced25e558086947bdd6ae518568ce73ccf33e6b4a03d8f0e0077fe54d96f4"
+      "bytes": 1232,
+      "sha256": "fb51de2b44370b742c0bb51c29cd0c56385915e32d8688e18ee1be3f5affa0b6"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -1336,8 +1336,8 @@
     },
     {
       "path": "docs/V1.4.0.md",
-      "bytes": 4706,
-      "sha256": "ddf52509495d1eacffc5d6e644f5713bec257de6443725e8e9a4e77f26f41ed4"
+      "bytes": 5300,
+      "sha256": "1cb302f3269c89693356d3d81d178aa56b6687467b11065d636a9a282772fc7f"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2405,6 +2405,11 @@
       "sha256": "8227e11e35c4ba86b86c3a68a857f0a1f68c38997e6bd5d0db113b44636adde3"
     },
     {
+      "path": "docs/validation-v1.4.0/public-release-results.json",
+      "bytes": 653,
+      "sha256": "9b94932420f34203937da4adbf8e5642f2695b06a1eb21c03a74923b20cd451c"
+    },
+    {
       "path": "docs/validation-v1.4.0/release-build-results.txt",
       "bytes": 512,
       "sha256": "a41dc84e9e003545d34feae4a4acb9401442683e5b6e76a49bde7a4609c0acec"
@@ -2415,14 +2420,19 @@
       "sha256": "501f6db6538db3f45bc33beec3433cbae640279c5308bfc6f9853dacd9153115"
     },
     {
+      "path": "docs/validation-v1.4.0/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "338dceed8059fb37d3da6e3884cfc69c9e6f9f2a709077822066cf90fbb93bc4"
+    },
+    {
       "path": "docs/validation-v1.4.0/release-tooling-results.txt",
       "bytes": 405,
       "sha256": "6ff93c5a999aeb114807897296ba3d991088f56cba71fa84454fa44ad4b04adc"
     },
     {
       "path": "docs/validation-v1.4.0/source-archive-results.json",
-      "bytes": 138,
-      "sha256": "f9bcb588ad8843902afffdfe244a4e14e9281e63da91efe65dcab04585c07ef3"
+      "bytes": 114,
+      "sha256": "60b2bd01a72a94eff33f656af4855adeb7079d4706ee0ba722658b5fd3f76ec1"
     },
     {
       "path": "docs/validation-v1.4.0/test-build-results.txt",
@@ -2491,8 +2501,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5543,
-      "sha256": "17ae7e13f87271750cafcfa87f6565f6e26625d16bc959227fe1e4e2c406979d"
+      "bytes": 5549,
+      "sha256": "e6b11c6db288dfe00996abfed7d2ba7e9082e919dc4589031970d9c92a5416cc"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
