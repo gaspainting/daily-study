@@ -1,0 +1,31 @@
+{
+  "tag": "v1.4.1",
+  "releaseId": 416470898,
+  "publishedAt": "2026-10-18T13:38:24Z",
+  "url": "https://github.com/gaspainting/daily-study/releases/tag/v1.4.1",
+  "draft": false,
+  "prerelease": false,
+  "releaseCommit": "dd273dab29a3e05e77954a68ac0e1462a78f0c61",
+  "assets": [
+    {
+      "name": "daily-study-v1.4.1.apk",
+      "bytes": 6568065,
+      "digest": "sha256:76edabea02975b5fd2e6670dd184c6fc4facddb34ec4dd9995a22bdd002a61ba"
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "bytes": 456,
+      "digest": "sha256:3241b44f3eddc0b36ccbab1109d1fecd080353c6c4f8e0bc32dae21db026b7a6"
+    },
+    {
+      "name": "update.json",
+      "bytes": 1007,
+      "digest": "sha256:4b0c758e826403bf68e5cd56b6f959c3be17f4464af54bdda142cc5010a881d8"
+    }
+  ],
+  "versionCode": 11,
+  "apkSha256": "76edabea02975b5fd2e6670dd184c6fc4facddb34ec4dd9995a22bdd002a61ba",
+  "stableManifestMatches": true,
+  "legacyApkUrlDownloadMatches": true,
+  "downloadUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.4.1/daily-study-v1.4.1.apk"
+}

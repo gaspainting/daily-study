@@ -31,8 +31,30 @@ for name in re.findall(r'\]\(([^/\\:#()]+\.md)\)', guide):
     linked = root / 'docs' / name
     if name not in documents and linked.is_file() and linked.resolve().is_relative_to((root / 'docs').resolve()):
         documents.append(name)
-for name in documents:
-    shutil.copy2(root / 'docs' / name, materials / name)
+pending = [Path(name) for name in documents]
+copied = set()
+docs_root = (root / 'docs').resolve()
+while pending:
+    relative = pending.pop()
+    if relative in copied:
+        continue
+    original = (docs_root / relative).resolve()
+    assert original.is_relative_to(docs_root) and original.is_file(), str(relative)
+    destination = materials / relative
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(original, destination)
+    copied.add(relative)
+    if original.suffix.lower() == '.md':
+        for link in re.findall(r'\]\(([^)]+)\)', original.read_text('utf-8')):
+            if '://' in link or link.startswith('#'):
+                continue
+            target = (original.parent / link.split('#')[0]).resolve()
+            if not target.is_relative_to(docs_root):
+                continue
+            if target.is_file():
+                pending.append(target.relative_to(docs_root))
+            elif target.is_dir():
+                pending.extend(p.relative_to(docs_root) for p in target.rglob('*') if p.is_file())
 shutil.copytree(root / 'docs' / f'validation-v{version}', materials / f'validation-v{version}', dirs_exist_ok=True)
 shutil.copytree(root / 'docs/screenshots' / f'v{version}', materials / 'screenshots' / f'v{version}', dirs_exist_ok=True)
 for name in documents:

@@ -1,0 +1,10 @@
+{
+  "version": "1.4.1",
+  "versionCode": 11,
+  "debuggable": false,
+  "privateFiles": 9,
+  "allOriginalBytesAndFileSetMatch": true,
+  "fontScale": "1.0",
+  "emulatorShutdownRequested": true,
+  "physicalDeviceUsed": false
+}

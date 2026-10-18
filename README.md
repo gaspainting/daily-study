@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前开发版本 v1.4.1 / versionCode 11，待发布；最近发行版本为 v1.4.0 / versionCode 10。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前发行版本 [v1.4.1 / versionCode 11](https://github.com/gaspainting/daily-study/releases/tag/v1.4.1)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 
@@ -60,4 +60,4 @@ v1.4.0增加自填周任务、今日勾选、周复盘分组、历史目标及�
 
 
 
-v1.4.1加入每日参考区间与按安排评估，工作日60—120分钟、周六240—360分钟、周日180—300分钟；旧计划经预览确认后应用。修复10月12—15日的课程顺序展示。schema4读取旧数据，区间、小组件、统计及报表同步，实际记录保持原口径。发布状态与执行结果见本轮报告。
+v1.4.1加入每日参考区间与按安排评估，工作日60—120分钟、周六240—360分钟、周日180—300分钟；旧计划经预览确认后应用。修复10月12—15日的课程顺序展示。schema4读取旧数据，区间、小组件、统计及报表同步，实际记录保持原口径。发布状态、截图与执行结果见[本轮报告](docs/V1.4.1.md)。

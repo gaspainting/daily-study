@@ -316,8 +316,8 @@
     },
     {
       "path": "docs/CODE-REVIEW-v1.4.1.md",
-      "bytes": 3582,
-      "sha256": "fe9cfa3260c6ec04dff5f6ab7c1c0b0fd886e266d9023e8f967feeef70f24314"
+      "bytes": 3761,
+      "sha256": "3d54e1fff9caa9e3a5182230dea3774aed33fe07c7d96a3f0dafea7867c819c9"
     },
     {
       "path": "docs/CONTRACT.md",
@@ -331,8 +331,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 4018,
-      "sha256": "2a858f698f515cad4e7a187f251c1f6e1f1674b96a105ce6aef2a8cbf90b75ae"
+      "bytes": 4273,
+      "sha256": "685105502d2dda7837738c904f3bf45119eaf4879fd4faa9af9e4fd8a02eff43"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -341,13 +341,13 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4682,
-      "sha256": "76b7ad257c766cba40d63028edeba3257e75fff1895d00f743a12e8effdfc0ca"
+      "bytes": 4624,
+      "sha256": "de76516415f802b2aa075a5eace8029e376bcee5002d93c36bfa8f8f4ec80626"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1343,
-      "sha256": "7c1b95ce0be881cde4e8e3ed3241f8a1b85a6508b9c122762d8af3817c9b1a4e"
+      "bytes": 1334,
+      "sha256": "a499d3dda6c4df89bf0182c59f69265fd2a5f0d225ddb47512195f508af0e5ed"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -1381,8 +1381,8 @@
     },
     {
       "path": "docs/ux-copy-audit.md",
-      "bytes": 21752,
-      "sha256": "19f0cad5b2e7065e81790e8347322ad44abd220906ff1999f3d5f89903ee1f9e"
+      "bytes": 21764,
+      "sha256": "75b8b11e7dedf2131b051306012a0d1e67874059aeac0123152e4823237e22a5"
     },
     {
       "path": "docs/V1.1.0.md",
@@ -1431,8 +1431,8 @@
     },
     {
       "path": "docs/V1.4.1.md",
-      "bytes": 8442,
-      "sha256": "961d467f5a9f2a0ff822657e2b4ee5a143eef7e80142bc63c922fc49d4fb99e3"
+      "bytes": 9237,
+      "sha256": "b31df97b10cb9a7bb9b77d3dc6d9dae00f9e253379ab16c9d55f881d8b21a6fb"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2570,6 +2570,11 @@
       "sha256": "06ef8cfa8b7bd109e8f4fb4e921000142f5013cbb2d75958aa71d9db82bbfecd"
     },
     {
+      "path": "docs/validation-v1.4.1/final-device-results.json",
+      "bytes": 233,
+      "sha256": "3b2b8fc79b8ed93cf6ec69cf7ecb10800020d1497f495ccc0cc5d6bdf2d658b3"
+    },
+    {
       "path": "docs/validation-v1.4.1/formal-apk-results.json",
       "bytes": 365,
       "sha256": "92f8d8e4e583c17af046d037fd7d3184aebcfd9851a3ef99f20e6aeb7cfbf6d6"
@@ -2605,6 +2610,11 @@
       "sha256": "e293ec9d79cb926da2f7a203707755524bc80829b0ed4aa874f37969b22d1237"
     },
     {
+      "path": "docs/validation-v1.4.1/public-release-results.json",
+      "bytes": 1089,
+      "sha256": "03452a2e27af606392822e3dfc91e0bc3bd8336b866ebd5ea45fddb4b7397658"
+    },
+    {
       "path": "docs/validation-v1.4.1/reference-report-results.json",
       "bytes": 314,
       "sha256": "dc5d73a5cc7f2c7832c203f66d76becffb0e688b3d782771f0886251250fc5c1"
@@ -2625,6 +2635,11 @@
       "sha256": "36cd96aeb995361268a0e5e3eca80b9f5ead8a899497a98f645cdf1bb4b299f7"
     },
     {
+      "path": "docs/validation-v1.4.1/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "ab159673f66b2a5cac9ce14c577336e836cac1e7979afc595eb70aa72a95b1ad"
+    },
+    {
       "path": "docs/validation-v1.4.1/release-tooling-results.txt",
       "bytes": 405,
       "sha256": "9e82d405e43b3027910e757e3dc14ac72d79e558f088e1796a013142cdc0dae8"
@@ -2636,8 +2651,8 @@
     },
     {
       "path": "docs/使用说明.md",
-      "bytes": 8207,
-      "sha256": "d07d79dc8a1e4aad3223ace7889d282731e2b42fdd70356bbf881d2e3c3e8754"
+      "bytes": 8296,
+      "sha256": "f1dbd8d2f0de14d5e7b98c5ee8776881e0000e9891f2645cb338db9b8c81f8e0"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -2656,8 +2671,8 @@
     },
     {
       "path": "docs/课程优先安排-v1.4.1.md",
-      "bytes": 4537,
-      "sha256": "70c1b0c64a74bfc7f392df21924a455fb2fac7bdeeca6d7061b59dcd38454dd6"
+      "bytes": 4551,
+      "sha256": "e38d72f59bc053e6460d87e6ea70589605e406b5015d90ec4bcbb3bd41b9d453"
     },
     {
       "path": "generate_seed.py",
@@ -2666,8 +2681,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5929,
-      "sha256": "9bcc6514a29c21681d9ce9035a9989a13d4f4196dc249b2ee09c28b3cef4db60"
+      "bytes": 5962,
+      "sha256": "aad7518f1c230fffa20b5ddefc91898f340ddff94d0853114a0ca13bdde8a532"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -2756,8 +2771,8 @@
     },
     {
       "path": "scripts/package-delivery.py",
-      "bytes": 3864,
-      "sha256": "8e83f0ebd2c3cf9ab90887df3f0af5338a2abdef9897ded20a53d74ade03eee4"
+      "bytes": 4839,
+      "sha256": "47115cdadb34a6f59a32954eaa9325b166a502d03794b2e20f430d61f587cfdd"
     },
     {
       "path": "scripts/prepare-release.ps1",
