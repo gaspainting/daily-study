@@ -24,6 +24,7 @@ foreach ($part in @('java','assets','res')) {
     Get-ChildItem -LiteralPath $stagedPart -Force | Remove-Item -Recurse -Force
     Get-ChildItem -LiteralPath (Join-Path $originalMainRoot $part) -Force | Copy-Item -Destination $stagedPart -Recurse -Force
 }
+if ($TestBuild) { Copy-Item -LiteralPath (Join-Path $projectRoot 'tests\fixtures\assessment-cases.json') -Destination (Join-Path $mainRoot 'assets\assessment-test-cases.json') -Force }
 $manifest = Get-Content -LiteralPath (Join-Path $originalMainRoot 'AndroidManifest.xml') -Raw -Encoding UTF8
 [xml]$versionManifest=$manifest
 $androidNamespace='http://schemas.android.com/apk/res/android'

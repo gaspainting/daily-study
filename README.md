@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前发行版本 v1.4.0 / versionCode 10。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前开发版本 v1.4.1 / versionCode 11，待发布；最近发行版本为 v1.4.0 / versionCode 10。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 
@@ -30,7 +30,7 @@ node --test .\tests\model.test.cjs .\tests\tracking-model.test.cjs .\tests\vocab
 adb -s emulator-5572 shell am instrument -w -r cn.edu.njupt.studycheckin/cn.edu.njupt.studycheckin.SmokeTests
 ```
 
-真实 WebView 交互脚本位于 tests，逐个运行；不要并行操作同一模拟器。更新流程与发布命令见 [更新通道](docs/APP-UPDATES.md)。本轮报告见 [v1.4.0报告](docs/V1.4.0.md)，分配见 [课程优先安排](docs/课程优先安排-v1.3.4.md)。截图和原始结果位于 docs/screenshots/v1.4.0 与 docs/validation-v1.4.0；历史报告保留原验证范围。
+真实 WebView 交互脚本位于 tests，逐个运行；不要并行操作同一模拟器。更新流程与发布命令见 [更新通道](docs/APP-UPDATES.md)。当前分配见 [课程优先安排](docs/课程优先安排-v1.4.1.md)。[v1.4.0报告](docs/V1.4.0.md)及 docs/screenshots/v1.4.0、docs/validation-v1.4.0 保留对应发行的验证范围。
 
 **数据和项目材料**
 
@@ -56,3 +56,8 @@ v1.3.5 修复计划页记录完成后摘要挤占日期与参考量的问题。�
 
 
 v1.4.0增加自填周任务、今日勾选、周复盘分组、历史目标及移周，支持草稿、完整备份和PDF周报。旧文字保留，任务与分钟、词数分开；schema3兼容旧数据。修复关闭弹层后旧表单再次写入草稿的问题。
+
+
+
+
+v1.4.1加入每日参考区间与按安排评估，工作日60—120分钟、周六240—360分钟、周日180—300分钟；旧计划经预览确认后应用。修复10月12—15日的课程顺序展示。schema4读取旧数据，区间、小组件、统计及报表同步，实际记录保持原口径。发布状态与执行结果见本轮报告。

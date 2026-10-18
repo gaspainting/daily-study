@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 /** Readable exports keep absent observations distinct from an observed zero. */
 public final class ReportExport {
-    private static final String[] HEADERS = {"日期", "科目", "参考时长（分钟）", "已记录（分钟）", "今日安排", "休息记录", "随记", "学习内容", "问题", "新词数", "复习词数", "生词", "计时次数", "计时秒数", "计划", "新学目标（个）", "计量方式"};
+    private static final String[] HEADERS = {"日期", "科目", "参考时长（分钟）", "已记录（分钟）", "今日安排", "休息记录", "随记", "学习内容", "问题", "新词数", "复习词数", "生词", "计时次数", "计时秒数", "计划", "新学目标（个）", "计量方式", "当日时长评估", "评估区间（分钟）", "新学评估"};
     private ReportExport() {}
     private static Typeface reportTypeface;
     private static synchronized Typeface font(Context context) {
@@ -74,11 +74,13 @@ public final class ReportExport {
     }
     private static final class Row {
         String day, id, name, status, rest, note, content, problem, forgot;
-        Double reference, minutes, newWords, reviewWords, wordGoal;
+        Double reference, referenceMin,referenceMax,minutes, newWords, reviewWords, wordGoal;
+        String referenceText,assessment,assessmentRange,wordAssessment;
+        boolean interval;
         boolean wordBased;
         int sessionCount;
         double sessionSeconds;
-        String[] cells() { return new String[]{day, name, reference == null ? "—" : decimal(reference), quantity(minutes), status, rest, note, content, problem, quantity(newWords), quantity(reviewWords), forgot, Integer.toString(sessionCount), decimal(sessionSeconds)}; }
+        String[] cells() { return new String[]{day, name, referenceText==null?"—":referenceText, quantity(minutes), status, rest, note, content, problem, quantity(newWords), quantity(reviewWords), forgot, Integer.toString(sessionCount), decimal(sessionSeconds)}; }
     }
     private static List<Row> rows(JSONObject state, LocalDate first, LocalDate last, List<JSONObject> subjects) throws Exception {
         List<Row> rows = new ArrayList<>();
@@ -89,6 +91,7 @@ public final class ReportExport {
             String day = date.toString();
             int rowsBefore = rows.size();
             JSONObject record = records.optJSONObject(day), subjectRecords = record == null ? null : record.optJSONObject("subjects"), dailyTargets = targets.optJSONObject(day);
+            JSONObject assessed=Reference.assess(state,date),time=assessed.getJSONObject("time");JSONArray wordAssessments=assessed.getJSONArray("words");
             for (JSONObject subject : subjects) {
                 Row row = new Row(); row.day = day; row.id = subject.getString("id"); row.name = subject.getString("name"); row.wordBased="vocab".equals(subject.getString("kind"));
                 JSONObject entry = subjectRecords == null ? null : subjectRecords.optJSONObject(row.id);
@@ -96,7 +99,9 @@ public final class ReportExport {
                 row.content = text(entry, "content"); row.problem = text(entry, "problem"); row.forgot = text(entry, "forgotWords");
                 row.status = text(record, "status"); row.note = text(record, "note"); row.rest = rest(record);
                 boolean active = DataStore.activeSubject(subject, date);
-                if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)) row.reference = dailyTargets != null && dailyTargets.has(row.id) ? dailyTargets.getDouble(row.id) : subject.getJSONArray("defaults").getDouble(date.getDayOfWeek().getValue() - 1);
+                if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)){Object ref=Reference.value(plan,subject,date);row.reference=Reference.midpoint(ref);row.referenceMin=Reference.min(ref);row.referenceMax=Reference.max(ref);row.referenceText=Reference.text(ref);row.interval=ref instanceof JSONObject;}
+                row.assessment=time.getString("label");String assessedKind=time.getString("kind");row.assessmentRange=assessedKind.equals("below")||assessedKind.equals("within")||assessedKind.equals("above")?time.getString("scope")+" "+decimal(time.getDouble("min"))+"—"+decimal(time.getDouble("max")):"—";
+                row.wordAssessment="";for(int wi=0;wi<wordAssessments.length();wi++){JSONObject w=wordAssessments.getJSONObject(wi);if(w.getString("id").equals(row.id))row.wordAssessment=w.getString("label");}
                 if(row.wordBased&&active&&!date.isBefore(planStart)&&!date.isAfter(planEnd))row.wordGoal=(double)DataStore.wordTarget(state,day,row.id);
                 JSONObject daySessions = byDate.optJSONObject(day), count = daySessions == null ? null : daySessions.optJSONObject(row.id);
                 if (count != null) { row.sessionCount = count.getInt("count"); row.sessionSeconds = count.getDouble("seconds"); }
@@ -132,7 +137,8 @@ public final class ReportExport {
         }
     }
     private static final class Total {
-        double actual, reference, learned, reviewed, wordGoal; int recorded, referenceDays, days, newDays, reviewDays, goalDays;
+        double actual, reference,referenceMin,referenceMax, learned, reviewed, wordGoal;boolean interval; int recorded, referenceDays, days, newDays, reviewDays, goalDays;
+        String referenceText(){return referenceDays==0?"—":interval?decimal(referenceMin)+"—"+decimal(referenceMax):decimal(reference);}
     }
     private static Map<String,Total> totals(List<Row> rows) {
         Map<String,Total> result=new HashMap<>();
@@ -141,18 +147,18 @@ public final class ReportExport {
             total.days++;
             if(row.newWords!=null){total.learned+=row.newWords;total.newDays++;}if(row.reviewWords!=null){total.reviewed+=row.reviewWords;total.reviewDays++;}if(row.wordGoal!=null){total.wordGoal+=row.wordGoal;total.goalDays++;}
             if (row.minutes != null) { total.actual += row.minutes; total.recorded++; }
-            if (row.reference != null) { total.reference += row.reference; total.referenceDays++; }
+            if (row.reference != null) { total.reference += row.reference;total.referenceMin+=row.referenceMin;total.referenceMax+=row.referenceMax;total.interval|=row.interval;total.referenceDays++; }
         }
         return result;
     }
     private static void csv(OutputStream output, String title, List<Row> rows, Map<String,Total> totals, List<JSONObject> subjects) throws Exception {
         OutputStreamWriter writer = new OutputStreamWriter(output, StandardCharsets.UTF_8); writer.write('\ufeff');
         csvLine(writer, HEADERS);
-        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":"分钟";csvLine(writer, cells); }
+        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":"分钟";cells[17]=row.assessment;cells[18]=row.assessmentRange;cells[19]=row.wordAssessment;csvLine(writer, cells); }
         for (JSONObject subject : subjects) {
             Total total = totals.getOrDefault(subject.getString("id"),new Total());
             String[] cells = new String[HEADERS.length]; java.util.Arrays.fill(cells, "");
-            cells[0] = "合计"; cells[1] = subject.getString("name"); cells[2] = total.referenceDays == 0 ? "—" : decimal(total.reference); cells[3] = total.recorded == 0 ? "未记录" : decimal(total.actual); cells[4] = total.recorded + "/" + total.days + " 天已记录";
+            cells[0] = "合计"; cells[1] = subject.getString("name"); cells[2] = total.referenceText(); cells[3] = total.recorded == 0 ? "未记录" : decimal(total.actual); cells[4] = total.recorded + "/" + total.days + " 天已记录";
             cells[9]=total.newDays==0?"未记录":decimal(total.learned);cells[10]=total.reviewDays==0?"未记录":decimal(total.reviewed);cells[15]=total.goalDays==0?"—":decimal(total.wordGoal);cells[16]="vocab".equals(subject.getString("kind"))?"词数":"分钟";
             cells[14] = title;
             csvLine(writer, cells);
@@ -180,14 +186,17 @@ public final class ReportExport {
             for (JSONObject subject : subjects) {
                 Total total = totals.getOrDefault(subject.getString("id"),new Total());
                 if("vocab".equals(subject.getString("kind"))){pages.paragraph(subject.getString("name")+" · 新学 "+(total.newDays==0?"未记录":decimal(total.learned)+" 个")+" / 目标 "+(total.goalDays==0?"—":decimal(total.wordGoal)+" 个")+" · 复习 "+(total.reviewDays==0?"未记录":decimal(total.reviewed)+" 个"),true);pages.paragraph("新学记录 "+total.newDays+"/"+total.days+" 天 · 复习记录 "+total.reviewDays+"/"+total.days+" 天",false);if(total.recorded>0)pages.paragraph("历史时长："+decimal(total.actual)+" 分钟",false);}
-                else pages.paragraph(subject.getString("name") + " · 参考 " + (total.referenceDays == 0 ? "—" : decimal(total.reference) + " 分钟") + " · 已记录 " + (total.recorded == 0 ? "未记录" : decimal(total.actual) + " 分钟") + " · " + total.recorded + "/" + total.days + " 天", true);
+                else pages.paragraph(subject.getString("name") + " · 参考 " + total.referenceText()+" 分钟" + " · 已记录 " + (total.recorded == 0 ? "未记录" : decimal(total.actual) + " 分钟") + " · " + total.recorded + "/" + total.days + " 天", true);
             }
             pages.gap(8);
+            Set<String> assessedDates=new HashSet<>();
             for (Row row : rows) {
+                if(assessedDates.add(row.day)&&row.assessment!=null){pages.paragraph(row.day+" 当日时长评估："+row.assessment,true);if(row.assessmentRange!=null&&!row.assessmentRange.equals("—"))pages.paragraph("评估区间："+row.assessmentRange+" 分钟",false);}
                 pages.keep(row.wordBased?3:2);
                 pages.paragraph(row.day + "  " + row.name, true);
                 if(row.wordBased){pages.paragraph("新学："+quantity(row.newWords)+(row.newWords==null?"":" 个")+"    目标："+(row.wordGoal==null?"—":decimal(row.wordGoal)+" 个"),false);pages.paragraph("复习："+quantity(row.reviewWords)+(row.reviewWords==null?"":" 个"),false);if(row.minutes!=null)pages.paragraph("历史时长："+decimal(row.minutes)+" 分钟",false);}
-                else pages.paragraph("参考时长：" + (row.reference == null ? "—" : decimal(row.reference) + " 分钟") + "    已记录：" + (row.minutes == null ? "未记录" : decimal(row.minutes) + " 分钟"), false);
+                else pages.paragraph("参考时长：" + (row.referenceText == null ? "—" : row.referenceText + " 分钟") + "    已记录：" + (row.minutes == null ? "未记录" : decimal(row.minutes) + " 分钟"), false);
+                if(row.wordAssessment!=null&&!row.wordAssessment.isEmpty())pages.paragraph("新学评估："+row.wordAssessment,false);
                 if (!row.status.isEmpty()) pages.paragraph("今日安排：" + row.status, false);
                 if (!"未记录".equals(row.rest)) pages.paragraph("休息记录：" + row.rest, false);
                 field(pages, "学习内容", row.content); field(pages, "问题", row.problem);

@@ -24,7 +24,7 @@ shutil.copy2(apk, dest)
 dest.with_suffix('.apk.sha256').write_text(f'{sha(dest)}  {dest.name}\n', encoding='utf-8')
 materials = out / f'{label}-v{version}_资料'
 materials.mkdir(exist_ok=True)
-documents = [f'V{version}.md', 'APP-UPDATES.md', 'NEXT-DEVELOPMENT.md', '使用说明.md', 'ux-copy-audit.md']
+documents = [f'V{version}.md', 'APP-UPDATES.md', 'NEXT-DEVELOPMENT.md', 'NEXT-STAGE-PLAN.md', '使用说明.md', 'ux-copy-audit.md']
 documents += [name for name in [f'CODE-REVIEW-v{version}.md', f'课程优先安排-v{version}.md', 'THIRD-PARTY-NOTICES.md'] if (root / 'docs' / name).is_file()]
 guide = (root / 'docs/使用说明.md').read_text('utf-8')
 for name in re.findall(r'\]\(([^/\\:#()]+\.md)\)', guide):

@@ -19,6 +19,7 @@
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
   const M = () => window.StudyModel;
+  const R = () => window.StudyReference;
   const iso = date => M().today(date || new Date());
   const localDate = date => new Date(date + 'T12:00:00');
   const shift = (date, count) => { const d = localDate(date); d.setDate(d.getDate() + count); return iso(d); };
@@ -33,7 +34,7 @@
   const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords));
   const actualTotal = record => { const values = Object.values(record && record.subjects || {}).filter(s => s.minutes != null).map(s => s.minutes); return values.length ? values.reduce((a, b) => a + b, 0) : null; };
   const visibleSubjects = date => state.plan.subjects.filter(s => M().subjectActive(s, date) || meaningful({ subjects: { [s.id]: state.records[date]?.subjects?.[s.id] || {} } }));
-  const refTotal = date => M().subjectsForDate(state, date).filter(s => s.kind !== 'vocab').reduce((sum, s) => sum + (within(date) ? M().target(state, date, s.id) : 0), 0);
+  const refTotal = date => within(date)?R().total(state,date):null;
   const clampPlanDate = date => date < state.plan.startDate ? state.plan.startDate : date > state.plan.endDate ? state.plan.endDate : date;
 
   function tell(message) {
@@ -68,6 +69,10 @@
   function attempt(action) { try { return action(); } catch (error) { tell(error.message || '操作未完成，请重试。'); return false; } }
   function syncFeedback(form) {
     if (!form) return;
+    if(form.id==='daily-form'){
+      const panel=document.querySelector('.daily-assessment');
+      if(panel){panel.querySelector('.assessment-pending').hidden=!dirty.has('daily');panel.querySelector('.assessment-results').hidden=dirty.has('daily');}
+    }
     let element = form.querySelector('.save-feedback');
     if (!element) { element = document.createElement('div'); element.className = 'save-feedback'; const row = form.querySelector('.save-row') || form.querySelector('[type="submit"]'); if (row) row.after(element); else form.append(element); }
     const item = feedback.get(form.dataset.dirty);
@@ -244,16 +249,31 @@
     const quick=(field,label)=>'<div class="word-add-row"><span>'+label+'累加</span>'+M().wordSteps(state,id).map(n=>'<button type="button" data-action="add-words" data-field="'+field+'-'+id+'" data-amount="'+n+'" aria-label="'+escape(subject.name)+' '+label+'增加'+n+'个">+'+n+'</button>').join('')+'<button type="button" class="word-undo" data-action="undo-words" data-field="'+field+'-'+id+'" aria-label="撤销'+escape(subject.name)+'最近一次'+label+'累加" hidden>撤销</button></div>';
     return '<div class="subject-entry word-entry"><div class="subject-heading"><h3><span class="subject-index">'+String(index+1).padStart(2,'0')+'</span>'+escape(subject.name)+'</h3><span class="reference-pill">'+(!M().subjectActive(subject,selectedDate)?'已归档':goal===null?'计划范围外':'新学目标 '+goal+' 个')+'</span></div><div class="field-inline">'+field('新学（个）','newWords-'+id,r.newWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+field('复习（个）','reviewWords-'+id,r.reviewWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+'</div>'+quick('newWords','新学')+quick('reviewWords','复习')+'<span class="visually-hidden" role="status" aria-live="polite" data-word-feedback></span><details class="details-toggle"'+(r.content||r.forgotWords?' open':'')+'><summary>内容与易忘词</summary>'+field('学习内容','content-'+id,r.content,{maxLength:3000})+field('易忘词','forgotWords-'+id,r.forgotWords,{textarea:true,maxLength:3000})+'</details>'+(r.minutes!=null?'<details class="details-toggle"><summary>时长记录</summary>'+field('历史时长（分钟）','minutes-'+id,r.minutes,{type:'number',min:0,max:1440,step:'any',placeholder:'未记录'})+'</details>':'')+'</div>';
   }
+  function assessmentView(date){
+    const result=R().assess(state,date),t=result.time;
+    const detail=['below','within','above'].includes(t.kind)?statusLabel(t.status)+' · '+t.scope+' '+R().decimal(t.actual)+' / '+R().text({min:t.min,max:t.max})+' 分钟':t.kind==='partial'?statusLabel(t.status)+' · '+t.missing+' 科时长未记录':'';
+    let html='<section class="daily-assessment" aria-label="今日评估"><div class="section-heading"><h2>今日评估</h2><button class="text-button" type="button" data-action="assessment-rules">评估规则</button></div><p class="assessment-pending" role="status" hidden>待保存</p><div class="assessment-results"><div class="assessment-row"><span>时长</span><strong data-time-assessment="'+t.kind+'">'+escape(t.label)+'</strong></div>'+(detail?'<p class="assessment-detail">'+escape(detail)+'</p>':'');
+    result.words.forEach(w=>{html+='<div class="assessment-row"><span>'+escape(w.name)+'新学</span><strong data-word-assessment="'+w.kind+'">'+escape(w.label)+'</strong></div><p class="assessment-detail">'+(w.newWords===null?'未记录':w.newWords+' 个')+(w.goal===null?'':' / '+w.goal+' 个')+(w.reviewWords===null?'':' · 复习 '+w.reviewWords+' 个')+'</p>';});
+    if(t.kind==='range'&&within(date))html+='<button class="text-button" type="button" data-action="edit-reference" data-date="'+date+'">设置参考区间</button>';
+    return html+'</div></section>';
+  }
+  function assessmentSummary(days){
+    const c=R().counts(state,days);
+    return '<section class="assessment-summary" aria-label="时长评估汇总"><h3>时长评估</h3><p>完成 '+c.within+' 天 · 超额 '+c.above+' 天 · 未完成 '+c.below+' 天</p><p>休息 '+c.rest+' 天 · 待评估 '+c.pending+' 天</p></section>';
+  }
   function courseAgenda(date) {
     const schedule=window.StudySchedule,a=schedule.agenda(state,date);
     if(!a)return '';
-    const item=(name,value,detail)=>'<li><div class="agenda-heading"><span>'+escape(name)+'</span><strong>'+escape(value)+'</strong></div>'+(detail?'<p class="agenda-detail">'+escape(detail)+'</p>':'')+'</li>';
+    const item=(name,value,detail)=>'<li><div class="agenda-heading"><span>'+escape(name)+'</span>'+(value===null?'':'<strong>'+escape(value)+'</strong>')+'</div>'+(detail?'<p class="agenda-detail">'+escape(detail)+'</p>':'')+'</li>';
     const detail=a.weekday===5?'本周课堂笔记、例题与作业':a.weekday===6?'本周易错点与未理清的问题':a.courses&&a.courses.length?a.courses.join('、'):'近期课程笔记与作业';
-    let html='<section class="course-agenda" aria-label="复习顺序"><div class="section-heading"><h2>复习顺序</h2><span class="section-number">'+(a.weekday===6?'早间参考量':'参考量')+'</span></div><ol>'+item(a.courseName,a.courseMinutes+' 分钟',detail);
-    if(a.mathMinutes!==null)html+=item(a.mathName,a.mathMinutes+' 分钟','');
+    const range=value=>value[0]/60+'—'+value[1]/60+' 小时';
+    let html='<section class="course-agenda" aria-label="复习顺序"><div class="section-heading"><h2>复习顺序</h2><span class="section-number">参考区间</span></div><ol>'+item(a.courseName,a.courseRange===null?null:R().text(a.courseRange)+' 分钟',(a.periods?'上午 '+range(a.periods.morning)+' · ':'')+detail);
+    if(a.mathRange!==null)html+=item(a.mathName,R().text(a.mathRange)+' 分钟',a.periods?'下午 '+range(a.periods.afternoon):'');
     const vocab=M().subjectsForDate(state,date).find(s=>s.id==='vocab'&&s.kind==='vocab');
     if(vocab)html+=item(vocab.name,'新学 '+M().wordTarget(state,date,vocab.id)+' 个','');
-    return html+'</ol></section>';
+    html+='</ol>';
+    if(a.weekday>=5&&!a.periods&&date>=iso()&&schedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">调整周末参考</button>';
+    return html+'</section>';
   }
   function todayView() {
     const w = weekOf(selectedDate), date = localDate(selectedDate), today = iso();
@@ -265,7 +285,8 @@
     if (selectedDate !== today) html += '<button class="text-button" data-action="go-today">回到今天 · ' + briefDate(today) + '</button>';
     html += '<div class="week-strip" aria-label="本周日期">' + weekDays.map(d => '<button type="button" class="day-cell' + (d === selectedDate ? ' current' : '') + (d === today ? ' today' : '') + '" data-action="choose-day" data-date="' + d + '"' + (d === selectedDate ? ' aria-current="date"' : '') + '><span>周' + weekdays[localDate(d).getDay()] + '</span><strong>' + Number(d.slice(8)) + '</strong>' + (meaningful(state.records[d]) ? '<i class="record-dot" aria-label="已留记录"></i>' : '') + '</button>').join('') + '</div>';
     if (!within(selectedDate)) html += '<div class="outside-notice">' + (selectedDate > state.plan.endDate ? '计划已结束' : '计划尚未开始') + '<br><button data-nav="plan">查看 / 修改计划</button></div>';
-    if (timeSubjects(record,selectedDate).length) html += '<div class="overview"><div><span class="metric-label">参考时长</span><strong class="metric-value">' + reference + '</strong><span class="metric-unit">分钟</span></div><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (total == null ? ' is-empty' : '') + '" id="daily-total">' + minuteLabel(total) + '</strong><span class="metric-unit" id="daily-unit"' + (total == null ? ' hidden' : '') + '>分钟</span><span class="metric-caption" id="daily-count">' + timeCaption(record, selectedDate) + '</span></div></div>';
+    if (timeSubjects(record,selectedDate).length) html += '<div class="overview with-reference-range"><div class="range-metric"><span class="metric-label">参考区间</span><strong class="metric-value range-value">' + R().text(reference) + '</strong><span class="metric-unit">分钟</span></div><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (total == null ? ' is-empty' : '') + '" id="daily-total">' + minuteLabel(total) + '</strong><span class="metric-unit" id="daily-unit"' + (total == null ? ' hidden' : '') + '>分钟</span><span class="metric-caption" id="daily-count">' + timeCaption(record, selectedDate) + '</span></div></div>';
+    html+=assessmentView(selectedDate);
 
     if (selectedDate === today && within(selectedDate) && M().subjectsForDate(state,selectedDate).some(s=>s.kind!=='vocab')) html += '<div class="quick-timers" aria-label="开始今日学习计时">' + M().subjectsForDate(state, selectedDate).filter(s => s.kind !== 'vocab').map(subject => '<button type="button" data-action="start-timer" data-subject="' + escape(subject.id) + '"' + (!M().allowed() ? ' disabled' : '') + '>' + icon('play') + escape(subject.name) + '计时</button>').join('') + '</div>' + (!M().allowed() ? '<p class="inline-form-note">' + escape(restReason()) + '</p>' : '');
     html += '<div id="timer-panel" class="timer-panel" hidden></div>';
@@ -275,7 +296,7 @@
     html += subjects.map((subject, index) => {
       const r = record.subjects[subject.id] || {}, id = subject.id;
       if (subject.kind === 'vocab') return vocabEntry(subject, r, index);
-      const ref = within(selectedDate) ? M().target(state, selectedDate, id) : 0;
+      const ref = within(selectedDate) ? R().text(M().reference(state, selectedDate, id)) : '—';
       const editable = selectedDate === today && within(selectedDate) && M().allowed() && M().subjectActive(subject, selectedDate);
       return '<div class="subject-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3><span class="reference-pill">' + (M().subjectActive(subject, selectedDate) ? '参考 ' + ref + ' 分钟' : '已归档') + '</span></div><label class="visually-hidden" for="minutes-' + id + '">' + escape(subject.name) + '实际净学习分钟</label><div class="actual-row"><div class="actual-input"><input type="number" id="minutes-' + id + '" name="minutes-' + id + '" min="0" max="1440" step="any" inputmode="decimal" value="' + escape(r.minutes) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际分钟"><span>实际分钟</span></div><button type="button" class="start-button" data-action="start-timer" data-subject="' + id + '"' + (!editable ? ' disabled' : '') + '>' + icon('play') + '计时</button></div><details class="details-toggle"' + (r.content || r.problem || r.newWords != null || r.reviewWords != null || r.forgotWords ? ' open' : '') + '><summary>内容与' + '问题' + ' <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: subject.kind === 'math' ? '例如：左右极限；教材第 12 页' : '这次主要学习了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, placeholder: subject.kind === 'math' ? '例如：链式求导漏乘内层导数' : '', maxLength: 3000 }) + '</details></div>';
     }).join('');
@@ -284,21 +305,27 @@
   }
 
   function defaultsFields(prefix, values) {
-    return '<div class="default-grid">' + monDays.map((name, i) => '<div class="field"><label for="' + prefix + '-' + i + '">周' + name + '</label><input id="' + prefix + '-' + i + '" name="default-' + i + '" type="number" min="0" max="1440" step="1" inputmode="numeric" value="' + (values && values[i] || 0) + '" required aria-label="周' + name + '默认参考分钟"></div>').join('') + '</div>';
+    return '<div class="default-grid range-defaults">' + monDays.map((name, i) => rangeFields('周'+name,prefix+'-'+i,values?values[i]:0)).join('') + '</div>';
+  }
+  function rangeFields(label,id,value){
+    const r=R().range(value);
+    const input=(key,bound,title)=>'<div class="field"><label for="'+escape(key)+'">'+title+'</label><input id="'+escape(key)+'" name="'+escape(key)+'" type="number" min="0" max="1440" step="any" inputmode="decimal" value="'+escape(bound)+'" required aria-label="'+escape(label)+'参考'+title+'分钟"'+(title==='上限'?' data-legacy-range="'+escape(id)+'"':'')+'></div>';
+    return '<fieldset class="reference-range"><legend>'+escape(label)+'（分钟）</legend><div class="field-inline">'+input(id,r.min,'下限')+input(id+':max',r.max,'上限')+'</div></fieldset>';
   }
   function planView() {
     const w = weekOf(planDate), dates = M().dates(w.start || w.key, w.end).filter(within);
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><div class="eyebrow">PLAN / 低强度参考</div><h1>学习计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
-    if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程优先安排</button>';
+    if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程与区间安排</button>';
+    if(window.StudySchedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">周末安排</button>';
     html += window.StudyWeekUI.readonly(state.plan, w.key, false);
     html += '<div class="week-list">' + dates.map(date => {
       const r = state.records[date], today = date === iso();
       const caption = meaningful(r) ? (r.status ? statusLabel(r.status) : recordCount(r) ? '已记录' : '有随记') : '未记录';
       const summary = window.StudyTracking.summaryText(M().recordSummary(state,date));
-      return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : ' ' + M().target(state, date, s.id) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
+      return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : ' ' + R().text(M().reference(state, date, s.id)) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
     }).join('') + '</div><button class="secondary-wide" data-action="edit-week">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
-    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : '<p class="line-label">新增日期的默认参考分钟</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
+    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : '<p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
     html += '<button class="secondary-wide" data-action="add-subject">' + icon('plus') + '添加新科目</button></details></div>';
     return html;
   }
@@ -311,17 +338,18 @@
     let html = trackingTabs() + '<div class="page-intro"><div class="eyebrow">REFLECTION / 一周回看</div><h1>每周复盘</h1></div>' + weekNavigation(reviewDate, 'review');
     html += '<section class="review-goals" aria-label="本周目标"><h2>本周目标</h2>' + window.StudyWeekUI.readonly(state.plan, w.key, true) + '<div class="week-links"><button class="text-button" data-action="edit-week" data-scope="review">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button></div></section>';
     html += '<div class="overview"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (actualExists ? '' : ' is-empty') + '">' + (actualExists ? minuteLabel(total) : '未记录') + '</strong>' + (actualExists ? '<span class="metric-unit">分钟</span>' : '') + '</div><div><span class="metric-label">时长记录天数</span><strong class="metric-value">' + stats.recordedDays + '<small class="metric-unit"> / ' + stats.totalDays + ' 天</small></strong><span class="metric-caption">随记 ' + (stats.entryDays ?? stats.recordedDays) + ' 天</span></div></div><div class="legend"><span><i></i>已记录</span><span><i class="ref-line"></i>参考</span><span>虚线：未记录</span></div>';
-    html += window.StudyTracking.renderWordStats(state,stats.days);
+    html += assessmentSummary(stats.days)+window.StudyTracking.renderWordStats(state,stats.days);
     html += stats.subjects.filter(s => s.kind !== 'vocab' ? s.totalDays || s.actual != null : s.actual != null).map(subject => {
-      const item = state.plan.subjects.find(s => s.id === subject.id), referenceFor = d => M().subjectActive(item,d) ? M().target(state,d,subject.id) : null;
-      const days = stats.days, maximum = Math.max(1, ...days.flatMap(d => [referenceFor(d)||0, state.records[d]?.subjects?.[subject.id]?.minutes || 0]));
-      const description = days.map(d => fullDate(d) + '，' + minuteLabel(state.records[d]?.subjects?.[subject.id]?.minutes ?? null) + (state.records[d]?.subjects?.[subject.id]?.minutes != null ? '分钟' : '') + '，参考' + (referenceFor(d)===null?'—':referenceFor(d)+'分钟')).join('；');
-      return '<div class="chart-subject"><div class="chart-subject-head"><h3>' + escape(subject.name) + (subject.kind === 'vocab' ? ' · 历史时长' : '') + '</h3><span class="chart-value">' + minuteLabel(subject.actual) + (subject.actual != null ? ' 分钟' : '') + ' <small>/ 参考 ' + subject.reference + ' 分钟</small></span></div><div class="bar-chart" role="img" aria-label="' + escape(subject.name + '：' + description) + '">' + days.map(date => {
+      const item = state.plan.subjects.find(s => s.id === subject.id), referenceFor = d => M().subjectActive(item,d) ? M().reference(state,d,subject.id) : null;
+      const days = stats.days, maximum = Math.max(1, ...days.flatMap(d => [referenceFor(d)===null?0:R().range(referenceFor(d)).max, state.records[d]?.subjects?.[subject.id]?.minutes || 0]));
+      const description = days.map(d => fullDate(d) + '，' + minuteLabel(state.records[d]?.subjects?.[subject.id]?.minutes ?? null) + (state.records[d]?.subjects?.[subject.id]?.minutes != null ? '分钟' : '') + '，参考' + R().text(referenceFor(d))+'分钟').join('；');
+      return '<div class="chart-subject"><div class="chart-subject-head"><h3>' + escape(subject.name) + (subject.kind === 'vocab' ? ' · 历史时长' : '') + '</h3><span class="chart-value">' + minuteLabel(subject.actual) + (subject.actual != null ? ' 分钟' : '') + ' <small>/ 参考 ' + R().text(subject.referenceRange||subject.reference) + ' 分钟</small></span></div><div class="bar-chart" role="img" aria-label="' + escape(subject.name + '：' + description) + '">' + days.map(date => {
         const actual = state.records[date]?.subjects?.[subject.id]?.minutes ?? null, ref = referenceFor(date);
-        return '<div class="chart-day" title="' + date + ' 已记录：' + minuteLabel(actual) + '；参考：' + (ref===null?'—':ref) + '"><i class="bar reference" data-height="' + (ref||0) / maximum * 100 + '"></i><i class="bar' + (actual == null ? ' missing' : actual === 0 ? ' zero' : '') + '" data-height="' + (actual || 0) / maximum * 100 + '"></i></div>';
+        const r=ref===null?{min:0,max:0,legacy:true}:R().range(ref),bottom=r.legacy?0:r.min;
+        return '<div class="chart-day" title="' + date + ' 已记录：' + minuteLabel(actual) + '；参考：' + R().text(ref) + '"><i class="bar reference'+(r.legacy?'':' ranged')+'" data-bottom="'+bottom/maximum*100+'" data-height="' + (r.max-bottom) / maximum * 100 + '"></i><i class="bar' + (actual == null ? ' missing' : actual === 0 ? ' zero' : '') + '" data-height="' + (actual || 0) / maximum * 100 + '"></i></div>';
       }).join('') + '</div><div class="chart-labels">' + days.map(date => '<span>周' + weekdays[localDate(date).getDay()] + '</span>').join('') + '</div><p class="chart-caption">' + subject.recordedDays + '/' + subject.totalDays + ' 天已记录</p></div>';
     }).join('');
-    html += '<form id="review-form" data-dirty="review"><div class="section"><div class="section-heading"><h2>本周随记</h2><span class="section-number">WEEK / NOTE</span></div>' + field('学习强度', 'review-load', review.load, { textarea: true, maxLength: 5000 }) + state.plan.subjects.filter(s => stats.subjects.find(x => x.id === s.id)?.totalDays || review.subjects?.[s.id]).map(s => field(s.name + (s.kind === 'vocab' ? '复习' : '回顾'), s.id === 'math' ? 'review-mathProblem' : s.id === 'vocab' ? 'review-vocabReview' : 'review-subject-' + s.id, review.subjects?.[s.id] ?? (s.id === 'math' ? review.mathProblem : s.id === 'vocab' ? review.vocabReview : ''), { textarea: true, maxLength: 5000 })).join('') + selectField('下周安排（选填）', 'review-adjustment', review.adjustment || '', [['', '暂不决定'], ['维持', '维持'], ['减量', '减量'], ['仅回顾', '仅回顾'], ['休息', '休息'], ['其他', '其他']]) + field('随记', 'review-reason', review.reason, { textarea: true, maxLength: 5000 }) + selectField('半天休息记录（选填）', 'review-halfDayRest', review.halfDayRest == null ? '' : String(review.halfDayRest), [['', '未记录'], ['true', '已保留'], ['false', '需要调整']]) + '<div class="save-row"><button class="primary" type="submit">' + icon('check') + '保存本周复盘</button></div></div></form>';
+    html += '<form id="review-form" data-dirty="review"><div class="section"><div class="section-heading"><h2>本周随记</h2><span class="section-number">WEEK / NOTE</span></div>' + field('学习强度', 'review-load', review.load, { textarea: true, maxLength: 5000 }) + state.plan.subjects.filter(s => stats.subjects.find(x => x.id === s.id)?.totalDays || review.subjects?.[s.id]).map(s => field(s.name + (s.kind === 'vocab' ? '复习' : '回顾'), s.id === 'math' ? 'review-mathProblem' : s.id === 'vocab' ? 'review-vocabReview' : 'review-subject-' + s.id, review.subjects?.[s.id] ?? (s.id === 'math' ? review.mathProblem : s.id === 'vocab' ? review.vocabReview : ''), { textarea: true, maxLength: 5000 })).join('') + selectField('下周安排（选填）', 'review-adjustment', review.adjustment || '', [['', '暂不决定'], ['维持', '维持'], ['减量', '减量'], ['仅回顾', '仅回顾'], ['休息', '休息'], ['其他', '其他']]) + field('随记', 'review-reason', review.reason, { textarea: true, maxLength: 5000 }) + selectField('半天休息记录（选填）', 'review-halfDayRest', review.halfDayRest == null ? '' : String(review.halfDayRest), [['', '未记录'], ['true', '已保留'], ['false', '未保留']]) + '<div class="save-row"><button class="primary" type="submit">' + icon('check') + '保存本周复盘</button></div></div></form>';
     return html + '<button class="secondary-wide" data-action="export-report">导出周报</button>';
   }
 
@@ -350,7 +378,7 @@
     app.querySelectorAll('form[data-dirty]').forEach(window.StudyDrafts.attach);
     drafts.forEach(draft => { const form = document.getElementById(draft.id); if (!form) return; draft.controls.forEach(saved => { const controls = Array.from(form.elements).filter(control => control.name === saved.name); const control = saved.type === 'radio' ? controls.find(item => item.value === saved.value) : controls[0]; if (!control) return; if (saved.type === 'checkbox' || saved.type === 'radio') control.checked = saved.checked; else control.value = saved.value; }); if (form.dataset.weekMode) { window.StudyWeekUI.sync(form); form.querySelector('.save-row').hidden=false; } });
     if (drafts.length) Array.from(app.querySelectorAll('details')).forEach((detail, index) => { if (openDetails[index]) detail.open = true; });
-    document.querySelectorAll('[data-height]').forEach(bar => { bar.style.height = Math.max(0, Number(bar.dataset.height)) + '%'; });
+    document.querySelectorAll('[data-height]').forEach(bar => { bar.style.height = Math.max(0, Number(bar.dataset.height)) + '%';if(bar.dataset.bottom!==undefined)bar.style.bottom=Math.max(0,Number(bar.dataset.bottom))+'%'; });
     updatePermissionStatus();
     timerSignature = '';
     updateTimer();
@@ -420,7 +448,7 @@
     render();
     return true;
   }
-  function readDefaults(form) { return monDays.map((_, i) => Number(form.elements.namedItem('default-' + i).value)); }
+  function readDefaults(form) { return Array.from(form.querySelectorAll('.reference-range')).map(group=>{const inputs=group.querySelectorAll('input');const r={min:Number(inputs[0].value),max:Number(inputs[1].value)};R().validate(r,true);return r;}); }
   function saveSubject(form) {
     if (!form.reportValidity()) return false;
     const latest = readState(), id = form.dataset.subjectEdit;
@@ -463,11 +491,13 @@
     dialog.replaceChildren();
     return true;
   }
-  function showCourseSchedule() {
+  function showCourseSchedule(weekendsOnly=false) {
     if(dirty.size){tell('请先保存当前修改');return;}
-    const latest=readState(),from=window.StudySchedule.from(latest,iso()),b=window.StudySchedule.budgets;
-    if(!window.StudySchedule.canApply(latest,iso()))throw new Error('当前计划无法应用课程优先安排');
-    openSheet('课程优先安排','<p>'+fullDate(from)+' — '+fullDate(latest.plan.endDate)+'</p><dl class="schedule-budget"><div><dt>工作日</dt><dd>'+b.weekday+' 分钟</dd></div><div><dt>周六</dt><dd>'+b.saturday+' 分钟</dd></div><div><dt>周日早间</dt><dd>'+b.sunday+' 分钟</dd></div></dl><p>先课程复习，再高数。单词按数量记录。</p><p>替换上述日期内课程复习和高数的自定参考量。</p><div class="save-row"><button class="cancel-button" data-action="close-sheet">取消</button><button class="primary" data-action="apply-course-schedule" data-plan="'+escape(activePlanId)+'" data-from="'+from+'" data-to="'+latest.plan.endDate+'">应用安排</button></div>');
+    const latest=readState(),schedule=window.StudySchedule,dates=weekendsOnly?schedule.weekendDates(latest,iso()):null,b=schedule.budgetRanges;
+    if(weekendsOnly?!dates.length:!schedule.canApply(latest,iso()))throw new Error(weekendsOnly?'当前计划没有可调整的周末日期':'当前计划无法应用课程优先安排');
+    const from=weekendsOnly?dates[0]:schedule.from(latest,iso()),to=weekendsOnly?dates[dates.length-1]:latest.plan.endDate;
+    const affected=weekendsOnly?'替换这 '+dates.length+' 个周末日期的课程复习和高数参考区间，包括自定值，并更新新增周末日期的默认区间。':'替换上述日期内课程复习和高数的自定参考量，并更新新增日期的默认区间。';
+    openSheet(weekendsOnly?'周末安排':'课程与区间安排','<p>'+fullDate(from)+' — '+fullDate(to)+'</p><dl class="schedule-budget">'+(weekendsOnly?'':'<div><dt>工作日</dt><dd>'+R().text(b.weekday)+' 分钟</dd></div>')+'<div><dt>周六参考</dt><dd>'+R().text(b.saturday)+' 分钟</dd></div><div><dt>周日参考</dt><dd>'+R().text(b.sunday)+' 分钟</dd></div></dl><p>周末上午：课程复习 1—2 小时。</p><p>周末下午：高数，周六 3—4 小时、周日 2—3 小时。</p><p>'+affected+'</p><div class="save-row"><button class="cancel-button" data-action="close-sheet">取消</button><button class="primary" data-action="apply-course-schedule" data-mode="'+(weekendsOnly?'weekends':'all')+'" data-plan="'+escape(activePlanId)+'" data-from="'+from+'" data-to="'+to+'" data-revision="'+(latest._revision||0)+'">应用安排</button></div>');
   }
   function editWeek(date = planDate) {
     const w = weekOf(date);
@@ -489,7 +519,7 @@
     const current = W.snapshot(latest.plan,key), base = UI.base(form), edited = UI.values(form), merged = W.merge(base,current,edited);
     if (merged.conflicts.length) { UI.showConflicts(form,base,current,edited,'save'); throw new Error('目标已更新，请选择冲突项'); }
     const value = W.prepare(latest.plan,key,merged.value,new Date().toISOString());
-    W.put(latest.plan,key,value); latest.version = 3;
+    W.put(latest.plan,key,value); latest.version = Math.max(latest.version,4);
     persist(latest); dirty.delete(form.dataset.dirty);
     if(form.dataset.weekMode==='editor') closeSheet(true);
     render(); if(form.dataset.weekMode==='editor')tell('已保存'); return true;
@@ -513,10 +543,10 @@
     latest.plan=next;persist(latest);dirty.delete('sheet');closeSheet(true);render();tell('目标已移动');return true;
   }
   function referenceFields(date) {
-    return M().subjectsForDate(state,date).map(s => field(s.name + (s.kind === 'vocab' ? ' · 新学目标（个）' : ' · 参考分钟'), 'target-' + s.id, s.kind === 'vocab' ? M().wordTarget(state,date,s.id) : M().target(state, date, s.id), { type: 'number', min: 0, max: s.kind === 'vocab' ? 100000 : 1440, step: s.kind === 'vocab' ? 1 : 'any', required: true })).join('');
+    return M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('');
   }
-  function editReference() {
-    const date = clampPlanDate(selectedDate);
+  function editReference(requestedDate) {
+    const date = clampPlanDate(requestedDate||selectedDate);
     openSheet('一天的目标', '<form id="reference-form" data-dirty="sheet">' + field('选择计划内日期', 'reference-date', date, { type: 'date', min: state.plan.startDate, max: state.plan.endDate, required: true }) + '<div id="reference-fields">' + referenceFields(date) + '</div><div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存目标</button></div></form>');
     document.getElementById('reference-form').dataset.referenceDate = document.getElementById('reference-date').value;
   }
@@ -546,7 +576,7 @@
   }
   function addSubject() {
     if (state.plan.subjects.length >= 24) { tell('最多支持 24 个科目。'); return; }
-    openSheet('添加一个新科目', '<form id="new-subject-form" data-dirty="sheet">' + field('科目名称', 'new-subject-name', '', { required: true, maxLength: 40, placeholder: '例如：专业课' }) + '<p class="line-label">周一至周日的默认参考分钟</p>' + defaultsFields('new-default', [0, 0, 0, 0, 0, 0, 0]) + '<div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">添加科目</button></div></form>');
+    openSheet('添加一个新科目', '<form id="new-subject-form" data-dirty="sheet">' + field('科目名称', 'new-subject-name', '', { required: true, maxLength: 40, placeholder: '例如：专业课' }) + '<p class="line-label">周一至周日的默认参考区间（分钟）</p>' + defaultsFields('new-default', [0, 0, 0, 0, 0, 0, 0]) + '<div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">添加科目</button></div></form>');
   }
   function saveSheet(form) {
     if (!form.reportValidity()) return false;
@@ -555,13 +585,13 @@
       const date = form.elements.namedItem('reference-date').value;
       if (date < latest.plan.startDate || date > latest.plan.endDate) throw new Error('请选择计划日期范围内的一天。');
       latest.plan.targets[date] = latest.plan.targets[date] || {};
-      M().subjectsForDate(latest,date).forEach(s => { const value = Number(form.elements.namedItem('target-' + s.id).value); if(s.kind==='vocab'){latest.plan.wordTargets=latest.plan.wordTargets||{};latest.plan.wordTargets[date]=latest.plan.wordTargets[date]||{};latest.plan.wordTargets[date][s.id]=value;}else latest.plan.targets[date][s.id]=value; });
+      M().subjectsForDate(latest,date).forEach(s => { const value = Number(form.elements.namedItem('target-' + s.id).value); if(s.kind==='vocab'){latest.plan.wordTargets=latest.plan.wordTargets||{};latest.plan.wordTargets[date]=latest.plan.wordTargets[date]||{};latest.plan.wordTargets[date][s.id]=value;}else {const r={min:value,max:Number(form.elements.namedItem('target-'+s.id+':max').value)};R().validate(r,true);latest.plan.targets[date][s.id]=r;} });
       planDate = date;
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 3, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
-      M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = s.defaults[(localDate(date).getDay() + 6) % 7]; }); });
+      const fresh = { version: 4, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
+      M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = clone(s.defaults[(localDate(date).getDay() + 6) % 7]); }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
     if (form.id === 'new-subject-form') M().addSubject(latest, form.elements.namedItem('new-subject-name').value.trim(), readDefaults(form), iso());
@@ -655,14 +685,17 @@
       if (action === 'week-open') editWeekKey(button.dataset.key);
       if (action === 'week-move') showWeekMove(button.dataset.key);
       if (action === 'course-schedule') showCourseSchedule();
+      if (action === 'weekend-schedule') showCourseSchedule(true);
       if (action === 'apply-course-schedule') {
-        const latest=readState();
-        if(call('getPlans').activeId!==button.dataset.plan||latest.plan.endDate!==button.dataset.to||window.StudySchedule.from(latest,iso())!==button.dataset.from)throw new Error('计划已变化，请重新打开安排');
-        persist(M().applyCourseSchedule(latest,iso()));closeSheet();render();tell('安排已更新');
+        const latest=readState(),weekendsOnly=button.dataset.mode==='weekends',schedule=window.StudySchedule,dates=weekendsOnly?schedule.weekendDates(latest,iso()):null;
+        const from=weekendsOnly?dates[0]:schedule.from(latest,iso()),to=weekendsOnly?dates[dates.length-1]:latest.plan.endDate;
+        if(call('getPlans').activeId!==button.dataset.plan||to!==button.dataset.to||from!==button.dataset.from||String(latest._revision||0)!==button.dataset.revision)throw new Error('计划已变化，请重新打开安排');
+        persist(weekendsOnly?M().applyWeekendSchedule(latest,iso()):M().applyCourseSchedule(latest,iso()));closeSheet();render();tell('安排已更新');
       }
       if (action === 'add-words') changeWords(document.getElementById(button.dataset.field), Number(button.dataset.amount));
       if (action === 'undo-words') undoWords(document.getElementById(button.dataset.field));
-      if (action === 'edit-reference') editReference();
+      if (action === 'edit-reference') editReference(button.dataset.date);
+      if (action === 'assessment-rules') openSheet('评估规则','<dl class="rest-hours"><dt>照常</dt><dd>当日学习总参考区间</dd><dt>减量</dt><dd>总参考区间的 50%</dd><dt>仅回顾</dt><dd>只计算课程复习，使用课程复习区间</dd><dt>休息</dt><dd>休息日</dd></dl><p>低于下限：未完成；区间内（含上下限）：完成；超过上限：超额完成。</p><p>时长未记齐：待补全。单词新学按目标数单独评估，复习另记。</p>',true);
       if (action === 'add-subject') addSubject();
       if (action === 'export-backup') backupAction('exportBackup');
       if (action === 'import-backup') backupAction('importBackup');

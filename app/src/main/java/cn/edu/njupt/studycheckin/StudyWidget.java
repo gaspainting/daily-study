@@ -33,15 +33,16 @@ public final class StudyWidget extends AppWidgetProvider {
             boolean known=actual!=null&&actual.has("minutes")&&!actual.isNull("minutes"),words="vocab".equals(s.getString("kind")),learned=actual!=null&&!actual.isNull("newWords"),reviewed=actual!=null&&!actual.isNull("reviewWords");if(known||words&&(learned||reviewed))recorded++;
             if(shown>=3)continue;
             String a=known?minutes(actual.getDouble("minutes"))+" 分钟":"未记录";
-            double ref=targets!=null&&targets.has(subjectId)?targets.getDouble(subjectId):s.getJSONArray("defaults").getDouble(now.getDayOfWeek().getValue()-1);
+            Object ref=Reference.value(p,s,now);
             if(shown>0)text.append("\n");shown++;String name=s.getString("name");if(name.length()>10)name=name.substring(0,10)+"…";
             if(words){text.append(name).append("  新学 ").append(learned?actual.getInt("newWords")+" 个":"未记录").append(inside&&active?" / "+DataStore.wordTarget(state,day,subjectId)+" 个":"");text.append("\n复习 ").append(reviewed?actual.getInt("reviewWords")+" 个":"未记录");if(known)text.append(" · 时长 ").append(a);}
-            else text.append(name).append("  ").append(a).append(!inside?" / 计划范围外":active?" / 参考 "+minutes(ref)+" 分钟":"");
+            else text.append(name).append("  ").append(a).append(!inside?" / 计划范围外":active?" / 参考 "+Reference.text(ref)+" 分钟":"");
         }
         if(total>3)text.append("\n另有 ").append(total-3).append(" 科");
         if(total==0)text.append("暂无科目");
         String status=recorded==0?"未记录":recorded+"/"+total+" 科目已记录";
-        if(record!=null&&!record.isNull("status"))status+=" · "+("正常参考".equals(record.getString("status"))?"照常":record.getString("status"));
+        if(record!=null&&!record.isNull("status"))status+=" · "+("正常参考".equals(record.getString("status"))?"照常":"休息".equals(record.getString("status"))?"休息日":record.getString("status"));
+        JSONObject assessed=Reference.assess(state,now).getJSONObject("time");String kind=assessed.getString("kind");if(kind.equals("below")||kind.equals("within")||kind.equals("above")||kind.equals("partial"))status+=" · "+assessed.getString("label");
         return new JSONObject().put("subjects",text.toString()).put("status",status).put("recorded",recorded).put("totalSubjects",total);
     }
     private static boolean meaningful(JSONObject record) throws Exception {

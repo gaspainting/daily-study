@@ -28,6 +28,12 @@
     const entry = { key, base, saved: true, pending: null, readError: false }; entries.set(form, entry);
     try {
       const draft = api('getDraft', key).draft; if (!draft) return;
+      // Older reference forms had one number. Keep those pending edits as an
+      // explicit point interval and let the existing conflict flow decide.
+      form.querySelectorAll('[data-legacy-range]').forEach(e=>{
+        const old=e.dataset.legacyRange;
+        if(!(e.id in draft.values)&&old in draft.values){draft.values[e.id]=draft.values[old];if(old in draft.base)draft.base[e.id]=draft.base[old];}
+      });
       if (form.id === 'reference-form' && draft.values['reference-date'] !== undefined && draft.values['reference-date'] !== base['reference-date']) {
         entry.legacyReference = draft;
         banner(form, '目标草稿：' + draft.values['reference-date'], [['reference', '查看目标草稿'], ['clear', '清除']], true);

@@ -16,8 +16,10 @@ for n in range((last-first).days+1):
     review=policy['saturdayReview'] if weekday==5 else policy['sundayReview'] if weekday==6 else policy['busyReview'] if len(courses)>=policy['busyCourseCount'] else policy['lightReview']
     budget=policy['saturdayBudget'] if weekday==5 else policy['sundayBudget'] if weekday==6 else policy['weekdayBudget']
     assert review<budget and 0<=review<=1440
-    days[d.isoformat()]={'week':week,'weekday':weekday,'courses':courses,'review':review,'math':budget-review,'legacyMath':old[d.isoformat()]}
-data={key:policy[key] for key in ('version','effectiveFrom','anchor','lastDate','subjectId','subjectName','legacyTitle','title','legacyMathDefaults','weekdayBudget','saturdayBudget','sundayBudget','lightReview','saturdayReview','sundayReview')}
+    ranges=policy['weekdayRanges']['busy' if len(courses)>=policy['busyCourseCount'] else 'light'] if weekday<5 else {key:{'min':policy['weekendRanges']['saturday' if weekday==5 else 'sunday'][period][0],'max':policy['weekendRanges']['saturday' if weekday==5 else 'sunday'][period][1]} for key,period in (('review','morning'),('math','afternoon'))}
+    assert all(0<=r['min']<=r['max']<=1440 for r in ranges.values())
+    days[d.isoformat()]={'week':week,'weekday':weekday,'courses':courses,'review':review,'math':budget-review,'reviewRange':ranges['review'],'mathRange':ranges['math'],'legacyMath':old[d.isoformat()]}
+data={key:policy[key] for key in ('version','effectiveFrom','anchor','lastDate','subjectId','subjectName','legacyTitle','title','legacyMathDefaults','weekdayBudget','saturdayBudget','sundayBudget','lightReview','saturdayReview','sundayReview','weekendRanges','weekdayRanges')}
 data['days']=days
 assets=root/'app/src/main/assets'
 compact=json.dumps(data,ensure_ascii=False,separators=(',',':'))

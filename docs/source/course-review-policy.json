@@ -1,19 +1,27 @@
 {
-  "version": 1,
+  "version": 3,
   "arrangement": "flexible",
-  "source": "Original check-in handoff section 4; user confirmations on 2026-10-15",
+  "source": "Original check-in handoff section 4; weekday baseline confirmation 2026-10-15; weekend and assessment confirmation, weekday interval adaptation 2026-10-18",
   "effectiveFrom": "2026-10-15",
   "anchor": "2026-10-12",
   "startWeek": 7,
   "lastDate": "2026-12-20",
   "weekdayBudget": 90,
-  "saturdayBudget": 90,
-  "sundayBudget": 60,
+  "saturdayBudget": 300,
+  "sundayBudget": 240,
   "busyCourseCount": 3,
   "busyReview": 40,
   "lightReview": 30,
-  "saturdayReview": 60,
-  "sundayReview": 30,
+  "saturdayReview": 90,
+  "sundayReview": 90,
+  "weekdayRanges": {
+    "busy": {"review": {"min":30,"max":50}, "math": {"min":30,"max":70}},
+    "light": {"review": {"min":20,"max":40}, "math": {"min":40,"max":80}}
+  },
+  "weekendRanges": {
+    "saturday": {"morning": [60, 120], "afternoon": [180, 240]},
+    "sunday": {"morning": [60, 120], "afternoon": [120, 180]}
+  },
   "subjectId": "course-review",
   "subjectName": "课程复习",
   "legacyTitle": "高数与单词 · 低强度计划",

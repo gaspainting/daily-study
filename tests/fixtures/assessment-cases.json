@@ -1,0 +1,367 @@
+[
+  {
+    "id": "normal-at-lower",
+    "status": "正常参考",
+    "course": 30,
+    "math": 30,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "within",
+      "actual": 60,
+      "min": 60,
+      "max": 120,
+      "word": "within"
+    }
+  },
+  {
+    "id": "normal-at-upper",
+    "status": "正常参考",
+    "course": 50,
+    "math": 70,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "within",
+      "actual": 120,
+      "min": 60,
+      "max": 120,
+      "word": "within"
+    }
+  },
+  {
+    "id": "normal-below",
+    "status": "正常参考",
+    "course": 30,
+    "math": 29.99,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "below",
+      "actual": 59.99,
+      "min": 60,
+      "max": 120,
+      "word": "within"
+    }
+  },
+  {
+    "id": "normal-above",
+    "status": "正常参考",
+    "course": 50,
+    "math": 70.01,
+    "newWords": 51,
+    "reviewWords": null,
+    "expected": {
+      "kind": "above",
+      "actual": 120.01,
+      "min": 60,
+      "max": 120,
+      "word": "above"
+    }
+  },
+  {
+    "id": "explicit-zero",
+    "status": "正常参考",
+    "course": 0,
+    "math": 0,
+    "newWords": 0,
+    "reviewWords": null,
+    "expected": {
+      "kind": "below",
+      "actual": 0,
+      "min": 60,
+      "max": 120,
+      "word": "below"
+    }
+  },
+  {
+    "id": "zero-plus-unknown",
+    "status": "正常参考",
+    "course": 0,
+    "math": null,
+    "newWords": null,
+    "reviewWords": null,
+    "expected": {
+      "kind": "partial",
+      "actual": 0,
+      "min": 60,
+      "max": 120,
+      "word": "empty"
+    }
+  },
+  {
+    "id": "all-time-unknown",
+    "status": "正常参考",
+    "course": null,
+    "math": null,
+    "newWords": null,
+    "reviewWords": null,
+    "expected": {
+      "kind": "empty",
+      "actual": null,
+      "min": 60,
+      "max": 120,
+      "word": "empty"
+    }
+  },
+  {
+    "id": "reduced-at-lower",
+    "status": "减量",
+    "course": 10,
+    "math": 20,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "within",
+      "actual": 30,
+      "min": 30,
+      "max": 60,
+      "word": "within"
+    }
+  },
+  {
+    "id": "reduced-at-upper",
+    "status": "减量",
+    "course": 30,
+    "math": 30,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "within",
+      "actual": 60,
+      "min": 30,
+      "max": 60,
+      "word": "within"
+    }
+  },
+  {
+    "id": "reduced-below",
+    "status": "减量",
+    "course": 0,
+    "math": 29.99,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "below",
+      "actual": 29.99,
+      "min": 30,
+      "max": 60,
+      "word": "within"
+    }
+  },
+  {
+    "id": "reduced-above",
+    "status": "减量",
+    "course": 30,
+    "math": 30.01,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "above",
+      "actual": 60.01,
+      "min": 30,
+      "max": 60,
+      "word": "within"
+    }
+  },
+  {
+    "id": "review-at-lower",
+    "status": "仅回顾",
+    "course": 30,
+    "math": null,
+    "newWords": null,
+    "reviewWords": 80,
+    "expected": {
+      "kind": "within",
+      "actual": 30,
+      "min": 30,
+      "max": 50,
+      "word": "empty"
+    }
+  },
+  {
+    "id": "review-at-upper-ignores-math",
+    "status": "仅回顾",
+    "course": 50,
+    "math": 200,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "within",
+      "actual": 50,
+      "min": 30,
+      "max": 50,
+      "word": "within"
+    }
+  },
+  {
+    "id": "review-below",
+    "status": "仅回顾",
+    "course": 29.99,
+    "math": 600,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "below",
+      "actual": 29.99,
+      "min": 30,
+      "max": 50,
+      "word": "within"
+    }
+  },
+  {
+    "id": "review-above",
+    "status": "仅回顾",
+    "course": 50.01,
+    "math": null,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "above",
+      "actual": 50.01,
+      "min": 30,
+      "max": 50,
+      "word": "within"
+    }
+  },
+  {
+    "id": "review-course-unknown",
+    "status": "仅回顾",
+    "course": null,
+    "math": 200,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "empty",
+      "actual": null,
+      "min": 30,
+      "max": 50,
+      "word": "within"
+    }
+  },
+  {
+    "id": "rest-empty-time",
+    "status": "休息",
+    "course": null,
+    "math": null,
+    "newWords": null,
+    "reviewWords": null,
+    "expected": {
+      "kind": "rest",
+      "actual": null,
+      "min": 60,
+      "max": 120,
+      "word": "rest"
+    }
+  },
+  {
+    "id": "rest-zero",
+    "status": "休息",
+    "course": 0,
+    "math": 0,
+    "newWords": 0,
+    "reviewWords": null,
+    "expected": {
+      "kind": "rest",
+      "actual": 0,
+      "min": 60,
+      "max": 120,
+      "word": "rest"
+    }
+  },
+  {
+    "id": "rest-some-study",
+    "status": "休息",
+    "course": 45,
+    "math": 60,
+    "newWords": 80,
+    "reviewWords": null,
+    "expected": {
+      "kind": "rest",
+      "actual": 105,
+      "min": 60,
+      "max": 120,
+      "word": "rest"
+    }
+  },
+  {
+    "id": "unselected-arrangement",
+    "status": null,
+    "course": 30,
+    "math": 30,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "arrangement",
+      "actual": 60,
+      "min": 60,
+      "max": 120,
+      "word": "within"
+    }
+  },
+  {
+    "id": "old-scalar-not-regraded",
+    "status": "正常参考",
+    "course": 40,
+    "math": 50,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "range",
+      "actual": 90,
+      "min": 90,
+      "max": 90,
+      "word": "within"
+    },
+    "legacy": true
+  },
+  {
+    "id": "review-no-course",
+    "status": "仅回顾",
+    "course": null,
+    "math": 50,
+    "newWords": 50,
+    "reviewWords": null,
+    "expected": {
+      "kind": "review",
+      "actual": null,
+      "min": 0,
+      "max": 0,
+      "word": "within"
+    },
+    "noCourse": true
+  },
+  {
+    "id": "no-positive-target",
+    "status": "正常参考",
+    "course": 0,
+    "math": 0,
+    "newWords": 0,
+    "reviewWords": null,
+    "expected": {
+      "kind": "range",
+      "actual": null,
+      "min": 0,
+      "max": 0,
+      "word": "range"
+    },
+    "zeroTargets": true,
+    "zeroWordGoal": true
+  },
+  {
+    "id": "outside-plan",
+    "status": "正常参考",
+    "course": 30,
+    "math": 30,
+    "newWords": 50,
+    "reviewWords": 0,
+    "outsidePlan": true,
+    "expected": {
+      "kind": "outside",
+      "actual": 60,
+      "min": 60,
+      "max": 120,
+      "word": "outside"
+    }
+  }
+]

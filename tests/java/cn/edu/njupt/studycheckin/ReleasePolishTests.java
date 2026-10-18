@@ -22,7 +22,7 @@ final class ReleasePolishTests {
         check(passes,view.getString("status").equals("1/2 科目已记录"),"widget zero plus unknown remains partial record");
         check(passes,view.getString("subjects").contains("0 分钟")&&view.getString("subjects").contains("未记录"),"widget exposes explicit zero and unknown separately");
         r.put("status","休息");String before=state.toString();view=StudyWidget.content(state,day);
-        check(passes,view.getString("status").equals("1/2 科目已记录 · 休息")&&before.equals(state.toString()),"rest status does not fill or alter actual values");
+        check(passes,view.getString("status").startsWith("1/2 科目已记录 · 休息")&&view.getString("status").contains("休息日")&&before.equals(state.toString()),"rest status does not fill or alter actual values");
         r.getJSONObject("subjects").getJSONObject("math").put("minutes",0);view=StudyWidget.content(state,day);
         check(passes,view.getInt("recorded")==2&&view.getString("status").startsWith("2/2"),"widget two explicit zeros count as two records");
         r.getJSONObject("subjects").getJSONObject("math").put("minutes",12.5);r.put("status","正常参考");view=StudyWidget.content(state,day);

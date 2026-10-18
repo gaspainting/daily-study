@@ -4,7 +4,7 @@ function reference(){const current=globalThis.StudyModel;try{return require('./f
 function workload(size=1000){
  // These benchmark fixtures target the schema-2 algorithm baseline. Schema-3
  // weekly-goal behavior has its own suite and does not enter quantity queries.
- const s=Model.migrateState(structuredClone(require('../app/src/main/assets/seed.json')));
+ const s=Model.migrateState(structuredClone(require('../app/src/main/assets/seed.json')),'2026-12-21');
  s.version=2;delete s.plan.weekTasks;
  s.plan.subjects.push({id:'reading',name:'阅读',kind:'custom',defaults:[10,10,10,10,10,10,10]});
  const entry=(minutes,i)=>({minutes,newWords:null,reviewWords:null,content:'内容 '+i,problem:'',forgotWords:''});

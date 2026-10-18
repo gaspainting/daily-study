@@ -7,6 +7,7 @@
   'use strict';
 
   var DAY = 86400000;
+  var ranges = typeof globalThis!=='undefined'&&globalThis.StudyReference || (typeof require==='function'?require('./reference.js'):null);
   var STATUSES = ['正常参考', '减量', '仅回顾', '休息'];
   var ID = /^[A-Za-z][A-Za-z0-9_-]{0,63}$/;
   var has = function (obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); };
@@ -77,9 +78,9 @@
     return { key: start, number: number, parity: Math.abs(number % 2) === 1 ? '单周' : '双周', start: start, end: end };
   }
   function weekKey(plan, date) { return weekInfo(plan, date).key; }
-  function defaultsValid(value, path) {
+  function defaultsValid(value, path, allowRange) {
     if (!Array.isArray(value) || value.length !== 7) fail(path + '须含周一至周日7个参考分钟');
-    value.forEach(function (minutes) { number(minutes, 1440, path, false); });
+    value.forEach(function (minutes) { ranges.validate(minutes,!!allowRange); });
   }
   function wordStepsValid(value) {
     if (!Array.isArray(value) || value.length !== 3) fail('快捷加数须为三个正整数');
@@ -108,9 +109,10 @@
   function target(state, date, id) {
     var time = dateStamp(date), item = subject(state, id);
     var stored = state.plan.targets[date];
-    if (stored && has(stored, id)) return stored[id];
-    return item.defaults[(new Date(time).getUTCDay() + 6) % 7];
+    if (stored && has(stored, id)) return ranges.midpoint(stored[id]);
+    return ranges.midpoint(item.defaults[(new Date(time).getUTCDay() + 6) % 7]);
   }
+  function reference(state,date,id){dateStamp(date);return clone(ranges.value(state,date,subject(state,id)));}
   function blankSubject() {
     return { minutes: null, content: '', problem: '', newWords: null, reviewWords: null, forgotWords: '' };
   }
@@ -163,10 +165,10 @@
   }
   function validateState(state) {
     keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'], 'state');
-    if (![1, 2, 3].includes(state.version)) fail('不支持此备份版本');
+    if (![1, 2, 3, 4].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
-    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version === 3 ? ['weekTasks'] : []) : [], 'plan');
+    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'] : []) : [], 'plan');
     string(plan.title, 128, 'plan.title', true);
     dates(plan.startDate, plan.endDate);
     weekNumber(plan.startWeek);
@@ -178,7 +180,7 @@
       ids[item.id] = true;
       string(item.name, 128, 'subject.name', true);
       if (['math', 'vocab', 'custom'].indexOf(item.kind) < 0) fail('科目类型无效');
-      defaultsValid(item.defaults, 'subject.defaults');
+      defaultsValid(item.defaults, 'subject.defaults',state.version>=4&&item.kind!=='vocab');
       if (has(item, 'wordGoal')) { if (item.kind !== 'vocab') fail('词数目标仅用于单词'); number(item.wordGoal, 100000, '每日新学目标', true); }
       if (has(item, 'wordSteps')) { if (item.kind !== 'vocab') fail('快捷加数仅用于单词'); wordStepsValid(item.wordSteps); }
       if (has(item, 'activePeriods')) {
@@ -199,7 +201,7 @@
       object(plan.targets[date], 'plan.targets.' + date);
       Object.keys(plan.targets[date]).forEach(function (id) {
         if (!ids[id]) fail('参考量的科目不存在：' + id);
-        number(plan.targets[date][id], 1440, '参考分钟', false);
+        ranges.validate(plan.targets[date][id],state.version>=4&&subject(state,id).kind!=='vocab');
       });
     });
     if (has(plan, 'manualWeekGoals') && plan.manualWeekGoals !== true) fail('周目标模式无效');
@@ -281,7 +283,7 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 3;
+    result.version = 4;
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
     Object.keys(result.reviews).forEach(function (date) {
@@ -299,6 +301,10 @@
   function applyCourseSchedule(state, now) {
     validateState(state); now = now === undefined ? today() : now; dateStamp(now);
     var result = clone(state); schedule.apply(result, now, true); validateState(result); return result;
+  }
+  function applyWeekendSchedule(state, now) {
+    validateState(state); now = now === undefined ? today() : now; dateStamp(now);
+    var result = clone(state); schedule.applyWeekends(result, now); validateState(result); return result;
   }
   function archiveSubject(state, id, date) {
     validateState(state); dateStamp(date);
@@ -348,7 +354,7 @@
     dates(state.plan.startDate, state.plan.endDate).forEach(function (date) {
       if (!has(state.plan.targets, date)) state.plan.targets[date] = {};
       state.plan.subjects.forEach(function (item) {
-        if (!has(state.plan.targets[date], item.id)) state.plan.targets[date][item.id] = item.defaults[(new Date(dateStamp(date)).getUTCDay() + 6) % 7];
+        if (!has(state.plan.targets[date], item.id)) state.plan.targets[date][item.id] = clone(item.defaults[(new Date(dateStamp(date)).getUTCDay() + 6) % 7]);
       });
     });
   }
@@ -367,11 +373,11 @@
     if (state.plan.subjects.length >= 24) fail('最多添加24个科目');
     string(name, 128, '科目名称', true);
     defaults = defaults === undefined ? [0, 0, 0, 0, 0, 0, 0] : defaults;
-    defaultsValid(defaults, '科目参考');
+    defaultsValid(defaults, '科目参考',state.version>=4);
     if (effectiveDate !== undefined) dateStamp(effectiveDate);
     var index = 1;
     while (state.plan.subjects.some(function (item) { return item.id === 'custom_' + index; })) index++;
-    var item = { id: 'custom_' + index, name: name.trim(), kind: 'custom', defaults: defaults.slice() };
+    var item = { id: 'custom_' + index, name: name.trim(), kind: 'custom', defaults: clone(defaults) };
     if (effectiveDate !== undefined) { state.version = Math.max(state.version, 2); item.activePeriods = [{ from: effectiveDate, to: null }]; }
     state.plan.subjects.push(item);
     fillTargets(state);
@@ -381,9 +387,9 @@
     validateState(state);
     var item = subject(state, id);
     string(name, 128, '科目名称', true);
-    defaultsValid(defaults, '科目参考');
+    defaultsValid(defaults, '科目参考',state.version>=4&&item.kind!=='vocab');
     item.name = name.trim();
-    item.defaults = defaults.slice();
+    item.defaults = clone(defaults);
     return clone(item);
   }
   function weekStats(state, date) {
@@ -403,14 +409,14 @@
     return Object.assign({}, info, {
       days: days,
       subjects: state.plan.subjects.map(function (item) {
-        var reference = 0, actual = 0, recordedDays = 0;
+        var reference = 0, referenceMin=0,referenceMax=0,hasRange=false,actual = 0, recordedDays = 0;
         days.forEach(function (day) {
-          if (subjectActive(item, day)) reference += target(state, day, item.id);
+          if (subjectActive(item, day)) {var r=ranges.range(ranges.value(state,day,item));reference += target(state,day,item.id);referenceMin+=r.min;referenceMax+=r.max;hasRange=hasRange||!r.legacy;}
           var value = state.records[day] && state.records[day].subjects[item.id];
           if (value && value.minutes !== null) { actual += value.minutes; recordedDays++; }
         });
         var totalDays = days.filter(function (day) { return subjectActive(item, day) || state.records[day] && state.records[day].subjects[item.id] && state.records[day].subjects[item.id].minutes !== null; }).length;
-        return { id: item.id, name: item.name, kind: item.kind, reference: reference, actual: recordedDays ? actual : null, recordedDays: recordedDays, totalDays: totalDays };
+        var out={ id: item.id, name: item.name, kind: item.kind, reference: reference, actual: recordedDays ? actual : null, recordedDays: recordedDays, totalDays: totalDays };if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
       }),
       recordedDays: anyDays,
       entryDays: entryDays,
@@ -470,15 +476,15 @@
     var days = dates(start, end), entries = 0, recorded = 0;
     days.forEach(function (day) { if (has(state.records, day)) entries++; if (recordSummary(state, day).total !== null) recorded++; });
     var subjects = state.plan.subjects.map(function (item) {
-      var actual = 0, reference = 0, recordedDays = 0, totalDays = 0;
+      var actual = 0, reference = 0, referenceMin=0,referenceMax=0,hasRange=false,recordedDays = 0, totalDays = 0;
       days.forEach(function (day) {
         var entry = state.records[day] && state.records[day].subjects[item.id], written = !!entry && entry.minutes !== null;
         var active = day >= state.plan.startDate && day <= state.plan.endDate && subjectActive(item, day);
-        if (active) reference += target(state, day, item.id);
+        if (active) {var r=ranges.range(ranges.value(state,day,item));reference+=target(state,day,item.id);referenceMin+=r.min;referenceMax+=r.max;hasRange=hasRange||!r.legacy;}
         if (active || written) totalDays++;
         if (written) { actual += entry.minutes; recordedDays++; }
       });
-      return { id: item.id, name: item.name, kind: item.kind, actual: recordedDays ? actual : null, reference: reference, recordedDays: recordedDays, totalDays: totalDays };
+      var out={ id: item.id, name: item.name, kind: item.kind, actual: recordedDays ? actual : null, reference: reference, recordedDays: recordedDays, totalDays: totalDays };if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
     });
     var actualExists = subjects.some(function (item) { return item.actual !== null; });
     return { month: month, start: start, end: end, days: days, subjects: subjects, entryDays: entries, recordedDays: recorded, totalDays: days.length, actual: actualExists ? subjects.reduce(function (sum, item) { return sum + (item.actual || 0); }, 0) : null, reference: subjects.reduce(function (sum, item) { return sum + item.reference; }, 0) };
@@ -504,11 +510,11 @@
   }
   return Object.freeze({
     today: today, dates: dates, weekKey: weekKey, weekInfo: weekInfo,
-    subjectsForDate: subjectsForDate, subjectActive: subjectActive, target: target, record: record, saveRecord: saveRecord,
+    subjectsForDate: subjectsForDate, subjectActive: subjectActive, target: target, reference: reference, record: record, saveRecord: saveRecord,
     resizePlan: resizePlan, addSubject: addSubject, updateSubject: updateSubject,
     wordTarget: wordTarget, setWordGoal: setWordGoal, wordStats: wordStats, wordSteps: wordSteps, setWordSteps: setWordSteps,
     weekStats: weekStats, monthStats: monthStats, recordSummary: recordSummary, historySearch: historySearch, sessionSearch: sessionSearch,
-    migrateState: migrateState, applyCourseSchedule: applyCourseSchedule, archiveSubject: archiveSubject, restoreSubject: restoreSubject, moveSubject: moveSubject,
+    migrateState: migrateState, applyCourseSchedule: applyCourseSchedule, applyWeekendSchedule: applyWeekendSchedule, archiveSubject: archiveSubject, restoreSubject: restoreSubject, moveSubject: moveSubject,
     validateState: validateState, validate: validateState, allowed: allowed
   });
 });

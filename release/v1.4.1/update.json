@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  11,
+    "versionName":  "1.4.1",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v1.4.1/daily-study-v1.4.1.apk",
+    "apkBytes":  6568065,
+    "apkSha256":  "76edabea02975b5fd2e6670dd184c6fc4facddb34ec4dd9995a22bdd002a61ba",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v1.4.1\r\n\r\n- 每日参考改为可编辑区间：工作日60—120分钟，周六240—360分钟，周日180—300分钟。\r\n- 新增今日评估：照常、减量、仅回顾分别判断完成与超额；休息日单独记录。单词新学另评，复习另记。\r\n- 补全10月12—15日的复习顺序与课程名称。\r\n- 已有计划可从「计划 → 课程与区间安排」预览并应用；仅改周末可选「周末安排」。\r\n",
+    "releaseDate":  "2026-10-18"
+}

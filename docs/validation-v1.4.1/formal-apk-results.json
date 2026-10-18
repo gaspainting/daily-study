@@ -1,0 +1,11 @@
+{
+  "version": "1.4.1",
+  "versionCode": 11,
+  "apkBytes": 6568065,
+  "apkSha256": "76edabea02975b5fd2e6670dd184c6fc4facddb34ec4dd9995a22bdd002a61ba",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "assetFiles": 21,
+  "exactAssetMatch": true,
+  "testFixtureAbsent": true,
+  "instrumentationClassesAbsent": true
+}

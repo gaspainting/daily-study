@@ -75,6 +75,22 @@
 .agenda-heading strong{white-space:normal}
 .agenda-detail{font-size:var(--small,14px);color:var(--muted,#66655f)}
 .agenda-detail{line-height:1.7;margin:7px 0 0;overflow-wrap:anywhere}
+.daily-assessment{padding:20px 0 0;border-top:1px solid var(--line);margin:24px 0 0}
+.daily-assessment .section-heading{margin-bottom:12px;flex-wrap:wrap}
+.assessment-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 6px}
+.assessment-detail{margin:0 0 16px;color:var(--muted);line-height:1.6;overflow-wrap:anywhere}
+.assessment-summary{padding:18px 0;border-bottom:1px solid var(--line);line-height:1.7}
+.assessment-summary p{margin:6px 0}
+.reference-range{min-width:0;padding:12px 0;border:0;border-bottom:1px solid var(--line)}
+.reference-range legend{font-weight:600;overflow-wrap:anywhere}
+.reference-range .field-inline{margin:8px 0}
+.range-defaults{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}
+.range-value{overflow-wrap:normal;word-break:normal;line-height:1.25}
+.overview .range-metric{min-width:0}
+@media(max-width:480px){.overview.with-reference-range{grid-template-columns:1fr}.range-defaults{grid-template-columns:1fr}}
+.large-text .overview.with-reference-range{grid-template-columns:1fr}
+.bar.reference.ranged{min-height:2px;border-top:1px solid var(--muted);border-bottom:1px solid var(--muted)}
+.large-text .range-defaults{grid-template-columns:1fr}
 .schedule-budget{margin:20px 0}
 .schedule-budget div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line)}
 .schedule-budget dd{margin:0}
