@@ -1,9 +1,9 @@
 (function (root, factory) {
   'use strict';
-  var model = factory(root.StudySchedule || (typeof module === 'object' && module.exports ? require('./schedule.js') : null));
+  var model = factory(root.StudySchedule || (typeof module === 'object' && module.exports ? require('./schedule.js') : null), root.StudyWeeks || (typeof module === 'object' && module.exports ? require('./weekly-goals.js') : null));
   if (typeof module === 'object' && module.exports) module.exports = model;
   root.StudyModel = model;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule, weeks) {
   'use strict';
 
   var DAY = 86400000;
@@ -93,7 +93,7 @@
   function setWordSteps(state, id, steps) {
     validateState(state); wordStepsValid(steps);
     var item = subject(state, id); if (item.kind !== 'vocab') fail('快捷加数仅用于单词');
-    state.version = 2; item.wordSteps = steps.slice(); validateState(state); return state;
+    state.version = Math.max(state.version, 2); item.wordSteps = steps.slice(); validateState(state); return state;
   }
   function subjectActive(item, date) {
     dateStamp(date);
@@ -163,17 +163,17 @@
   }
   function validateState(state) {
     keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'], 'state');
-    if (state.version !== 1 && state.version !== 2) fail('不支持此备份版本');
+    if (![1, 2, 3].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
-    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version === 2 ? ['wordTargets', 'manualWeekGoals'] : [], 'plan');
+    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version === 3 ? ['weekTasks'] : []) : [], 'plan');
     string(plan.title, 128, 'plan.title', true);
     dates(plan.startDate, plan.endDate);
     weekNumber(plan.startWeek);
     if (!Array.isArray(plan.subjects) || plan.subjects.length < 1 || plan.subjects.length > 24) fail('科目数须为1—24');
     var ids = Object.create(null);
     plan.subjects.forEach(function (item) {
-      keys(item, ['id', 'name', 'kind', 'defaults'], state.version === 2 ? ['activePeriods', 'wordGoal', 'wordSteps'] : [], 'subject');
+      keys(item, ['id', 'name', 'kind', 'defaults'], state.version >= 2 ? ['activePeriods', 'wordGoal', 'wordSteps'] : [], 'subject');
       if (typeof item.id !== 'string' || !ID.test(item.id) || ids[item.id] || item.id === 'constructor' || item.id === 'prototype') fail('科目ID无效或重复');
       ids[item.id] = true;
       string(item.name, 128, 'subject.name', true);
@@ -216,6 +216,7 @@
       if (Object.keys(plan[field]).length > 100000) fail('周资料过多');
       Object.keys(plan[field]).forEach(function (date) { dateStamp(date); string(plan[field][date], 8000, field, false); });
     });
+    weeks.validate(plan);
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');
     Object.keys(state.records).forEach(function (date) { dateStamp(date); recordValid(state.records[date], ids, 'records.' + date); });
@@ -224,7 +225,7 @@
     Object.keys(state.reviews).forEach(function (date) {
       dateStamp(date);
       var review = state.reviews[date];
-      keys(review, ['load', 'mathProblem', 'vocabReview', 'adjustment', 'reason', 'halfDayRest'], state.version === 2 ? ['subjects'] : [], 'review');
+      keys(review, ['load', 'mathProblem', 'vocabReview', 'adjustment', 'reason', 'halfDayRest'], state.version >= 2 ? ['subjects'] : [], 'review');
       ['load', 'mathProblem', 'vocabReview', 'adjustment', 'reason'].forEach(function (field) { string(review[field], 8000, 'review.' + field, false); });
       optionalBoolean(review.halfDayRest, 'review.halfDayRest');
       if (has(review, 'subjects')) {
@@ -262,7 +263,7 @@
     if (goal === (has(item, 'wordGoal') ? item.wordGoal : 50)) return state;
     var targets = state.plan.wordTargets || (state.plan.wordTargets = {});
     dates(state.plan.startDate, state.plan.endDate).forEach(function (day) { var previous = wordTarget(state, day, id); targets[day] = targets[day] || {}; if (!has(targets[day], id)) targets[day][id] = previous; if (day >= from) targets[day][id] = goal; });
-    state.version = 2; item.wordGoal = goal; validateState(state);
+    state.version = Math.max(state.version, 2); item.wordGoal = goal; validateState(state);
   }
   function wordStats(state, days) {
     return state.plan.subjects.filter(function (item) { return item.kind === 'vocab'; }).map(function (item) {
@@ -280,7 +281,8 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 2;
+    result.version = 3;
+    result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
     Object.keys(result.reviews).forEach(function (date) {
       var review = result.reviews[date];
@@ -307,7 +309,7 @@
       if (period.from <= date && (period.to === null || date < period.to)) period.to = date;
       return period;
     }).filter(function (period) { return period.to === null || period.from < period.to; });
-    state.version = 2; item.activePeriods = periods;
+    state.version = Math.max(state.version, 2); item.activePeriods = periods;
     validateState(state); return clone(item);
   }
   function restoreSubject(state, id, date) {
@@ -320,7 +322,7 @@
     if (last && last.to === date) last.to = null;
     else periods.push({ from: date, to: null });
     if (periods.length > 1000) fail('科目启用时段过多');
-    state.version = 2; item.activePeriods = periods;
+    state.version = Math.max(state.version, 2); item.activePeriods = periods;
     validateState(state); return clone(item);
   }
   function moveSubject(state, id, direction) {
@@ -370,7 +372,7 @@
     var index = 1;
     while (state.plan.subjects.some(function (item) { return item.id === 'custom_' + index; })) index++;
     var item = { id: 'custom_' + index, name: name.trim(), kind: 'custom', defaults: defaults.slice() };
-    if (effectiveDate !== undefined) { state.version = 2; item.activePeriods = [{ from: effectiveDate, to: null }]; }
+    if (effectiveDate !== undefined) { state.version = Math.max(state.version, 2); item.activePeriods = [{ from: effectiveDate, to: null }]; }
     state.plan.subjects.push(item);
     fillTargets(state);
     return clone(item);

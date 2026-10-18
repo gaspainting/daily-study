@@ -43,7 +43,7 @@
     }
     if(legacyDefaults)math.defaults=[data.weekdayBudget-data.lightReview,data.weekdayBudget-data.lightReview,data.weekdayBudget-data.lightReview,data.weekdayBudget-data.lightReview,data.weekdayBudget-data.lightReview,data.saturdayBudget-data.saturdayReview,data.sundayBudget-data.sundayReview];
     if(plan.title===data.legacyTitle)plan.title=data.title;
-    state.version=2;return state;
+    state.version=Math.max(state.version,2);return state;
   }
   function upgrade(state,now){if(original(state)&&!find(state,data.subjectId)&&canApply(state,now))apply(state,now,false);return state;}
   function agenda(state,date){

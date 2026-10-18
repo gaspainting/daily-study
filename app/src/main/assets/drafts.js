@@ -4,7 +4,7 @@
   let api, keyFor, changed;
   const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
   function controls(form) { return Array.from(form.elements).filter(e => e.name && !['submit', 'button'].includes(e.type)); }
-  function controlKey(form, e) { return e.id || e.name + ':' + controls(form).filter(c => c.name === e.name).indexOf(e); }
+  function controlKey(form, e) { return e.dataset.draftField || e.id || e.name + ':' + controls(form).filter(c => c.name === e.name).indexOf(e); }
   function fields(form) {
     const values = {};
     controls(form).forEach(e => { const key = controlKey(form, e); values[key] = ['radio', 'checkbox'].includes(e.type) ? e.checked : e.value; });
@@ -12,6 +12,7 @@
   }
   function apply(form, values) {
     controls(form).forEach(e => { const key = controlKey(form, e); if (!(key in values)) return; if (['radio', 'checkbox'].includes(e.type)) e.checked = values[key]; else e.value = values[key]; });
+    form.dispatchEvent(new CustomEvent('study-draft-applied', { bubbles: true }));
     form.querySelectorAll('details').forEach(e => { if (Array.from(e.querySelectorAll('input,textarea')).some(c => c.value)) e.open = true; });
   }
   function banner(form, text, actions, error = false) {
@@ -33,6 +34,16 @@
         return;
       }
       if (equal(draft.values, base)) { api('deleteDraft', key); return; }
+      const detail = { draft, current: base, handled: false };
+      form.dispatchEvent(new CustomEvent('study-draft-merge', { bubbles: true, detail }));
+      if (detail.handled) {
+        apply(form, detail.values);
+        if(form.dataset.weekMode) form.querySelector('.save-row').hidden = false;
+        if (detail.conflicted) { entry.pending = {}; changed(form); banner(form, '目标已更新', [['clear', '使用已保存目标']], true); }
+        else if (!equal(fields(form), base)) { changed(form); banner(form, '已恢复草稿', [['clear', '清除草稿']]); }
+        else api('deleteDraft', key);
+        return;
+      }
       const patches = {}, conflicts = [];
       Object.keys(draft.values).forEach(k => {
         if (!(k in base) || draft.values[k] === draft.base[k]) return;
@@ -47,6 +58,7 @@
   function save(form) {
     const entry = entries.get(form); if (!entry) return true;
     if (entry.legacyReference) return false;
+    if (form.dataset.weekConflict) return false;
     try {
       const values = fields(form);
       if (equal(values, entry.base)) api('deleteDraft', entry.key);
@@ -60,6 +72,7 @@
   function clear(form) {
     const entry = entries.get(form); if (!entry) return;
     api('deleteDraft', entry.key); apply(form, entry.base); entry.saved = true; entry.pending = null; entry.legacyReference = null; form.querySelector('.draft-status')?.remove(); changed(form, false);
+    form.dispatchEvent(new CustomEvent('study-draft-cleared', { bubbles: true }));
   }
   document.addEventListener('click', e => {
     const button = e.target.closest('[data-draft-action]'); if (!button) return;
@@ -74,8 +87,9 @@
   window.StudyDrafts = {
     init(call, resolveKey, onChange) { api = call; keyFor = resolveKey; changed = onChange; },
     attach, save, fields,
-    hasContextConflict(form) { return !!entries.get(form)?.legacyReference; },
-    flush() { let ok = true; document.querySelectorAll('form[data-dirty]').forEach(f => { const entry = entries.get(f); if (entry && !entry.pending && !equal(fields(f), entry.base)) ok = save(f) && ok; }); return ok; },
+    hasContextConflict(form) { return !!entries.get(form)?.legacyReference || !!form.dataset.weekConflict; },
+    resolve(form, values) { const entry = entries.get(form); if (!entry) return; entry.pending = null; apply(form, values); changed(form); save(form); },
+    flush() { let ok = true; document.querySelectorAll('form[data-dirty]').forEach(f => { if(f.closest('dialog') && !f.closest('dialog').open)return; const entry = entries.get(f); if (entry && !entry.pending && !equal(fields(f), entry.base)) ok = save(f) && ok; }); return ok; },
     removeKey(key) { if (key) api('deleteDraft', key); }
   };
 })();

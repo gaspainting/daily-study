@@ -1,0 +1,10 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+APK: D:\南京邮电大学\learning\study-checkin-android\dist\每日学习-v1.4.0-test.apk
+SHA256: 70fd6354322e9e63cdc33af3349167af3722900f56a727bc4fec9b508542526d

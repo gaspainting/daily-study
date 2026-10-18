@@ -40,11 +40,13 @@ for name in documents:
 for name in [f'{label}-v{version}_使用说明.md', f'{label}_使用说明.md']:
     (out / name).write_text(guide, encoding='utf-8')
 source = out / f'{label}-v{version}-源码.zip'
-excluded = {'.signing', '.git', 'dist', 'build', 'tmp', 'release'}
+excluded = {'.signing', '.git', 'dist', 'build', 'tmp'}
 with zipfile.ZipFile(source, 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
     for file in sorted(root.rglob('*')):
         relative = file.relative_to(root)
-        if not file.is_file() or relative.parts[0] in excluded or file.suffix.lower() in {'.p12', '.jks', '.keystore', '.pem'}:
+        if not file.is_file() or relative.parts[0] in excluded or '__pycache__' in relative.parts or file.suffix.lower() in {'.p12', '.jks', '.keystore', '.pem', '.pyc', '.pyo'}:
+            continue
+        if relative.parts[0] == 'release' and (file.name not in {'update.json', 'RELEASE-NOTES.md'} or '-pre-install-guard' in relative.parts[1]):
             continue
         archive.write(file, f'{label}-v{version}/' + relative.as_posix())
 with zipfile.ZipFile(source) as archive:

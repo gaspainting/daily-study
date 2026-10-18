@@ -208,7 +208,7 @@ test('无效输入在写入前失败，不破坏状态', () => {
 
 test('严格备份校验拒绝版本、非法日期、范围、类型、未知字段和污染字段', () => {
   const mutations = [
-    s => { s.version = 3; },
+    s => { s.version = 4; },
     s => { s._revision = -1; },
     s => { s._revision = 1.5; },
     s => { s.plan.startDate = '2026-02-30'; },

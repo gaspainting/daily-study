@@ -4,7 +4,7 @@ const {connect,android,delay}=require('./cdp-client.cjs');
 const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),assert=require('node:assert/strict');
 const M=require('../app/src/main/assets/model.js'),pkg='cn.edu.njupt.studycheckin',base='/data/user/0/'+pkg;
 const root=path.resolve(__dirname,'..'),version=/android:versionName="([^"]+)"/.exec(fs.readFileSync(path.join(root,'app/src/main/AndroidManifest.xml'),'utf8'))[1];
-const baseline=process.env.PLAN_LAYOUT_BASELINE==='1',report=path.join(root,'docs/validation-v1.3.5'),shots=path.join(root,'docs/screenshots/v1.3.5');
+const baseline=process.env.PLAN_LAYOUT_BASELINE==='1',report=path.join(root,'docs/validation-v'+version),shots=path.join(root,'docs/screenshots/v'+version);
 const adb=path.join(process.env.ANDROID_SDK_ROOT,'platform-tools/adb.exe'),serial=process.env.ANDROID_SERIAL||'emulator-5572';
 let c,failure;const checks=[],metrics=[],saved=new Map(),check=(ok,name)=>{assert.ok(ok,name);checks.push(name);console.log('PASS '+name);};
 const oldFont=android('shell','settings','get','system','font_scale');
@@ -42,7 +42,7 @@ async function verify(width,scale,label){await c.call('Emulation.setDeviceMetric
  for(const f of ['files/study-state.json','files/plans.json','files/drafts.json','shared_prefs/stopwatch.xml'])saved.set(f,shell('if [ -f '+base+'/'+f+' ]; then echo yes; else echo no; fi')==='yes'?read(f):null);
  const state=fixture();write('files/study-state.json',Buffer.from(JSON.stringify(state)));shell('rm -f '+base+'/files/drafts.json');
  android('shell','settings','put','system','font_scale','1.0');await boot();const info=await native('getAppInfo');
- if(!baseline)check(info.versionName===version,'actual formal APK matches the build version');
+ if(!baseline)check(info.versionName===version,'actual installed APK matches the build version');
  await click('[data-nav=plan]');await verify(390,1,'390px default text');await shot(baseline?'plan-before':'plan-recorded');
  if(baseline){check(metrics[0].rows[0].meta.w<100,'original signed APK reproduces squeezed reference column');}
  else{

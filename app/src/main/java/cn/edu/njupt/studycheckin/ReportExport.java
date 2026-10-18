@@ -50,7 +50,7 @@ public final class ReportExport {
         List<Row> rows = rows(state, first, last, selected);
         Map<String,Total> totals=totals(rows);
         if ("csv".equals(format)) csv(output, state.getJSONObject("plan").getString("title"), rows, totals, selected);
-        else pdf(output, font(context), state.getJSONObject("plan").getString("title"), start, end, rows, totals, selected);
+        else pdf(output, font(context), state.getJSONObject("plan"), start, end, rows, totals, selected);
     }
 
     private static LocalDate date(String value) throws Exception {
@@ -172,10 +172,11 @@ public final class ReportExport {
         if (index < value.length() && "=+-@".indexOf(value.charAt(index)) >= 0) return "'" + value;
         return value;
     }
-    private static void pdf(OutputStream output, Typeface font, String title, String start, String end, List<Row> rows, Map<String,Total> totals, List<JSONObject> subjects) throws Exception {
+    private static void pdf(OutputStream output, Typeface font, JSONObject plan, String start, String end, List<Row> rows, Map<String,Total> totals, List<JSONObject> subjects) throws Exception {
         PdfDocument document = new PdfDocument();
         try {
-            Pages pages = new Pages(document, font, title, start + " 至 " + end);
+            Pages pages = new Pages(document, font, plan.getString("title"), start + " 至 " + end);
+            weeklyGoals(pages, plan, start, end, subjects);
             for (JSONObject subject : subjects) {
                 Total total = totals.getOrDefault(subject.getString("id"),new Total());
                 if("vocab".equals(subject.getString("kind"))){pages.paragraph(subject.getString("name")+" · 新学 "+(total.newDays==0?"未记录":decimal(total.learned)+" 个")+" / 目标 "+(total.goalDays==0?"—":decimal(total.wordGoal)+" 个")+" · 复习 "+(total.reviewDays==0?"未记录":decimal(total.reviewed)+" 个"),true);pages.paragraph("新学记录 "+total.newDays+"/"+total.days+" 天 · 复习记录 "+total.reviewDays+"/"+total.days+" 天",false);if(total.recorded>0)pages.paragraph("历史时长："+decimal(total.actual)+" 分钟",false);}
@@ -197,6 +198,22 @@ public final class ReportExport {
             }
             pages.finish(); document.writeTo(output); output.flush();
         } finally { document.close(); }
+    }
+    private static void weeklyGoals(Pages pages, JSONObject plan, String start, String end, List<JSONObject> subjects) throws Exception {
+        Set<String> selected = new HashSet<>(); for(JSONObject subject : subjects) selected.add(subject.getString("id"));
+        for(String key : WeeklyGoals.keys(plan)) {
+            String last = LocalDate.parse(key).plusDays(6).toString();
+            if(key.compareTo(end)>0 || last.compareTo(start)<0) continue;
+            JSONArray all=WeeklyGoals.tasks(plan,key); List<JSONObject> tasks=new ArrayList<>(); int done=0;
+            for(int i=0;i<all.length();i++){JSONObject task=all.getJSONObject(i);if(task.isNull("subjectId")||selected.contains(task.getString("subjectId"))){tasks.add(task);if(task.getBoolean("done"))done++;}}
+            String goal=plan.getJSONObject("weekGoals").optString(key,""), hint=plan.getJSONObject("weekHints").optString(key,"");
+            if(goal.isEmpty()&&hint.isEmpty()&&tasks.isEmpty())continue;
+            pages.keep(3);pages.paragraph("周目标 · "+key+" 至 "+last,true);
+            if(!goal.isEmpty())pages.paragraph(goal,false);
+            if(!tasks.isEmpty())pages.paragraph(done+" / "+tasks.size()+" 项已完成",false);
+            for(JSONObject task:tasks){String subject=task.isNull("subjectId")?"":" · "+WeeklyGoals.subjectName(plan,task.getString("subjectId"));pages.paragraph((task.getBoolean("done")?"已完成":"未完成")+" · "+task.getString("title")+subject,false);}
+            if(!hint.isEmpty())pages.paragraph("随记："+hint,false);pages.rule();
+        }
     }
     private static void field(Pages pages, String label, String value) { if (!value.isEmpty()) pages.paragraph(label + "：" + value, false); }
     private static final class Pages {

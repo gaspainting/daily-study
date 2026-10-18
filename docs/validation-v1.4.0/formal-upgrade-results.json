@@ -1,0 +1,22 @@
+{
+  "passed": 13,
+  "checks": [
+    "previous actual formal v1.3.5 APK launches before upgrade",
+    "same-signature cover install retains original state file byte for byte",
+    "installed formal package is v1.4.0/code10 without debuggable flag",
+    "first launch reads a migrated view without rewriting legacy observations",
+    "formal task editor shows original self-written goal",
+    "system key input reaches the task field in full",
+    "renamed task checkbox exposes its current title to accessibility",
+    "keyboard navigation reaches the named save button",
+    "formal manual save persists the new schema",
+    "real Android keyboard task input is saved exactly once by formal APK",
+    "formal task save retains original goal and hint text",
+    "formal upgrade and new task save preserve explicit zero unknown values rest state and vocabulary review",
+    "formal task submit advances original revision exactly once"
+  ],
+  "error": null,
+  "unverified": [
+    "Formal About UI locator; installed metadata and test APK getAppInfo are checked separately"
+  ]
+}

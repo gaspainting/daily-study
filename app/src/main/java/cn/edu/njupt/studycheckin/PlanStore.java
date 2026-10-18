@@ -69,6 +69,7 @@ public final class PlanStore {
             JSONObject state = DataStore.migrateState(newState), catalog = catalog(context); JSONArray items = catalog.getJSONArray("items");
             if (items.length() >= MAX_PLANS) throw new Exception("最多保存 8 个计划");
             if (state.getJSONObject("records").length() != 0 || state.getJSONObject("reviews").length() != 0 || (state.has("sessions") && state.getJSONArray("sessions").length() != 0)) throw new Exception("新计划不能包含已有记录");
+            for(String key:WeeklyGoals.keys(state.getJSONObject("plan"))){JSONArray tasks=WeeklyGoals.tasks(state.getJSONObject("plan"),key);for(int i=0;i<tasks.length();i++)if(tasks.getJSONObject(i).getBoolean("done"))throw new Exception("新计划不能包含已完成任务");}
             String id = "plan_" + UUID.randomUUID().toString().replace("-", "");
             items.put(new JSONObject().put("id", id).put("name", state.getJSONObject("plan").getString("title")).put("state", state));
             saveCatalog(context, catalog); return id;

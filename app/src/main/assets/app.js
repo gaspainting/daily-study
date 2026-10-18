@@ -77,7 +77,7 @@
   }
   async function submitForm(form) {
     if (!form || saving.has(form.dataset.dirty) || !form.reportValidity()) return false;
-    if (window.StudyDrafts.hasContextConflict(form)) { tell('请先查看或清除其他日期的目标草稿'); return false; }
+    if (window.StudyDrafts.hasContextConflict(form)) { tell(form.dataset.weekConflict ? '请选择目标冲突的处理方式' : '请先查看或清除其他日期的目标草稿'); return false; }
     const key = form.dataset.dirty, buttons = Array.from(form.querySelectorAll('[type="submit"]')), labels = buttons.map(b => b.innerHTML);
     saving.add(key); buttons.forEach(b => { b.disabled = true; b.textContent = '保存中…'; });
     feedback.set(key, { kind: 'saving', message: '保存中…' }); syncFeedback(form);
@@ -88,6 +88,8 @@
       if (form.id === 'daily-form') saved = saveDaily();
       else if (form.id === 'review-form') saved = saveReview(form);
       else if (form.id === 'range-form') saved = saveRange(form);
+      else if (form.dataset.weekMode) saved = saveWeek(form);
+      else if (form.id === 'week-move-form') saved = moveWeek(form);
       else if (form.dataset.subjectEdit) saved = saveSubject(form);
       else if (form.id === 'reminder-form') saved = saveReminder(form);
       else if (form.id === 'backup-reminder-form') { call('setBackupReminder', form.elements.namedItem('backup-enabled').checked, Number(form.elements.namedItem('backup-days').value)); completeDraft(); dirty.delete('backup-reminder'); render(); saved = true; }
@@ -183,6 +185,7 @@
     if (destination === route && !date) return;
     if (!attempt(leaveEdits)) return;
     if (dialog.open) dialog.close();
+    dialog.replaceChildren();
     route = destination;
     if (date) selectedDate = date;
     if (route === 'plan') planDate = clampPlanDate(planDate || selectedDate);
@@ -200,7 +203,7 @@
     let key;
     if (form.id === 'daily-form') key = 'daily:' + selectedDate;
     else if (form.id === 'review-form') key = 'review:' + weekOf(reviewDate).key;
-    else if (form.id === 'week-form') key = 'week:' + form.dataset.key;
+    else if (form.dataset.weekMode) key = 'week:' + form.dataset.key;
     else if (form.id === 'reference-form') key = 'reference:' + form.elements.namedItem('reference-date').value;
     else if (form.dataset.subjectEdit) key = 'subject:' + form.dataset.subjectEdit;
     else key = form.id;
@@ -258,7 +261,6 @@
     initialDaily = clone(record);
     const total = actualTotal(record), reference = refTotal(selectedDate), subjects = visibleSubjects(selectedDate);
     const weekDays = Array.from({ length: 7 }, (_, i) => shift(w.key, i));
-    const goal = state.plan.weekGoals[w.key] || '', weekHint = state.plan.weekHints[w.key] || '';
     let html = '<div class="eyebrow">' + (selectedDate === today ? 'TODAY / 每日手记' : 'DAILY / 每日手记') + '</div><div class="date-line"><div><h1 class="date-title">' + briefDate(selectedDate) + '<small>周' + weekdays[date.getDay()] + '</small></h1><p class="date-caption">' + date.getFullYear() + ' 年' + (within(selectedDate) ? ' · 第 ' + w.number + ' 教学周 / ' + w.parity : ' · 计划范围外') + '</p></div><div class="date-tools"><button type="button" class="icon-button" data-action="day-prev" aria-label="前一天">' + icon('prev') + '</button><label class="calendar-control icon-button" aria-label="选择打卡日期">' + icon('today') + '<input id="day-picker" type="date" min="1900-01-01" max="2100-12-31" value="' + selectedDate + '" aria-label="选择打卡日期"></label><button class="icon-button" data-action="day-next" aria-label="后一天">' + icon('next') + '</button></div></div>';
     if (selectedDate !== today) html += '<button class="text-button" data-action="go-today">回到今天 · ' + briefDate(today) + '</button>';
     html += '<div class="week-strip" aria-label="本周日期">' + weekDays.map(d => '<button type="button" class="day-cell' + (d === selectedDate ? ' current' : '') + (d === today ? ' today' : '') + '" data-action="choose-day" data-date="' + d + '"' + (d === selectedDate ? ' aria-current="date"' : '') + '><span>周' + weekdays[localDate(d).getDay()] + '</span><strong>' + Number(d.slice(8)) + '</strong>' + (meaningful(state.records[d]) ? '<i class="record-dot" aria-label="已留记录"></i>' : '') + '</button>').join('') + '</div>';
@@ -268,7 +270,7 @@
     if (selectedDate === today && within(selectedDate) && M().subjectsForDate(state,selectedDate).some(s=>s.kind!=='vocab')) html += '<div class="quick-timers" aria-label="开始今日学习计时">' + M().subjectsForDate(state, selectedDate).filter(s => s.kind !== 'vocab').map(subject => '<button type="button" data-action="start-timer" data-subject="' + escape(subject.id) + '"' + (!M().allowed() ? ' disabled' : '') + '>' + icon('play') + escape(subject.name) + '计时</button>').join('') + '</div>' + (!M().allowed() ? '<p class="inline-form-note">' + escape(restReason()) + '</p>' : '');
     html += '<div id="timer-panel" class="timer-panel" hidden></div>';
     html += courseAgenda(selectedDate);
-    if (within(selectedDate)) html += '<div class="section"><div class="section-heading"><h2>本周目标</h2><span class="section-number">01 / PLAN</span></div>' + (goal ? '<p class="goal-copy">' + escape(goal) + '</p>' : '') + (weekHint ? '<p class="hint">' + escape(weekHint) + '</p>' : '') + '<button class="text-button" type="button" data-action="edit-week" data-scope="today">' + (goal ? '编辑本周目标' : '填写本周目标') + '</button></div>';
+    if (within(selectedDate)) html += '<div class="section"><div class="section-heading"><h2>本周目标</h2><span class="section-number">01 / PLAN</span></div>' + window.StudyWeekUI.controls(state.plan, w.key, 'today') + '<div class="week-links"><button class="text-button" type="button" data-action="edit-week" data-scope="today">编辑本周目标</button><button class="text-button" type="button" data-action="week-history">历史目标</button></div></div>';
     html += '<form id="daily-form" data-dirty="daily"><div class="section"><div class="section-heading"><h2>今日记录</h2><span class="section-number">02 / RECORD</span></div>';
     html += subjects.map((subject, index) => {
       const r = record.subjects[subject.id] || {}, id = subject.id;
@@ -289,15 +291,13 @@
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><div class="eyebrow">PLAN / 低强度参考</div><h1>学习计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
     if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程优先安排</button>';
-    const goal = state.plan.weekGoals[w.key];
-    if (goal) html += '<p class="goal-copy">' + escape(goal) + '</p>';
-    if (state.plan.weekHints[w.key]) html += '<p class="hint">' + escape(state.plan.weekHints[w.key]) + '</p>';
+    html += window.StudyWeekUI.readonly(state.plan, w.key, false);
     html += '<div class="week-list">' + dates.map(date => {
       const r = state.records[date], today = date === iso();
       const caption = meaningful(r) ? (r.status ? statusLabel(r.status) : recordCount(r) ? '已记录' : '有随记') : '未记录';
       const summary = window.StudyTracking.summaryText(M().recordSummary(state,date));
       return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : ' ' + M().target(state, date, s.id) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
-    }).join('') + '</div><button class="secondary-wide" data-action="edit-week">修改本周目标与提示</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
+    }).join('') + '</div><button class="secondary-wide" data-action="edit-week">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
     html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : '<p class="line-label">新增日期的默认参考分钟</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
     html += '<button class="secondary-wide" data-action="add-subject">' + icon('plus') + '添加新科目</button></details></div>';
     return html;
@@ -309,6 +309,7 @@
     const total = stats.subjects.reduce((sum, s) => sum + (s.actual || 0), 0);
     const actualExists = stats.subjects.some(s => s.actual != null);
     let html = trackingTabs() + '<div class="page-intro"><div class="eyebrow">REFLECTION / 一周回看</div><h1>每周复盘</h1></div>' + weekNavigation(reviewDate, 'review');
+    html += '<section class="review-goals" aria-label="本周目标"><h2>本周目标</h2>' + window.StudyWeekUI.readonly(state.plan, w.key, true) + '<div class="week-links"><button class="text-button" data-action="edit-week" data-scope="review">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button></div></section>';
     html += '<div class="overview"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (actualExists ? '' : ' is-empty') + '">' + (actualExists ? minuteLabel(total) : '未记录') + '</strong>' + (actualExists ? '<span class="metric-unit">分钟</span>' : '') + '</div><div><span class="metric-label">时长记录天数</span><strong class="metric-value">' + stats.recordedDays + '<small class="metric-unit"> / ' + stats.totalDays + ' 天</small></strong><span class="metric-caption">随记 ' + (stats.entryDays ?? stats.recordedDays) + ' 天</span></div></div><div class="legend"><span><i></i>已记录</span><span><i class="ref-line"></i>参考</span><span>虚线：未记录</span></div>';
     html += window.StudyTracking.renderWordStats(state,stats.days);
     html += stats.subjects.filter(s => s.kind !== 'vocab' ? s.totalDays || s.actual != null : s.actual != null).map(subject => {
@@ -344,9 +345,10 @@
     try { activePlanId = call('getPlans').activeId; } catch (_) {}
     app.innerHTML = (preview ? '<p class="preview-banner">开发预览</p>' : '') + '<button class="plan-switch text-button" data-action="plan-picker">' + escape(state.plan.title) + ' ' + icon('next') + '</button>' + ({ today: todayView, plan: planView, review: reviewView, history: historyView, month: monthView, sessions: sessionsView, inspiration: () => window.InspirationUI.view(), settings: settingsView }[route])();
     app.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
+    app.querySelectorAll('form[data-week-mode]').forEach(window.StudyWeekUI.sync);
     // Capture the saved baseline before restoring in-memory edits.
     app.querySelectorAll('form[data-dirty]').forEach(window.StudyDrafts.attach);
-    drafts.forEach(draft => { const form = document.getElementById(draft.id); if (!form) return; draft.controls.forEach(saved => { const controls = Array.from(form.elements).filter(control => control.name === saved.name); const control = saved.type === 'radio' ? controls.find(item => item.value === saved.value) : controls[0]; if (!control) return; if (saved.type === 'checkbox' || saved.type === 'radio') control.checked = saved.checked; else control.value = saved.value; }); });
+    drafts.forEach(draft => { const form = document.getElementById(draft.id); if (!form) return; draft.controls.forEach(saved => { const controls = Array.from(form.elements).filter(control => control.name === saved.name); const control = saved.type === 'radio' ? controls.find(item => item.value === saved.value) : controls[0]; if (!control) return; if (saved.type === 'checkbox' || saved.type === 'radio') control.checked = saved.checked; else control.value = saved.value; }); if (form.dataset.weekMode) { window.StudyWeekUI.sync(form); form.querySelector('.save-row').hidden=false; } });
     if (drafts.length) Array.from(app.querySelectorAll('details')).forEach((detail, index) => { if (openDetails[index]) detail.open = true; });
     document.querySelectorAll('[data-height]').forEach(bar => { bar.style.height = Math.max(0, Number(bar.dataset.height)) + '%'; });
     updatePermissionStatus();
@@ -450,6 +452,7 @@
     dialog.innerHTML = '<div class="sheet-heading"><h2 id="sheet-title">' + title + '</h2><button class="icon-button" type="button" data-action="close-sheet" aria-label="关闭">×</button></div>' + content;
     dialog.showModal();
     dialog.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
+    dialog.querySelectorAll('form[data-week-mode]').forEach(window.StudyWeekUI.sync);
     dialog.querySelectorAll('form[data-dirty]').forEach(window.StudyDrafts.attach);
   }
   function closeSheet(force = false) {
@@ -457,6 +460,7 @@
     dirty.delete('sheet');
     feedback.delete('sheet');
     dialog.close();
+    dialog.replaceChildren();
     return true;
   }
   function showCourseSchedule() {
@@ -467,7 +471,46 @@
   }
   function editWeek(date = planDate) {
     const w = weekOf(date);
-    openSheet('第 ' + w.number + ' 周目标', '<form id="week-form" data-dirty="sheet" data-key="' + w.key + '">' + field('本周目标', 'week-goal', state.plan.weekGoals[w.key], { textarea: true, rows: 3, maxLength: 5000 }) + field('随记', 'week-hint', state.plan.weekHints[w.key], { textarea: true, rows: 3, maxLength: 5000 }) + '<div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存目标</button></div></form>');
+    editWeekKey(w.key);
+  }
+  function editWeekKey(key) {
+    M().dates(key,key);
+    openSheet('周目标', window.StudyWeekUI.controls(state.plan, key, 'editor') + '<div class="week-links"><button class="text-button" data-action="week-move" data-key="'+key+'">移到另一周</button><button class="text-button" data-action="week-history">历史目标</button></div>');
+  }
+  function weekHistory() {
+    const keys = window.StudyWeeks.keys(state.plan);
+    openSheet('历史目标', keys.length ? '<div class="week-history">' + keys.map(key => {
+      const value = window.StudyWeeks.snapshot(state.plan,key), done = value.tasks.filter(t=>t.done).length;
+      return '<button class="setting-action" data-action="week-open" data-key="'+key+'"><span><strong>'+fullDate(key)+' — '+fullDate(window.StudyWeeks.end(key))+'</strong><small>'+(value.tasks.length ? done+' / '+value.tasks.length+' 项已完成' : '文字目标')+(window.StudyWeeks.active(state.plan,key)?'':' · 原日期分组')+'</small></span>'+icon('next')+'</button>';
+    }).join('') + '</div>' : '<p class="empty-state">暂无目标记录</p>');
+  }
+  function saveWeek(form) {
+    const latest = readState(), key = form.dataset.key, W = window.StudyWeeks, UI = window.StudyWeekUI;
+    const current = W.snapshot(latest.plan,key), base = UI.base(form), edited = UI.values(form), merged = W.merge(base,current,edited);
+    if (merged.conflicts.length) { UI.showConflicts(form,base,current,edited,'save'); throw new Error('目标已更新，请选择冲突项'); }
+    const value = W.prepare(latest.plan,key,merged.value,new Date().toISOString());
+    W.put(latest.plan,key,value); latest.version = 3;
+    persist(latest); dirty.delete(form.dataset.dirty);
+    if(form.dataset.weekMode==='editor') closeSheet(true);
+    render(); if(form.dataset.weekMode==='editor')tell('已保存'); return true;
+  }
+  function showWeekMove(key) {
+    if (dirty.size) { tell('请先保存当前修改'); return; }
+    const W = window.StudyWeeks, value = W.snapshot(state.plan,key);
+    if(!value.goal&&!value.hint&&!value.tasks.length){tell('本周没有目标');return;}
+    openSheet('移动周目标','<form id="week-move-form" data-dirty="sheet" data-key="'+key+'" data-original="'+escape(JSON.stringify(value))+'"><p>'+fullDate(key)+' — '+fullDate(W.end(key))+'</p>'+field('移入哪一周','week-move-date',clampPlanDate(selectedDate),{type:'date',min:state.plan.startDate,max:state.plan.endDate,required:true})+selectField('已有目标的处理方式','week-move-mode','merge',[['merge','合并'],['replace','替换']])+'<div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">移动目标</button></div></form>');
+  }
+  function moveWeek(form) {
+    const latest=readState(),W=window.StudyWeeks,from=form.dataset.key,day=form.elements.namedItem('week-move-date').value;
+    if(day<latest.plan.startDate||day>latest.plan.endDate)throw new Error('请选择计划内的日期');
+    const to=M().weekKey(latest.plan,day),mode=form.elements.namedItem('week-move-mode').value;
+    if(from===to)throw new Error('请选择另一周');
+    if(JSON.stringify(W.snapshot(latest.plan,from))!==form.dataset.original)throw new Error('原周目标已更新，请重新打开');
+    for(const key of [from,to]) if(call('getDraft',activePlanId+':week:'+key).draft)throw new Error('相关周有未保存草稿，请先在历史目标中处理');
+    const dest=W.snapshot(latest.plan,to),next=W.transfer(latest.plan,from,to,mode);
+    const impact=mode==='replace'?'将替换目标周的文字、随记及'+dest.tasks.length+'项任务。':'与目标周现有内容合并。';
+    if(!window.confirm('将 '+fullDate(from)+' — '+fullDate(W.end(from))+' 的目标移到 '+fullDate(to)+' — '+fullDate(W.end(to))+'？\n'+impact+'原周目标将移除。')){feedback.delete('sheet');syncFeedback(form);return false;}
+    latest.plan=next;persist(latest);dirty.delete('sheet');closeSheet(true);render();tell('目标已移动');return true;
   }
   function referenceFields(date) {
     return M().subjectsForDate(state,date).map(s => field(s.name + (s.kind === 'vocab' ? ' · 新学目标（个）' : ' · 参考分钟'), 'target-' + s.id, s.kind === 'vocab' ? M().wordTarget(state,date,s.id) : M().target(state, date, s.id), { type: 'number', min: 0, max: s.kind === 'vocab' ? 100000 : 1440, step: s.kind === 'vocab' ? 1 : 'any', required: true })).join('');
@@ -508,7 +551,6 @@
   function saveSheet(form) {
     if (!form.reportValidity()) return false;
     const latest = readState();
-    if (form.id === 'week-form') { latest.plan.weekGoals[form.dataset.key] = form.elements.namedItem('week-goal').value; latest.plan.weekHints[form.dataset.key] = form.elements.namedItem('week-hint').value; }
     if (form.id === 'reference-form') {
       const date = form.elements.namedItem('reference-date').value;
       if (date < latest.plan.startDate || date > latest.plan.endDate) throw new Error('请选择计划日期范围内的一天。');
@@ -518,7 +560,7 @@
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 2, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
+      const fresh = { version: 3, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = s.defaults[(localDate(date).getDay() + 6) % 7]; }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
@@ -608,7 +650,10 @@
         if (scope === 'plan') planDate = clampPlanDate(next); else reviewDate = clampPlanDate(next);
         render(); return;
       }
-      if (action === 'edit-week') editWeek(button.dataset.scope === 'today' ? selectedDate : planDate);
+      if (action === 'edit-week') editWeek(button.dataset.scope === 'today' ? selectedDate : button.dataset.scope === 'review' ? reviewDate : planDate);
+      if (action === 'week-history') weekHistory();
+      if (action === 'week-open') editWeekKey(button.dataset.key);
+      if (action === 'week-move') showWeekMove(button.dataset.key);
       if (action === 'course-schedule') showCourseSchedule();
       if (action === 'apply-course-schedule') {
         const latest=readState();
@@ -742,6 +787,7 @@
     window.InspirationUI.restored();
     window.InspirationUI.init(bridge, () => { if (booted && route === 'inspiration') render(); }, tell, false);
     if (dialog.open) dialog.close();
+    dialog.replaceChildren();
     attempt(() => { state = readState(); booted = true; selectedDate = iso(); planDate = clampPlanDate(selectedDate); reviewDate = planDate; lastTimer = call('getTimer'); render(); tell('备份已恢复'); });
   };
   // Native may display this message after its asynchronous document picker completes.
@@ -838,6 +884,7 @@
       if (!window.StudyModel) throw new Error('记录模块未加载，请重新打开 APP。');
       bridge = window.Native || await createPreviewBridge();
       state = readState();
+      window.StudyWeekUI.init(() => state.plan);
       activePlanId = call('getPlans').activeId;
       window.StudyDrafts.init(call, draftKey, (form, value = true) => { clearFormWordUndo(form); if (value) dirty.add(form.dataset.dirty); else dirty.delete(form.dataset.dirty); feedback.delete(form.dataset.dirty); syncFeedback(form); });
       selectedDate = iso(); planDate = clampPlanDate(selectedDate); reviewDate = planDate;

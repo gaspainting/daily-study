@@ -158,7 +158,8 @@ public final class DraftStore {
             validateIdentifier(key);
             Object value = fields.opt(key);
             if (value instanceof String) {
-                if (((String) value).length() > 8000) throw new Exception("草稿文字过长");
+                int max = key.equals("week-tasks") ? 128 * 1024 : 8000;
+                if (((String) value).length() > max) throw new Exception("草稿文字过长");
             } else if (!(value instanceof Boolean)) {
                 throw new Exception("草稿字段无效");
             }

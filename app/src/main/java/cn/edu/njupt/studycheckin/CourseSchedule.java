@@ -42,7 +42,7 @@ final class CourseSchedule {
             if(force||!stored.has(course.getString("id")))stored.put(course.getString("id"),row.getInt("review"));
         }
         if(defaults){JSONArray values=new JSONArray();for(int d=0;d<7;d++)values.put(DATA.getInt(d==5?"saturdayBudget":d==6?"sundayBudget":"weekdayBudget")-DATA.getInt(d==5?"saturdayReview":d==6?"sundayReview":"lightReview"));math.put("defaults",values);}
-        if(plan.getString("title").equals(DATA.getString("legacyTitle")))plan.put("title",DATA.getString("title"));state.put("version",2);return state;
+        if(plan.getString("title").equals(DATA.getString("legacyTitle")))plan.put("title",DATA.getString("title"));state.put("version",Math.max(state.getInt("version"),2));return state;
     }
     static void upgrade(JSONObject state,LocalDate now)throws Exception{
         JSONObject plan=state.getJSONObject("plan");

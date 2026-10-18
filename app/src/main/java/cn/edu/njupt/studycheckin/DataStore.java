@@ -107,11 +107,11 @@ public final class DataStore {
     }
     public static void validate(JSONObject state) throws Exception {
         keys(state,new String[]{"version","plan","records","reviews","settings"},new String[]{"sessions","_revision"},"state");
-        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2), "备份版本不支持");
-        boolean current=state.getInt("version")==2;
+        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3), "备份版本不支持");
+        boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
-        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
+        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")==3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
         require(!string(p,"title",128).trim().isEmpty(),"计划名不能为空");
         LocalDate start=date(string(p,"startDate",10)), end=date(string(p,"endDate",10));
         long days = ChronoUnit.DAYS.between(start,end)+1;
@@ -143,6 +143,7 @@ public final class DataStore {
         if(p.has("manualWeekGoals"))require(Boolean.TRUE.equals(p.get("manualWeekGoals")),"周目标模式无效");
         if(p.has("wordTargets")){JSONObject words=p.getJSONObject("wordTargets");require(words.length()<=100000,"词数目标日期过多");Iterator<String> wd=words.keys();while(wd.hasNext()){String day=wd.next();date(day);JSONObject goals=words.getJSONObject(day);Iterator<String> wi=goals.keys();while(wi.hasNext()){String id=wi.next();require(vocabIds.contains(id),"词数目标科目无效");number(goals.get(id),100000,true,false,"新学目标");}}}
         texts(p.getJSONObject("weekGoals"),8000); texts(p.getJSONObject("weekHints"),8000);
+        WeeklyGoals.validate(p);
         JSONObject records=state.getJSONObject("records"); Iterator<String> rd=records.keys();
         while(rd.hasNext()) {
             String day=rd.next();date(day);JSONObject r=records.getJSONObject(day);
@@ -196,7 +197,8 @@ public final class DataStore {
     }
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
-        state.put("version",2);clearPresetWeeks(state.getJSONObject("plan"));
+        state.put("version",3);clearPresetWeeks(state.getJSONObject("plan"));
+        if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
         while(dates.hasNext()) {JSONObject review=reviews.getJSONObject(dates.next());JSONObject text=review.optJSONObject("subjects");if(text==null){text=new JSONObject();review.put("subjects",text);}for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String kind=subject.getString("kind"),field=kind.equals("math")?"mathProblem":kind.equals("vocab")?"vocabReview":null;String id=subject.getString("id");if(field!=null&&!text.has(id))text.put(id,review.getString(field));}}
         CourseSchedule.upgrade(state,LocalDate.now());
