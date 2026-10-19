@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-18",
+  "date": "2026-10-19",
   "repository": "gaspainting/daily-study",
-  "version": "1.4.1",
-  "versionCode": 11,
+  "version": "1.4.2",
+  "versionCode": 12,
   "files": [
     {
       "path": ".gitattributes",
@@ -17,12 +17,12 @@
     {
       "path": "app/src/main/AndroidManifest.xml",
       "bytes": 3388,
-      "sha256": "ddf0e2756fcdfb4bfa5a8a8ad031408c8840e7171c91b9da8990935f8459798f"
+      "sha256": "c0a402a17e0e58b5f261ce57ca7efe3ccf228eafbc165bf40ae93803487fa4a3"
     },
     {
       "path": "app/src/main/assets/app.js",
-      "bytes": 97949,
-      "sha256": "43ede215674bdafccde6e4704a04bdb657c17f0977b989066597232f11a3b153"
+      "bytes": 101549,
+      "sha256": "5e6d0542c255d63207c4050c7c12c2eb10566889bbbb953aa83fcb757b45e0df"
     },
     {
       "path": "app/src/main/assets/course-schedule-data.js",
@@ -61,18 +61,18 @@
     },
     {
       "path": "app/src/main/assets/model.js",
-      "bytes": 34945,
-      "sha256": "14736238529f8bfde93d5a922b3a02affe91566e935e2ddf423b5ace40f8431f"
+      "bytes": 36530,
+      "sha256": "0c8d2b0d7d4b25c98aa53182af7b24f23fd460921332bdfdafb565ed3fffda32"
     },
     {
       "path": "app/src/main/assets/polish.css",
-      "bytes": 10369,
-      "sha256": "dadebbabfc93d9ca22aa9e9f8c90f13654d8702713f6d87ca8145bfbb2b67127"
+      "bytes": 11433,
+      "sha256": "f1ea5e868587af80ad71575aa5ac02ca5e38603c5874aa25fad169c0d6751c49"
     },
     {
       "path": "app/src/main/assets/reference.js",
-      "bytes": 4818,
-      "sha256": "ed64a8369f2df8fb1fe4d0905859a1c52bf053d7f78b8609ac0959cb88209454"
+      "bytes": 9086,
+      "sha256": "2e4f80cc8de6d20a8279cd96ee0f84130c4f2370d382d496814315cd91d019a5"
     },
     {
       "path": "app/src/main/assets/report-font-OFL.txt",
@@ -106,8 +106,8 @@
     },
     {
       "path": "app/src/main/assets/tracking.js",
-      "bytes": 13677,
-      "sha256": "2877f82f1ca92c65c1c32cdd3382443fbb3f7379aa235faf51c1a9f4c4c4d5ad"
+      "bytes": 17005,
+      "sha256": "4e50859d5023a46589f75eb6e63ecb8ff4eb0cf05ef72b53f5b10a1185f0e12e"
     },
     {
       "path": "app/src/main/assets/weekly-goals.js",
@@ -161,8 +161,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
-      "bytes": 19735,
-      "sha256": "79a93e8e03e33ec9815bc927f8110fcdc1c1d2974b90ec7183f3dffacad92a80"
+      "bytes": 20251,
+      "sha256": "741f571634edcc7a2fae945b71d12944f0bd90e028f20490a0e52af45d351228"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/DraftStore.java",
@@ -206,8 +206,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/Reference.java",
-      "bytes": 5587,
-      "sha256": "a76d0591c8b7d6174257961da3bcb5f0ba6752e6f08aac7da46aeab04813e7d3"
+      "bytes": 10787,
+      "sha256": "906592fa4274b370cecf60e627e805adb6be9c00bdb73c1486de0e21dffcda28"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReminderReceiver.java",
@@ -221,13 +221,13 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
-      "bytes": 23120,
-      "sha256": "872b8d3eb68628690fd071f40e945b4cd7cce456fa7f6948c9dec2e316efe45d"
+      "bytes": 24275,
+      "sha256": "0fa6ce73a4b8fb5c65474d7ed0856b809ce8c51717aa7aeb0dc11a1df631d6e0"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
-      "bytes": 5589,
-      "sha256": "b53a88e97d2df208e262de3649cf80b839fcbcface0d76595a9b78b38660febf"
+      "bytes": 6115,
+      "sha256": "dfb109af03a510416978cc69b1a372252ef28154e5895e1c800f5c057c7dcb35"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/TimerService.java",
@@ -320,6 +320,11 @@
       "sha256": "3d54e1fff9caa9e3a5182230dea3774aed33fe07c7d96a3f0dafea7867c819c9"
     },
     {
+      "path": "docs/CODE-REVIEW-v1.4.2.md",
+      "bytes": 3428,
+      "sha256": "91f394b51bf5fca42082c13859a9f2dcb0976171e884cfd6e3006c13b65d0825"
+    },
+    {
       "path": "docs/CONTRACT.md",
       "bytes": 13012,
       "sha256": "09c392c2cefa4a0ccb9db2b461f2e87f83cfef59ca53d5c2aebefbc5c3a98e09"
@@ -331,8 +336,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 4273,
-      "sha256": "685105502d2dda7837738c904f3bf45119eaf4879fd4faa9af9e4fd8a02eff43"
+      "bytes": 4294,
+      "sha256": "ca49a47841da5851e06788f21569db810af0657037149a86ca6fd7114511e8f8"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -341,13 +346,13 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4624,
-      "sha256": "de76516415f802b2aa075a5eace8029e376bcee5002d93c36bfa8f8f4ec80626"
+      "bytes": 4825,
+      "sha256": "b531c005cf4de7238b54bbf77515ef0ce555119cfbacdcc79ff9a0fec8741357"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1334,
-      "sha256": "a499d3dda6c4df89bf0182c59f69265fd2a5f0d225ddb47512195f508af0e5ed"
+      "bytes": 1368,
+      "sha256": "1fb3fa29701e0a93e327ff4aed4f60362a88e77eb308bc7ef4b029de6f376817"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -388,6 +393,11 @@
       "path": "docs/RELEASE-NOTES-v1.4.1.md",
       "bytes": 456,
       "sha256": "3241b44f3eddc0b36ccbab1109d1fecd080353c6c4f8e0bc32dae21db026b7a6"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.4.2.md",
+      "bytes": 388,
+      "sha256": "4bbf394cd5eece43e5d52360fed6a4b96c8096aa0dd906224ea8961eb9ceed97"
     },
     {
       "path": "docs/release-test-results.json",
@@ -1355,6 +1365,51 @@
       "sha256": "9386c3d41eae56994e0c64e5205339bd65c249caac6a02d8a575a40e8f267e49"
     },
     {
+      "path": "docs/screenshots/v1.4.2/assessment-basis-320px-200pct.png",
+      "bytes": 231793,
+      "sha256": "ca575641f345972e01723a106a5a4b1402d9cd02b7a1e22d2a712543e42f6ff9"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-basis-retained.png",
+      "bytes": 195443,
+      "sha256": "8a21a14e7913431e192f8b34dbb32e382fc948b8026ec0ffe0555ccc20c802e4"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-filters-320px-200pct.png",
+      "bytes": 125096,
+      "sha256": "c230544aebfda99f07aed3a112bbb868ebd4022f85449b2fd74a1ce3db25bcab"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-history-filters.png",
+      "bytes": 166856,
+      "sha256": "192476bc6df236edc4a69e8a4654bcb0f8afc0ac1d24a8eb957eb5f201ad3622"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-month-320px-200pct.png",
+      "bytes": 180779,
+      "sha256": "56aa30416455d04a99254a1e2208907927444d3e19700364a75890381c62b4ff"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-month-trends.png",
+      "bytes": 173171,
+      "sha256": "3192205446747ebe3ed53d05b1c104768bc1e50097c37546f44f3f576c02de43"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-recalculate-preview.png",
+      "bytes": 225371,
+      "sha256": "852973abbd72ed6d6e9b897f67980b131b23a01f2c877f4b6a5646e97402a115"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/assessment-week-320px-200pct.png",
+      "bytes": 202267,
+      "sha256": "7349ad9a08d5cb2001c13ea6b197186355b04a8cd122591e508bc8bd782f3046"
+    },
+    {
+      "path": "docs/screenshots/v1.4.2/formal-upgrade-about.png",
+      "bytes": 106410,
+      "sha256": "3e59ee9cadf34a9a49dbf0c5f6c7638e571b928558d912d8d1d69a171f384e5a"
+    },
+    {
       "path": "docs/source/course-review-policy.json",
       "bytes": 2278,
       "sha256": "777e4c70df07af0e135e5031904903db0114ec5d91c3285b2f5bbaa325d66be7"
@@ -1381,8 +1436,8 @@
     },
     {
       "path": "docs/ux-copy-audit.md",
-      "bytes": 21764,
-      "sha256": "75b8b11e7dedf2131b051306012a0d1e67874059aeac0123152e4823237e22a5"
+      "bytes": 22245,
+      "sha256": "80433984d8be620d6200de7065ecdb5efe473f6d9d5b98a9f37f5b562a65addb"
     },
     {
       "path": "docs/V1.1.0.md",
@@ -1433,6 +1488,11 @@
       "path": "docs/V1.4.1.md",
       "bytes": 9237,
       "sha256": "b31df97b10cb9a7bb9b77d3dc6d9dae00f9e253379ab16c9d55f881d8b21a6fb"
+    },
+    {
+      "path": "docs/V1.4.2.md",
+      "bytes": 7212,
+      "sha256": "eed80ce33b372ba706fe1febc5a66a056f686ca8333e2ee32a420169d80432d1"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2645,14 +2705,89 @@
       "sha256": "9e82d405e43b3027910e757e3dc14ac72d79e558f088e1796a013142cdc0dae8"
     },
     {
+      "path": "docs/validation-v1.4.2/assessment-history-ui-results.json",
+      "bytes": 4508,
+      "sha256": "b925d46b6a96b2610ad1baa8b3e4f640c86314c26eb0c1d2c7de08d8258b1690"
+    },
+    {
+      "path": "docs/validation-v1.4.2/assessment-layout-results.json",
+      "bytes": 2449,
+      "sha256": "78eede3791693f19808911817ed593a9b26de2a67bd7dcb3c5013189212e2406"
+    },
+    {
+      "path": "docs/validation-v1.4.2/assessment-native-results.json",
+      "bytes": 2584,
+      "sha256": "ac78abdf884e912f5c3cd4b370c055e85cca0fd81e7a1b78d8a1acb5e60f07f8"
+    },
+    {
+      "path": "docs/validation-v1.4.2/final-device-results.json",
+      "bytes": 233,
+      "sha256": "1090155a55997083849e66b3f8b26b71d6637e5f41eec8dff82f1e389d7c1189"
+    },
+    {
+      "path": "docs/validation-v1.4.2/formal-apk-results.json",
+      "bytes": 365,
+      "sha256": "18d9a3a384163d0343a89f105b2ba1897db78c529e8eb41ba650cae0a069737d"
+    },
+    {
+      "path": "docs/validation-v1.4.2/formal-upgrade-results.json",
+      "bytes": 3278,
+      "sha256": "81406a70292a6c3fda1bb9fbf29f5eb8883ad5ba888f38676a81a0e3d77f9eac"
+    },
+    {
+      "path": "docs/validation-v1.4.2/history-report-results.json",
+      "bytes": 252,
+      "sha256": "3ba59bcdb502f79d13d284feda39109d766221a81c9d2ed8a56186ec893f78b8"
+    },
+    {
+      "path": "docs/validation-v1.4.2/history-validation-page-1.png",
+      "bytes": 71436,
+      "sha256": "35ff299856e0ebd5b015d0f64679165abe52e8f228dd743ad5ff2d06d5c96c73"
+    },
+    {
+      "path": "docs/validation-v1.4.2/history-validation.csv",
+      "bytes": 1783,
+      "sha256": "be609d9a53a5f13e349b7da6ebeed7fa0ca4462fc0532205576a185f1d0688c7"
+    },
+    {
+      "path": "docs/validation-v1.4.2/history-validation.pdf",
+      "bytes": 112394,
+      "sha256": "d0bd7ea7515953f5b0959a8354f53d36b44eb43c85215e1c4f513ab6de72fcdf"
+    },
+    {
+      "path": "docs/validation-v1.4.2/model-test-results.txt",
+      "bytes": 9749,
+      "sha256": "f3c7027dafeb4b8b60a790c1fdda6e38aae24a486fe896f29a6f673ba9f87ffe"
+    },
+    {
+      "path": "docs/validation-v1.4.2/native-test-results.txt",
+      "bytes": 27129,
+      "sha256": "6ed1f45bb69c381c1137be8bcb53a71a9c06ff004cf8a68f0cd9da1c6a2bd56f"
+    },
+    {
+      "path": "docs/validation-v1.4.2/reference-validation.csv",
+      "bytes": 1689,
+      "sha256": "3d57aa1bff54bf7672515f022b9c2732ec3e55c0544e6e1d4e4cfc83c07510d6"
+    },
+    {
+      "path": "docs/validation-v1.4.2/reference-validation.pdf",
+      "bytes": 109577,
+      "sha256": "dad8c9ea84da52a6c679a3f56dbea1d343e778cd2052637719f442cdf49bef22"
+    },
+    {
+      "path": "docs/validation-v1.4.2/release-tooling-results.txt",
+      "bytes": 405,
+      "sha256": "93d76a7ce473da4b5049a5c2e51e74787e3db9b15485b80fc2a9eaea35bb5f4f"
+    },
+    {
       "path": "docs/VERIFICATION.md",
       "bytes": 2544,
       "sha256": "dcb947cbd8d937e1c87c044f9fa6e077b99256600c81445c61d6372d91f845ee"
     },
     {
       "path": "docs/使用说明.md",
-      "bytes": 8296,
-      "sha256": "f1dbd8d2f0de14d5e7b98c5ee8776881e0000e9891f2645cb338db9b8c81f8e0"
+      "bytes": 9006,
+      "sha256": "1474828645d3ebc7777201dd729a2089f11975e5855b5ce0b46f69bc31093d17"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -2681,8 +2816,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5962,
-      "sha256": "aad7518f1c230fffa20b5ddefc91898f340ddff94d0853114a0ca13bdde8a532"
+      "bytes": 6113,
+      "sha256": "fc45f9f70f86acabe915b6448561172f2a0eae9849a58147b914d126d786adb6"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -2765,6 +2900,16 @@
       "sha256": "4b0c758e826403bf68e5cd56b6f959c3be17f4464af54bdda142cc5010a881d8"
     },
     {
+      "path": "release/v1.4.2/RELEASE-NOTES.md",
+      "bytes": 388,
+      "sha256": "4bbf394cd5eece43e5d52360fed6a4b96c8096aa0dd906224ea8961eb9ceed97"
+    },
+    {
+      "path": "release/v1.4.2/update.json",
+      "bytes": 933,
+      "sha256": "c927751260b6f97c10647d681e4b7b542147b70063e1c90d6323d321daf3bce4"
+    },
+    {
       "path": "scripts/generate-course-schedule.py",
       "bytes": 3269,
       "sha256": "3eff376d2f8c4e3ea2e374bd3a9860644f204dc8c7f26fc2598053db1901cdc6"
@@ -2805,6 +2950,16 @@
       "sha256": "d3809725d263255e5b9b16bede5d3964a9ed0950e01914438d97989587c81b6d"
     },
     {
+      "path": "tests/assessment-history-ui.cjs",
+      "bytes": 13028,
+      "sha256": "46febb9d04cb32f96c486141aea6470fc900500278a14c219328b3649fd67625"
+    },
+    {
+      "path": "tests/assessment-history.test.cjs",
+      "bytes": 7289,
+      "sha256": "b8c800ca60919bd804504063629025bf0f9569019bd15cb8d6d7835e125424dd"
+    },
+    {
       "path": "tests/audit-algorithms.test.cjs",
       "bytes": 2293,
       "sha256": "93747388ca55fea03de6cc55c18077d317cf8694762170f9b47aed69aa66e3e6"
@@ -2831,8 +2986,8 @@
     },
     {
       "path": "tests/course-agenda-fix-ui.cjs",
-      "bytes": 37453,
-      "sha256": "b79e848eeff0d0f61df468cb409f588198e4b731061344c0088046a96195263b"
+      "bytes": 38789,
+      "sha256": "2c98d5913570b67423edcf158cf7903b32d76a185360a680340d937be54805a3"
     },
     {
       "path": "tests/course-schedule-ui.cjs",
@@ -2875,6 +3030,11 @@
       "sha256": "fd7ddb252d00e0421b74660b568ad39f5dff476d9d5a88b8f71df9303735bda4"
     },
     {
+      "path": "tests/java/cn/edu/njupt/studycheckin/AssessmentHistoryTests.java",
+      "bytes": 7936,
+      "sha256": "84fe3b850bb6c9cdc3ff63a9b54c63b6ba1ed2b000eb84355db0e6f54aa1ee46"
+    },
+    {
       "path": "tests/java/cn/edu/njupt/studycheckin/AuditTests.java",
       "bytes": 6641,
       "sha256": "0d8ab347d1bab5cb907db1ef67dfc34790d9237a2c83b2acf9149b64110ed16f"
@@ -2892,7 +3052,7 @@
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/FeatureModelTests.java",
       "bytes": 14098,
-      "sha256": "5efff2aa74b604690f83676c05c679986b8d749667d423490f507999a54e0b3f"
+      "sha256": "e8c1bc4a8a357e04582c7fc21afbe53d227c5c994f4b63bf2c4a97f887dee875"
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/InspirationSearchTests.java",
@@ -2926,8 +3086,8 @@
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
-      "bytes": 9013,
-      "sha256": "4a34c6b2b4d72a6ea34fb35daaa8ce8fba9ddeeefa77e235061a212f9490659d"
+      "bytes": 9064,
+      "sha256": "6d10f8a8acb81ada0bdfa71006fb41137a2ad462c23533451c903bde70b942a8"
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/TestSubjects.java",
@@ -2962,7 +3122,7 @@
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/WeeklyGoalsTests.java",
       "bytes": 7505,
-      "sha256": "b532876e1a109c55efb9af500f1f6db5b45e5862bcb4e48f138dba018650c23c"
+      "sha256": "741a4be6420e5e314943a4d28814ca09aab97fad3e28da685181c95b4bc176b9"
     },
     {
       "path": "tests/model.test.cjs",
@@ -2987,7 +3147,7 @@
     {
       "path": "tests/reference-assessment.test.cjs",
       "bytes": 5930,
-      "sha256": "2b70141f7d6ac2e5a666524b5c3a336b1c9888f3adf2734ba39754088481c645"
+      "sha256": "de56522c9ae347bcecf869af580316d3e97017f14326b4dc23ca556e6c5d6ecd"
     },
     {
       "path": "tests/release-polish-ui.cjs",
@@ -3012,7 +3172,7 @@
     {
       "path": "tests/tracking-model.test.cjs",
       "bytes": 11000,
-      "sha256": "95a3b8fd5b5ff9284b4fc8dd6411cc44c318fb7245688fcf477a4766273538b0"
+      "sha256": "cbb026d52a93083b315b3d7da48d0fbed9d660d59951dd3c9a1df4a4f38a7a59"
     },
     {
       "path": "tests/ui-smoke.cjs",
@@ -3062,7 +3222,7 @@
     {
       "path": "tests/weekly-goals.test.cjs",
       "bytes": 8261,
-      "sha256": "9e852f049b93e882720c9354392031029f095d270122c43a627b5b42552e5a77"
+      "sha256": "869d94a724101f8635ef3a46506a77fe1936c2d952130394688509adae920bcf"
     },
     {
       "path": "tests/words-model.test.cjs",

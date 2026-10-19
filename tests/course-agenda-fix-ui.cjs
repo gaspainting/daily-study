@@ -12,7 +12,7 @@ const version=/android:versionName="([^"]+)"/.exec(fs.readFileSync(path.join(roo
 const report=path.join(root,'docs','validation-v'+version),shots=path.join(root,'docs','screenshots','v'+version);
 const checks=[],metrics=[],runtimeExceptions=[],saved=new Map(),savedDirs=new Map();
 const historicalDates=M.dates('2026-10-12','2026-10-15');
-let c,failure,restored=false,snapshotComplete=false,oldFont;
+let customCases,c,failure,restored=false,snapshotComplete=false,oldFont;
 const quote=value=>"'"+String(value).replaceAll("'","'\\''")+"'";
 const digest=buffer=>crypto.createHash('sha256').update(buffer).digest('hex');
 const snapshotDirectory=path.join(require('node:os').tmpdir(),'daily-study-v141-snapshots',crypto.randomUUID());
@@ -250,6 +250,7 @@ function nativeCases(){
   }
 }
 async function formalCases(){
+  const priorVersion=process.env.FORMAL_BASE_VERSION||'1.4.1',code=Number(/android:versionCode="(\d+)"/.exec(fs.readFileSync(path.join(root,'app/src/main/AndroidManifest.xml'),'utf8'))[1]);
   const ui=require('./native-ui.cjs');assert.match(android('shell','id'),/uid=0/,'formal upgrade requires the owned emulator root shell');
   const info=()=>{const out=android('shell','dumpsys','package',pkg);return {version:/versionName=([^\s]+)/.exec(out)?.[1],code:Number(/versionCode=(\d+)/.exec(out)?.[1]),debuggable:/flags=\[[^\]]*DEBUGGABLE/.test(out)};};
   const bootFormal=async()=>{android('shell','am','force-stop',pkg);android('shell','am','start','-W','-n',pkg+'/.MainActivity');await delay(1200);let skip=ui.nodes().find(n=>n.text?.includes('跳过'));if(skip){ui.tap(skip);await delay(200);}};
@@ -258,18 +259,19 @@ async function formalCases(){
   old.plan.subjects.unshift({id:'course-review',name:'课程复习',kind:'custom',defaults:[30,30,30,30,30,60,30],activePeriods:[{from:'2026-10-16',to:null}]});
   M.dates('2026-10-16',old.plan.endDate).forEach(date=>{old.plan.targets[date]['course-review']=weekday(date)===5?60:30;});
   const r=M.record(old,'2026-10-14');r.subjects.math.minutes=0;r.subjects.vocab.newWords=0;r.subjects.vocab.reviewWords=10;r.status='休息';r.note='正式升级保留记录';M.saveRecord(old,'2026-10-14',r);
+  const rememberedDay='2026-10-19';old.plan.targets[rememberedDay].math={min:30,max:70};old.plan.targets[rememberedDay]['course-review']={min:30,max:50};const remembered=M.record(old,rememberedDay);remembered.status='正常参考';remembered.subjects.math.minutes=30;remembered.subjects['course-review'].minutes=30;remembered.subjects.vocab.newWords=50;M.saveRecord(old,rememberedDay,remembered);delete old.assessmentBases;old.version=4;
   const owner=android('shell','stat','-c','%u:%g',privateBase);android('shell','am','force-stop',pkg);
   for(const file of paths('f'))if(/^files\/(?:study-state|plans|drafts|plan-switch-journal)\.json(?:\.(?:bak|new))?$/.test(file))shell('rm -- '+quote(file));
   write('files/study-state.json',Buffer.from(JSON.stringify(old)));write('files/plans.json',Buffer.from(JSON.stringify({version:1,activeId:'main',items:[{id:'main',name:old.plan.title,state:null}]})));shell('chown '+owner+' files/study-state.json files/plans.json');
-  android('install','-r','-d',path.join(root,'dist/每日学习-v1.4.0.apk'));await bootFormal();check(info().version==='1.4.0','actual previous formal v1.4.0 launches with the legacy interval-free fixture');
+  android('install','-r','-d',path.join(root,'dist/每日学习-v'+priorVersion+'.apk'));await bootFormal();check(info().version===priorVersion,'actual previous formal '+priorVersion+' launches with the legacy interval-free fixture');
   const before=read('files/study-state.json');android('shell','am','force-stop',pkg);android('install','-r',path.join(root,'dist/每日学习-v'+version+'.apk'));
-  check(read('files/study-state.json').equals(before),'same-signature formal cover installation preserves the complete original learning file');check(info().version===version&&info().code===11&&!info().debuggable,'installed formal APK is v1.4.1/code11 without debug mode');
+  check(read('files/study-state.json').equals(before),'same-signature formal cover installation preserves the complete original learning file');check(info().version===version&&info().code===code&&!info().debuggable,'installed formal APK matches current version and code without debug mode');
   await bootFormal();check(read('files/study-state.json').equals(before),'first formal launch migrates only the view and does not rewrite saved legacy observations');
   await tap('计划',false);await tap('课程与区间安排');
   const preview=ui.nodes().map(n=>n.text||'').join(' ');check(preview.includes('60—120')&&preview.includes('240—360')&&preview.includes('180—300'),'formal preview exposes weekday and both weekend intervals');
   await tap('取消',false);check(read('files/study-state.json').equals(before),'cancelling formal reference replacement preserves the original learning file');
   await tap('课程与区间安排');await tap('应用安排',false);const after=JSON.parse(read('files/study-state.json'));
-  check(after.version===4&&after._revision===12,'formal interval application commits schema4 exactly once');assert.deepEqual(after.records,old.records);assert.deepEqual(after.plan.weekTasks,old.plan.weekTasks);assert.deepEqual(after.plan.weekGoals,old.plan.weekGoals);check(true,'formal interval application retains actual zero unknown fields word counts rest notes and tasks');
+  check(after.version===5&&after._revision===12,'formal interval application commits schema5 exactly once');check(after.assessmentBases[rememberedDay].source==='existing','formal first save identifies retained legacy criteria correctly');check(require('../app/src/main/assets/reference.js').assess(after,rememberedDay).time.kind==='within','formal first save retains the previous saved-day assessment');assert.deepEqual(after.records,old.records);assert.deepEqual(after.plan.weekTasks,old.plan.weekTasks);assert.deepEqual(after.plan.weekGoals,old.plan.weekGoals);check(true,'formal interval application retains actual zero unknown fields word counts rest notes and tasks');
   const now=android('shell','date','+%Y-%m-%d'),affected=M.dates([now,old.plan.startDate].sort().at(-1),old.plan.endDate);
   check(affected.every(d=>typeof after.plan.targets[d].math==='object'&&typeof after.plan.targets[d]['course-review']==='object'),'formal saved future references contain both endpoints rather than midpoint values');
   M.dates(old.plan.startDate,shift(affected[0],-1)).forEach(d=>assert.deepEqual(after.plan.targets[d],old.plan.targets[d]));check(true,'formal future arrangement leaves all historical reference values unchanged');
@@ -281,7 +283,7 @@ async function main(){
     assert.equal(serial,'emulator-5572','fixture writes are restricted to the owned emulator');assert.equal(android('shell','getprop','ro.kernel.qemu'),'1','target must be an emulator');
     fs.mkdirSync(report,{recursive:true});fs.mkdirSync(shots,{recursive:true});oldFont=android('shell','settings','get','system','font_scale');await snapshot();
     android('shell','settings','put','system','font_scale','1.0');
-    if(formal)await formalCases();else if(process.env.COURSE_LAYOUT==='1'){
+    if(customCases)await customCases({M,S,check,fixtureInstall,state,native,day,click,input,shot,android,shell,read,write,delay,root,report,shots,baseFixture,evaluate:expression=>c.evaluate(expression),nativeCases,boot});else if(formal)await formalCases();else if(process.env.COURSE_LAYOUT==='1'){
       cp.execFileSync(process.execPath,[path.join(root,'tests/plan-layout-ui.cjs')],{stdio:'inherit',env:process.env});
       const result=JSON.parse(fs.readFileSync(path.join(report,'plan-layout-results.json'),'utf8'));check(result.passed===76&&!result.error,'all seventy-six current plan-list layout regressions pass');
     }else if(process.env.COURSE_NATIVE_ONLY==='1')nativeCases();else{
@@ -292,8 +294,9 @@ async function main(){
   }catch(error){failure=error;console.error(error);}finally{
     try{await restore();}catch(error){failure=failure||error;console.error(error);}
     if(oldFont!==undefined){if(oldFont==='null')android('shell','settings','delete','system','font_scale');else android('shell','settings','put','system','font_scale',oldFont);}
-    fs.mkdirSync(report,{recursive:true});fs.writeFileSync(path.join(report,formal?'formal-upgrade-results.json':process.env.COURSE_LAYOUT==='1'?'layout-wrapper-results.json':process.env.COURSE_NATIVE_ONLY==='1'?'native-wrapper-results.json':'course-agenda-fix-ui-results.json'),JSON.stringify({version,passed:checks.length,checks,metrics,runtimeExceptions,restored,originalFiles:[...saved].map(([file,item])=>({file,bytes:item.bytes.length,sha256:digest(item.bytes)})),error:failure?.stack||null,unverified:['Physical vivo X100s operation','TalkBack spoken output and gesture navigation']},null,2));
+    fs.mkdirSync(report,{recursive:true});fs.writeFileSync(path.join(report,process.env.COURSE_REPORT_NAME|| (formal?'formal-upgrade-results.json':process.env.COURSE_LAYOUT==='1'?'layout-wrapper-results.json':process.env.COURSE_NATIVE_ONLY==='1'?'native-wrapper-results.json':'course-agenda-fix-ui-results.json')),JSON.stringify({version,passed:checks.length,checks,metrics,runtimeExceptions,restored,originalFiles:[...saved].map(([file,item])=>({file,bytes:item.bytes.length,sha256:digest(item.bytes)})),error:failure?.stack||null,unverified:['Physical vivo X100s operation','TalkBack spoken output and gesture navigation']},null,2));
     console.log(JSON.stringify({passed:checks.length,restored,error:failure?.message||null}));if(failure)process.exitCode=1;
   }
 }
-main();
+if(require.main===module)main();
+module.exports=async function(cases){customCases=cases;return main();};

@@ -57,7 +57,8 @@ public final class DataStore {
     public static void save(Context c, JSONObject state) throws Exception {
         synchronized (LOCK) {
             migrateInPlace(state);
-            long next = load(c).optLong("_revision", 0) + 1;
+            JSONObject previous=load(c);Reference.preserve(previous,state);validate(state);
+            long next = previous.optLong("_revision", 0) + 1;
             write(c,state,next);
         }
     }
@@ -106,8 +107,8 @@ public final class DataStore {
         while (keys.hasNext()) { String key=keys.next(); date(key); string(obj,key,max); }
     }
     public static void validate(JSONObject state) throws Exception {
-        keys(state,new String[]{"version","plan","records","reviews","settings"},new String[]{"sessions","_revision"},"state");
-        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4), "备份版本不支持");
+        keys(state,new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
+        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5), "备份版本不支持");
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
@@ -159,6 +160,7 @@ public final class DataStore {
             }
             if(r.has("sessions"))sessions(r.getJSONArray("sessions"),ids);
         }
+        if(state.has("assessmentBases")){JSONObject bases=state.getJSONObject("assessmentBases");Iterator<String> bd=bases.keys();while(bd.hasNext()){String day=bd.next();date(day);require(records.has(day),"评估依据缺少对应记录");Reference.validateBasis(bases.getJSONObject(day),ids,vocabIds);}}
         JSONObject reviews=state.getJSONObject("reviews");Iterator<String> wk=reviews.keys();
         while(wk.hasNext()) {String key=wk.next();date(key);JSONObject r=reviews.getJSONObject(key);
             keys(r,new String[]{"load","mathProblem","vocabReview","adjustment","reason","halfDayRest"},current?new String[]{"subjects"}:new String[]{},"review");
@@ -197,7 +199,7 @@ public final class DataStore {
     }
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
-        state.put("version",4);clearPresetWeeks(state.getJSONObject("plan"));
+        state.put("version",5);clearPresetWeeks(state.getJSONObject("plan"));
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
         while(dates.hasNext()) {JSONObject review=reviews.getJSONObject(dates.next());JSONObject text=review.optJSONObject("subjects");if(text==null){text=new JSONObject();review.put("subjects",text);}for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String kind=subject.getString("kind"),field=kind.equals("math")?"mathProblem":kind.equals("vocab")?"vocabReview":null;String id=subject.getString("id");if(field!=null&&!text.has(id))text.put(id,review.getString(field));}}

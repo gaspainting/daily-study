@@ -50,21 +50,21 @@ final class FeatureModelTests {
             DataStore.validate(legacy);
             String originalText = legacy.toString();
             JSONObject migrated = DataStore.migrateState(legacy);
-            check(passes, legacy.toString().equals(originalText) && migrated.getInt("version") == 4, "migration returns schema 4 without modifying legacy input");
+            check(passes, legacy.toString().equals(originalText) && migrated.getInt("version") == 5, "migration returns schema 5 without modifying legacy input");
             check(passes, migrated.getJSONObject("records").toString().equals(legacy.getJSONObject("records").toString()), "migration preserves outside-plan records null zero rest enum and note");
             check(passes, migrated.getJSONArray("sessions").toString().equals(legacy.getJSONArray("sessions").toString()), "migration preserves saved timer session identity seconds and endedAt");
             JSONObject migratedReview = migrated.getJSONObject("reviews").getJSONObject("2026-10-12");
             check(passes, migratedReview.getJSONObject("subjects").getString("math").equals("旧极限") && migratedReview.getJSONObject("subjects").getString("vocab").equals("旧词汇"), "migration copies legacy review aliases to stable subject IDs");
             check(passes, migratedReview.getString("mathProblem").equals("旧极限") && migratedReview.getString("vocabReview").equals("旧词汇") && migratedReview.isNull("halfDayRest"), "migration retains review alias fields and optional rest values");
-            check(passes, DataStore.migrateState(migrated).toString().equals(migrated.toString()), "schema 4 migration is idempotent");
+            check(passes, DataStore.migrateState(migrated).toString().equals(migrated.toString()), "schema 5 migration is idempotent");
             try (FileOutputStream output = new FileOutputStream(file)) { output.write(originalText.getBytes(StandardCharsets.UTF_8)); }
             JSONObject loaded = DataStore.load(context);
-            check(passes, loaded.getInt("version") == 4 && loaded.getLong("_revision") == 3, "load upgrades legacy view without changing revision");
+            check(passes, loaded.getInt("version") == 5 && loaded.getLong("_revision") == 3, "load upgrades legacy view without changing revision");
             check(passes, DataStore.readText(new FileInputStream(file)).equals(originalText), "read-only load leaves legacy file bytes unchanged");
             DataStore.save(context, loaded);
-            check(passes, DataStore.load(context).getInt("version") == 4 && loaded.getLong("_revision") == 4, "actual save persists current schema and increments revision once");
+            check(passes, DataStore.load(context).getInt("version") == 5 && loaded.getLong("_revision") == 4, "actual save persists current schema and increments revision once");
             DataStore.restore(context, legacy);
-            check(passes, DataStore.load(context).getInt("version") == 4 && DataStore.load(context).getLong("_revision") == 5, "legacy restore migrates schema while retaining revision concurrency");
+            check(passes, DataStore.load(context).getInt("version") == 5 && DataStore.load(context).getLong("_revision") == 5, "legacy restore migrates schema while retaining revision concurrency");
 
             JSONObject archived = TestSubjects.inState(DataStore.load(context),"math");
             check(passes, DataStore.activeSubject(archived, LocalDate.of(1900, 1, 1)) && DataStore.activeSubject(archived, LocalDate.of(2100, 12, 31)), "absent activity periods preserve always-active legacy semantics");

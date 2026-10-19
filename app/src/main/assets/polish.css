@@ -142,3 +142,16 @@
 .large-text .task-check{gap:10px;flex-wrap:wrap}
 [data-week-mode] .save-row[hidden],[data-week-mode] [data-week-count][hidden],[data-week-mode] [data-week-goal][hidden],[data-week-mode] [data-week-hint][hidden]{display:none}
 .task-toggle{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer}
+.assessment-metric+.assessment-metric{margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+.assessment-counts{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:10px}
+.assessment-counts .text-button{margin:0;min-height:44px;white-space:normal;text-align:left}
+.assessment-rate{margin-top:10px;line-height:1.6;overflow-wrap:anywhere}
+.assessment-trends{margin-top:24px}
+.assessment-trends summary{cursor:pointer;padding:10px 0;min-height:44px}
+.assessment-trends ol{list-style:none;padding:0;margin:8px 0}
+.assessment-trends li{padding:14px 0;border-top:1px solid var(--line)}
+.assessment-trends li>strong{display:block;font-weight:400;overflow-wrap:anywhere}
+.assessment-trends li>div{display:flex;flex-wrap:wrap;gap:8px 24px}
+.assessment-trends .text-button{margin:0;text-align:left;white-space:normal;min-height:44px}
+.assessment-basis>div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
+.assessment-basis dt,.assessment-basis dd{margin:0;overflow-wrap:anywhere}

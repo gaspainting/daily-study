@@ -42,7 +42,12 @@ public final class StudyWidget extends AppWidgetProvider {
         if(total==0)text.append("暂无科目");
         String status=recorded==0?"未记录":recorded+"/"+total+" 科目已记录";
         if(record!=null&&!record.isNull("status"))status+=" · "+("正常参考".equals(record.getString("status"))?"照常":"休息".equals(record.getString("status"))?"休息日":record.getString("status"));
-        JSONObject assessed=Reference.assess(state,now).getJSONObject("time");String kind=assessed.getString("kind");if(kind.equals("below")||kind.equals("within")||kind.equals("above")||kind.equals("partial"))status+=" · "+assessed.getString("label");
+        JSONObject assessed=Reference.assess(state,now).getJSONObject("time");String kind=assessed.getString("kind");
+        if(kind.equals("below")||kind.equals("within")||kind.equals("above")||kind.equals("partial")){
+            String assessmentLabel=assessed.getString("label");JSONObject basis=Reference.basis(state,now),current=Reference.capture(state,now,"current",null);
+            if(!kind.equals("partial")&&!basis.getString("source").equals("current")&&(!basis.getJSONArray("time").toString().equals(current.getJSONArray("time").toString())||basis.getBoolean("inside")!=current.getBoolean("inside")))assessmentLabel="按原区间"+(kind.equals("within")?"完成":kind.equals("above")?"超额":"未完成");
+            status+=" · "+assessmentLabel;
+        }
         return new JSONObject().put("subjects",text.toString()).put("status",status).put("recorded",recorded).put("totalSubjects",total);
     }
     private static boolean meaningful(JSONObject record) throws Exception {

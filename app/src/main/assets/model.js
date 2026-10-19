@@ -164,8 +164,8 @@
     if (typeof value !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) fail(path + '须为HH:mm');
   }
   function validateState(state) {
-    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'], 'state');
-    if (![1, 2, 3, 4].includes(state.version)) fail('不支持此备份版本');
+    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases']:[]), 'state');
+    if (![1, 2, 3, 4, 5].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
     keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'] : []) : [], 'plan');
@@ -222,6 +222,10 @@
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');
     Object.keys(state.records).forEach(function (date) { dateStamp(date); recordValid(state.records[date], ids, 'records.' + date); });
+    if(has(state,'assessmentBases')){
+      object(state.assessmentBases,'assessmentBases');
+      Object.keys(state.assessmentBases).forEach(function(date){dateStamp(date);if(!has(state.records,date))fail('评估依据缺少对应记录');var words=Object.create(null);state.plan.subjects.filter(function(s){return s.kind==='vocab';}).forEach(function(s){words[s.id]=true;});ranges.validateBasis(state.assessmentBases[date],ids,words);});
+    }
     object(state.reviews, 'reviews');
     if (Object.keys(state.reviews).length > 100000) fail('复盘记录过多');
     Object.keys(state.reviews).forEach(function (date) {
@@ -263,6 +267,7 @@
     validateState(state); dateStamp(from); number(goal, 100000, '每日新学目标', true);
     var item = subject(state, id); if (item.kind !== 'vocab') fail('该科目使用分钟');
     if (goal === (has(item, 'wordGoal') ? item.wordGoal : 50)) return state;
+    ranges.preserve(state,state);
     var targets = state.plan.wordTargets || (state.plan.wordTargets = {});
     dates(state.plan.startDate, state.plan.endDate).forEach(function (day) { var previous = wordTarget(state, day, id); targets[day] = targets[day] || {}; if (!has(targets[day], id)) targets[day][id] = previous; if (day >= from) targets[day][id] = goal; });
     state.version = Math.max(state.version, 2); item.wordGoal = goal; validateState(state);
@@ -283,7 +288,7 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 4;
+    result.version = 5;
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
     Object.keys(result.reviews).forEach(function (date) {
@@ -300,14 +305,15 @@
   }
   function applyCourseSchedule(state, now) {
     validateState(state); now = now === undefined ? today() : now; dateStamp(now);
-    var result = clone(state); schedule.apply(result, now, true); validateState(result); return result;
+    var result = clone(state); ranges.preserve(state,result); schedule.apply(result, now, true); validateState(result); return result;
   }
   function applyWeekendSchedule(state, now) {
     validateState(state); now = now === undefined ? today() : now; dateStamp(now);
-    var result = clone(state); schedule.applyWeekends(result, now); validateState(result); return result;
+    var result = clone(state); ranges.preserve(state,result); schedule.applyWeekends(result, now); validateState(result); return result;
   }
   function archiveSubject(state, id, date) {
     validateState(state); dateStamp(date);
+    ranges.preserve(state,state);
     var item = subject(state, id);
     if (!subjectActive(item, date)) return clone(item);
     var periods = has(item, 'activePeriods') ? clone(item.activePeriods) : [{ from: '1900-01-01', to: null }];
@@ -320,6 +326,7 @@
   }
   function restoreSubject(state, id, date) {
     validateState(state); dateStamp(date);
+    ranges.preserve(state,state);
     var item = subject(state, id);
     if (subjectActive(item, date)) return clone(item);
     var periods = clone(item.activePeriods);
@@ -347,6 +354,10 @@
     var ids = Object.create(null);
     state.plan.subjects.forEach(function (item) { ids[item.id] = true; });
     recordValid(value, ids, '记录');
+    var existed=has(state.records,date);
+    state.version=Math.max(state.version,5);
+    state.assessmentBases=state.assessmentBases||{};
+    if(!has(state.assessmentBases,date))state.assessmentBases[date]=ranges.capture(state,date,existed?'existing':'record');
     state.records[date] = clone(value);
     return state;
   }
@@ -362,6 +373,7 @@
     validateState(state);
     dates(start, end);
     weekNumber(startWeek);
+    ranges.preserve(state,state);
     state.plan.startDate = start;
     state.plan.endDate = end;
     state.plan.startWeek = startWeek;
@@ -449,11 +461,15 @@
   }
   function historySearch(state, filters) {
     validateState(state); var query = normalizedFilters(filters);
+    query.assessmentDimension=filters&&filters.assessmentDimension||'time';query.assessmentKind=filters&&filters.assessmentKind||'';
+    if(!['time','words'].includes(query.assessmentDimension)||!['','all','below','within','above','rest','empty','partial','pending'].includes(query.assessmentKind))fail('评估筛选无效');
     if (query.subjectId && query.subjectId !== 'all') subject(state, query.subjectId);
     var rows = [];
-    Object.keys(state.records).forEach(function (date) {
+    var searchDates=Object.keys(state.records);
+    if(query.assessmentKind==='empty')searchDates=Array.from(new Set(searchDates.concat(dates(state.plan.startDate,state.plan.endDate))));
+    searchDates.forEach(function (date) {
       if (query.from && date < query.from || query.to && date > query.to) return;
-      var value = state.records[date];
+      var value = state.records[date]||record(state,date);
       if (query.subjectId && query.subjectId !== 'all' && !meaningfulSubject(value.subjects[query.subjectId])) return;
       if (query.status && query.status !== 'all' && value.status !== query.status) return;
       if (query.keyword) {
@@ -463,6 +479,7 @@
       }
       var summary = recordSummary(state, date);
       if (query.kind && query.kind !== 'all' && query.kind !== summary.kind) return;
+      if(!ranges.matches(state,date,query.assessmentDimension,query.assessmentKind))return;
       rows.push(Object.assign(summary, { record: clone(value) }));
     });
     return rows.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });

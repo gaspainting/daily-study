@@ -1,0 +1,6 @@
+Prepared: C:\Users\18307\AppData\Local\Temp\daily-study-release-962e3391a86b4600b7139d62f84d6402\prepared
+APK version: 1.4.2 / code 12
+APK SHA256: d76773a7569074ddc362d137285c2dce2761ff3d03764946f5b05b93a1320332
+Signer SHA256: fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5
+Public files: APK, update.json, RELEASE-NOTES.md
+PASS: 39 release tooling assertions; no remote mutations.

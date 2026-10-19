@@ -61,10 +61,10 @@
     const result = call('saveState', JSON.stringify(latest));
     if (!result || !result.ok) throw new Error('保存没有完成，请重试。');
     if (result.revision !== undefined) latest._revision = result.revision;
-    state = latest;
+    state = readState();
     completeDraft();
     nativeRefreshPending = false;
-    return latest;
+    return state;
   }
   function attempt(action) { try { return action(); } catch (error) { tell(error.message || '操作未完成，请重试。'); return false; } }
   function syncFeedback(form) {
@@ -255,11 +255,29 @@
     let html='<section class="daily-assessment" aria-label="今日评估"><div class="section-heading"><h2>今日评估</h2><button class="text-button" type="button" data-action="assessment-rules">评估规则</button></div><p class="assessment-pending" role="status" hidden>待保存</p><div class="assessment-results"><div class="assessment-row"><span>时长</span><strong data-time-assessment="'+t.kind+'">'+escape(t.label)+'</strong></div>'+(detail?'<p class="assessment-detail">'+escape(detail)+'</p>':'');
     result.words.forEach(w=>{html+='<div class="assessment-row"><span>'+escape(w.name)+'新学</span><strong data-word-assessment="'+w.kind+'">'+escape(w.label)+'</strong></div><p class="assessment-detail">'+(w.newWords===null?'未记录':w.newWords+' 个')+(w.goal===null?'':' / '+w.goal+' 个')+(w.reviewWords===null?'':' · 复习 '+w.reviewWords+' 个')+'</p>';});
     if(t.kind==='range'&&within(date))html+='<button class="text-button" type="button" data-action="edit-reference" data-date="'+date+'">设置参考区间</button>';
+    html+='<button class="text-button" type="button" data-action="assessment-basis" data-date="'+date+'">评估依据</button>';
     return html+'</div></section>';
   }
-  function assessmentSummary(days){
-    const c=R().counts(state,days);
-    return '<section class="assessment-summary" aria-label="时长评估汇总"><h3>时长评估</h3><p>完成 '+c.within+' 天 · 超额 '+c.above+' 天 · 未完成 '+c.below+' 天</p><p>休息 '+c.rest+' 天 · 待评估 '+c.pending+' 天</p></section>';
+  function assessmentSummary(days){return window.StudyTracking.renderAssessments(state,days,{today:iso(),icon:icon});}
+  function basisLabel(source){return ({record:'保存时参考',existing:'首次留存参考',recalculated:'重评时参考',current:'当前参考（未留存）'})[source];}
+  function assessmentResultLine(result){const t=result.time;return '<p>'+t.scope+'：'+escape(t.label)+(t.actual===null?'':' · '+R().decimal(t.actual)+(['below','within','above'].includes(t.kind)?' / '+R().text({min:t.min,max:t.max}):'')+' 分钟')+'</p>'+result.words.map(w=>'<p>'+escape(w.name)+'新学：'+escape(w.label)+(w.newWords===null?'':' · '+w.newWords+(w.goal===null?'':' / '+w.goal)+' 个')+'</p>').join('');}
+  function assessmentBasis(date){
+    const latest=readState(),b=R().basis(latest,date),r=R().assess(latest,date);
+    let html='<p>'+fullDate(date)+'</p><p>'+escape(basisLabel(b.source))+(b.capturedAt?' · '+escape(new Date(b.capturedAt).toLocaleString('zh-CN')):'')+'</p><dl class="assessment-basis">'+b.time.map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+R().text(s.reference)+' 分钟</dd></div>').join('')+b.words.map(s=>'<div><dt>'+escape(s.name)+'新学</dt><dd>'+s.goal+' 个</dd></div>').join('')+'</dl><p>今日安排：'+(r.time.status?statusLabel(r.time.status):'未选择')+'</p>'+assessmentResultLine(r);
+    if(latest.records[date])html+='<button type="button" class="secondary-wide" data-action="assessment-preview" data-date="'+date+'">按当前目标重评</button>';
+    openSheet('评估依据',html,true);
+  }
+  function assessmentPreview(date){
+    if(dirty.has('daily'))throw new Error('先保存当天记录');
+    const latest=readState();if(!latest.records[date])throw new Error('当天尚未保存记录');
+    const proposed=clone(latest);R().recalculate(proposed,date);
+    openSheet('重新评估','<p>'+fullDate(date)+'</p><h3>原评估</h3>'+assessmentResultLine(R().assess(latest,date))+'<h3>按当前目标</h3>'+assessmentResultLine(R().assess(proposed,date))+'<p>将替换这一天的评估依据，学习记录不变。</p><div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button type="button" class="primary" data-action="assessment-apply" data-date="'+date+'" data-plan="'+escape(call('getPlans').activeId)+'" data-revision="'+(latest._revision||0)+'">确认重评</button></div>',true);
+  }
+  function applyAssessment(button){
+    if(dirty.has('daily'))throw new Error('先保存当天记录');
+    const latest=readState(),date=button.dataset.date;
+    if(button.dataset.plan!==call('getPlans').activeId||Number(button.dataset.revision)!==(latest._revision||0)){button.dataset.action='assessment-preview';button.textContent='重新预览';throw new Error('记录已更新，请重新预览');}
+    R().recalculate(latest,date);persist(latest);closeSheet(true);render();tell('已重新评估');
   }
   function courseAgenda(date) {
     const schedule=window.StudySchedule,a=schedule.agenda(state,date);
@@ -543,7 +561,7 @@
     latest.plan=next;persist(latest);dirty.delete('sheet');closeSheet(true);render();tell('目标已移动');return true;
   }
   function referenceFields(date) {
-    return M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('');
+    return M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('')+(state.records[date]?selectField('评估依据','reference-assessment','keep',[['keep','保留原依据'],['recalculate','按新目标重评']]):'');
   }
   function editReference(requestedDate) {
     const date = clampPlanDate(requestedDate||selectedDate);
@@ -584,13 +602,17 @@
     if (form.id === 'reference-form') {
       const date = form.elements.namedItem('reference-date').value;
       if (date < latest.plan.startDate || date > latest.plan.endDate) throw new Error('请选择计划日期范围内的一天。');
+      const reevaluate=form.elements.namedItem('reference-assessment')?.value==='recalculate';
+      if(reevaluate&&dirty.has('daily'))throw new Error('先保存当天记录');
+      R().preserve(latest,latest);
       latest.plan.targets[date] = latest.plan.targets[date] || {};
       M().subjectsForDate(latest,date).forEach(s => { const value = Number(form.elements.namedItem('target-' + s.id).value); if(s.kind==='vocab'){latest.plan.wordTargets=latest.plan.wordTargets||{};latest.plan.wordTargets[date]=latest.plan.wordTargets[date]||{};latest.plan.wordTargets[date][s.id]=value;}else {const r={min:value,max:Number(form.elements.namedItem('target-'+s.id+':max').value)};R().validate(r,true);latest.plan.targets[date][s.id]=r;} });
+      if(reevaluate)R().recalculate(latest,date);
       planDate = date;
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 4, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
+      const fresh = { version: 5, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = clone(s.defaults[(localDate(date).getDay() + 6) % 7]); }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
@@ -695,6 +717,10 @@
       if (action === 'add-words') changeWords(document.getElementById(button.dataset.field), Number(button.dataset.amount));
       if (action === 'undo-words') undoWords(document.getElementById(button.dataset.field));
       if (action === 'edit-reference') editReference(button.dataset.date);
+      if(action==='assessment-basis')assessmentBasis(button.dataset.date);
+      if(action==='assessment-preview')assessmentPreview(button.dataset.date);
+      if(action==='assessment-apply')applyAssessment(button);
+      if(action==='assessment-history'){historyFilters={from:button.dataset.from,to:button.dataset.to,assessmentDimension:button.dataset.dimension,assessmentKind:button.dataset.kind||''};navigate('history');}
       if (action === 'assessment-rules') openSheet('评估规则','<dl class="rest-hours"><dt>照常</dt><dd>当日学习总参考区间</dd><dt>减量</dt><dd>总参考区间的 50%</dd><dt>仅回顾</dt><dd>只计算课程复习，使用课程复习区间</dd><dt>休息</dt><dd>休息日</dd></dl><p>低于下限：未完成；区间内（含上下限）：完成；超过上限：超额完成。</p><p>时长未记齐：待补全。单词新学按目标数单独评估，复习另记。</p>',true);
       if (action === 'add-subject') addSubject();
       if (action === 'export-backup') backupAction('exportBackup');
@@ -872,7 +898,7 @@
       setBackupReminder: () => JSON.stringify({error:'请在安卓 APP 中设置备份提醒'}),
       createPlan: () => JSON.stringify({error:'请在安卓 APP 中创建计划'}),
       exportReport: () => JSON.stringify({error:'请在安卓 APP 中导出报表'}),
-      saveState: json => { const s = JSON.parse(json); M().validateState(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision }); },
+      saveState: json => { const s = JSON.parse(json); M().validateState(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); R().preserve(current,s);s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision }); },
       getTimer: () => JSON.stringify(snapshot()),
       startTimer: (id, name, date) => { if (snapshot().active) return JSON.stringify({ error: '已有活动计时，请先结束或丢弃。' }); if (date !== iso()) return JSON.stringify({ error: '只能为今天计时。' }); if (!allowedNow()) return JSON.stringify({ error: '现在为休息时段' }); const t = { active: true, subjectId: id, subjectName: name, date, running: true, elapsedMs: 0, startedAt: Date.now(), message: '' }; timerSave(t); return JSON.stringify(t); },
       timerAction: action => {

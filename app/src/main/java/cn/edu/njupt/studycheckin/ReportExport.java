@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 /** Readable exports keep absent observations distinct from an observed zero. */
 public final class ReportExport {
-    private static final String[] HEADERS = {"日期", "科目", "参考时长（分钟）", "已记录（分钟）", "今日安排", "休息记录", "随记", "学习内容", "问题", "新词数", "复习词数", "生词", "计时次数", "计时秒数", "计划", "新学目标（个）", "计量方式", "当日时长评估", "评估区间（分钟）", "新学评估"};
+    private static final String[] HEADERS = {"日期", "科目", "参考时长（分钟）", "已记录（分钟）", "今日安排", "休息记录", "随记", "学习内容", "问题", "新词数", "复习词数", "生词", "计时次数", "计时秒数", "计划", "新学目标（个）", "计量方式", "当日时长评估", "评估区间（分钟）", "新学评估", "评估依据", "依据留存时间", "评估新学目标（个）"};
     private ReportExport() {}
     private static Typeface reportTypeface;
     private static synchronized Typeface font(Context context) {
@@ -75,7 +75,7 @@ public final class ReportExport {
     private static final class Row {
         String day, id, name, status, rest, note, content, problem, forgot;
         Double reference, referenceMin,referenceMax,minutes, newWords, reviewWords, wordGoal;
-        String referenceText,assessment,assessmentRange,wordAssessment;
+        String referenceText,assessment,assessmentRange,wordAssessment,basisSource,basisAt;Double assessedWordGoal;
         boolean interval;
         boolean wordBased;
         int sessionCount;
@@ -101,7 +101,7 @@ public final class ReportExport {
                 boolean active = DataStore.activeSubject(subject, date);
                 if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)){Object ref=Reference.value(plan,subject,date);row.reference=Reference.midpoint(ref);row.referenceMin=Reference.min(ref);row.referenceMax=Reference.max(ref);row.referenceText=Reference.text(ref);row.interval=ref instanceof JSONObject;}
                 row.assessment=time.getString("label");String assessedKind=time.getString("kind");row.assessmentRange=assessedKind.equals("below")||assessedKind.equals("within")||assessedKind.equals("above")?time.getString("scope")+" "+decimal(time.getDouble("min"))+"—"+decimal(time.getDouble("max")):"—";
-                row.wordAssessment="";for(int wi=0;wi<wordAssessments.length();wi++){JSONObject w=wordAssessments.getJSONObject(wi);if(w.getString("id").equals(row.id))row.wordAssessment=w.getString("label");}
+                applyAssessment(row,assessed);
                 if(row.wordBased&&active&&!date.isBefore(planStart)&&!date.isAfter(planEnd))row.wordGoal=(double)DataStore.wordTarget(state,day,row.id);
                 JSONObject daySessions = byDate.optJSONObject(day), count = daySessions == null ? null : daySessions.optJSONObject(row.id);
                 if (count != null) { row.sessionCount = count.getInt("count"); row.sessionSeconds = count.getDouble("seconds"); }
@@ -109,10 +109,14 @@ public final class ReportExport {
                 rows.add(row);
             }
             if (rows.size() == rowsBefore && record != null && (!text(record, "note").isEmpty() || !record.isNull("status") || !record.isNull("restKept"))) {
-                Row row = new Row(); row.day = day; row.id = ""; row.name = "—"; row.status = text(record, "status"); row.note = text(record, "note"); row.rest = rest(record); row.content = row.problem = row.forgot = ""; rows.add(row);
+                Row row = new Row(); row.day = day; row.id = ""; row.name = "—"; row.status = text(record, "status"); row.note = text(record, "note"); row.rest = rest(record); row.content = row.problem = row.forgot = ""; applyAssessment(row,assessed);rows.add(row);
             }
         }
         return rows;
+    }
+    private static void applyAssessment(Row row,JSONObject assessed)throws Exception{
+        JSONObject t=assessed.getJSONObject("time"),basis=assessed.getJSONObject("basis");row.assessment=t.getString("label");String kind=t.getString("kind");row.assessmentRange=kind.equals("below")||kind.equals("within")||kind.equals("above")?t.getString("scope")+" "+decimal(t.getDouble("min"))+"—"+decimal(t.getDouble("max")):"—";
+        row.basisSource=Reference.sourceLabel(basis.getString("source"));row.basisAt=basis.isNull("capturedAt")?"—":basis.getString("capturedAt");row.wordAssessment="";JSONArray words=assessed.getJSONArray("words");for(int i=0;i<words.length();i++){JSONObject w=words.getJSONObject(i);if(w.getString("id").equals(row.id)){row.wordAssessment=w.getString("label");row.assessedWordGoal=number(w,"goal");}}
     }
     private static JSONObject sessions(JSONObject state, LocalDate first, LocalDate last) throws Exception {
         JSONObject result = new JSONObject(); Set<String> seen = new HashSet<>();
@@ -154,7 +158,7 @@ public final class ReportExport {
     private static void csv(OutputStream output, String title, List<Row> rows, Map<String,Total> totals, List<JSONObject> subjects) throws Exception {
         OutputStreamWriter writer = new OutputStreamWriter(output, StandardCharsets.UTF_8); writer.write('\ufeff');
         csvLine(writer, HEADERS);
-        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":"分钟";cells[17]=row.assessment;cells[18]=row.assessmentRange;cells[19]=row.wordAssessment;csvLine(writer, cells); }
+        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":"分钟";cells[17]=row.assessment;cells[18]=row.assessmentRange;cells[19]=row.wordAssessment;cells[20]=row.basisSource;cells[21]=row.basisAt;cells[22]=row.assessedWordGoal==null?"—":decimal(row.assessedWordGoal);csvLine(writer, cells); }
         for (JSONObject subject : subjects) {
             Total total = totals.getOrDefault(subject.getString("id"),new Total());
             String[] cells = new String[HEADERS.length]; java.util.Arrays.fill(cells, "");
@@ -191,12 +195,12 @@ public final class ReportExport {
             pages.gap(8);
             Set<String> assessedDates=new HashSet<>();
             for (Row row : rows) {
-                if(assessedDates.add(row.day)&&row.assessment!=null){pages.paragraph(row.day+" 当日时长评估："+row.assessment,true);if(row.assessmentRange!=null&&!row.assessmentRange.equals("—"))pages.paragraph("评估区间："+row.assessmentRange+" 分钟",false);}
+                if(assessedDates.add(row.day)&&row.assessment!=null){pages.paragraph(row.day+" 当日时长评估："+row.assessment,true);pages.paragraph("评估依据："+row.basisSource+(row.basisAt==null||row.basisAt.equals("—")?"":" · "+row.basisAt),false);if(row.assessmentRange!=null&&!row.assessmentRange.equals("—"))pages.paragraph("评估区间："+row.assessmentRange+" 分钟",false);}
                 pages.keep(row.wordBased?3:2);
                 pages.paragraph(row.day + "  " + row.name, true);
                 if(row.wordBased){pages.paragraph("新学："+quantity(row.newWords)+(row.newWords==null?"":" 个")+"    目标："+(row.wordGoal==null?"—":decimal(row.wordGoal)+" 个"),false);pages.paragraph("复习："+quantity(row.reviewWords)+(row.reviewWords==null?"":" 个"),false);if(row.minutes!=null)pages.paragraph("历史时长："+decimal(row.minutes)+" 分钟",false);}
                 else pages.paragraph("参考时长：" + (row.referenceText == null ? "—" : row.referenceText + " 分钟") + "    已记录：" + (row.minutes == null ? "未记录" : decimal(row.minutes) + " 分钟"), false);
-                if(row.wordAssessment!=null&&!row.wordAssessment.isEmpty())pages.paragraph("新学评估："+row.wordAssessment,false);
+                if(row.wordAssessment!=null&&!row.wordAssessment.isEmpty())pages.paragraph("新学评估："+row.wordAssessment+(row.assessedWordGoal==null?"":" · 评估目标 "+decimal(row.assessedWordGoal)+" 个"),false);
                 if (!row.status.isEmpty()) pages.paragraph("今日安排：" + row.status, false);
                 if (!"未记录".equals(row.rest)) pages.paragraph("休息记录：" + row.rest, false);
                 field(pages, "学习内容", row.content); field(pages, "问题", row.problem);
