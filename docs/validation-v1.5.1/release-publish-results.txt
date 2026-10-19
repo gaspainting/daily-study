@@ -1,0 +1,4 @@
+Published and verified: https://github.com/gaspainting/daily-study/releases/tag/v1.5.1
+Update manifest: https://github.com/gaspainting/daily-study/releases/latest/download/update.json
+APK: https://github.com/gaspainting/daily-study-releases/releases/download/v1.5.1/daily-study-v1.5.1.apk
+APK SHA256: 50dd5c4ad63a1a205b56518d25bd366d7c8b5405acb5cd5a31617efb4c7d3c21

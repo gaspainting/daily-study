@@ -371,8 +371,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 5038,
-      "sha256": "da9988fc967dbf1ce89e3a53c4d88595a1a1d8fc0b4dd1c87c43a0d24cc0f509"
+      "bytes": 5402,
+      "sha256": "f425580d66b7d4785f17ecbcb203217fcd637de1a0aa71c30aec4c2d2fc49bc0"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -382,12 +382,12 @@
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
       "bytes": 4853,
-      "sha256": "3c17d18946dd4977fc2e22e4e16a881f137de9e71a2ab4d0c8097f0ba5dc7e66"
+      "sha256": "4d329ac914bc76ad5ca87f202d91e166af3146b554e5b577c9f87eea5771e918"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1351,
-      "sha256": "8e88c555ed98289e6decb7281c4b75472083b4fc45a68827f9b6b7c65d929404"
+      "bytes": 1348,
+      "sha256": "32911d1a081d3edbb23213c299aad6bbd49666c7a8767356b94ce834feb83fc7"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -1711,8 +1711,8 @@
     },
     {
       "path": "docs/V1.5.1.md",
-      "bytes": 3098,
-      "sha256": "459b614fddbd0dfeb60384499c83b635089787057a15d3b413109035b1565dc4"
+      "bytes": 4086,
+      "sha256": "4461297c27d976d9f7c2ba8c3a0b630b8e9e2d596148385c923a418b31b49156"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3160,9 +3160,19 @@
       "sha256": "7502a8fc4bdffdc2f48b7b5009be685e6a078a664a0e5f841f8280e241c1c9a6"
     },
     {
+      "path": "docs/validation-v1.5.1/public-release-results.json",
+      "bytes": 1301,
+      "sha256": "bf36d769b5d0fdb03a2d49797b8d6ffb598fa39518084bcc22b9f037d3f425b0"
+    },
+    {
       "path": "docs/validation-v1.5.1/release-prepare-results.txt",
       "bytes": 318,
       "sha256": "b05abb178537c89d5ff3d25ef59199ff6717b22a0a593a25a70e75889d20e799"
+    },
+    {
+      "path": "docs/validation-v1.5.1/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "22b5bfaf6d80bbd573c1ec2f7220a212423f33e45533d5eb6ed7bf6814779050"
     },
     {
       "path": "docs/validation-v1.5.1/release-tooling-results.txt",
@@ -3212,7 +3222,7 @@
     {
       "path": "README.md",
       "bytes": 6526,
-      "sha256": "c6444e02ff3add985c95d61ce8742d5a0d980519b9bbf766566f8755b26a473c"
+      "sha256": "d4192585fbf31961d5ad312969300f3b7ab33ce0fd7b6632e8b9bc16a90f702a"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
