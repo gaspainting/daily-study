@@ -1,0 +1,18 @@
+.manual-entry{margin:0 0 28px}
+.user-manual{min-width:0;overflow-wrap:anywhere}
+.manual-sheet{padding-top:0}
+.manual-sheet .sheet-heading{position:sticky;top:0;z-index:2;gap:8px;background:var(--paper);border-bottom:1px solid var(--line);padding:16px 0;margin:0}
+.manual-sheet .sheet-heading h2{flex:1;min-width:0;overflow-wrap:anywhere}
+.manual-sheet .sheet-heading button{flex:none;min-height:44px}
+.manual-directory{font-size:1rem}
+.manual-toc{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;padding:20px 0}
+.manual-toc button{justify-content:flex-start;text-align:left;white-space:normal;min-height:48px;font-size:1rem;padding:10px;border:1px solid var(--line);border-radius:0;overflow-wrap:anywhere}
+.manual-chapter{border-top:1px solid var(--line);scroll-margin-top:0}
+.manual-chapter>summary{font-size:1.15rem;font-weight:600;padding:16px 0;min-height:48px;cursor:pointer}
+.manual-body{font-size:1rem;line-height:1.85;padding:0 0 18px}
+.manual-body h3{font-size:1.05rem;line-height:1.6;margin:20px 0 8px}
+.manual-body p{margin:0 0 14px}
+.manual-body ol,.manual-body ul{padding-left:1.5em;margin:0 0 16px}
+.manual-body li{padding-left:3px;margin-bottom:10px}
+.large-text .manual-toc{grid-template-columns:minmax(0,1fr)}
+@media(max-width:420px){.manual-toc{grid-template-columns:minmax(0,1fr)}}

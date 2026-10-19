@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前发行版本 [v1.5.0 / versionCode 13](https://github.com/gaspainting/daily-study/releases/tag/v1.5.0)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前目标版本 [v1.5.1 / versionCode 14](https://github.com/gaspainting/daily-study/releases/tag/v1.5.1)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 
@@ -11,6 +11,8 @@ v1.2.0 清理常驻开发说明，改用字段标签、真实记录状态及操�
 v1.3.0 增加「设置 → 关于 → 检查更新」。[gaspainting/daily-study](https://github.com/gaspainting/daily-study) 同时存放源码和发行资源。App通过Releases中的版本清单获取正式APK；源码位于main分支。更新下载独立于学习记录；安装前处理未保存输入和活动计时，使用 Android 系统安装确认。
 
 v1.5.0 增加课表编辑、临时调课/停课、逐门课程复习及周任务关联，保留分日期课表和复习快照。见 [本轮报告](docs/V1.5.0.md)。
+
+v1.5.1 在设置页加入离线使用手册，按12个章节查询操作方法，见[版本报告](docs/V1.5.1.md)。
 
 **构建与验证**
 

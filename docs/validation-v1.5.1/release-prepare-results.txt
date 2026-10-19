@@ -1,0 +1,5 @@
+Prepared: D:\南京邮电大学\learning\study-checkin-android\release\v1.5.1
+APK version: 1.5.1 / code 14
+APK SHA256: 50dd5c4ad63a1a205b56518d25bd366d7c8b5405acb5cd5a31617efb4c7d3c21
+Signer SHA256: fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5
+Public files: APK, update.json, RELEASE-NOTES.md

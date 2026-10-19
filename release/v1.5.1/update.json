@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 14,
+  "versionName": "1.5.1",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.5.1/daily-study-v1.5.1.apk",
+  "apkBytes": 6597054,
+  "apkSha256": "50dd5c4ad63a1a205b56518d25bd366d7c8b5405acb5cd5a31617efb4c7d3c21",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v1.5.1\n\n- 设置页新增「使用手册」，可离线阅读。\n- 提供12个章节，覆盖记录、计时、单词、周目标、课表、评估、复盘、计划、日签、提醒、备份和应用更新。\n- 支持目录定位、章节展开和返回目录，适配小屏与大字号。\n\n版本 1.5.1 / versionCode 14。Android 8.0 及以上。\n",
+  "releaseDate": "2026-10-19"
+}
