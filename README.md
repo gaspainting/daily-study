@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前开发版本 v1.4.2 / versionCode 12，待发布；最近发行版本为v1.4.1。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前发行版本 [v1.4.2 / versionCode 12](https://github.com/gaspainting/daily-study/releases/tag/v1.4.2)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 

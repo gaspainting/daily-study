@@ -336,8 +336,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 4294,
-      "sha256": "ca49a47841da5851e06788f21569db810af0657037149a86ca6fd7114511e8f8"
+      "bytes": 4633,
+      "sha256": "4bc661b1ce6cb4afcf17bd50dca6e9916d134d9a273670a551dc580f93f02a59"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -346,13 +346,13 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4825,
-      "sha256": "b531c005cf4de7238b54bbf77515ef0ce555119cfbacdcc79ff9a0fec8741357"
+      "bytes": 4813,
+      "sha256": "7dfc478536a1af4442ec7813cdc74a23861cd81857cca623643862ba83055d97"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1368,
-      "sha256": "1fb3fa29701e0a93e327ff4aed4f60362a88e77eb308bc7ef4b029de6f376817"
+      "bytes": 1359,
+      "sha256": "bfd4baedd5fb2e7cde0b8bf8ab9fed893c5103da0c3e18e09356154a670962c8"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -1436,8 +1436,8 @@
     },
     {
       "path": "docs/ux-copy-audit.md",
-      "bytes": 22245,
-      "sha256": "80433984d8be620d6200de7065ecdb5efe473f6d9d5b98a9f37f5b562a65addb"
+      "bytes": 22259,
+      "sha256": "769d60747b80a1f6ef3e7d4943115983e327947610acce13727fa3d27b9a7c9d"
     },
     {
       "path": "docs/V1.1.0.md",
@@ -1491,8 +1491,8 @@
     },
     {
       "path": "docs/V1.4.2.md",
-      "bytes": 7212,
-      "sha256": "eed80ce33b372ba706fe1febc5a66a056f686ca8333e2ee32a420169d80432d1"
+      "bytes": 7736,
+      "sha256": "b221b876f6be9d69920804a8f8decbbdf046fb2ee5682a474e03c8e6bf2614a6"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -2765,6 +2765,11 @@
       "sha256": "6ed1f45bb69c381c1137be8bcb53a71a9c06ff004cf8a68f0cd9da1c6a2bd56f"
     },
     {
+      "path": "docs/validation-v1.4.2/public-release-results.json",
+      "bytes": 1088,
+      "sha256": "1ddb40a681bf2bcc6874e2e8f4f85a427e23c6229b9c72a61df5d0fd242ee868"
+    },
+    {
       "path": "docs/validation-v1.4.2/reference-validation.csv",
       "bytes": 1689,
       "sha256": "3d57aa1bff54bf7672515f022b9c2732ec3e55c0544e6e1d4e4cfc83c07510d6"
@@ -2773,6 +2778,11 @@
       "path": "docs/validation-v1.4.2/reference-validation.pdf",
       "bytes": 109577,
       "sha256": "dad8c9ea84da52a6c679a3f56dbea1d343e778cd2052637719f442cdf49bef22"
+    },
+    {
+      "path": "docs/validation-v1.4.2/release-publish-results.txt",
+      "bytes": 370,
+      "sha256": "e0203dfc8260e21f9787899db5e58d60846087fcc474abba69cf68c58368bdfe"
     },
     {
       "path": "docs/validation-v1.4.2/release-tooling-results.txt",
@@ -2786,8 +2796,8 @@
     },
     {
       "path": "docs/使用说明.md",
-      "bytes": 9006,
-      "sha256": "1474828645d3ebc7777201dd729a2089f11975e5855b5ce0b46f69bc31093d17"
+      "bytes": 9062,
+      "sha256": "66081e3b4ba11188a61780e5184080875388f7ad739d219d11a90f4f2e27bfb1"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -2816,8 +2826,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6113,
-      "sha256": "fc45f9f70f86acabe915b6448561172f2a0eae9849a58147b914d126d786adb6"
+      "bytes": 6137,
+      "sha256": "8938c1f48469efcdf7fec0c732434fb340d842ce7b618c25292c2795358120c2"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",

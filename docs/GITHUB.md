@@ -1,6 +1,6 @@
 # GitHub项目与归档
 
-仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前开发源码为v1.4.2/code12，最近发行版本为v1.4.1。
+仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前源码及发行版本为v1.4.2/code12。
 
 **main分支**
 
@@ -61,3 +61,8 @@ v1.3.5修复计划列表布局，源码与本轮截图、测量结果位于main�
 每日参考区间与按安排评估、周末区间安排、10月12—15日课程顺序修复。[发行版本](https://github.com/gaspainting/daily-study/releases/tag/v1.4.1)实现提交dd273da，资源包含APK、update.json及RELEASE-NOTES.md。源码与验证资料通过source-v1.4.1标签归档。
 
 版本、下载摘要与测试证据见[V1.4.1](V1.4.1.md)。发行继续使用现有仓库和旧客户端认可的下载路径，GitHub仓库改名重定向保持兼容。
+
+
+**v1.4.2（2026年10月19日）**
+
+[发行版本](https://github.com/gaspainting/daily-study/releases/tag/v1.4.2)，versionCode12，实现提交d17f447。历史评估筛选、依据留存及重评、周/月达标率和趋势、报表依据已交付。源码、截图与验证文档通过source-v1.4.2标签归档，具体结果见[V1.4.2](V1.4.2.md)。
