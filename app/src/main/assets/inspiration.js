@@ -110,7 +110,7 @@
   document.addEventListener('visibilitychange', () => { if (document.hidden && !splash.hidden) dismissSplash(); });
   window.onInspirationChanged = () => { if (waitingStartup) pollStartup(); if (refresh) refresh(); };
   setInterval(() => { if (bridge && data && window.StudyModel.today() !== data.today && refresh) refresh(); }, 15000);
-  window.InspirationUI = { init, view, background: () => { if (!splash.hidden) dismissSplash(); }, back: () => { if (!splash.hidden) { dismissSplash(); return true; } if (detail.open) { detail.close(); return true; } return false; }, restored: () => { if (detail.open) detail.close(); activeEntry = null; offset = 0; query = ''; pendingQuery = ''; theme = ''; language = ''; }, snapshot: () => ({ scope, offset, query, theme, language, startupShown, startupId: startupEntry && startupEntry.id, splashVisible: !splash.hidden, detailId: detail.open && activeEntry && activeEntry.id }) };
+  window.InspirationUI = { init, view, dismiss: dismissSplash, background: () => { if (!splash.hidden) dismissSplash(); }, back: () => { if (!splash.hidden) { dismissSplash(); return true; } if (detail.open) { detail.close(); return true; } return false; }, restored: () => { if (detail.open) detail.close(); activeEntry = null; offset = 0; query = ''; pendingQuery = ''; theme = ''; language = ''; }, snapshot: () => ({ scope, offset, query, theme, language, startupShown, startupId: startupEntry && startupEntry.id, splashVisible: !splash.hidden, detailId: detail.open && activeEntry && activeEntry.id }) };
 
   // Browser preview does not invent replacement illustrations. Real fetching is Android-native.
   window.createInspirationPreview = async function () {

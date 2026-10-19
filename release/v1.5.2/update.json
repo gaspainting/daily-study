@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 15,
+  "versionName": "1.5.2",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.5.2/daily-study-v1.5.2.apk",
+  "apkBytes": 6597052,
+  "apkSha256": "12c58c184228c552cbf8faacf3a7912d8b87968d491e7a062086087ba6ee6770",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# v1.5.2\n\n- 重新启动 App 时自动检查更新，发现新版后显示更新说明和下载入口。\n- 支持稍后更新，页头保留更新入口；从后台返回不重复弹出。\n- 安装前保留未保存输入和活动计时的处理步骤。\n",
+  "releaseDate": "2026-10-19"
+}

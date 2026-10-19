@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
     private volatile boolean startupConsumed=false;
     private volatile boolean hasPaused=false;
     private volatile boolean startupPending=false;
+    private boolean startupUpdateEligible;
     private final AtomicBoolean updateInstallBusy=new AtomicBoolean();
     private static volatile String pendingDaily=null,drawMessage="",drawDate="";
     private static final Object DRAW_LOCK=new Object();
@@ -60,6 +61,7 @@ public class MainActivity extends Activity {
     @Override public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         startupConsumed=bundle!=null;
+        startupUpdateEligible=bundle==null;
         try{recoverStorage();}catch(Exception ignored){}
         InspirationPoster.cleanOldExports(this);
         FrameLayout root=new FrameLayout(this);root.setBackgroundColor(Color.rgb(248,247,243));
@@ -102,7 +104,7 @@ public class MainActivity extends Activity {
         if(recoveryError==null)try{ReminderScheduler.schedule(this);}catch(Exception e){show(e.getMessage());}
     }
     @Override protected void onResume(){super.onResume();updateInstallBusy.set(false);resumePage();if(recoveryError==null)try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);BackupStatus.schedule(this);}catch(Exception ignored){}}
-    @Override protected void onPause(){startupConsumed=true;startupPending=false;hasPaused=true;if(webView!=null)webView.evaluateJavascript("window.InspirationUI && window.InspirationUI.background()",null);super.onPause();}
+    @Override protected void onPause(){synchronized(this){startupUpdateEligible=false;}startupConsumed=true;startupPending=false;hasPaused=true;if(webView!=null)webView.evaluateJavascript("window.InspirationUI && window.InspirationUI.background();window.onStartupUpdateBackground && window.onStartupUpdateBackground()",null);super.onPause();}
     @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);resumePage();}
     private void resumePage(){if(pageReady&&webView!=null)webView.evaluateJavascript((hasPaused?"window.InspirationUI && window.InspirationUI.background();":"")+"window.onNativeResume && window.onNativeResume()",null);}
     @Override public void onBackPressed(){handleBack();}
@@ -172,6 +174,14 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String searchInspiration(String scope,int offset,int limit,String query,String theme,String language){try{return InspirationSearch.snapshot(MainActivity.this,scope,offset,limit,query,theme,language).put("fetching",FETCHING.get()).put("posterBusy",POSTER_BUSY.get()).put("drawing",pendingDaily!=null).put("drawMessage",LocalDate.now().toString().equals(drawDate)?drawMessage:"").toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String getInspirationFilters(){try{return InspirationSearch.facets(MainActivity.this).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String getUpdateState(){try{return UpdateManager.state(MainActivity.this).toString();}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String checkStartupUpdate(){
+            synchronized(MainActivity.this){
+                if(!startupUpdateEligible||hasPaused)return "{\"started\":false}";
+                startupUpdateEligible=false;
+            }
+            try{UpdateManager.check(getApplicationContext(),MainActivity.this::updateChanged);return "{\"started\":true}";}
+            catch(Exception e){return error(e);}
+        }
         @JavascriptInterface public String checkUpdate(){try{UpdateManager.check(getApplicationContext(),MainActivity.this::updateChanged);return success().toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String downloadUpdate(){try{UpdateManager.download(getApplicationContext(),MainActivity.this::updateChanged);return success().toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String cancelUpdate(){try{UpdateManager.cancel(getApplicationContext());updateChanged();return success().toString();}catch(Exception e){return error(e);}}

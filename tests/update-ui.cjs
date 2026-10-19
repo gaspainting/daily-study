@@ -51,14 +51,16 @@ const harness=`(() => {
 })();`;
 async function simulate(next){await c.evaluate(`window.__updateHarness.state={...window.__updateHarness.state,...${JSON.stringify(next)}};window.onAppUpdateChanged()`);await delay(60);}
 async function ready(candidate,canInstall=true){await simulate({phase:'ready',candidate,canInstall,error:'',bytes:candidate.apkBytes,total:candidate.apkBytes});}
-function withoutRevision(value){value=structuredClone(value);delete value._revision;return value;}
+// Native saveState materializes the optional empty basis map on schema 5+.
+// The outer regression wrapper separately restores exact original file bytes.
+function withoutRevision(value){value=structuredClone(value);delete value._revision;if(value.version>=5&&!Object.hasOwn(value,'assessmentBases'))value.assessmentBases={};return value;}
 (async()=>{
   try{
     check(/^emulator-/.test(process.env.ANDROID_SERIAL||'emulator-5572'),'test target is an owned emulator');
     await open();originalStudy=await state();check(!(await timer()).active,'no existing timer is interrupted by updater UI tests');
     const info=await c.evaluate('JSON.parse(Native.getAppInfo())');check(info.versionName===version,'installed version matches the manifest used for this test report');
     await about();check(await c.evaluate('document.querySelector("[data-build-version]").dataset.buildVersion')===info.versionName,'about version comes from actual installed package metadata');
-    await click('[data-action=update-check]');
+    if ((await c.evaluate('JSON.parse(Native.getUpdateState())')).phase!=='checking') await click('[data-action=update-check]');
     await until(async()=>!['idle','checking'].includes((await c.evaluate('JSON.parse(Native.getUpdateState())')).phase),'Real GitHub check did not settle',30000);
     liveResult=await c.evaluate('JSON.parse(Native.getUpdateState())');
     check(['current','available','ready','error'].includes(liveResult.phase),'real native GitHub check produces a terminal status');

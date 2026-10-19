@@ -263,8 +263,8 @@ async function formalCases(){
   const owner=android('shell','stat','-c','%u:%g',privateBase);android('shell','am','force-stop',pkg);
   for(const file of paths('f'))if(/^files\/(?:study-state|plans|drafts|plan-switch-journal)\.json(?:\.(?:bak|new))?$/.test(file))shell('rm -- '+quote(file));
   write('files/study-state.json',Buffer.from(JSON.stringify(old)));write('files/plans.json',Buffer.from(JSON.stringify({version:1,activeId:'main',items:[{id:'main',name:old.plan.title,state:null}]})));shell('chown '+owner+' files/study-state.json files/plans.json');
-  android('install','-r','-d',path.join(root,'dist/每日学习-v'+priorVersion+'.apk'));await bootFormal();check(info().version===priorVersion,'actual previous formal '+priorVersion+' launches with the legacy interval-free fixture');
-  const before=read('files/study-state.json');android('shell','am','force-stop',pkg);android('install','-r',path.join(root,'dist/每日学习-v'+version+'.apk'));
+  android('install','--no-incremental','-r','-d',path.join(root,'dist/每日学习-v'+priorVersion+'.apk'));await bootFormal();check(info().version===priorVersion,'actual previous formal '+priorVersion+' launches with the legacy interval-free fixture');
+  const before=read('files/study-state.json');android('shell','am','force-stop',pkg);android('install','--no-incremental','-r',path.join(root,'dist/每日学习-v'+version+'.apk'));
   check(read('files/study-state.json').equals(before),'same-signature formal cover installation preserves the complete original learning file');check(info().version===version&&info().code===code&&!info().debuggable,'installed formal APK matches current version and code without debug mode');
   await bootFormal();check(read('files/study-state.json').equals(before),'first formal launch migrates only the view and does not rewrite saved legacy observations');
   await tap('计划',false);await tap('课程与区间安排');

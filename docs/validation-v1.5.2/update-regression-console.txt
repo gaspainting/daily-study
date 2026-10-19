@@ -1,0 +1,93 @@
+PASS test target is an owned emulator
+PASS no existing timer is interrupted by updater UI tests
+PASS installed version matches the manifest used for this test report
+PASS about version comes from actual installed package metadata
+PASS real native GitHub check produces a terminal status
+PASS real native check status is reflected in the update panel
+/sdcard/daily-update-ui.png: 1 file pulled, 0 skipped. 36.4 MB/s (126721 bytes in 0.003s)
+PASS updater-only proxy is captured by actual app boot while other Native methods remain real
+PASS explicit check displays pending status without claiming a completed check
+PASS canceling a pending check returns to an actionable idle state
+PASS current-version status is shown only for the current phase
+PASS error snapshots are rendered in the panel rather than discarded by generic Native error decoding
+PASS error retry actually calls the native check action
+PASS candidate version and notes are displayed as escaped text
+PASS download action shows zero initial progress without claiming a completed download
+PASS download progress reflects reported byte count
+PASS canceling download restores availability without a completion or installation claim
+PASS download failure offers the appropriate download retry
+PASS missing installation permission is a visible status with a user-initiated action
+PASS verified ready state reports downloaded without claiming installation success
+PASS requesting installation does not change the installed version or announce success
+PASS asynchronous update progress preserves unsaved settings input and dirty state
+PASS unsaved form blocks installation with a visible local recovery instruction
+PASS blocked installation retains the current form input
+PASS checking/downloading fixtures do not save settings or modify learning records
+PASS long update notes and actions fit a 320px viewport at 200% CSS text size
+PASS update controls retain accessible names in the real WebView accessibility tree
+/sdcard/daily-update-ui.png: 1 file pulled, 0 skipped. 50.1 MB/s (192467 bytes in 0.004s)
+PASS active native timer exposes cancel/save/discard choices at installation time
+PASS canceling the installation timer gate preserves the actual paused timer
+PASS canceling discard confirmation retains the timer and does not request installation
+PASS save-and-continue persists the actual timer session before requesting installation
+PASS confirmed discard clears only the pending timer before requesting installation
+PASS no uncaught WebView exception in update status and installation-gate flows
+{
+  "version": "1.5.2",
+  "platform": "Android APK WebView/CDP; real learning/timer bridge",
+  "passed": 32,
+  "checks": [
+    "test target is an owned emulator",
+    "no existing timer is interrupted by updater UI tests",
+    "installed version matches the manifest used for this test report",
+    "about version comes from actual installed package metadata",
+    "real native GitHub check produces a terminal status",
+    "real native check status is reflected in the update panel",
+    "updater-only proxy is captured by actual app boot while other Native methods remain real",
+    "explicit check displays pending status without claiming a completed check",
+    "canceling a pending check returns to an actionable idle state",
+    "current-version status is shown only for the current phase",
+    "error snapshots are rendered in the panel rather than discarded by generic Native error decoding",
+    "error retry actually calls the native check action",
+    "candidate version and notes are displayed as escaped text",
+    "download action shows zero initial progress without claiming a completed download",
+    "download progress reflects reported byte count",
+    "canceling download restores availability without a completion or installation claim",
+    "download failure offers the appropriate download retry",
+    "missing installation permission is a visible status with a user-initiated action",
+    "verified ready state reports downloaded without claiming installation success",
+    "requesting installation does not change the installed version or announce success",
+    "asynchronous update progress preserves unsaved settings input and dirty state",
+    "unsaved form blocks installation with a visible local recovery instruction",
+    "blocked installation retains the current form input",
+    "checking/downloading fixtures do not save settings or modify learning records",
+    "long update notes and actions fit a 320px viewport at 200% CSS text size",
+    "update controls retain accessible names in the real WebView accessibility tree",
+    "active native timer exposes cancel/save/discard choices at installation time",
+    "canceling the installation timer gate preserves the actual paused timer",
+    "canceling discard confirmation retains the timer and does not request installation",
+    "save-and-continue persists the actual timer session before requesting installation",
+    "confirmed discard clears only the pending timer before requesting installation",
+    "no uncaught WebView exception in update status and installation-gate flows"
+  ],
+  "liveCheck": {
+    "phase": "current",
+    "currentVersion": "1.5.2",
+    "currentCode": 15,
+    "candidate": null,
+    "bytes": 0,
+    "total": 0,
+    "error": "",
+    "canInstall": true
+  },
+  "fixtureScope": "Only getUpdateState/checkUpdate/downloadUpdate/cancelUpdate/installUpdate are overridden after the live check. Fixture download and install actions never download or install an APK.",
+  "unverified": [
+    "Fixture states do not verify APK transfer, checksum/signature verification, permission-settings return, or actual Package Installer behavior; these require native/platform tests."
+  ],
+  "cleanupErrors": [],
+  "restored": true,
+  "failure": null
+}
+PASS existing updater UI regression suite completes without failure
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":2,"restored":true,"error":null}

@@ -155,3 +155,5 @@
 .assessment-trends .text-button{margin:0;text-align:left;white-space:normal;min-height:44px}
 .assessment-basis>div{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
 .assessment-basis dt,.assessment-basis dd{margin:0;overflow-wrap:anywhere}
+
+.header-actions{display:flex;flex-direction:column;align-items:flex-end;min-width:0}.header-actions #update-entry{font-size:13px;white-space:normal;text-align:right;padding:8px 0;min-height:46px}.startup-update-sheet #app-update{border-top:0;margin-top:0;padding-top:0}.startup-update-sheet .update-later{display:flex;margin:12px auto 0;min-height:48px}.large-text .masthead{flex-wrap:wrap}.large-text .header-actions{margin-left:auto}

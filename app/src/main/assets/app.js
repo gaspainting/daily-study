@@ -16,6 +16,7 @@
   let nativeRefreshPending = false, toastTimeout, booted = false;
   let currentDraftKey = null, activePlanId = 'main', historyFilters = {}, sessionFilters = {}, month = '';
   let preview = !window.Native;
+  let startupUpdatePending = false, startupUpdatePoll, updateOrigin = 'about';
   const clone = value => JSON.parse(JSON.stringify(value));
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
@@ -132,16 +133,28 @@
   function reminderHelp() { openSheet('未收到提醒？', '<p>确认提醒设置已保存，并检查通知权限。</p><p>系统普通提醒可能受省电策略影响而延后。休息时段不补发，延迟超过一小时的提醒略过。</p><button class="secondary-wide" data-action="notification-settings">打开通知设置</button>', true); }
   function widgetHelp(unsupported) { openSheet('添加帮助', (unsupported ? '<p>当前桌面未接受应用内添加请求。</p>' : '') + '<p>长按桌面空白处，打开小组件列表，选择“每日学习”。</p>', true); }
   function showAbout() {
+    updateOrigin = 'about';
     const info = call('getAppInfo');
     openSheet('关于', '<h3>每日学习</h3><p class="about-version" data-build-version="' + escape(info.versionName) + '">版本 ' + escape(info.versionName) + '</p><section id="app-update" aria-label="应用更新"></section><button class="text-button" type="button" data-action="licenses">开源许可</button>', true);
     updatePanel();
   }
-  function updatePanel() {
+  function showStartupUpdate() {
+    updateOrigin = 'startup';
+    window.InspirationUI.dismiss();
+    openSheet('应用更新', '<section id="app-update" aria-label="应用更新"></section><button type="button" class="text-button update-later" data-action="close-sheet">稍后</button>', true);
+    dialog.classList.add('startup-update-sheet');
+    updatePanel();
+  }
+  function returnToUpdate() { if (updateOrigin === 'startup') showStartupUpdate(); else showAbout(); }
+  function updatePanel(update) {
+    if (!update) { try { update = decode(bridge.getUpdateState()); } catch (_) { update = { phase: 'error', error: '更新状态读取失败，请重试' }; } }
+    const entry = document.getElementById('update-entry');
+    const newer = update.candidate && Number(update.candidate.versionCode) > Number(update.currentCode);
+    entry.hidden = !newer || !['available', 'downloading', 'ready', 'error'].includes(update.phase);
+    entry.textContent = update.phase === 'downloading' ? '正在下载更新' : update.phase === 'ready' ? '安装新版' : '有新版本';
     const panel = document.getElementById('app-update');
     if (!panel) return;
     const focused = panel.contains(document.activeElement) ? document.activeElement.dataset.action : null;
-    let update;
-    try { update = decode(bridge.getUpdateState()); } catch (_) { update = { phase: 'error', error: '更新状态读取失败，请重试' }; }
     const candidate = update.candidate || null;
     const button = (action, text, primary = false) => '<button type="button" class="' + (primary ? 'primary' : 'secondary-wide') + '" data-action="update-' + action + '">' + text + '</button>';
     let content = '';
@@ -177,7 +190,30 @@
     }
     call('installUpdate');
   }
-  window.onAppUpdateChanged = () => { if (dialog.open) updatePanel(); };
+  window.onStartupUpdateBackground = () => {
+    startupUpdatePending = false;
+    clearInterval(startupUpdatePoll);
+  };
+  function startupUpdateChanged() {
+    let update;
+    try { update = decode(bridge.getUpdateState()); } catch (_) { window.onStartupUpdateBackground(); return; }
+    updatePanel(update);
+    if (!startupUpdatePending || ['checking', 'downloading'].includes(update.phase)) return;
+    window.onStartupUpdateBackground();
+    const newer = update.candidate && Number(update.candidate.versionCode) > Number(update.currentCode);
+    if (newer && ['available', 'ready'].includes(update.phase) && !document.hidden && !dialog.open && !dirty.size && !saving.size) showStartupUpdate();
+  }
+  function checkStartupUpdate() {
+    if (preview || typeof bridge.checkStartupUpdate !== 'function') return;
+    try {
+      if (!decode(bridge.checkStartupUpdate()).started) return;
+      startupUpdatePending = true;
+      // Poll only this launch check: a previous Activity may own the native callback.
+      startupUpdatePoll = setInterval(startupUpdateChanged, 600);
+      startupUpdateChanged();
+    } catch (_) { window.onStartupUpdateBackground(); }
+  }
+  window.onAppUpdateChanged = () => { if (bridge) startupUpdateChanged(); };
   function leaveEdits() {
     if (saving.size) return false;
     if (!dirty.size) { feedback.clear(); return true; }
@@ -500,7 +536,7 @@
   function openSheet(title, content, preserveEdits = false) {
     if (!preserveEdits && !attempt(leaveEdits)) return;
     feedback.delete('sheet');
-    dialog.classList.remove('manual-sheet');
+    dialog.classList.remove('manual-sheet', 'startup-update-sheet');
     dialog.innerHTML = '<div class="sheet-heading"><h2 id="sheet-title">' + title + '</h2><button class="icon-button" type="button" data-action="close-sheet" aria-label="关闭">×</button></div>' + content;
     dialog.showModal();
     dialog.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
@@ -801,13 +837,14 @@
       if (action === 'export-report') reportForm();
       if (action === 'clear-drafts' && window.confirm('清除全部计划的未保存草稿？')) { call('clearDrafts'); dirty.clear(); feedback.clear(); render(); }
       if (action === 'backup-notification-settings') call('openBackupNotificationSettings');
+      if (action === 'update-open') showStartupUpdate();
       if (action === 'update-check') { call('checkUpdate'); updatePanel(); }
       if (action === 'update-download') { call('downloadUpdate'); updatePanel(); }
       if (action === 'update-cancel') { call('cancelUpdate'); updatePanel(); }
       if (action === 'update-install') installUpdate();
-      if (action === 'update-return') showAbout();
-      if (action === 'update-finish') { const result = call('timerAction', 'finish'); if (!result.finished) throw new Error('当前计时未能保存'); state = readState(); showAbout(); installUpdate(); }
-      if (action === 'update-discard') { if (!window.confirm('丢弃本次未保存计时？')) return; const result = call('timerAction', 'discard'); if (result.active) throw new Error('当前计时未能丢弃'); showAbout(); installUpdate(); }
+      if (action === 'update-return') returnToUpdate();
+      if (action === 'update-finish') { const result = call('timerAction', 'finish'); if (!result.finished) throw new Error('当前计时未能保存'); state = readState(); returnToUpdate(); installUpdate(); }
+      if (action === 'update-discard') { if (!window.confirm('丢弃本次未保存计时？')) return; const result = call('timerAction', 'discard'); if (result.active) throw new Error('当前计时未能丢弃'); returnToUpdate(); installUpdate(); }
       if (action === 'retry-save') { submitForm(document.getElementById(button.dataset.form)); return; }
       if (action === 'finish-for-restore') { const result = call('timerAction', 'finish'); if (!result.finished) throw new Error('当前计时未能保存'); state = readState(); closeSheet(true); backupAction('importBackup'); }
       if (action === 'discard-for-restore') { if (!window.confirm('丢弃本次未保存计时？')) return; const result = call('timerAction', 'discard'); if (result.active) throw new Error('当前计时未能丢弃'); closeSheet(true); backupAction('importBackup'); }
@@ -998,6 +1035,7 @@
       render();
       window.InspirationUI.init(bridge, () => { if (booted && route === 'inspiration') render(); }, tell);
       launchRoute();
+      checkStartupUpdate();
     } catch (error) {
       booted = false;
       bridge = bridge || window.Native;
@@ -1008,5 +1046,5 @@
   window.StudyUI = { snapshot: () => ({ route, selectedDate, planDate, reviewDate, dirty: Array.from(dirty), timer: clone(lastTimer), preview }), reload: () => window.onNativeResume() };
   boot();
   setInterval(updateTimer, 1000);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) window.StudyDrafts.flush(); else window.onNativeResume(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { window.onStartupUpdateBackground(); window.StudyDrafts.flush(); } else window.onNativeResume(); });
 })();

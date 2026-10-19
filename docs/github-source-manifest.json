@@ -1,8 +1,8 @@
 {
   "date": "2026-10-19",
   "repository": "gaspainting/daily-study",
-  "version": "1.5.1",
-  "versionCode": 14,
+  "version": "1.5.2",
+  "versionCode": 15,
   "files": [
     {
       "path": ".gitattributes",
@@ -17,12 +17,12 @@
     {
       "path": "app/src/main/AndroidManifest.xml",
       "bytes": 3388,
-      "sha256": "2cdecd3dcfaf42734977091b55106db929654efe7eec012ecd93629f86063284"
+      "sha256": "75386df21aae89484d2aecf7979095e3a3953e2de7ff3d5cdd149f328bf4cefe"
     },
     {
       "path": "app/src/main/assets/app.js",
-      "bytes": 106394,
-      "sha256": "45753bf1ec53539c1170aaf5de61ccf9132e3670bb5a67b2acc2793189236613"
+      "bytes": 108759,
+      "sha256": "ef48e96d73e9484abe76de844239057b9bf47dc72a37e6f4b9c751a417a96493"
     },
     {
       "path": "app/src/main/assets/course-schedule-data.js",
@@ -51,8 +51,8 @@
     },
     {
       "path": "app/src/main/assets/index.html",
-      "bytes": 5321,
-      "sha256": "44b3747d5117fd643c941b6b452a420f984793c114c083ec611a274477728934"
+      "bytes": 5469,
+      "sha256": "47a7edb7d77930c69c8cdd69253876a738cfbe4263fba52cf0206a9f02b73809"
     },
     {
       "path": "app/src/main/assets/inspiration-filter.css",
@@ -71,8 +71,8 @@
     },
     {
       "path": "app/src/main/assets/inspiration.js",
-      "bytes": 20775,
-      "sha256": "f4b078a8bbb3ffb2c5c6f05229f24c84a213d1f205aa31f2beb81a182a3130f4"
+      "bytes": 20799,
+      "sha256": "5556d7f5a4d9c7616ea5def85dcc5b19b135528270d02780925525b03255b1d4"
     },
     {
       "path": "app/src/main/assets/manual.css",
@@ -81,8 +81,8 @@
     },
     {
       "path": "app/src/main/assets/manual.js",
-      "bytes": 11896,
-      "sha256": "4a26b811e5b9903b04cd44ed41b94183b5d19c8da47a18b25404b148c55445d1"
+      "bytes": 12049,
+      "sha256": "5174b2e852eb11f40d508bf3d77cf8534b422ce3c9fd50f3b8d338781daf449b"
     },
     {
       "path": "app/src/main/assets/model.js",
@@ -91,8 +91,8 @@
     },
     {
       "path": "app/src/main/assets/polish.css",
-      "bytes": 11433,
-      "sha256": "f1ea5e868587af80ad71575aa5ac02ca5e38603c5874aa25fad169c0d6751c49"
+      "bytes": 11872,
+      "sha256": "bf2e947f390a21bfceb4fc55bccd99f7c80e394e0f8b1783bd8bb835aac86dee"
     },
     {
       "path": "app/src/main/assets/reference.js",
@@ -226,8 +226,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
-      "bytes": 35273,
-      "sha256": "612296e10eee183d664f88e2b232f3ecc1e8301d146f22eae1255ce331a64b59"
+      "bytes": 35924,
+      "sha256": "fd813d9de7c03078303b518c583d8e3abf62dccce6525e7d7bbaed6029a432f7"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/PlanStore.java",
@@ -326,8 +326,8 @@
     },
     {
       "path": "docs/APP-UPDATES.md",
-      "bytes": 6891,
-      "sha256": "3bf4640bc1cc3f0e5984eda45e7dd147e38beb3690fb1e8aef51a0b929a00177"
+      "bytes": 7250,
+      "sha256": "e3af7468c5c4ac0ca996be03295e33918d73a7bb59e14f47cd6f613b314bacca"
     },
     {
       "path": "docs/backup-ui-test-results.json",
@@ -372,7 +372,7 @@
     {
       "path": "docs/GITHUB.md",
       "bytes": 5402,
-      "sha256": "f425580d66b7d4785f17ecbcb203217fcd637de1a0aa71c30aec4c2d2fc49bc0"
+      "sha256": "0c2fa4f33bf3839d1f8d37f25fa813f47daf98890ed3bd25b6fdb82b95034703"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -381,13 +381,13 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4853,
-      "sha256": "4d329ac914bc76ad5ca87f202d91e166af3146b554e5b577c9f87eea5771e918"
+      "bytes": 4880,
+      "sha256": "c6cc79863bb456840ec13dad11bffcbcfdf7cfbe442bba980b9f3cb10e2e9a91"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1348,
-      "sha256": "32911d1a081d3edbb23213c299aad6bbd49666c7a8767356b94ce834feb83fc7"
+      "bytes": 1428,
+      "sha256": "f2df5f767573d3825cf81d88d77388ac5c146efb8840f89d6bd9b5234d9f6774"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -443,6 +443,11 @@
       "path": "docs/RELEASE-NOTES-v1.5.1.md",
       "bytes": 365,
       "sha256": "4c74be93ff9cf269d0fcaafa98c4b080f0da63add25c0286d06f0ecfc2d6b42f"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.5.2.md",
+      "bytes": 255,
+      "sha256": "61c81b6a28dce91252c012a844f12cc91ea87f57528350ba5e0823b3a7e17902"
     },
     {
       "path": "docs/release-test-results.json",
@@ -1620,6 +1625,66 @@
       "sha256": "4bb36ae1f4b4fb3f13c26ec180e35ae80bb7351704b8c414adfe138695986f6a"
     },
     {
+      "path": "docs/screenshots/v1.5.2/formal-upgrade-about.png",
+      "bytes": 106534,
+      "sha256": "c17f91e6cfd4d4eac2a2a233e55cff1eb2f74b5195d97fbd7ce9148ad95c1de0"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/manual-assessment.png",
+      "bytes": 263359,
+      "sha256": "83ceabd07cee9aa740bbd6410ace4f5a56264cef885cc399f3f4edcf369aef6a"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/manual-backup-320px-200pct.png",
+      "bytes": 208457,
+      "sha256": "d56eaf896e38abbe74064f0ba0076618a327a0e381a972b8bed7d5eace49b7a7"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/manual-chapter-320px-200pct.png",
+      "bytes": 201084,
+      "sha256": "d24a2d86240572b9bcf5d1f35f01639de1e9402fca13966a061ba322c37935f7"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/manual-directory-320px-200pct.png",
+      "bytes": 172596,
+      "sha256": "b49b38289fde1e35a4141b5cf816304f29efe36da664bbb1766d9c1b51e37ff9"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/manual-directory.png",
+      "bytes": 144892,
+      "sha256": "629d9f9d7297a94d7f391496f797262e4db31cd9fc452eb2a41338ca4e9fb666"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/startup-update-available.png",
+      "bytes": 153570,
+      "sha256": "ccc586320aaa4cd4cb5ebf30c85eba8c865738ec0612749c1037c0d481097dac"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/startup-update-header-draft.png",
+      "bytes": 154119,
+      "sha256": "286b53f6e0e62d1ce01cb8eff1f707d81fc944844f29c9e86512d1b3762a8e6b"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/startup-update-large-text.png",
+      "bytes": 159478,
+      "sha256": "f55401c9d9c9dc4fa42f86027e14b85df86a695017f1417b8f05b08d7e89be9e"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/startup-update-ready.png",
+      "bytes": 156149,
+      "sha256": "abe2e4294391daf5eca1e50b2e772c2aa46bd2f8ab9fc2e918d23a05753abca4"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/update-ready-large-text.png",
+      "bytes": 192467,
+      "sha256": "d691b200ef48590164830c38dfe511e0676f7f65add0b8ed572b9317717369c6"
+    },
+    {
+      "path": "docs/screenshots/v1.5.2/update-real-check.png",
+      "bytes": 126721,
+      "sha256": "5d8811af34e3cfd4d92541f78eebc221c2cc969cf108d23f8c74511fcf01c0df"
+    },
+    {
       "path": "docs/source/course-review-policy.json",
       "bytes": 4445,
       "sha256": "3bac495a550dcc15c330c2d95ffefb5387a29482203e023db706ae980f4bc406"
@@ -1646,8 +1711,8 @@
     },
     {
       "path": "docs/ux-copy-audit.md",
-      "bytes": 24192,
-      "sha256": "e09eb7a033cef5caeee8a03a5ec0108d34bc67b98ea003a9169b79252e6760ea"
+      "bytes": 24830,
+      "sha256": "9baaf6ce81146e048eee903819e3a0aaf8bf171a336cebb1f700bcb6c3ab2c4d"
     },
     {
       "path": "docs/V1.1.0.md",
@@ -1713,6 +1778,11 @@
       "path": "docs/V1.5.1.md",
       "bytes": 4086,
       "sha256": "4461297c27d976d9f7c2ba8c3a0b630b8e9e2d596148385c923a418b31b49156"
+    },
+    {
+      "path": "docs/V1.5.2.md",
+      "bytes": 5198,
+      "sha256": "461e115edfe195df394683a7d44eec2a5a2b3baaa36a59b91a6c7c73b27195a5"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3185,14 +3255,129 @@
       "sha256": "c9dc277426c64bd9c5672e3e5556dfd3efe9e54259f13cd03e49dcce7c140002"
     },
     {
+      "path": "docs/validation-v1.5.2/apk-source-results.json",
+      "bytes": 236,
+      "sha256": "9282880ee6245c65bd594cbf733075f2f3d29743ef6466c1b0f43f2aba80828b"
+    },
+    {
+      "path": "docs/validation-v1.5.2/build-release-results.txt",
+      "bytes": 674,
+      "sha256": "1e29fc485e0503a781a7d10d76527c94b23682a7e515a8ba0a73b26a9ea6896c"
+    },
+    {
+      "path": "docs/validation-v1.5.2/build-test-results.txt",
+      "bytes": 679,
+      "sha256": "961fea271acda1b5190be0f2ad613fab003d6637b1049ec972cbd1ab50e78580"
+    },
+    {
+      "path": "docs/validation-v1.5.2/final-device-results.json",
+      "bytes": 201,
+      "sha256": "0d829c80aabfaab4852dbc9b51d1686db2ef3a6e605d99f3954eff09b55dcd92"
+    },
+    {
+      "path": "docs/validation-v1.5.2/formal-upgrade-console.txt",
+      "bytes": 1359,
+      "sha256": "56698f659b5b91e91be403f664c34b58edc27d4da4f95cf78cce6681ee208064"
+    },
+    {
+      "path": "docs/validation-v1.5.2/formal-upgrade-results.json",
+      "bytes": 3369,
+      "sha256": "cf7b4eeb8c7ba19a1847539225aa16dd7ba9e5bf3f6c11cd32c0ee0d6c9f3b3c"
+    },
+    {
+      "path": "docs/validation-v1.5.2/manual-console.txt",
+      "bytes": 2383,
+      "sha256": "d0f51b01e41c3fe72193b8dea18f034f12986ef12dd398242a742c0333454157"
+    },
+    {
+      "path": "docs/validation-v1.5.2/manual-ui-results.json",
+      "bytes": 4027,
+      "sha256": "de08f4e7251ad9fb558dbd0aa6634bfef58b5fbe5873ab79cbd9a36c2574b602"
+    },
+    {
+      "path": "docs/validation-v1.5.2/native-console.txt",
+      "bytes": 379,
+      "sha256": "2117ba3c1979f054637d20b585dbeba3f63568e6d616f7d7b3c3587f95df9399"
+    },
+    {
+      "path": "docs/validation-v1.5.2/native-test-results.txt",
+      "bytes": 28434,
+      "sha256": "a467f4503da1f56bfec212325cb53ddee1b3a8d28a5ae530de91e3c2c52c0ec2"
+    },
+    {
+      "path": "docs/validation-v1.5.2/native-wrapper-results.json",
+      "bytes": 2478,
+      "sha256": "b64c0ee8f0915fd63c39e412d8e5450641ea7ddcc1d62b5eb466ca0fec7f7c1a"
+    },
+    {
+      "path": "docs/validation-v1.5.2/node-test-results.txt",
+      "bytes": 10661,
+      "sha256": "d9a6cf60c1ea36003523afa0d5e15ed7e74926df77edcc7c640d7e333bd20614"
+    },
+    {
+      "path": "docs/validation-v1.5.2/readme-test-command-results.txt",
+      "bytes": 10658,
+      "sha256": "b61c2d7707c3eb12855f7d526bccdee77323d37f63f590243aa58d77ca5f640a"
+    },
+    {
+      "path": "docs/validation-v1.5.2/reference-validation.csv",
+      "bytes": 1728,
+      "sha256": "49351892a3c63e78e42dbb4650e2e68d2d1f556f28b370ff20babcab0b575474"
+    },
+    {
+      "path": "docs/validation-v1.5.2/reference-validation.pdf",
+      "bytes": 109577,
+      "sha256": "dad8c9ea84da52a6c679a3f56dbea1d343e778cd2052637719f442cdf49bef22"
+    },
+    {
+      "path": "docs/validation-v1.5.2/release-prepare-results.txt",
+      "bytes": 318,
+      "sha256": "25af91dc334c75aab217241425ea4424c35cd82f05b7e9882cfa91e9499cc480"
+    },
+    {
+      "path": "docs/validation-v1.5.2/release-tooling-results.txt",
+      "bytes": 405,
+      "sha256": "5b505f579249bad75d7ae0b28609cbc006c7d43bd0d4bc48b2d330c768c97320"
+    },
+    {
+      "path": "docs/validation-v1.5.2/release-validate-results.txt",
+      "bytes": 79,
+      "sha256": "195ebb41b17259ad48c2cb44b6e5c8e6d784291942ba3fbe01a9b48221472d17"
+    },
+    {
+      "path": "docs/validation-v1.5.2/startup-update-console.txt",
+      "bytes": 3204,
+      "sha256": "46c6ef1a4325ce1d0293e1b14c64e33b7405c3dfbe6fdb128699da9dc6f4ab8d"
+    },
+    {
+      "path": "docs/validation-v1.5.2/startup-update-ui-results.json",
+      "bytes": 4956,
+      "sha256": "32de5e1706fea9ce217d7fe718d65779abaa6df8e8e5a86d6dfce3027469daa0"
+    },
+    {
+      "path": "docs/validation-v1.5.2/update-regression-console.txt",
+      "bytes": 6104,
+      "sha256": "f18e8baca3958f0ac520bab689184dd37b38c602825748d1f8b107a47a0120bf"
+    },
+    {
+      "path": "docs/validation-v1.5.2/update-regression-wrapper-results.json",
+      "bytes": 2305,
+      "sha256": "15d8b105078b2d875ddeec66265848c26aaedbddbbc4b0349f3bc0b2dd1f13dc"
+    },
+    {
+      "path": "docs/validation-v1.5.2/update-ui-results.json",
+      "bytes": 3242,
+      "sha256": "1a6ad216b736752a6ba830eebc9dafbe05d9e372c6d103771e04aa699fd49d05"
+    },
+    {
       "path": "docs/VERIFICATION.md",
       "bytes": 2544,
       "sha256": "dcb947cbd8d937e1c87c044f9fa6e077b99256600c81445c61d6372d91f845ee"
     },
     {
       "path": "docs/使用说明.md",
-      "bytes": 10666,
-      "sha256": "9c37698f9d7aa068b072a2925cdba5d38756b6161030b937e32c86ad1fa669a3"
+      "bytes": 10858,
+      "sha256": "7d39195b525655bb9b55b3f474034dee7eb1bbe8eb6038b0517691aa8644bcba"
     },
     {
       "path": "docs/插图来源与选择核查.md",
@@ -3221,8 +3406,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6526,
-      "sha256": "d4192585fbf31961d5ad312969300f3b7ab33ce0fd7b6632e8b9bc16a90f702a"
+      "bytes": 3266,
+      "sha256": "dd44f63085c6bf19a2a7fed33cb3ff603329eb654c5627711844064ccba50b50"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -3335,6 +3520,16 @@
       "sha256": "f1f7f7ca07c88dd854550ab9b33f5bcf61b0b6ead278cc1dc99c62546b62edcf"
     },
     {
+      "path": "release/v1.5.2/RELEASE-NOTES.md",
+      "bytes": 255,
+      "sha256": "61c81b6a28dce91252c012a844f12cc91ea87f57528350ba5e0823b3a7e17902"
+    },
+    {
+      "path": "release/v1.5.2/update.json",
+      "bytes": 766,
+      "sha256": "c82c24879df1c84ea93ec63a0a7e1528873bb5d3a8a025e39b2be54eb69ebb9c"
+    },
+    {
       "path": "scripts/generate-course-schedule.py",
       "bytes": 3391,
       "sha256": "de7c806c23f02990add18d23d653ce1944091a3064d737e196f6938def313ab6"
@@ -3411,8 +3606,8 @@
     },
     {
       "path": "tests/course-agenda-fix-ui.cjs",
-      "bytes": 38971,
-      "sha256": "1a0cb1949651ae53ce3e5e59fde08ba80a7c83b9e862557683866d713964e9e9"
+      "bytes": 39009,
+      "sha256": "bc2074bfe42ead87354db36b8cc3e4dc6fc4029135c53c4ad2fbc3dca0509780"
     },
     {
       "path": "tests/course-schedule-ui.cjs",
@@ -3620,6 +3815,11 @@
       "sha256": "5838d2ace57d6435c2d6e1649e52c39a33805e0a23185e4b4da85cb95f00a206"
     },
     {
+      "path": "tests/startup-update-ui.cjs",
+      "bytes": 14001,
+      "sha256": "bde2b03d4884224eb69fdc212ce8f2d2081b6ac4047d2dee84cdc3ef958f5a6b"
+    },
+    {
       "path": "tests/tracking-model.test.cjs",
       "bytes": 11000,
       "sha256": "46f66e0857ab3f14e801675fc22d882e2862a1de5c4a584d3fb137db3212bc5e"
@@ -3635,9 +3835,14 @@
       "sha256": "2a31d4b8b3cd779fd274e555b32b29bd64673f375643162fffacb21f2564d4af"
     },
     {
+      "path": "tests/update-regression-ui.cjs",
+      "bytes": 657,
+      "sha256": "28fc563386b6c30699218fd71a525d60e9f492ca8a1cb1256b1006b6a248342b"
+    },
+    {
       "path": "tests/update-ui.cjs",
-      "bytes": 18791,
-      "sha256": "6d1adbb8af69a01a0c807bec68481da7766a18970383f5164905fd08fd6671af"
+      "bytes": 19116,
+      "sha256": "813211da0b4b9ab9bf57dbb9c2861d9f736942446020af547d7d08b881b0637f"
     },
     {
       "path": "tests/upgrade-smoke.cjs",
