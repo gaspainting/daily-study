@@ -22,6 +22,13 @@
     var budget=weekday===5?data.saturdayBudget:weekday===6?data.sundayBudget:data.weekdayBudget;
     return {weekday:weekday,courses:null,review:review,math:budget-review,reviewRange:fallback(weekday,'review'),mathRange:fallback(weekday,'math')};
   }
+  function plannedDay(state,date){
+    const row=day(date),C=typeof globalThis!=="undefined"&&globalThis.StudyCourses||(typeof require==="function"?require("./courses.js"):null);
+    if(!C||!state.plan.courseSchedule)return row;
+    const meetings=C.occurrences(state,date);row.courses=meetings.map(c=>c.name);
+    if(row.weekday<5){const r=data.weekdayRanges[meetings.length>=data.busyCourseCount?"busy":"light"];row.reviewRange=clone(r.review);row.mathRange=clone(r.math);}
+    return row;
+  }
   function active(item,date){return !item.activePeriods||item.activePeriods.some(function(p){return p.from<=date&&(p.to===null||date<p.to);});}
   function find(state,id){return state.plan.subjects.find(function(s){return s.id===id;});}
   function from(state,now){day(now);return [now,data.effectiveFrom,state.plan.startDate].sort().pop();}
@@ -50,7 +57,7 @@
     if(!course){course={id:data.subjectId,name:data.subjectName,kind:'custom',defaults:[0,1,2,3,4,5,6].map(function(d){return fallback(d,'review');}),activePeriods:[{from:first,to:null}]};}
     plan.subjects=[course].concat(plan.subjects.filter(function(s){return s.id!==course.id;}));
     for(var stamp=Date.parse(first+'T00:00:00Z'),last=Date.parse(plan.endDate+'T00:00:00Z');stamp<=last;stamp+=DAY){
-      var date=new Date(stamp).toISOString().slice(0,10),row=day(date),stored=plan.targets[date]||(plan.targets[date]={});
+      var date=new Date(stamp).toISOString().slice(0,10),row=plannedDay(state,date),stored=plan.targets[date]||(plan.targets[date]={});
       if(force||(data.days[date]&&(Object.prototype.hasOwnProperty.call(stored,'math')?stored.math===row.legacyMath:legacyDefaults)))stored.math=clone(row.mathRange);
       if(force||!Object.prototype.hasOwnProperty.call(stored,course.id))stored[course.id]=clone(row.reviewRange);
     }
@@ -73,7 +80,7 @@
     var dates=weekendDates(state,now);
     if(!dates.length)throw new Error('当前计划没有可调整的周末日期');
     var course=find(state,data.subjectId),math=find(state,'math');preserveDefaults(state,[course,math],from(state,now),true);
-    dates.forEach(function(date){var row=day(date),stored=state.plan.targets[date]||(state.plan.targets[date]={});stored[data.subjectId]=clone(row.reviewRange);stored.math=clone(row.mathRange);});
+    dates.forEach(function(date){var row=plannedDay(state,date),stored=state.plan.targets[date]||(state.plan.targets[date]={});stored[data.subjectId]=clone(row.reviewRange);stored.math=clone(row.mathRange);});
     [5,6].forEach(function(d){course.defaults[d]=fallback(d,'review');math.defaults[d]=fallback(d,'math');});
     state.version=Math.max(state.version,4);
     return state;
@@ -86,7 +93,7 @@
     // without extending subject activity or rewriting historical references.
     var historical=original(state)&&data.days[date]&&course.activePeriods&&course.activePeriods.length&&course.activePeriods.every(function(p){return date<p.from;});
     if(!scheduled&&!historical)return null;
-    var row=day(date),stored=state.plan.targets[date]||{},weekday=row.weekday;
+    var row=plannedDay(state,date),stored=state.plan.targets[date]||{},weekday=row.weekday;
     var courseRange=scheduled?(Object.prototype.hasOwnProperty.call(stored,course.id)?stored[course.id]:course.defaults[weekday]):null;
     var mathRange=math&&active(math,date)?Object.prototype.hasOwnProperty.call(stored,math.id)?stored[math.id]:math.defaults[weekday]:null;
     var courseMinutes=courseRange===null?null:R.midpoint(courseRange),mathMinutes=mathRange===null?null:R.midpoint(mathRange);

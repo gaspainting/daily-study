@@ -15,33 +15,206 @@
   "saturdayReview": 90,
   "sundayReview": 90,
   "weekdayRanges": {
-    "busy": {"review": {"min":30,"max":50}, "math": {"min":30,"max":70}},
-    "light": {"review": {"min":20,"max":40}, "math": {"min":40,"max":80}}
+    "busy": {
+      "review": {
+        "min": 30,
+        "max": 50
+      },
+      "math": {
+        "min": 30,
+        "max": 70
+      }
+    },
+    "light": {
+      "review": {
+        "min": 20,
+        "max": 40
+      },
+      "math": {
+        "min": 40,
+        "max": 80
+      }
+    }
   },
   "weekendRanges": {
-    "saturday": {"morning": [60, 120], "afternoon": [180, 240]},
-    "sunday": {"morning": [60, 120], "afternoon": [120, 180]}
+    "saturday": {
+      "morning": [
+        60,
+        120
+      ],
+      "afternoon": [
+        180,
+        240
+      ]
+    },
+    "sunday": {
+      "morning": [
+        60,
+        120
+      ],
+      "afternoon": [
+        120,
+        180
+      ]
+    }
   },
   "subjectId": "course-review",
   "subjectName": "课程复习",
   "legacyTitle": "高数与单词 · 低强度计划",
   "title": "课程复习与考研 · 低强度计划",
-  "legacyMathDefaults": [40, 25, 60, 25, 40, 90, 60],
+  "legacyMathDefaults": [
+    40,
+    25,
+    60,
+    25,
+    40,
+    90,
+    60
+  ],
   "courses": [
-    {"day": 0, "name": "光电子学", "firstWeek": 1, "lastWeek": 10},
-    {"day": 0, "name": "物理光学", "firstWeek": 1, "lastWeek": 18},
-    {"day": 0, "name": "大学生就业指导", "firstWeek": 5, "lastWeek": 8},
-    {"day": 1, "name": "激光原理", "firstWeek": 1, "lastWeek": 18},
-    {"day": 1, "name": "微型计算机原理与接口技术", "firstWeek": 1, "lastWeek": 18},
-    {"day": 1, "name": "毛概", "firstWeek": 1, "lastWeek": 10},
-    {"day": 1, "name": "习概", "firstWeek": 11, "lastWeek": 18},
-    {"day": 2, "name": "光电子学", "firstWeek": 1, "lastWeek": 10},
-    {"day": 3, "name": "激光原理", "firstWeek": 1, "lastWeek": 17, "parity": "odd"},
-    {"day": 3, "name": "光电子器件", "firstWeek": 1, "lastWeek": 18},
-    {"day": 3, "name": "微型计算机原理与接口技术", "firstWeek": 2, "lastWeek": 18},
-    {"day": 4, "name": "物理光学", "firstWeek": 1, "lastWeek": 17, "parity": "odd"},
-    {"day": 4, "name": "毛概", "firstWeek": 4, "lastWeek": 10},
-    {"day": 4, "name": "习概", "firstWeek": 11, "lastWeek": 18},
-    {"day": 4, "name": "光电子学", "firstWeek": 1, "lastWeek": 10}
+    {
+      "day": 0,
+      "name": "光电子学",
+      "firstWeek": 1,
+      "lastWeek": 10,
+      "id": "course_1",
+      "slot": "3—4节",
+      "parity": "all"
+    },
+    {
+      "day": 0,
+      "name": "物理光学",
+      "firstWeek": 1,
+      "lastWeek": 18,
+      "id": "course_2",
+      "slot": "6—7节",
+      "parity": "all"
+    },
+    {
+      "day": 0,
+      "name": "大学生就业指导",
+      "firstWeek": 5,
+      "lastWeek": 8,
+      "id": "course_3",
+      "slot": "8—9节",
+      "parity": "all"
+    },
+    {
+      "day": 1,
+      "name": "激光原理",
+      "firstWeek": 1,
+      "lastWeek": 18,
+      "id": "course_4",
+      "slot": "3—4节",
+      "parity": "all"
+    },
+    {
+      "day": 1,
+      "name": "微型计算机原理与接口技术",
+      "firstWeek": 1,
+      "lastWeek": 18,
+      "id": "course_5",
+      "slot": "6—7节",
+      "parity": "all"
+    },
+    {
+      "day": 1,
+      "name": "毛概",
+      "firstWeek": 1,
+      "lastWeek": 10,
+      "id": "course_6",
+      "slot": "8—9节",
+      "parity": "all"
+    },
+    {
+      "day": 1,
+      "name": "习概",
+      "firstWeek": 11,
+      "lastWeek": 18,
+      "id": "course_7",
+      "slot": "8—9节",
+      "parity": "all"
+    },
+    {
+      "day": 2,
+      "name": "光电子学",
+      "firstWeek": 1,
+      "lastWeek": 10,
+      "id": "course_8",
+      "slot": "1—2节",
+      "parity": "all"
+    },
+    {
+      "day": 3,
+      "name": "激光原理",
+      "firstWeek": 1,
+      "lastWeek": 17,
+      "parity": "odd",
+      "id": "course_9",
+      "slot": "3—4节"
+    },
+    {
+      "day": 3,
+      "name": "光电子器件",
+      "firstWeek": 1,
+      "lastWeek": 18,
+      "id": "course_10",
+      "slot": "6—7节",
+      "parity": "all"
+    },
+    {
+      "day": 3,
+      "name": "微型计算机原理与接口技术",
+      "firstWeek": 2,
+      "lastWeek": 18,
+      "id": "course_11",
+      "slot": "8—9节",
+      "parity": "all"
+    },
+    {
+      "day": 4,
+      "name": "物理光学",
+      "firstWeek": 1,
+      "lastWeek": 17,
+      "parity": "odd",
+      "id": "course_12",
+      "slot": "1—2节"
+    },
+    {
+      "day": 4,
+      "name": "毛概",
+      "firstWeek": 4,
+      "lastWeek": 10,
+      "id": "course_13",
+      "slot": "6—7节",
+      "parity": "all"
+    },
+    {
+      "day": 4,
+      "name": "习概",
+      "firstWeek": 11,
+      "lastWeek": 18,
+      "id": "course_14",
+      "slot": "6—7节",
+      "parity": "all"
+    },
+    {
+      "day": 4,
+      "name": "光电子学",
+      "firstWeek": 1,
+      "lastWeek": 10,
+      "id": "course_15",
+      "slot": "8—9节",
+      "parity": "all"
+    },
+    {
+      "day": 4,
+      "name": "毛概",
+      "firstWeek": 1,
+      "lastWeek": 3,
+      "parity": "odd",
+      "id": "course_16",
+      "slot": "6—7节"
+    }
   ]
 }

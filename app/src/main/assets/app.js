@@ -11,6 +11,7 @@
   const monDays = ['一', '二', '三', '四', '五', '六', '日'];
   const statuses = ['正常参考', '减量', '仅回顾', '休息'];
   let bridge, state, route = 'today', selectedDate, planDate, reviewDate;
+  let courseContext=null,courseViewDate=null;
   let initialDaily = null, lastTimer = { active: false }, timerSignature = '';
   let nativeRefreshPending = false, toastTimeout, booted = false;
   let currentDraftKey = null, activePlanId = 'main', historyFilters = {}, sessionFilters = {}, month = '';
@@ -91,6 +92,7 @@
       currentDraftKey = form.dataset.draftKey;
       let saved = false;
       if (form.id === 'daily-form') saved = saveDaily();
+      else if (['timetable-form','course-change-form','course-review-form'].includes(form.id)) saved=saveCourses(form);
       else if (form.id === 'review-form') saved = saveReview(form);
       else if (form.id === 'range-form') saved = saveRange(form);
       else if (form.dataset.weekMode) saved = saveWeek(form);
@@ -205,8 +207,10 @@
   function monthView() { return trackingTabs() + window.StudyTracking.renderMonth(state, month || iso().slice(0, 7), trackingHelpers); }
   function sessionsView() { return trackingTabs() + window.StudyTracking.renderSessions(state, sessionFilters, trackingHelpers); }
   function draftKey(form) {
+    if(form.id==='course-review-form')form.dataset.plan=activePlanId;
     let key;
     if (form.id === 'daily-form') key = 'daily:' + selectedDate;
+    else if(form.id==='course-review-form')key='courses:'+form.dataset.date;
     else if (form.id === 'review-form') key = 'review:' + weekOf(reviewDate).key;
     else if (form.dataset.weekMode) key = 'week:' + form.dataset.key;
     else if (form.id === 'reference-form') key = 'reference:' + form.elements.namedItem('reference-date').value;
@@ -281,7 +285,7 @@
   }
   function courseAgenda(date) {
     const schedule=window.StudySchedule,a=schedule.agenda(state,date);
-    if(!a)return '';
+    if(!a)return window.StudyCourseUI.checklist(state,date);
     const item=(name,value,detail)=>'<li><div class="agenda-heading"><span>'+escape(name)+'</span>'+(value===null?'':'<strong>'+escape(value)+'</strong>')+'</div>'+(detail?'<p class="agenda-detail">'+escape(detail)+'</p>':'')+'</li>';
     const detail=a.weekday===5?'本周课堂笔记、例题与作业':a.weekday===6?'本周易错点与未理清的问题':a.courses&&a.courses.length?a.courses.join('、'):'近期课程笔记与作业';
     const range=value=>value[0]/60+'—'+value[1]/60+' 小时';
@@ -291,7 +295,7 @@
     if(vocab)html+=item(vocab.name,'新学 '+M().wordTarget(state,date,vocab.id)+' 个','');
     html+='</ol>';
     if(a.weekday>=5&&!a.periods&&date>=iso()&&schedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">调整周末参考</button>';
-    return html+'</section>';
+    return html+window.StudyCourseUI.checklist(state,date)+'<button class="text-button" type="button" data-action="course-manager">查看课表</button></section>';
   }
   function todayView() {
     const w = weekOf(selectedDate), date = localDate(selectedDate), today = iso();
@@ -334,13 +338,14 @@
     const w = weekOf(planDate), dates = M().dates(w.start || w.key, w.end).filter(within);
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><div class="eyebrow">PLAN / 低强度参考</div><h1>学习计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
+    html+='<button class="secondary-wide" type="button" data-action="course-manager">课程表</button>';
     if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程与区间安排</button>';
     if(window.StudySchedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">周末安排</button>';
     html += window.StudyWeekUI.readonly(state.plan, w.key, false);
     html += '<div class="week-list">' + dates.map(date => {
       const r = state.records[date], today = date === iso();
       const caption = meaningful(r) ? (r.status ? statusLabel(r.status) : recordCount(r) ? '已记录' : '有随记') : '未记录';
-      const summary = window.StudyTracking.summaryText(M().recordSummary(state,date));
+      const summary = [window.StudyTracking.summaryText(M().recordSummary(state,date)),window.StudyCourses.summary(state,date)].filter(Boolean).join(' · ');
       return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : ' ' + R().text(M().reference(state, date, s.id)) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
     }).join('') + '</div><button class="secondary-wide" data-action="edit-week">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
     html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : '<p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
@@ -509,6 +514,30 @@
     dialog.replaceChildren();
     return true;
   }
+  function showCourses(date,preserve=false){
+    const latest=readState();courseViewDate=clampPlanDate(date||courseViewDate||selectedDate);
+    openSheet('课程表',window.StudyCourseUI.manager(latest,courseViewDate,iso()),preserve);
+  }
+  function editCourses(change=false){
+    const latest=readState();if(iso()>latest.plan.endDate)throw new Error('计划已结束，请先调整日期范围');
+    courseContext={plan:activePlanId,revision:latest._revision||0,schedule:JSON.stringify(latest.plan.courseSchedule)};
+    openSheet(change?'临时调课 / 停课':'编辑课表',change?window.StudyCourseUI.changeForm(latest,courseViewDate||iso(),iso()):window.StudyCourseUI.editor(latest,iso()));
+    if(change)window.StudyCourseUI.refreshChange(document.getElementById('course-change-form'),latest);
+  }
+  function saveCourses(form){
+    const C=window.StudyCourses,U=window.StudyCourseUI,latest=readState();let next;
+    if(form.id==='course-review-form'){
+      if(form.dataset.plan&&form.dataset.plan!==call('getPlans').activeId)throw new Error('当前计划已切换，请重新打开');
+      next=C.saveReviews(latest,form.dataset.date,U.readChecklist(form,latest),JSON.parse(form.dataset.baseline));
+    }else{
+      if(!courseContext||courseContext.plan!==call('getPlans').activeId||courseContext.revision!==(latest._revision||0)&&courseContext.schedule!==JSON.stringify(latest.plan.courseSchedule))throw new Error('课表已更新，请重新打开编辑');
+      if(form.id==='timetable-form')next=C.putVersion(latest,{from:form.elements.namedItem('course-effective').value,anchor:form.elements.namedItem('course-anchor').value,startWeek:Number(form.elements.namedItem('course-start-week').value),courses:U.sync(form)},iso());
+      else next=C.putChange(latest,{id:U.uid(),courseId:form.elements.namedItem('course-change-id').value,fromDate:form.elements.namedItem('course-from').value,toDate:form.elements.namedItem('course-change-mode').value==='cancel'?null:form.elements.namedItem('course-to').value,note:form.elements.namedItem('course-change-note').value},iso());
+    }
+    persist(next);dirty.delete(form.dataset.dirty);
+    if(form.id!=='course-review-form'){closeSheet(true);render();showCourses(courseViewDate,true);tell(form.id==='timetable-form'?'课表已保存':'调课已保存');}else render();
+    return true;
+  }
   function showCourseSchedule(weekendsOnly=false) {
     if(dirty.size){tell('请先保存当前修改');return;}
     const latest=readState(),schedule=window.StudySchedule,dates=weekendsOnly?schedule.weekendDates(latest,iso()):null,b=schedule.budgetRanges;
@@ -612,7 +641,7 @@
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 5, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
+      const fresh = { version: 6, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = clone(s.defaults[(localDate(date).getDay() + 6) % 7]); }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
@@ -706,6 +735,18 @@
       if (action === 'week-history') weekHistory();
       if (action === 'week-open') editWeekKey(button.dataset.key);
       if (action === 'week-move') showWeekMove(button.dataset.key);
+      if(action==='course-manager')showCourses(route==='plan'?planDate:selectedDate);
+      if(action==='course-edit')editCourses();
+      if(action==='course-change')editCourses(true);
+      if(action==='course-add-row'||action==='course-remove-row'){
+        const form=button.closest('form');
+        if(action==='course-add-row')window.StudyCourseUI.add(form);else{button.closest('[data-course-id]').remove();window.StudyCourseUI.sync(form);}
+        dirty.add('sheet');feedback.delete('sheet');syncFeedback(form);window.StudyDrafts.save(form);
+      }
+      if(action==='course-revert-change'){
+        const latest=readState();if(!window.confirm('撤销这次调课，恢复原日期的课程？'))return;
+        persist(window.StudyCourses.removeChange(latest,button.dataset.id,iso()));closeSheet(true);render();showCourses(courseViewDate);tell('调课已撤销');
+      }
       if (action === 'course-schedule') showCourseSchedule();
       if (action === 'weekend-schedule') showCourseSchedule(true);
       if (action === 'apply-course-schedule') {
@@ -809,6 +850,8 @@
       window.StudyDrafts.attach(form);
       return;
     }
+    if(event.target.id==='course-view-date'){showCourses(event.target.value);return;}
+    if(event.target.closest('#course-change-form')&&['course-from','course-change-mode'].includes(event.target.id))window.StudyCourseUI.refreshChange(event.target.form,state);
     const form = event.target.closest('form[data-dirty]');
     if (form) { clearWordUndo(event.target);dirty.add(form.dataset.dirty); feedback.delete(form.dataset.dirty); syncFeedback(form); window.StudyDrafts.save(form); }
     if (event.target.id === 'reminders-enabled') { if (event.target.checked) attempt(() => call('requestNotificationAccess')); updatePermissionStatus(); }

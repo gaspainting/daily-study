@@ -1,0 +1,6 @@
+Prepared: C:\Users\18307\AppData\Local\Temp\daily-study-release-10a675d60bfa407d9fb22438e18856b5\prepared
+APK version: 1.5.0 / code 13
+APK SHA256: f9f0c15be192c56f360a40ae6b3391b9d762f34015b7e441b086001e56d25ccb
+Signer SHA256: fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5
+Public files: APK, update.json, RELEASE-NOTES.md
+PASS: 39 release tooling assertions; no remote mutations.

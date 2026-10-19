@@ -20,6 +20,9 @@ for n in range((last-first).days+1):
     assert all(0<=r['min']<=r['max']<=1440 for r in ranges.values())
     days[d.isoformat()]={'week':week,'weekday':weekday,'courses':courses,'review':review,'math':budget-review,'reviewRange':ranges['review'],'mathRange':ranges['math'],'legacyMath':old[d.isoformat()]}
 data={key:policy[key] for key in ('version','effectiveFrom','anchor','lastDate','subjectId','subjectName','legacyTitle','title','legacyMathDefaults','weekdayBudget','saturdayBudget','sundayBudget','lightReview','saturdayReview','sundayReview','weekendRanges','weekdayRanges')}
+data['courses']=policy['courses']
+data['busyCourseCount']=policy['busyCourseCount']
+data['startWeek']=policy['startWeek']
 data['days']=days
 assets=root/'app/src/main/assets'
 compact=json.dumps(data,ensure_ascii=False,separators=(',',':'))

@@ -120,7 +120,7 @@ test('historical agenda markup shows the course order without inventing missing 
  const render=app.slice(app.indexOf('function courseAgenda'),app.indexOf('function todayView'));
  const n=up(raw(),'2026-10-16');
  for(const date of M.dates('2026-10-12','2026-10-15')){
-  const html=vm.runInNewContext('('+render+')('+JSON.stringify(date)+')',{window:{StudySchedule:S},state:n,M:()=>M,R:()=>require('../app/src/main/assets/reference.js'),escape:s=>String(s)});
+  const html=vm.runInNewContext('('+render+')('+JSON.stringify(date)+')',{window:{StudySchedule:S,StudyCourseUI:{checklist:()=>""}},state:n,M:()=>M,R:()=>require('../app/src/main/assets/reference.js'),escape:s=>String(s)});
   assert.ok(html.includes('aria-label="复习顺序"'),date);
   assert.ok(html.indexOf('课程复习')<html.indexOf('高数'),date);
   for(const name of D.days[date].courses)assert.ok(html.includes(name),name);
@@ -129,7 +129,7 @@ test('historical agenda markup shows the course order without inventing missing 
   assert.doesNotMatch(html,/null|undefined|<strong><\/strong>/,date);
  }
  const zero=clone(n);zero.plan.targets['2026-10-16']['course-review']=0;
- const html=vm.runInNewContext('('+render+')("2026-10-16")',{window:{StudySchedule:S},state:zero,M:()=>M,R:()=>require('../app/src/main/assets/reference.js'),escape:s=>String(s)});
+ const html=vm.runInNewContext('('+render+')("2026-10-16")',{window:{StudySchedule:S,StudyCourseUI:{checklist:()=>""}},state:zero,M:()=>M,R:()=>require('../app/src/main/assets/reference.js'),escape:s=>String(s)});
  assert.ok(html.includes('<strong>0 分钟</strong>'));
 });
 

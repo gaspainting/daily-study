@@ -1,6 +1,6 @@
 # 每日学习 Android App
 
-当前发行版本 [v1.4.2 / versionCode 12](https://github.com/gaspainting/daily-study/releases/tag/v1.4.2)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
+当前目标版本 [v1.5.0 / versionCode 13](https://github.com/gaspainting/daily-study/releases/tag/v1.5.0)。Java 原生 Activity 与 WebView，界面 HTML/CSS/JS 打包在 APK 内；不使用前端框架或 Gradle。最低 Android 8.0，目标 Android 16。
 
 [源码与项目材料](https://github.com/gaspainting/daily-study) · [安装包与版本发布](https://github.com/gaspainting/daily-study/releases) · [GitHub目录与历史归档](docs/GITHUB.md)
 
@@ -9,6 +9,8 @@
 v1.2.0 清理常驻开发说明，改用字段标签、真实记录状态及操作反馈；保留数据字段、枚举、统计口径、手动保存、固定休息边界与备份格式。空白与 0 分开保存，不填入参考量，不将休息状态转换为 0。
 
 v1.3.0 增加「设置 → 关于 → 检查更新」。[gaspainting/daily-study](https://github.com/gaspainting/daily-study) 同时存放源码和发行资源。App通过Releases中的版本清单获取正式APK；源码位于main分支。更新下载独立于学习记录；安装前处理未保存输入和活动计时，使用 Android 系统安装确认。
+
+v1.5.0 增加课表编辑、临时调课/停课、逐门课程复习及周任务关联，保留分日期课表和复习快照。见 [本轮报告](docs/V1.5.0.md)。
 
 **构建与验证**
 
@@ -19,7 +21,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1
 powershell -NoProfile -ExecutionPolicy Bypass -File .\build.ps1 -TestBuild
 node --test .\tests\course-schedule.test.cjs
 python .\scripts\generate-course-schedule.py
-node --test .\tests\model.test.cjs .\tests\tracking-model.test.cjs .\tests\vocabulary-model.test.cjs .\tests\words-model.test.cjs .\tests\audit-algorithms.test.cjs .\tests\weekly-goals.test.cjs
+node --test .\tests\model.test.cjs .\tests\tracking-model.test.cjs .\tests\vocabulary-model.test.cjs .\tests\words-model.test.cjs .\tests\audit-algorithms.test.cjs .\tests\weekly-goals.test.cjs .\tests\reference-assessment.test.cjs .\tests\assessment-history.test.cjs .\tests\courses.test.cjs
 ```
 
 构建脚本使用 javac、aapt2、d8、zipalign 和 apksigner，文件名与版本从 Manifest 读取。「关于」从已安装 PackageInfo 读取版本。正式 APK 不带仪器测试入口或 WebView 调试；测试 APK 供 ADB/CDP 回归使用，测试脚本使用 ANDROID_SERIAL 指定设备，默认 emulator-5572。

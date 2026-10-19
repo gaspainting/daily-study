@@ -47,7 +47,7 @@ final class CourseSchedule {
         JSONArray ordered=new JSONArray().put(course),subjects=plan.getJSONArray("subjects");for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);if(!subject.getString("id").equals(course.getString("id")))ordered.put(subject);}plan.put("subjects",ordered);
         JSONObject targets=plan.getJSONObject("targets");LocalDate last=LocalDate.parse(plan.getString("endDate"));
         for(LocalDate date=first;!date.isAfter(last);date=date.plusDays(1)){
-            String key=date.toString();JSONObject row=day(date),stored=targets.optJSONObject(key);if(stored==null){stored=new JSONObject();targets.put(key,stored);}
+            String key=date.toString();JSONObject row=day(date);if(plan.has("courseSchedule")&&date.getDayOfWeek().getValue()<6){JSONArray meetings=Courses.occurrences(state,date);JSONObject limits=DATA.getJSONObject("weekdayRanges").getJSONObject(meetings.length()>=DATA.getInt("busyCourseCount")?"busy":"light");row.put("reviewRange",limits.getJSONObject("review")).put("mathRange",limits.getJSONObject("math"));}JSONObject stored=targets.optJSONObject(key);if(stored==null){stored=new JSONObject();targets.put(key,stored);}
             if(force||(row.has("legacyMath")&&(stored.has("math")?stored.opt("math") instanceof Number&&stored.getDouble("math")==row.getDouble("legacyMath"):defaults)))stored.put("math",row.getJSONObject("mathRange"));
             if(force||!stored.has(course.getString("id")))stored.put(course.getString("id"),row.getJSONObject("reviewRange"));
         }

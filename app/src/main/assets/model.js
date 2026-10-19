@@ -8,6 +8,7 @@
 
   var DAY = 86400000;
   var ranges = typeof globalThis!=='undefined'&&globalThis.StudyReference || (typeof require==='function'?require('./reference.js'):null);
+  var courses = typeof globalThis!=='undefined'&&globalThis.StudyCourses || (typeof require==='function'?require('./courses.js'):null);
   var STATUSES = ['正常参考', '减量', '仅回顾', '休息'];
   var ID = /^[A-Za-z][A-Za-z0-9_-]{0,63}$/;
   var has = function (obj, key) { return Object.prototype.hasOwnProperty.call(obj, key); };
@@ -164,11 +165,11 @@
     if (typeof value !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) fail(path + '须为HH:mm');
   }
   function validateState(state) {
-    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases']:[]), 'state');
-    if (![1, 2, 3, 4, 5].includes(state.version)) fail('不支持此备份版本');
+    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
+    if (![1, 2, 3, 4, 5, 6].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
-    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'] : []) : [], 'plan');
+    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule']:[]) : []) : [], 'plan');
     string(plan.title, 128, 'plan.title', true);
     dates(plan.startDate, plan.endDate);
     weekNumber(plan.startWeek);
@@ -219,6 +220,7 @@
       Object.keys(plan[field]).forEach(function (date) { dateStamp(date); string(plan[field][date], 8000, field, false); });
     });
     weeks.validate(plan);
+    courses.validate(state);
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');
     Object.keys(state.records).forEach(function (date) { dateStamp(date); recordValid(state.records[date], ids, 'records.' + date); });
@@ -288,7 +290,8 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 5;
+    result.version = 6;
+    courses.initialize(result);
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
     Object.keys(result.reviews).forEach(function (date) {
