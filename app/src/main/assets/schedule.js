@@ -67,6 +67,19 @@
     state.version=Math.max(state.version,4);return state;
   }
   function upgrade(state,now){if(original(state)&&!find(state,data.subjectId)&&canApply(state,now))apply(state,now,false);return state;}
+  function autoReferences(state,now){
+    var first=[now,state.plan.startDate].sort().pop();
+    for(var stamp=Date.parse(first+'T00:00:00Z'),last=Date.parse(state.plan.endDate+'T00:00:00Z');stamp<=last;stamp+=DAY){
+      var date=new Date(stamp).toISOString().slice(0,10),row=plannedDay(state,date),stored=state.plan.targets[date]||(state.plan.targets[date]={});
+      state.plan.subjects.forEach(function(s){
+        if(s.kind==='vocab'||!active(s,date))return;
+        var ref=Object.prototype.hasOwnProperty.call(stored,s.id)?stored[s.id]:s.defaults[row.weekday];
+        if(typeof ref!=='number')return;
+        var recommended=s.id===data.subjectId&&s.kind==='custom'&&ref===row.review?row.reviewRange:s.id==='math'&&s.kind==='math'&&(ref===row.math||original(state)&&data.days[date]&&ref===row.legacyMath)?row.mathRange:null;
+        stored[s.id]=clone(ref>0&&recommended?recommended:{min:ref,max:ref});
+      });
+    }return state;
+  }
   function weekendDates(state,now){
     var first=from(state,now),course=find(state,data.subjectId),math=find(state,'math'),dates=[];
     if(!course||course.kind!=='custom'||!math||math.kind!=='math')return dates;
@@ -98,8 +111,8 @@
     var mathRange=math&&active(math,date)?Object.prototype.hasOwnProperty.call(stored,math.id)?stored[math.id]:math.defaults[weekday]:null;
     var courseMinutes=courseRange===null?null:R.midpoint(courseRange),mathMinutes=mathRange===null?null:R.midpoint(mathRange);
     var ranges=weekday>=5?data.weekendRanges[weekday===5?'saturday':'sunday']:null;
-    var periods=ranges&&courseMinutes>=ranges.morning[0]&&courseMinutes<=ranges.morning[1]&&mathMinutes>=ranges.afternoon[0]&&mathMinutes<=ranges.afternoon[1]?clone(ranges):null;
+    var periods=ranges&&courseRange!==null&&mathRange!==null&&R.range(courseRange).min===ranges.morning[0]&&R.range(courseRange).max===ranges.morning[1]&&R.range(mathRange).min===ranges.afternoon[0]&&R.range(mathRange).max===ranges.afternoon[1]?clone(ranges):null;
     return {courseId:course.id,courseName:course.name,courseMinutes:courseMinutes,courseRange:clone(courseRange),mathName:math?math.name:'高数',mathMinutes:mathMinutes,mathRange:clone(mathRange),courses:row.courses,weekday:weekday,periods:periods};
   }
-  return Object.freeze({day:day,from:from,canApply:canApply,apply:apply,upgrade:upgrade,agenda:agenda,weekendDates:weekendDates,applyWeekends:applyWeekends,weekendRanges:clone(data.weekendRanges),subjectId:data.subjectId,budgetRanges:{weekday:budget(0),saturday:budget(5),sunday:budget(6)},budgets:Object.freeze({weekday:data.weekdayBudget,saturday:data.saturdayBudget,sunday:data.sundayBudget})});
+  return Object.freeze({autoReferences:autoReferences,day:day,from:from,canApply:canApply,apply:apply,upgrade:upgrade,agenda:agenda,weekendDates:weekendDates,applyWeekends:applyWeekends,weekendRanges:clone(data.weekendRanges),subjectId:data.subjectId,budgetRanges:{weekday:budget(0),saturday:budget(5),sunday:budget(6)},budgets:Object.freeze({weekday:data.weekdayBudget,saturday:data.saturdayBudget,sunday:data.sundayBudget})});
 });

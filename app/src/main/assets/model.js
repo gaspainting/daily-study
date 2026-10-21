@@ -302,7 +302,7 @@
         if (field && !has(review.subjects, item.id)) review.subjects[item.id] = review[field];
       });
     });
-    if (schedule) { now = now === undefined ? today() : now; dateStamp(now); schedule.upgrade(result, now); }
+    if (schedule) { now = now === undefined ? today() : now; dateStamp(now); schedule.upgrade(result, now); schedule.autoReferences(result, now); ranges.upgrade(result,now); }
     validateState(result);
     return result;
   }

@@ -26,7 +26,7 @@ final class ReleasePolishTests {
         r.getJSONObject("subjects").getJSONObject("math").put("minutes",0);view=StudyWidget.content(state,day);
         check(passes,view.getInt("recorded")==2&&view.getString("status").startsWith("2/2"),"widget two explicit zeros count as two records");
         r.getJSONObject("subjects").getJSONObject("math").put("minutes",12.5);r.put("status","正常参考");view=StudyWidget.content(state,day);
-        check(passes,view.getString("subjects").contains("12.5 分钟")&&view.getString("status").endsWith("照常"),"widget shows real fraction and maps enum only for display");
+        check(passes,view.getString("subjects").contains("12.5 分钟")&&view.getString("status").contains(" · 照常")&&view.getString("status").contains("未完成（不合格）"),"widget shows real fraction and maps enum only for display");
         check(passes,r.getString("status").equals("正常参考"),"widget display label leaves stored enum unchanged");
         JSONObject card=InspirationStore.baseCard("test-attribution","quote","en","中文释义","原创").put("textId","hitokoto:test").put("textSource","句子出处").put("textAuthor","文字作者").put("textPage","https://example.org/words").put("imageSource","图片来源").put("imageAuthor","摄影师").put("imageTitle","作品名称").put("imagePage","https://example.org/photo").put("imageLicense","CC0").put("translationSource","译者");
         String export=InspirationPoster.textForExport(card);

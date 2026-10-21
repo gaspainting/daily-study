@@ -76,6 +76,7 @@ public class SmokeTests extends Instrumentation {
             CourseScheduleTests.run(c,passes);
             WeeklyGoalsTests.run(c,passes);
             ReferenceTests.run(c,passes);
+            AutoReferenceTests.run(c,passes);
             AssessmentHistoryTests.run(c,passes);
             CoursesTests.run(c,passes);
             results.putString("stream","PASS "+passes.size()+" checks\n"+String.join("\n",passes)+"\n");

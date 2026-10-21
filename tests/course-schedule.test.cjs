@@ -44,7 +44,7 @@ test('automatic update preserves a custom math reference, word goals and quick s
  const s=up();s.plan.subjects=s.plan.subjects.filter(x=>x.id!=='course-review');for(const t of Object.values(s.plan.targets))delete t['course-review'];
  subject(s,'math').defaults=[40,25,60,25,40,90,60];s.plan.targets['2026-10-15'].math=17;
  subject(s,'vocab').wordGoal=80;subject(s,'vocab').wordSteps=[1,5,10];s.plan.wordTargets={'2026-10-15':{vocab:33}};
- const n=up(s);assert.equal(n.plan.targets['2026-10-15'].math,17);assert.equal(M.wordTarget(n,'2026-10-15','vocab'),33);
+ const n=up(s);assert.deepEqual(n.plan.targets['2026-10-15'].math,{min:17,max:17});assert.equal(M.wordTarget(n,'2026-10-15','vocab'),33);
  assert.deepEqual(subject(n,'vocab'),subject(s,'vocab'));
  assert.deepEqual(S.agenda(n,'2026-10-15').mathMinutes,17);
 });
@@ -55,7 +55,7 @@ test('missing past targets keep their old fallback while future targets are allo
  assert.equal(M.target(up(custom),'2026-10-15','math'),12);assert.deepEqual(subject(up(custom),'math').defaults,[12,12,12,12,12,12,12]);
 });
 test('repeated loading and archiving never reapply a schedule or resurrect a subject',()=>{
- const n=up();n.plan.targets['2026-10-16'].math=8;assert.deepEqual(up(n,'2026-10-16'),n);
+ const n=up();n.plan.targets['2026-10-16'].math={min:8,max:8};assert.deepEqual(up(n,'2026-10-16'),n);
  M.archiveSubject(n,'course-review','2026-10-16');assert.deepEqual(up(n,'2026-10-17'),n);assert.equal(S.agenda(n,'2026-10-17'),null);
 });
 test('custom plans require explicit application and ended plans remain untouched',()=>{

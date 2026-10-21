@@ -55,6 +55,19 @@ final class CourseSchedule {
         if(defaults||force){JSONArray values=new JSONArray();for(int d=0;d<7;d++)values.put(fallback(d,"math"));math.put("defaults",values);}
         if(plan.getString("title").equals(DATA.getString("legacyTitle")))plan.put("title",DATA.getString("title"));state.put("version",Math.max(state.getInt("version"),4));return state;
     }
+    static void autoReferences(JSONObject state,LocalDate now)throws Exception{
+        JSONObject plan=state.getJSONObject("plan"),targets=plan.getJSONObject("targets");JSONArray subjects=plan.getJSONArray("subjects");LocalDate first=LocalDate.parse(plan.getString("startDate")),last=LocalDate.parse(plan.getString("endDate"));if(now.isAfter(first))first=now;
+        boolean original=plan.getString("startDate").equals(DATA.getString("anchor"))&&plan.getString("endDate").equals(DATA.getString("lastDate"))&&plan.getInt("startWeek")==7;
+        for(LocalDate date=first;!date.isAfter(last);date=date.plusDays(1)){
+            String key=date.toString();JSONObject row=day(date),stored=targets.optJSONObject(key);if(stored==null){stored=new JSONObject();targets.put(key,stored);}
+            if(plan.has("courseSchedule")&&date.getDayOfWeek().getValue()<6){JSONArray meetings=Courses.occurrences(state,date);JSONObject limits=DATA.getJSONObject("weekdayRanges").getJSONObject(meetings.length()>=DATA.getInt("busyCourseCount")?"busy":"light");row.put("reviewRange",limits.getJSONObject("review")).put("mathRange",limits.getJSONObject("math"));}
+            for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String id=subject.getString("id"),kind=subject.getString("kind");if(kind.equals("vocab")||!DataStore.activeSubject(subject,date))continue;Object value=stored.has(id)?stored.get(id):subject.getJSONArray("defaults").get(date.getDayOfWeek().getValue()-1);if(!(value instanceof Number))continue;double v=((Number)value).doubleValue();JSONObject recommended=null;
+                if(id.equals(DATA.getString("subjectId"))&&kind.equals("custom")&&v==row.getDouble("review"))recommended=row.getJSONObject("reviewRange");
+                if(id.equals("math")&&kind.equals("math")&&(v==row.getDouble("math")||original&&row.has("legacyMath")&&v==row.getDouble("legacyMath")))recommended=row.getJSONObject("mathRange");
+                stored.put(id,v>0&&recommended!=null?new JSONObject(recommended.toString()):new JSONObject().put("min",v).put("max",v));
+            }
+        }
+    }
     static void upgrade(JSONObject state,LocalDate now)throws Exception{
         JSONObject plan=state.getJSONObject("plan");
         if(plan.getString("startDate").equals(DATA.getString("anchor"))&&plan.getString("endDate").equals(DATA.getString("lastDate"))&&plan.getInt("startWeek")==7&&find(plan,DATA.getString("subjectId"))==null&&canApply(state,now))apply(state,now,false);

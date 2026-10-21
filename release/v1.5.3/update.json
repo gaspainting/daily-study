@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 16,
+  "versionName": "1.5.3",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.5.3/daily-study-v1.5.3.apk",
+  "apkBytes": 6601149,
+  "apkSha256": "671a1ee92322fed14c67af63498bcf23b922764dd884a4da2427ae1d54d7b9ee",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# v1.5.3\n\n- 修复已设置参考区间仍显示“未设置参考区间”的问题。\n- 按现有计划自动生成每日参考区间，兼容旧版单值参考。\n- 今日总区间、复习顺序与科目参考均可修改，总区间和分项联动。\n- 修改目标后默认更新当天评估，保留未保存的学习输入。\n- 修复零参考科目的时长遗漏及自定周末区间的显示。\n",
+  "releaseDate": "2026-10-21"
+}

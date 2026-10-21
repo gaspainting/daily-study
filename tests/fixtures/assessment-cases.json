@@ -300,14 +300,14 @@
     }
   },
   {
-    "id": "old-scalar-not-regraded",
+    "id": "old-scalar-point-interval",
     "status": "正常参考",
     "course": 40,
     "math": 50,
     "newWords": 50,
     "reviewWords": null,
     "expected": {
-      "kind": "range",
+      "kind": "within",
       "actual": 90,
       "min": 90,
       "max": 90,
@@ -340,7 +340,7 @@
     "reviewWords": null,
     "expected": {
       "kind": "range",
-      "actual": null,
+      "actual": 0,
       "min": 0,
       "max": 0,
       "word": "range"

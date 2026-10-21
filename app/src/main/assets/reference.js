@@ -21,7 +21,7 @@
     return legacy?min:{min:min,max:max};
   }
   function grade(actual,min,max){return actual<min-1e-9?'below':actual>max+1e-9?'above':'within';}
-  var labels={empty:'未记录',arrangement:'未选择安排',partial:'待补全时长',range:'未设置参考区间',review:'未设置课程复习',outside:'计划范围外',rest:'休息日',below:'未完成（不合格）',within:'完成（合格）',above:'超额完成'};
+  var labels={empty:'未记录',arrangement:'未选择安排',partial:'待补全时长',range:'未安排时长',review:'未设置课程复习',outside:'计划范围外',rest:'休息日',below:'未完成（不合格）',within:'完成（合格）',above:'超额完成'};
   var clone=function(v){return JSON.parse(JSON.stringify(v));};
   function capture(state,date,source,at){
     var p=state.plan,time=[],words=[];
@@ -51,10 +51,10 @@
     var record=state.records[date],entries=record&&record.subjects||{},status=record&&record.status,b=basis(state,date),inside=b.inside;
     var eligible=b.time;
     var selected=status==='仅回顾'?eligible.filter(function(s){return s.id==='course-review'&&s.kind==='custom';}):eligible;
-    var min=0,max=0,legacy=false,actual=0,known=0,missing=0,targets=0;
-    selected.forEach(function(s){var r=range(s.reference),entry=entries[s.id];if(r.max<=0)return;targets++;min+=r.min;max+=r.max;legacy=legacy||r.legacy;if(entry&&entry.minutes!==null&&entry.minutes!==undefined){actual+=entry.minutes;known++;}else missing++;});
+    var min=0,max=0,actual=0,known=0,missing=0,targets=0;
+    selected.forEach(function(s){var r=range(s.reference),entry=entries[s.id],written=entry&&entry.minutes!=null;if(written){actual+=entry.minutes;known++;}if(r.max<=0)return;targets++;min+=r.min;max+=r.max;if(!written)missing++;});
     if(status==='减量'){min*=.5;max*=.5;}
-    var kind=!inside?'outside':!record?'empty':!status?'arrangement':status==='休息'?'rest':status==='仅回顾'&&!selected.length?'review':!targets||legacy?'range':missing?(known?'partial':'empty'):grade(actual,min,max);
+    var kind=!inside?'outside':!record?'empty':!status?'arrangement':status==='休息'?'rest':status==='仅回顾'&&!selected.length?'review':!targets?'range':missing?(known?'partial':'empty'):grade(actual,min,max);
     var time={kind:kind,label:labels[kind],actual:known?actual:null,min:min,max:max,missing:missing,count:targets,scope:status==='仅回顾'?'课程复习':'学习时长',status:status||null};
     if(kind==='above')time.excess=actual-max;
     if(kind==='below')time.shortfall=min-actual;
@@ -65,6 +65,38 @@
       return {id:s.id,name:s.name,goal:inside?goal:null,newWords:learned,reviewWords:reviewed,kind:kind,label:kind==='range'?'未设置新学目标':labels[kind]};
     });
     return {time:time,words:words,basis:{saved:b.source!=='current',source:b.source,capturedAt:b.capturedAt,rule:b.rule}};
+  }
+  // Only ungradable/legacy criteria for today and future records are repaired.
+  // Existing interval-based history and independent word criteria stay intact.
+  var upgradeAt=new Date().toISOString();
+  function upgrade(state,now,at){
+    Object.keys(state.assessmentBases||{}).forEach(function(date){
+      if(date<now||date<state.plan.startDate||date>state.plan.endDate)return;
+      var old=state.assessmentBases[date],positive=old.time.some(function(s){return range(s.reference).max>0;}),legacy=old.time.some(function(s){return typeof s.reference==='number'&&s.reference>0;});
+      if(positive&&!legacy)return;
+      var next=capture(state,date,'recalculated',at||upgradeAt);
+      if(!next.time.some(function(s){return range(s.reference).max>0;}))return;
+      old.time=next.time;old.source=next.source;old.capturedAt=next.capturedAt;
+    });return state;
+  }
+  function distribute(entries,total){
+    var n=entries.length;
+    if(!n||!total||!Number.isFinite(total.min)||!Number.isFinite(total.max)||total.min<0||total.min>total.max||total.max>1440*n)throw new Error('总参考区间无效');
+    entries.forEach(function(e){validate(e.reference,true);});
+    function allocate(amount,weights,limits){
+      var out=weights.map(function(){return 0;}),remaining=amount;
+      for(var pass=0;pass<=n&&remaining>1e-9;pass++){
+        var open=out.map(function(v,i){return limits[i]-v>1e-9?i:-1;}).filter(function(i){return i>=0;}),sum=open.reduce(function(a,i){return a+weights[i];},0),rest=remaining;
+        open.forEach(function(i){var add=Math.min(limits[i]-out[i],rest*(sum?weights[i]/sum:1/open.length));out[i]+=add;remaining-=add;});
+      }
+      var scale=Number.isInteger(amount)&&limits.every(Number.isInteger)?1:1000000,units=Math.round(amount*scale),rounded=out.map(function(v){return Math.floor(v*scale+1e-8);}),left=units-rounded.reduce(function(a,v){return a+v;},0);
+      var order=out.map(function(v,i){return i;}).sort(function(a,b){return (out[b]*scale-rounded[b])-(out[a]*scale-rounded[a])||a-b;});
+      order.forEach(function(i){if(left>0&&rounded[i]<Math.round(limits[i]*scale)){rounded[i]++;left--;}});
+      return rounded.map(function(v){return v/scale;});
+    }
+    var ranges=entries.map(function(e){return range(e.reference);}),mins=allocate(total.min,ranges.map(function(r){return r.min;}),ranges.map(function(){return 1440;}));
+    var extra=allocate(total.max-total.min,ranges.map(function(r){return r.max-r.min;}),mins.map(function(v){return 1440-v;}));
+    return entries.map(function(e,i){return {id:e.id,reference:{min:mins[i],max:mins[i]+extra[i]}};});
   }
   function counts(state,dates){var result={below:0,within:0,above:0,rest:0,pending:0};dates.forEach(function(d){var kind=assess(state,d).time.kind;if(has(result,kind))result[kind]++;else result.pending++;});return result;}
   function kind(result,dimension){
@@ -78,5 +110,5 @@
   function category(value){return ['below','within','above','rest','empty','partial'].includes(value)?value:'pending';}
   function summary(state,days,dimension){var c={below:0,within:0,above:0,rest:0,empty:0,partial:0,pending:0};days.forEach(function(d){c[category(kind(assess(state,d),dimension))]++;});c.graded=c.below+c.within+c.above;c.achieved=c.within+c.above;c.rate=c.graded?Math.round(c.achieved/c.graded*100):null;return c;}
   function matches(state,date,dimension,filter){return !filter||filter==='all'||category(kind(assess(state,date),dimension))===filter;}
-  return Object.freeze({range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches});
+  return Object.freeze({upgrade:upgrade,distribute:distribute,range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches});
 });

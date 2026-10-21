@@ -31,7 +31,7 @@ final class Reference {
         return row!=null&&row.has(id)?row.get(id):subject.getJSONArray("defaults").get(date.getDayOfWeek().getValue()-1);
     }
     private static String grade(double actual,double min,double max){return actual<min-1e-9?"below":actual>max+1e-9?"above":"within";}
-    private static String label(String kind){switch(kind){case "empty":return "未记录";case "arrangement":return "未选择安排";case "partial":return "待补全时长";case "range":return "未设置参考区间";case "review":return "未设置课程复习";case "outside":return "计划范围外";case "rest":return "休息日";case "below":return "未完成（不合格）";case "within":return "完成（合格）";case "above":return "超额完成";default:throw new IllegalArgumentException(kind);}}
+    private static String label(String kind){switch(kind){case "empty":return "未记录";case "arrangement":return "未选择安排";case "partial":return "待补全时长";case "range":return "未安排时长";case "review":return "未设置课程复习";case "outside":return "计划范围外";case "rest":return "休息日";case "below":return "未完成（不合格）";case "within":return "完成（合格）";case "above":return "超额完成";default:throw new IllegalArgumentException(kind);}}
     static String timestamp(){return DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC).format(Instant.now());}
     static JSONObject capture(JSONObject state,LocalDate date,String source,String at)throws Exception{
         JSONObject plan=state.getJSONObject("plan");JSONArray time=new JSONArray(),words=new JSONArray(),subjects=plan.getJSONArray("subjects");
@@ -57,20 +57,30 @@ final class Reference {
             if(which==0){if(!("math".equals(e.opt("kind"))||"custom".equals(e.opt("kind"))))throw new Exception("评估依据科目类型无效");validate(e.get("reference"),true);}
             else{Object goal=e.get("goal");if(!(goal instanceof Number)||!Double.isFinite(((Number)goal).doubleValue())||e.getDouble("goal")<0||e.getDouble("goal")>100000||Math.floor(e.getDouble("goal"))!=e.getDouble("goal"))throw new Exception("评估依据新学目标无效");}}}
     }
+    private static final String UPGRADE_AT=timestamp();
+    static void upgrade(JSONObject state,LocalDate now)throws Exception{
+        JSONObject bases=state.optJSONObject("assessmentBases"),plan=state.getJSONObject("plan");if(bases==null)return;Iterator<String> days=bases.keys();
+        while(days.hasNext()){String day=days.next();if(day.compareTo(now.toString())<0||day.compareTo(plan.getString("startDate"))<0||day.compareTo(plan.getString("endDate"))>0)continue;
+            JSONObject old=bases.getJSONObject(day);JSONArray time=old.getJSONArray("time");boolean positive=false,legacy=false;
+            for(int i=0;i<time.length();i++){Object r=time.getJSONObject(i).get("reference");positive|=max(r)>0;legacy|=r instanceof Number&&max(r)>0;}
+            if(positive&&!legacy)continue;JSONObject next=capture(state,LocalDate.parse(day),"recalculated",UPGRADE_AT);JSONArray replacement=next.getJSONArray("time");boolean useful=false;
+            for(int i=0;i<replacement.length();i++)useful|=max(replacement.getJSONObject(i).get("reference"))>0;
+            if(useful){old.put("time",replacement).put("source","recalculated").put("capturedAt",UPGRADE_AT);}
+        }
+    }
     static JSONObject assess(JSONObject state,LocalDate date)throws Exception{
         JSONObject plan=state.getJSONObject("plan"),record=state.getJSONObject("records").optJSONObject(date.toString()),entries=record==null?new JSONObject():record.getJSONObject("subjects");
         JSONObject b=basis(state,date);String status=record==null||record.isNull("status")?"":record.getString("status");boolean inside=b.getBoolean("inside");
-        JSONArray subjects=new JSONArray(),words=new JSONArray(),timeBasis=b.getJSONArray("time"),wordBasis=b.getJSONArray("words");for(int i=0;i<timeBasis.length();i++)subjects.put(timeBasis.getJSONObject(i));for(int i=0;i<wordBasis.length();i++)subjects.put(new JSONObject(wordBasis.getJSONObject(i).toString()).put("kind","vocab"));double lower=0,upper=0,actual=0;int known=0,missing=0,targets=0,selected=0;boolean legacy=false;
+        JSONArray subjects=new JSONArray(),words=new JSONArray(),timeBasis=b.getJSONArray("time"),wordBasis=b.getJSONArray("words");for(int i=0;i<timeBasis.length();i++)subjects.put(timeBasis.getJSONObject(i));for(int i=0;i<wordBasis.length();i++)subjects.put(new JSONObject(wordBasis.getJSONObject(i).toString()).put("kind","vocab"));double lower=0,upper=0,actual=0;int known=0,missing=0,targets=0,selected=0;
         for(int i=0;i<subjects.length();i++){
             JSONObject s=subjects.getJSONObject(i);String id=s.getString("id");JSONObject entry=entries.optJSONObject(id);
             if("vocab".equals(s.getString("kind"))){int goal=s.getInt("goal");boolean learned=entry!=null&&!entry.isNull("newWords");String kind=!inside?"outside":"休息".equals(status)?"rest":!learned?"empty":goal==0?"range":grade(entry.getDouble("newWords"),goal,goal);
                 words.put(new JSONObject().put("id",id).put("name",s.getString("name")).put("goal",inside?goal:JSONObject.NULL).put("newWords",learned?entry.get("newWords"):JSONObject.NULL).put("reviewWords",entry!=null&&!entry.isNull("reviewWords")?entry.get("reviewWords"):JSONObject.NULL).put("kind",kind).put("label","range".equals(kind)?"未设置新学目标":label(kind)));continue;}
             if("仅回顾".equals(status)&&!("course-review".equals(id)&&"custom".equals(s.getString("kind"))))continue;
-            selected++;Object r=s.get("reference");if(max(r)<=0)continue;targets++;lower+=min(r);upper+=max(r);legacy|=r instanceof Number;
-            if(entry!=null&&!entry.isNull("minutes")){actual+=entry.getDouble("minutes");known++;}else missing++;
+            selected++;Object r=s.get("reference");boolean written=entry!=null&&!entry.isNull("minutes");if(written){actual+=entry.getDouble("minutes");known++;}if(max(r)<=0)continue;targets++;lower+=min(r);upper+=max(r);if(!written)missing++;
         }
         if("减量".equals(status)){lower*=.5;upper*=.5;}
-        String kind=!inside?"outside":record==null?"empty":status.isEmpty()?"arrangement":"休息".equals(status)?"rest":"仅回顾".equals(status)&&selected==0?"review":targets==0||legacy?"range":missing>0?(known>0?"partial":"empty"):grade(actual,lower,upper);
+        String kind=!inside?"outside":record==null?"empty":status.isEmpty()?"arrangement":"休息".equals(status)?"rest":"仅回顾".equals(status)&&selected==0?"review":targets==0?"range":missing>0?(known>0?"partial":"empty"):grade(actual,lower,upper);
         JSONObject time=new JSONObject().put("kind",kind).put("label",label(kind)).put("actual",known>0?actual:JSONObject.NULL).put("min",lower).put("max",upper).put("missing",missing).put("count",targets).put("scope","仅回顾".equals(status)?"课程复习":"学习时长").put("status",status.isEmpty()?JSONObject.NULL:status);
         if("above".equals(kind))time.put("excess",actual-upper);if("below".equals(kind))time.put("shortfall",lower-actual);
         return new JSONObject().put("time",time).put("words",words).put("basis",new JSONObject().put("saved",!b.getString("source").equals("current")).put("source",b.get("source")).put("capturedAt",b.get("capturedAt")).put("rule",b.get("rule")));
