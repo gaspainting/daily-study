@@ -332,7 +332,7 @@
     {
       "path": "docs/assessment-reference-audit.md",
       "bytes": 1149,
-      "sha256": "f2d767ea92a025c3f62a6d66040df9577900f2403a7639bfb02d99df63e676d7"
+      "sha256": "ea77350dc50b16b31c6e8a87d00a14a438367e5b953617bca86f37e0bb9894cb"
     },
     {
       "path": "docs/backup-ui-test-results.json",
@@ -1896,8 +1896,8 @@
     },
     {
       "path": "docs/V1.5.3.md",
-      "bytes": 5255,
-      "sha256": "d3ce6d2d7c6cd0edfc4c70f4dfbb3ee53fadbe0b4164eaf1ff9f2a4cf6ad3a07"
+      "bytes": 5880,
+      "sha256": "f730daa3e82d71749f9bfd17d908ce48afabef42279d4a716bbff02ec02311c7"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3538,6 +3538,11 @@
       "path": "docs/validation-v1.5.3/node-test-results.txt",
       "bytes": 11637,
       "sha256": "1ab080e59120bcc2694ffd30853ac1cb75b30cd0c3920eb31732fb75798b55de"
+    },
+    {
+      "path": "docs/validation-v1.5.3/public-release-results.json",
+      "bytes": 1301,
+      "sha256": "3e86f276a23b87e0bc9961b93e5f91d62a83774c52308e449a5764dd1d545641"
     },
     {
       "path": "docs/validation-v1.5.3/reference-auto-ui-results.json",
