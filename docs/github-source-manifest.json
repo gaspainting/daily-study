@@ -376,8 +376,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 5833,
-      "sha256": "dd460474eb014731bed7cc05ea7f0dee36579d1b61279650c5b26f0075127523"
+      "bytes": 6058,
+      "sha256": "1807a588b1d9bf1567e6a7fb35160049e5ee18bfb1388f6aebcf17ae820937fb"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -1906,8 +1906,8 @@
     },
     {
       "path": "docs/V1.6.0.md",
-      "bytes": 2536,
-      "sha256": "8083ff375200f35cdb933f05fac435015436ba64ff50e48de5dd49d90a75b78c"
+      "bytes": 3117,
+      "sha256": "2d4990b438666f31dac9fc52a509ec70e2211abec61973ae2fd741bcdafda9c5"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3578,6 +3578,26 @@
       "path": "docs/validation-v1.5.3/startup-update-ui-results.json",
       "bytes": 4956,
       "sha256": "fb28e351a7b42f5dd7b5464b6265430d81720e62e07ad3c54da40a6580dd1942"
+    },
+    {
+      "path": "docs/validation-v1.6.0/native-test-results.txt",
+      "bytes": 29246,
+      "sha256": "b37e8551470779f186b2751773711f99e3d612091dd6abe96689b94f1bafcb14"
+    },
+    {
+      "path": "docs/validation-v1.6.0/node-test-results.txt",
+      "bytes": 12157,
+      "sha256": "7b6a45fb4ec3d309c3ec7a818abad172416a5d60040649c8e950c9cedb9c2211"
+    },
+    {
+      "path": "docs/validation-v1.6.0/public-release-results.json",
+      "bytes": 1432,
+      "sha256": "c5f14372133bd638c9c27d4e5ddf35eab4ccdce5d200cec6ed7ff3f735ab9700"
+    },
+    {
+      "path": "docs/validation-v1.6.0/release-tooling-results.txt",
+      "bytes": 405,
+      "sha256": "f338c0fa71489acff9c6077ec366469f748fb6867a5b41cc136b515968b55f9c"
     },
     {
       "path": "docs/VERIFICATION.md",
