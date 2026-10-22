@@ -1800,6 +1800,16 @@
       "sha256": "0cd0a869e86f251cfdc8549769ea2e5aede42ce66bcb58844f12e19742e0ce7c"
     },
     {
+      "path": "docs/screenshots/v1.6.0/startup.png",
+      "bytes": 24083,
+      "sha256": "0e745da45674b929d8d5814e129426f4647531cdd3878831811d8286d05b4453"
+    },
+    {
+      "path": "docs/screenshots/v1.6.0/today.png",
+      "bytes": 159961,
+      "sha256": "9a7074dca3c3b164f106e03cf2c53b31b208a031554df66804cae244b8e068d9"
+    },
+    {
       "path": "docs/source/course-review-policy.json",
       "bytes": 4445,
       "sha256": "3bac495a550dcc15c330c2d95ffefb5387a29482203e023db706ae980f4bc406"
@@ -1906,8 +1916,8 @@
     },
     {
       "path": "docs/V1.6.0.md",
-      "bytes": 3117,
-      "sha256": "2d4990b438666f31dac9fc52a509ec70e2211abec61973ae2fd741bcdafda9c5"
+      "bytes": 3315,
+      "sha256": "101d71351a4277d9e769f7bf06f9a9fffb4b3e8c2d1aa2762088b88f0da93402"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
