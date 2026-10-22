@@ -117,6 +117,17 @@ final class FeatureModelTests {
             content=StudyWidget.content(widget,LocalDate.of(2026,10,14));
             check(passes,content.getInt("totalSubjects")==1&&!content.getString("subjects").contains("高数"),"widget omits archived empty subject after actual field is cleared");
 
+            JSONObject quantityState=DataStore.load(context), quantityPlan=quantityState.getJSONObject("plan");
+            quantityPlan.getJSONArray("subjects").put(new JSONObject().put("id","quantity_test").put("name","刷题").put("kind","custom").put("measure","quantity").put("unit","题").put("defaults",new JSONArray("[20,20,20,20,20,20,20]")).put("activePeriods",new JSONArray().put(new JSONObject().put("from","2026-10-12").put("to",JSONObject.NULL))));
+            quantityPlan.put("quantityTargets",new JSONObject().put("2026-10-14",new JSONObject().put("quantity_test",20)));
+            JSONObject quantityRecord=new JSONObject().put("subjects",new JSONObject()).put("status","正常参考").put("restKept",JSONObject.NULL).put("note","");
+            for(int i=0;i<quantityPlan.getJSONArray("subjects").length();i++){JSONObject subject=quantityPlan.getJSONArray("subjects").getJSONObject(i);JSONObject entry=subject.has("measure")?new JSONObject().put("minutes",JSONObject.NULL).put("content","").put("problem","").put("newWords",JSONObject.NULL).put("reviewWords",JSONObject.NULL).put("forgotWords","").put("quantity",25).put("quantityUnit","题"):subject(subject.getString("kind").equals("vocab")?JSONObject.NULL:JSONObject.NULL);quantityRecord.getJSONObject("subjects").put(subject.getString("id"),entry);}
+            quantityState.getJSONObject("records").put("2026-10-14",quantityRecord);DataStore.validate(quantityState);DataStore.save(context,quantityState);
+            JSONArray quantityAssessment=Reference.assess(quantityState,LocalDate.of(2026,10,14)).getJSONArray("quantities");
+            check(passes,quantityAssessment.length()==1&&quantityAssessment.getJSONObject(0).getString("kind").equals("above"),"native quantity assessment grades an over-target record");
+            JSONObject quantityWidget=StudyWidget.content(quantityState,LocalDate.of(2026,10,14));
+            check(passes,quantityWidget.getString("subjects").contains("刷题")&&quantityWidget.getString("subjects").contains("25 题"),"widget shows quantity actual and unit");
+
             TimerStore.action(context,"discard");
             if(AppRules.allowed(LocalDateTime.now())) {
                 String today=LocalDate.now().toString();JSONObject timerState=DataStore.migrateState(new JSONObject(DataStore.readText(original.getAssets().open("seed.json"))));

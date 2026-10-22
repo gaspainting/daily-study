@@ -72,7 +72,7 @@
     for(var stamp=Date.parse(first+'T00:00:00Z'),last=Date.parse(state.plan.endDate+'T00:00:00Z');stamp<=last;stamp+=DAY){
       var date=new Date(stamp).toISOString().slice(0,10),row=plannedDay(state,date),stored=state.plan.targets[date]||(state.plan.targets[date]={});
       state.plan.subjects.forEach(function(s){
-        if(s.kind==='vocab'||!active(s,date))return;
+        if(s.kind==='vocab'||s.measure==='quantity'||!active(s,date))return;
         var ref=Object.prototype.hasOwnProperty.call(stored,s.id)?stored[s.id]:s.defaults[row.weekday];
         if(typeof ref!=='number')return;
         var recommended=s.id===data.subjectId&&s.kind==='custom'&&ref===row.review?row.reviewRange:s.id==='math'&&s.kind==='math'&&(ref===row.math||original(state)&&data.days[date]&&ref===row.legacyMath)?row.mathRange:null;

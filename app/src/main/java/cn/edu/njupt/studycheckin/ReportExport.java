@@ -73,15 +73,15 @@ public final class ReportExport {
         return record == null || record.isNull("restKept") ? "未记录" : record.optBoolean("restKept") ? "是" : "否";
     }
     private static final class Row {
-        String day, id, name, status, rest, note, content, problem, forgot;
-        Double reference, referenceMin,referenceMax,minutes, newWords, reviewWords, wordGoal;
+        String day, id, name, status, rest, note, content, problem, forgot, quantityUnit;
+        Double reference, referenceMin,referenceMax,minutes, quantityValue, quantityGoal, newWords, reviewWords, wordGoal;
         String courseReviews="";
         String referenceText,assessment,assessmentRange,wordAssessment,basisSource,basisAt;Double assessedWordGoal;
         boolean interval;
-        boolean wordBased;
+        boolean wordBased, quantityBased;
         int sessionCount;
         double sessionSeconds;
-        String[] cells() { return new String[]{day, name, referenceText==null?"—":referenceText, quantity(minutes), status, rest, note, content, problem, quantity(newWords), quantity(reviewWords), forgot, Integer.toString(sessionCount), decimal(sessionSeconds)}; }
+        String[] cells() { return new String[]{day, name, referenceText==null?"—":referenceText, quantityBased?quantity(quantityValue):quantity(minutes), status, rest, note, content, problem, quantity(newWords), quantity(reviewWords), forgot, Integer.toString(sessionCount), decimal(sessionSeconds)}; }
     }
     private static List<Row> rows(JSONObject state, LocalDate first, LocalDate last, List<JSONObject> subjects) throws Exception {
         List<Row> rows = new ArrayList<>();
@@ -96,19 +96,19 @@ public final class ReportExport {
             JSONObject record = records.optJSONObject(day), subjectRecords = record == null ? null : record.optJSONObject("subjects"), dailyTargets = targets.optJSONObject(day);
             JSONObject assessed=Reference.assess(state,date),time=assessed.getJSONObject("time");JSONArray wordAssessments=assessed.getJSONArray("words");
             for (JSONObject subject : subjects) {
-                Row row = new Row(); row.day = day; row.id = subject.getString("id"); row.name = subject.getString("name"); row.wordBased="vocab".equals(subject.getString("kind"));
+                Row row = new Row(); row.day = day; row.id = subject.getString("id"); row.name = subject.getString("name"); row.wordBased="vocab".equals(subject.getString("kind")); row.quantityBased="quantity".equals(subject.optString("measure")); row.quantityUnit=subject.optString("unit","");
                 JSONObject entry = subjectRecords == null ? null : subjectRecords.optJSONObject(row.id);
-                row.minutes = number(entry, "minutes"); row.newWords = number(entry, "newWords"); row.reviewWords = number(entry, "reviewWords");
+                row.minutes = number(entry, "minutes"); row.quantityValue = number(entry, "quantity"); row.newWords = number(entry, "newWords"); row.reviewWords = number(entry, "reviewWords");
                 row.content = text(entry, "content"); row.problem = text(entry, "problem"); row.forgot = text(entry, "forgotWords");
                 row.courseReviews="course-review".equals(row.id)||independent&&rows.size()==rowsBefore?Courses.reviewText(state,day):"";row.status = text(record, "status"); row.note = text(record, "note"); row.rest = rest(record);
                 boolean active = DataStore.activeSubject(subject, date);
-                if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)){Object ref=Reference.value(plan,subject,date);row.reference=Reference.midpoint(ref);row.referenceMin=Reference.min(ref);row.referenceMax=Reference.max(ref);row.referenceText=Reference.text(ref);row.interval=ref instanceof JSONObject;}
+                if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)){if(row.quantityBased){row.quantityGoal=(double)Reference.quantityTarget(state,date,subject);row.reference=row.quantityGoal;row.referenceText=decimal(row.quantityGoal);row.referenceMin=row.referenceMax=row.quantityGoal;}else{Object ref=Reference.value(plan,subject,date);row.reference=Reference.midpoint(ref);row.referenceMin=Reference.min(ref);row.referenceMax=Reference.max(ref);row.referenceText=Reference.text(ref);row.interval=ref instanceof JSONObject;}}
                 row.assessment=time.getString("label");String assessedKind=time.getString("kind");row.assessmentRange=assessedKind.equals("below")||assessedKind.equals("within")||assessedKind.equals("above")?time.getString("scope")+" "+decimal(time.getDouble("min"))+"—"+decimal(time.getDouble("max")):"—";
                 applyAssessment(row,assessed);
                 if(row.wordBased&&active&&!date.isBefore(planStart)&&!date.isAfter(planEnd))row.wordGoal=(double)DataStore.wordTarget(state,day,row.id);
                 JSONObject daySessions = byDate.optJSONObject(day), count = daySessions == null ? null : daySessions.optJSONObject(row.id);
                 if (count != null) { row.sessionCount = count.getInt("count"); row.sessionSeconds = count.getDouble("seconds"); }
-                if (!active && row.minutes == null && row.newWords == null && row.reviewWords == null && row.content.isEmpty() && row.problem.isEmpty() && row.forgot.isEmpty() && row.sessionCount == 0 && row.courseReviews.isEmpty()) continue;
+                if (!active && row.minutes == null && row.quantityValue == null && row.newWords == null && row.reviewWords == null && row.content.isEmpty() && row.problem.isEmpty() && row.forgot.isEmpty() && row.sessionCount == 0 && row.courseReviews.isEmpty()) continue;
                 rows.add(row);
             }
             if (rows.size() == rowsBefore && record != null && (!text(record, "note").isEmpty() || !record.isNull("status") || !record.isNull("restKept"))) {
@@ -119,7 +119,7 @@ public final class ReportExport {
     }
     private static void applyAssessment(Row row,JSONObject assessed)throws Exception{
         JSONObject t=assessed.getJSONObject("time"),basis=assessed.getJSONObject("basis");row.assessment=t.getString("label");String kind=t.getString("kind");row.assessmentRange=kind.equals("below")||kind.equals("within")||kind.equals("above")?t.getString("scope")+" "+decimal(t.getDouble("min"))+"—"+decimal(t.getDouble("max")):"—";
-        row.basisSource=Reference.sourceLabel(basis.getString("source"));row.basisAt=basis.isNull("capturedAt")?"—":basis.getString("capturedAt");row.wordAssessment="";JSONArray words=assessed.getJSONArray("words");for(int i=0;i<words.length();i++){JSONObject w=words.getJSONObject(i);if(w.getString("id").equals(row.id)){row.wordAssessment=w.getString("label");row.assessedWordGoal=number(w,"goal");}}
+        row.basisSource=Reference.sourceLabel(basis.getString("source"));row.basisAt=basis.isNull("capturedAt")?"—":basis.getString("capturedAt");row.wordAssessment="";JSONArray words=assessed.getJSONArray("words");for(int i=0;i<words.length();i++){JSONObject w=words.getJSONObject(i);if(w.getString("id").equals(row.id)){row.wordAssessment=w.getString("label");row.assessedWordGoal=number(w,"goal");}}JSONArray quantities=assessed.optJSONArray("quantities");if(quantities!=null)for(int i=0;i<quantities.length();i++){JSONObject q=quantities.getJSONObject(i);if(q.getString("id").equals(row.id)){row.wordAssessment=q.getString("label");row.assessedWordGoal=number(q,"goal");}}
     }
     private static JSONObject sessions(JSONObject state, LocalDate first, LocalDate last) throws Exception {
         JSONObject result = new JSONObject(); Set<String> seen = new HashSet<>();
@@ -154,6 +154,7 @@ public final class ReportExport {
             total.days++;
             if(row.newWords!=null){total.learned+=row.newWords;total.newDays++;}if(row.reviewWords!=null){total.reviewed+=row.reviewWords;total.reviewDays++;}if(row.wordGoal!=null){total.wordGoal+=row.wordGoal;total.goalDays++;}
             if (row.minutes != null) { total.actual += row.minutes; total.recorded++; }
+            if (row.quantityValue != null) { total.actual += row.quantityValue; total.recorded++; }
             if (row.reference != null) { total.reference += row.reference;total.referenceMin+=row.referenceMin;total.referenceMax+=row.referenceMax;total.interval|=row.interval;total.referenceDays++; }
         }
         return result;
@@ -161,12 +162,12 @@ public final class ReportExport {
     private static void csv(OutputStream output, String title, List<Row> rows, Map<String,Total> totals, List<JSONObject> subjects) throws Exception {
         OutputStreamWriter writer = new OutputStreamWriter(output, StandardCharsets.UTF_8); writer.write('\ufeff');
         csvLine(writer, HEADERS);
-        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":"分钟";cells[17]=row.assessment;cells[18]=row.assessmentRange;cells[19]=row.wordAssessment;cells[20]=row.basisSource;cells[21]=row.basisAt;cells[22]=row.assessedWordGoal==null?"—":decimal(row.assessedWordGoal);cells[23]=row.courseReviews;csvLine(writer, cells); }
+        for (Row row : rows) { String[] cells = java.util.Arrays.copyOf(row.cells(), HEADERS.length); cells[14] = title; cells[15]=row.quantityBased?(row.quantityGoal==null?"—":decimal(row.quantityGoal)):row.wordGoal==null?"—":decimal(row.wordGoal);cells[16]=row.id.isEmpty()?"—":row.wordBased?"词数":row.quantityBased?row.quantityUnit:"分钟";cells[17]=row.assessment;cells[18]=row.assessmentRange;cells[19]=row.wordAssessment;cells[20]=row.basisSource;cells[21]=row.basisAt;cells[22]=row.assessedWordGoal==null?"—":decimal(row.assessedWordGoal);cells[23]=row.courseReviews;csvLine(writer, cells); }
         for (JSONObject subject : subjects) {
             Total total = totals.getOrDefault(subject.getString("id"),new Total());
             String[] cells = new String[HEADERS.length]; java.util.Arrays.fill(cells, "");
             cells[0] = "合计"; cells[1] = subject.getString("name"); cells[2] = total.referenceText(); cells[3] = total.recorded == 0 ? "未记录" : decimal(total.actual); cells[4] = total.recorded + "/" + total.days + " 天已记录";
-            cells[9]=total.newDays==0?"未记录":decimal(total.learned);cells[10]=total.reviewDays==0?"未记录":decimal(total.reviewed);cells[15]=total.goalDays==0?"—":decimal(total.wordGoal);cells[16]="vocab".equals(subject.getString("kind"))?"词数":"分钟";
+            cells[9]=total.newDays==0?"未记录":decimal(total.learned);cells[10]=total.reviewDays==0?"未记录":decimal(total.reviewed);cells[15]="quantity".equals(subject.optString("measure"))?(total.referenceDays==0?"—":decimal(total.reference)):total.goalDays==0?"—":decimal(total.wordGoal);cells[16]="vocab".equals(subject.getString("kind"))?"词数":"quantity".equals(subject.optString("measure"))?subject.optString("unit",""):"分钟";
             cells[14] = title;
             csvLine(writer, cells);
         }
@@ -193,6 +194,7 @@ public final class ReportExport {
             for (JSONObject subject : subjects) {
                 Total total = totals.getOrDefault(subject.getString("id"),new Total());
                 if("vocab".equals(subject.getString("kind"))){pages.paragraph(subject.getString("name")+" · 新学 "+(total.newDays==0?"未记录":decimal(total.learned)+" 个")+" / 目标 "+(total.goalDays==0?"—":decimal(total.wordGoal)+" 个")+" · 复习 "+(total.reviewDays==0?"未记录":decimal(total.reviewed)+" 个"),true);pages.paragraph("新学记录 "+total.newDays+"/"+total.days+" 天 · 复习记录 "+total.reviewDays+"/"+total.days+" 天",false);if(total.recorded>0)pages.paragraph("历史时长："+decimal(total.actual)+" 分钟",false);}
+                else if("quantity".equals(subject.optString("measure"))) pages.paragraph(subject.getString("name") + " · 目标 " + total.referenceText() + " " + subject.optString("unit","") + " · 已记录 " + (total.recorded==0?"未记录":decimal(total.actual)+" "+subject.optString("unit","") ) + " · " + total.recorded + "/" + total.days + " 天", true);
                 else pages.paragraph(subject.getString("name") + " · 参考 " + total.referenceText()+" 分钟" + " · 已记录 " + (total.recorded == 0 ? "未记录" : decimal(total.actual) + " 分钟") + " · " + total.recorded + "/" + total.days + " 天", true);
             }
             pages.gap(8);
@@ -202,6 +204,7 @@ public final class ReportExport {
                 pages.keep(row.wordBased?3:2);
                 pages.paragraph(row.day + "  " + row.name, true);
                 if(row.wordBased){pages.paragraph("新学："+quantity(row.newWords)+(row.newWords==null?"":" 个")+"    目标："+(row.wordGoal==null?"—":decimal(row.wordGoal)+" 个"),false);pages.paragraph("复习："+quantity(row.reviewWords)+(row.reviewWords==null?"":" 个"),false);if(row.minutes!=null)pages.paragraph("历史时长："+decimal(row.minutes)+" 分钟",false);}
+                else if(row.quantityBased) pages.paragraph("目标："+(row.quantityGoal==null?"—":decimal(row.quantityGoal)+" "+row.quantityUnit)+"    已记录："+(row.quantityValue==null?"未记录":decimal(row.quantityValue)+" "+row.quantityUnit),false);
                 else pages.paragraph("参考时长：" + (row.referenceText == null ? "—" : row.referenceText + " 分钟") + "    已记录：" + (row.minutes == null ? "未记录" : decimal(row.minutes) + " 分钟"), false);
                 if(row.wordAssessment!=null&&!row.wordAssessment.isEmpty())pages.paragraph("新学评估："+row.wordAssessment+(row.assessedWordGoal==null?"":" · 评估目标 "+decimal(row.assessedWordGoal)+" 个"),false);
                 if (!row.status.isEmpty()) pages.paragraph("今日安排：" + row.status, false);

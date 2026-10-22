@@ -30,10 +30,11 @@
   const briefDate = date => date.slice(5).replace('-', '.');
   const fullDate = date => date.replaceAll('-', '.');
   const statusLabel = status => status === '正常参考' ? '照常' : status;
+  const isQuantity = subject => subject?.measure === 'quantity';
   const restReason = () => { const d = new Date(); return d.getDay() === 0 || d.getDay() === 6 ? (d.getHours() * 60 + d.getMinutes() < 570 ? '09:30 前为休息时段' : '19:00 起为休息时段') : '20:30 起为休息时段'; };
-  const recordCount = record => state.plan.subjects.filter(s => record && (record.subjects[s.id]?.minutes != null || s.kind === 'vocab' && (record.subjects[s.id]?.newWords != null || record.subjects[s.id]?.reviewWords != null))).length;
+  const recordCount = record => state.plan.subjects.filter(s => record && (isQuantity(s) ? record.subjects[s.id]?.quantity != null : record.subjects[s.id]?.minutes != null || s.kind === 'vocab' && (record.subjects[s.id]?.newWords != null || record.subjects[s.id]?.reviewWords != null))).length;
   const weekOf = date => M().weekInfo(state.plan, date);
-  const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords));
+  const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.quantity != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords));
   const actualTotal = record => { const values = Object.values(record && record.subjects || {}).filter(s => s.minutes != null).map(s => s.minutes); return values.length ? values.reduce((a, b) => a + b, 0) : null; };
   const visibleSubjects = date => state.plan.subjects.filter(s => M().subjectActive(s, date) || meaningful({ subjects: { [s.id]: state.records[date]?.subjects?.[s.id] || {} } }));
   const refTotal = date => within(date)?R().total(state,date):null;
@@ -113,7 +114,7 @@
       saving.delete(key); buttons.forEach((b, i) => { if (b.isConnected) { b.disabled = false; b.innerHTML = labels[i]; } });
     }
   }
-  const timeSubjects = (record, date) => visibleSubjects(date).filter(s => s.kind !== 'vocab' || record?.subjects?.[s.id]?.minutes != null);
+  const timeSubjects = (record, date) => visibleSubjects(date).filter(s => !isQuantity(s) && (s.kind !== 'vocab' || record?.subjects?.[s.id]?.minutes != null));
   const timeCaption = (record, date) => timeSubjects(record, date).filter(s => record?.subjects?.[s.id]?.minutes != null).length + '/' + timeSubjects(record, date).length + ' 科目有时长记录';
   function refreshStoredSummary() {
     const value = document.getElementById('daily-total'); if (!value || !state) return;
@@ -294,16 +295,17 @@
     const detail=['below','within','above'].includes(t.kind)?statusLabel(t.status)+' · '+t.scope+' '+R().decimal(t.actual)+' / '+R().text({min:t.min,max:t.max})+' 分钟':t.kind==='partial'?statusLabel(t.status)+' · '+t.missing+' 科时长未记录':'';
     let html='<section class="daily-assessment" aria-label="今日评估"><div class="section-heading"><h2>今日评估</h2><button class="text-button" type="button" data-action="assessment-rules">评估规则</button></div><p class="assessment-pending" role="status" hidden>待保存</p><div class="assessment-results"><div class="assessment-row"><span>时长</span><strong data-time-assessment="'+t.kind+'">'+escape(t.label)+'</strong></div>'+(detail?'<p class="assessment-detail">'+escape(detail)+'</p>':'');
     result.words.forEach(w=>{html+='<div class="assessment-row"><span>'+escape(w.name)+'新学</span><strong data-word-assessment="'+w.kind+'">'+escape(w.label)+'</strong></div><p class="assessment-detail">'+(w.newWords===null?'未记录':w.newWords+' 个')+(w.goal===null?'':' / '+w.goal+' 个')+(w.reviewWords===null?'':' · 复习 '+w.reviewWords+' 个')+'</p>';});
+    (result.quantities||[]).forEach(q=>{html+='<div class="assessment-row"><span>'+escape(q.name)+'数量</span><strong data-quantity-assessment="'+q.kind+'">'+escape(q.label)+'</strong></div><p class="assessment-detail">'+(q.quantity===null?'未记录':q.quantity+' '+escape(q.unit))+(q.goal===null?'':' / '+q.goal+' '+escape(q.unit))+'</p>';});
     if(within(date))html+='<button class="text-button" type="button" data-action="edit-reference" data-date="'+date+'">修改参考区间</button>';
     html+='<button class="text-button" type="button" data-action="assessment-basis" data-date="'+date+'">评估依据</button>';
     return html+'</div></section>';
   }
   function assessmentSummary(days){return window.StudyTracking.renderAssessments(state,days,{today:iso(),icon:icon});}
   function basisLabel(source){return ({record:'保存时参考',existing:'首次留存参考',recalculated:'重评时参考',current:'当前参考（未留存）'})[source];}
-  function assessmentResultLine(result){const t=result.time;return '<p>'+t.scope+'：'+escape(t.label)+(t.actual===null?'':' · '+R().decimal(t.actual)+(['below','within','above'].includes(t.kind)?' / '+R().text({min:t.min,max:t.max}):'')+' 分钟')+'</p>'+result.words.map(w=>'<p>'+escape(w.name)+'新学：'+escape(w.label)+(w.newWords===null?'':' · '+w.newWords+(w.goal===null?'':' / '+w.goal)+' 个')+'</p>').join('');}
+  function assessmentResultLine(result){const t=result.time;return '<p>'+t.scope+'：'+escape(t.label)+(t.actual===null?'':' · '+R().decimal(t.actual)+(['below','within','above'].includes(t.kind)?' / '+R().text({min:t.min,max:t.max}):'')+' 分钟')+'</p>'+result.words.map(w=>'<p>'+escape(w.name)+'新学：'+escape(w.label)+(w.newWords===null?'':' · '+w.newWords+(w.goal===null?'':' / '+w.goal)+' 个')+'</p>').join('')+(result.quantities||[]).map(q=>'<p>'+escape(q.name)+'：'+escape(q.label)+(q.quantity===null?'':' · '+q.quantity+(q.goal===null?'':' / '+q.goal)+' '+escape(q.unit))+'</p>').join('');}
   function assessmentBasis(date){
     const latest=readState(),b=R().basis(latest,date),r=R().assess(latest,date);
-    let html='<p>'+fullDate(date)+'</p><p>'+escape(basisLabel(b.source))+(b.capturedAt?' · '+escape(new Date(b.capturedAt).toLocaleString('zh-CN')):'')+'</p><dl class="assessment-basis">'+b.time.map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+R().text(s.reference)+' 分钟</dd></div>').join('')+b.words.map(s=>'<div><dt>'+escape(s.name)+'新学</dt><dd>'+s.goal+' 个</dd></div>').join('')+'</dl><p>今日安排：'+(r.time.status?statusLabel(r.time.status):'未选择')+'</p>'+assessmentResultLine(r);
+    let html='<p>'+fullDate(date)+'</p><p>'+escape(basisLabel(b.source))+(b.capturedAt?' · '+escape(new Date(b.capturedAt).toLocaleString('zh-CN')):'')+'</p><dl class="assessment-basis">'+b.time.map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+R().text(s.reference)+' 分钟</dd></div>').join('')+b.words.map(s=>'<div><dt>'+escape(s.name)+'新学</dt><dd>'+s.goal+' 个</dd></div>').join('')+(b.quantities||[]).map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+s.goal+' '+escape(s.unit)+'</dd></div>').join('')+'</dl><p>今日安排：'+(r.time.status?statusLabel(r.time.status):'未选择')+'</p>'+assessmentResultLine(r);
     if(latest.records[date])html+='<button type="button" class="secondary-wide" data-action="assessment-preview" data-date="'+date+'">按当前目标重评</button>';
     openSheet('评估依据',html,true);
   }
@@ -354,6 +356,11 @@
     html += subjects.map((subject, index) => {
       const r = record.subjects[subject.id] || {}, id = subject.id;
       if (subject.kind === 'vocab') return vocabEntry(subject, r, index);
+      if (isQuantity(subject)) {
+        const goal = within(selectedDate) ? M().quantityTarget(state, selectedDate, id) : null;
+        const unit = subject.unit || '个';
+        return '<div class="subject-entry quantity-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3>' + (goal !== null && M().subjectActive(subject, selectedDate) ? '<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="' + selectedDate + '" data-subject="' + escape(id) + '" aria-label="修改' + escape(subject.name) + '每日目标">目标 ' + goal + ' ' + escape(unit) + '</button>' : '<span class="reference-pill">' + (M().subjectActive(subject, selectedDate) ? '目标 ' + (goal === null ? '—' : goal) + ' ' + escape(unit) : '已归档') + '</span>') + '</div><div class="actual-row"><div class="actual-input"><input type="number" id="quantity-' + id + '" name="quantity-' + id + '" min="0" max="100000" step="1" inputmode="numeric" value="' + escape(r.quantity) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际数量"><span>实际 ' + escape(unit) + '</span></div></div><details class="details-toggle"' + (r.content || r.problem ? ' open' : '') + '><summary>内容与问题 <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: '这次完成了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, maxLength: 3000 }) + '</details></div>';
+      }
       const ref = within(selectedDate) ? R().text(M().reference(state, selectedDate, id)) : '—';
       const editable = selectedDate === today && within(selectedDate) && M().allowed() && M().subjectActive(subject, selectedDate);
       return '<div class="subject-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3>' + (within(selectedDate)&&M().subjectActive(subject,selectedDate)?'<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="'+selectedDate+'" data-subject="'+escape(id)+'" aria-label="修改'+escape(subject.name)+'参考区间">参考 '+ref+' 分钟</button>':'<span class="reference-pill">'+(M().subjectActive(subject,selectedDate)?'参考 '+ref+' 分钟':'已归档')+'</span>') + '</div><label class="visually-hidden" for="minutes-' + id + '">' + escape(subject.name) + '实际净学习分钟</label><div class="actual-row"><div class="actual-input"><input type="number" id="minutes-' + id + '" name="minutes-' + id + '" min="0" max="1440" step="any" inputmode="decimal" value="' + escape(r.minutes) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际分钟"><span>实际分钟</span></div><button type="button" class="start-button" data-action="start-timer" data-subject="' + id + '"' + (!editable ? ' disabled' : '') + '>' + icon('play') + '计时</button></div><details class="details-toggle"' + (r.content || r.problem || r.newWords != null || r.reviewWords != null || r.forgotWords ? ' open' : '') + '><summary>内容与' + '问题' + ' <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: subject.kind === 'math' ? '例如：左右极限；教材第 12 页' : '这次主要学习了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, placeholder: subject.kind === 'math' ? '例如：链式求导漏乘内层导数' : '', maxLength: 3000 }) + '</details></div>';
@@ -364,6 +371,9 @@
 
   function defaultsFields(prefix, values) {
     return '<div class="default-grid range-defaults">' + monDays.map((name, i) => rangeFields('周'+name,prefix+'-'+i,values?values[i]:0)).join('') + '</div>';
+  }
+  function quantityDefaultsFields(prefix, values) {
+    return '<div class="default-grid quantity-defaults">' + monDays.map((name, i) => field('周'+name, prefix+'-'+i, values ? values[i] : 0, { type:'number', min:0, max:100000, step:1, required:true, help:'每日目标数量' })).join('') + '</div>';
   }
   function rangeFields(label,id,value,limit=1440){
     const r=R().range(value);
@@ -382,9 +392,9 @@
       const r = state.records[date], today = date === iso();
       const caption = meaningful(r) ? (r.status ? statusLabel(r.status) : recordCount(r) ? '已记录' : '有随记') : '未记录';
       const summary = [window.StudyTracking.summaryText(M().recordSummary(state,date)),window.StudyCourses.summary(state,date)].filter(Boolean).join(' · ');
-      return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : ' ' + R().text(M().reference(state, date, s.id)) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
+      return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">' + briefDate(date) + ' · 周' + weekdays[localDate(date).getDay()] + (today ? ' · 今天' : '') + '</span><span class="plan-day-subjects">' + M().subjectsForDate(state, date).map(s => escape(s.name) + (s.kind === 'vocab' ? ' 新学 ' + M().wordTarget(state, date, s.id) + ' 个' : isQuantity(s) ? ' 目标 ' + M().quantityTarget(state,date,s.id) + ' ' + escape(s.unit) : ' ' + R().text(M().reference(state, date, s.id)) + ' 分钟')).join(' / ') + '</span></span><span class="plan-day-state">' + caption + (summary === caption ? '' : '<br><small>' + escape(summary) + '</small>') + '</span>' + icon('next') + '</button>';
     }).join('') + '</div><button class="secondary-wide" data-action="edit-week">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
-    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : '<p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
+    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : isQuantity(subject) ? '<p class="line-label">计量方式：数量</p>' + field('单位','unit-' + subject.id,subject.unit,{required:true,maxLength:32,placeholder:'例如：题、页、组'}) + '<p class="line-label">新增日期的默认每日目标</p>' + quantityDefaultsFields('defaults-' + subject.id, subject.defaults) : '<p class="line-label">计量方式：时间（分钟）</p><p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
     html += '<button class="secondary-wide" data-action="add-subject">' + icon('plus') + '添加新科目</button></details></div>';
     return html;
   }
@@ -392,14 +402,20 @@
   function reviewView() {
     const stats = M().weekStats(state, reviewDate), w = weekOf(reviewDate);
     const review = state.reviews[w.key] || {};
-    const total = stats.subjects.reduce((sum, s) => sum + (s.actual || 0), 0);
-    const actualExists = stats.subjects.some(s => s.actual != null);
+    const total = stats.subjects.filter(s => s.measure !== 'quantity').reduce((sum, s) => sum + (s.actual || 0), 0);
+    const actualExists = stats.subjects.some(s => s.measure !== 'quantity' && s.actual != null);
     let html = trackingTabs() + '<div class="page-intro"><div class="eyebrow">REFLECTION / 一周回看</div><h1>每周复盘</h1></div>' + weekNavigation(reviewDate, 'review');
     html += '<section class="review-goals" aria-label="本周目标"><h2>本周目标</h2>' + window.StudyWeekUI.readonly(state.plan, w.key, true) + '<div class="week-links"><button class="text-button" data-action="edit-week" data-scope="review">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button></div></section>';
-    html += '<div class="overview"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (actualExists ? '' : ' is-empty') + '">' + (actualExists ? minuteLabel(total) : '未记录') + '</strong>' + (actualExists ? '<span class="metric-unit">分钟</span>' : '') + '</div><div><span class="metric-label">时长记录天数</span><strong class="metric-value">' + stats.recordedDays + '<small class="metric-unit"> / ' + stats.totalDays + ' 天</small></strong><span class="metric-caption">随记 ' + (stats.entryDays ?? stats.recordedDays) + ' 天</span></div></div><div class="legend"><span><i></i>已记录</span><span><i class="ref-line"></i>参考</span><span>虚线：未记录</span></div>';
+    html += '<div class="overview"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (actualExists ? '' : ' is-empty') + '">' + (actualExists ? minuteLabel(total) : '未记录') + '</strong>' + (actualExists ? '<span class="metric-unit">分钟</span>' : '') + '</div><div><span class="metric-label">时长记录天数</span><strong class="metric-value">' + stats.recordedDays + '<small class="metric-unit"> / ' + stats.totalDays + ' 天</small></strong><span class="metric-caption">数量记录 ' + (stats.quantityRecordedDays || 0) + ' 天 · 随记 ' + (stats.entryDays ?? stats.recordedDays) + ' 天</span></div></div><div class="legend"><span><i></i>已记录</span><span><i class="ref-line"></i>参考</span><span>虚线：未记录</span></div>';
     html += assessmentSummary(stats.days)+window.StudyTracking.renderWordStats(state,stats.days);
     html += stats.subjects.filter(s => s.kind !== 'vocab' ? s.totalDays || s.actual != null : s.actual != null).map(subject => {
-      const item = state.plan.subjects.find(s => s.id === subject.id), referenceFor = d => M().subjectActive(item,d) ? M().reference(state,d,subject.id) : null;
+      const item = state.plan.subjects.find(s => s.id === subject.id);
+      if (subject.measure === 'quantity') {
+        const days = stats.days, goalFor = d => M().subjectActive(item,d) ? M().quantityTarget(state,d,subject.id) : null, maximum = Math.max(1, ...days.flatMap(d => [goalFor(d) || 0, state.records[d]?.subjects?.[subject.id]?.quantity || 0]));
+        const description = days.map(d => fullDate(d) + '，' + (state.records[d]?.subjects?.[subject.id]?.quantity ?? '未记录') + ' ' + subject.unit + '，目标 ' + (goalFor(d) === null ? '—' : goalFor(d) + ' ' + subject.unit)).join('；');
+        return '<div class="chart-subject"><div class="chart-subject-head"><h3>' + escape(subject.name) + '</h3><span class="chart-value">' + (subject.actual === null ? '未记录' : subject.actual + ' ' + escape(subject.unit)) + ' <small>/ 目标 ' + subject.reference + ' ' + escape(subject.unit) + '</small></span></div><div class="bar-chart" role="img" aria-label="' + escape(subject.name + '：' + description) + '">' + days.map(date => { const actual=state.records[date]?.subjects?.[subject.id]?.quantity ?? null,goal=goalFor(date)||0; return '<div class="chart-day" title="' + date + ' 已记录：' + (actual === null ? '未记录' : actual + ' ' + subject.unit) + '；目标：' + goal + ' ' + subject.unit + '"><i class="bar reference" data-height="' + goal/maximum*100 + '"></i><i class="bar' + (actual === null ? ' missing' : actual === 0 ? ' zero' : '') + '" data-height="' + (actual || 0)/maximum*100 + '"></i></div>'; }).join('') + '</div><div class="chart-labels">' + days.map(date => '<span>周' + weekdays[localDate(date).getDay()] + '</span>').join('') + '</div><p class="chart-caption">' + subject.recordedDays + '/' + subject.totalDays + ' 天已记录</p></div>';
+      }
+      const referenceFor = d => M().subjectActive(item,d) ? M().reference(state,d,subject.id) : null;
       const days = stats.days, maximum = Math.max(1, ...days.flatMap(d => [referenceFor(d)===null?0:R().range(referenceFor(d)).max, state.records[d]?.subjects?.[subject.id]?.minutes || 0]));
       const description = days.map(d => fullDate(d) + '，' + minuteLabel(state.records[d]?.subjects?.[subject.id]?.minutes ?? null) + (state.records[d]?.subjects?.[subject.id]?.minutes != null ? '分钟' : '') + '，参考' + R().text(referenceFor(d))+'分钟').join('；');
       return '<div class="chart-subject"><div class="chart-subject-head"><h3>' + escape(subject.name) + (subject.kind === 'vocab' ? ' · 历史时长' : '') + '</h3><span class="chart-value">' + minuteLabel(subject.actual) + (subject.actual != null ? ' 分钟' : '') + ' <small>/ 参考 ' + R().text(subject.referenceRange||subject.reference) + ' 分钟</small></span></div><div class="bar-chart" role="img" aria-label="' + escape(subject.name + '：' + description) + '">' + days.map(date => {
@@ -453,6 +469,13 @@
     if (!Number.isFinite(value) || value < 0 || value > (integer ? 100000 : 1440) || (integer && !Number.isInteger(value))) throw new Error(integer ? '词数请填写 0 至 100000 的整数，或留空。' : '实际分钟请填写 0 至 1440 的数字，或留空。');
     return value;
   }
+  function optionalQuantity(form, name) {
+    const input = form.elements.namedItem(name);
+    if (!input || input.value.trim() === '') return null;
+    const value = Number(input.value);
+    if (!Number.isFinite(value) || value < 0 || value > 100000 || !Number.isInteger(value)) throw new Error('数量请填写 0 至 100000 的整数，或留空。');
+    return value;
+  }
   function saveDaily() {
     const form = document.getElementById('daily-form');
     if (!form || !form.reportValidity()) return false;
@@ -461,6 +484,13 @@
     visibleSubjects(selectedDate).forEach(subject => {
       const id = subject.id, baseline = initialDaily.subjects[id] || {};
       const r = record.subjects[id] || (record.subjects[id] = { minutes: null, content: '', problem: '', newWords: null, reviewWords: null, forgotWords: '' });
+      if (isQuantity(subject) && r.quantity === undefined) { r.quantity = null; r.quantityUnit = subject.unit; }
+      const quantity = isQuantity(subject) ? optionalQuantity(form, 'quantity-' + id) : null;
+      if (isQuantity(subject)) {
+        const before = baseline.quantity ?? null;
+        if (quantity !== before && r.quantity !== before && r.quantity !== quantity && !window.confirm('「' + subject.name + '」已有新的数量记录。用表单中的数量替换？')) throw new Error('数量未替换，输入已保留');
+        if (quantity !== before) { r.quantity = quantity; r.quantityUnit = subject.unit; }
+      }
       const minutes = form.elements.namedItem('minutes-' + id) ? optionalNumber(form, 'minutes-' + id) : (baseline.minutes ?? null);
       if (minutes !== (baseline.minutes ?? null) && r.minutes !== (baseline.minutes ?? null) && r.minutes !== minutes && !window.confirm('「' + subject.name + '」已有新的时长记录。用表单中的时长替换？')) throw new Error('时长未替换，输入已保留');
       if (minutes !== (baseline.minutes ?? null)) r.minutes = minutes;
@@ -511,11 +541,13 @@
     return true;
   }
   function readDefaults(form) { return Array.from(form.querySelectorAll('.reference-range')).map(group=>{const inputs=group.querySelectorAll('input');const r={min:Number(inputs[0].value),max:Number(inputs[1].value)};R().validate(r,true);return r;}); }
+  function readQuantityDefaults(form) { return Array.from(form.querySelectorAll('.quantity-defaults input')).map(input=>{const n=Number(input.value);if(!Number.isInteger(n)||n<0||n>100000)throw new Error('每日数量目标须为 0 至 100000 的整数');return n;}); }
   function saveSubject(form) {
     if (!form.reportValidity()) return false;
     const latest = readState(), id = form.dataset.subjectEdit;
     const subject = latest.plan.subjects.find(s => s.id === id);
-    M().updateSubject(latest, id, form.elements.namedItem('name-' + id).value.trim(), subject.kind === 'vocab' ? subject.defaults : readDefaults(form));
+    const quantity = isQuantity(subject), measure = quantity ? 'quantity' : 'minutes';
+    M().updateSubject(latest, id, form.elements.namedItem('name-' + id).value.trim(), subject.kind === 'vocab' ? subject.defaults : quantity ? readQuantityDefaults(form) : readDefaults(form), measure, quantity ? form.elements.namedItem('unit-' + id).value.trim() : undefined);
     if (subject.kind === 'vocab') M().setWordGoal(latest, id, Number(form.elements.namedItem('word-goal-' + id).value), iso());
     if (subject.kind === 'vocab') M().setWordSteps(latest, id, [0,1,2].map(i => Number(form.elements.namedItem('word-step-' + id + '-' + i).value)));
     persist(latest);
@@ -630,8 +662,8 @@
     latest.plan=next;persist(latest);dirty.delete('sheet');closeSheet(true);render();tell('目标已移动');return true;
   }
   function referenceFields(date) {
-    const count=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab').length,canKeep=!count||R().basis(state,date).time.some(s=>R().range(s.reference).max>0);
-    return (count?rangeFields('总参考区间','reference-total',R().total(state,date),count*1440):'')+M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('')+(state.records[date]?selectField('评估依据','reference-assessment','recalculate',[['recalculate','按新目标评估']].concat(canKeep?[['keep','保留原依据']]:[])):'');
+    const count=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab'&&s.measure!=='quantity').length,canKeep=!count||R().basis(state,date).time.some(s=>R().range(s.reference).max>0);
+    return (count?rangeFields('总参考区间','reference-total',R().total(state,date),count*1440):'')+M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):s.measure==='quantity'?field(s.name+' · 每日目标（'+s.unit+'）','quantity-'+s.id,M().quantityTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('')+(state.records[date]?selectField('评估依据','reference-assessment','recalculate',[['recalculate','按新目标评估']].concat(canKeep?[['keep','保留原依据']]:[])):'');
   }
   function editReference(requestedDate,subjectId) {
     state=readState();
@@ -641,7 +673,7 @@
     const target=form.elements.namedItem(subjectId?'target-'+subjectId:'reference-total');if(target){target.focus();target.closest('fieldset,.field').scrollIntoView({block:'nearest'});}
   }
   function syncReferenceForm(form,changed){
-    const date=form.elements.namedItem('reference-date').value,subjects=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab'),entries=subjects.map(s=>({id:s.id,reference:{min:Number(form.elements.namedItem('target-'+s.id).value),max:Number(form.elements.namedItem('target-'+s.id+':max').value)}}));
+    const date=form.elements.namedItem('reference-date').value,subjects=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab'&&!isQuantity(s)),entries=subjects.map(s=>({id:s.id,reference:{min:Number(form.elements.namedItem('target-'+s.id).value),max:Number(form.elements.namedItem('target-'+s.id+':max').value)}}));
     if(!entries.length)return;
     const lower=form.elements.namedItem('reference-total'),upper=form.elements.namedItem('reference-total:max');
     if(changed==='reference-total'||changed==='reference-total:max'){
@@ -678,7 +710,7 @@
   }
   function addSubject() {
     if (state.plan.subjects.length >= 24) { tell('最多支持 24 个科目。'); return; }
-    openSheet('添加一个新科目', '<form id="new-subject-form" data-dirty="sheet">' + field('科目名称', 'new-subject-name', '', { required: true, maxLength: 40, placeholder: '例如：专业课' }) + '<p class="line-label">周一至周日的默认参考区间（分钟）</p>' + defaultsFields('new-default', [0, 0, 0, 0, 0, 0, 0]) + '<div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">添加科目</button></div></form>');
+    openSheet('添加一个新科目', '<form id="new-subject-form" data-dirty="sheet">' + field('科目名称', 'new-subject-name', '', { required: true, maxLength: 40, placeholder: '例如：专业课' }) + selectField('计量方式','new-subject-measure','minutes',[['minutes','时间（分钟）'],['quantity','数量']]) + field('单位（数量科目）','new-subject-unit','',{maxLength:32,placeholder:'例如：题、页、组'}) + '<p id="new-subject-default-label" class="line-label">周一至周日的默认参考区间（分钟）</p><div id="new-subject-defaults">' + defaultsFields('new-default', [0, 0, 0, 0, 0, 0, 0]) + '</div><div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">添加科目</button></div></form>');
   }
   function saveSheet(form) {
     if (!form.reportValidity()) return false;
@@ -689,7 +721,7 @@
       const reevaluate=form.elements.namedItem('reference-assessment')?.value==='recalculate';
       if(form.dataset.plan!==call('getPlans').activeId)throw new Error('计划已切换，请重新打开目标');
       if(Number(form.dataset.revision)!==(latest._revision||0))throw new Error('记录已更新，请重新打开目标后保存');
-      const times=M().subjectsForDate(latest,date).filter(s=>s.kind!=='vocab'),lower=form.elements.namedItem('reference-total'),upper=form.elements.namedItem('reference-total:max');
+      const times=M().subjectsForDate(latest,date).filter(s=>s.kind!=='vocab'&&!isQuantity(s)),lower=form.elements.namedItem('reference-total'),upper=form.elements.namedItem('reference-total:max');
       if(times.length){
         if(Number(lower.value)>Number(upper.value))throw new Error('总参考下限不能超过上限');
         const sums=times.reduce((r,s)=>({min:r.min+Number(form.elements.namedItem('target-'+s.id).value),max:r.max+Number(form.elements.namedItem('target-'+s.id+':max').value)}),{min:0,max:0});
@@ -697,8 +729,8 @@
       }
       R().preserve(latest,latest);
       latest.plan.targets[date] = latest.plan.targets[date] || {};
-      M().subjectsForDate(latest,date).forEach(s => { const value = Number(form.elements.namedItem('target-' + s.id).value); if(s.kind==='vocab'){latest.plan.wordTargets=latest.plan.wordTargets||{};latest.plan.wordTargets[date]=latest.plan.wordTargets[date]||{};latest.plan.wordTargets[date][s.id]=value;}else {const r={min:value,max:Number(form.elements.namedItem('target-'+s.id+':max').value)};R().validate(r,true);latest.plan.targets[date][s.id]=r;} });
-      if(reevaluate){const old=R().basis(latest,date),next=R().capture(latest,date);if(JSON.stringify([old.inside,old.time,old.words])!==JSON.stringify([next.inside,next.time,next.words]))R().recalculate(latest,date);}
+      M().subjectsForDate(latest,date).forEach(s => { if(s.kind==='vocab'){const value = Number(form.elements.namedItem('target-' + s.id).value);latest.plan.wordTargets=latest.plan.wordTargets||{};latest.plan.wordTargets[date]=latest.plan.wordTargets[date]||{};latest.plan.wordTargets[date][s.id]=value;} else if(isQuantity(s)){const input=form.elements.namedItem('quantity-'+s.id);latest.plan.quantityTargets=latest.plan.quantityTargets||{};latest.plan.quantityTargets[date]=latest.plan.quantityTargets[date]||{};latest.plan.quantityTargets[date][s.id]=Number(input.value);} else {const value = Number(form.elements.namedItem('target-' + s.id).value);const r={min:value,max:Number(form.elements.namedItem('target-'+s.id+':max').value)};R().validate(r,true);latest.plan.targets[date][s.id]=r;} });
+      if(reevaluate){const old=R().basis(latest,date),next=R().capture(latest,date);if(JSON.stringify([old.inside,old.time,old.words,old.quantities||[]])!==JSON.stringify([next.inside,next.time,next.words,next.quantities||[]]))R().recalculate(latest,date);}
       planDate = date;
     }
     if (form.id === 'new-plan-form') {
@@ -707,7 +739,11 @@
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = clone(s.defaults[(localDate(date).getDay() + 6) % 7]); }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
-    if (form.id === 'new-subject-form') M().addSubject(latest, form.elements.namedItem('new-subject-name').value.trim(), readDefaults(form), iso());
+    if (form.id === 'new-subject-form') {
+      const measure=form.elements.namedItem('new-subject-measure').value, unit=form.elements.namedItem('new-subject-unit').value.trim();
+      if(measure==='quantity') { if(!unit) throw new Error('请填写数量单位'); const defaults=readQuantityDefaults(form); M().addSubject(latest, form.elements.namedItem('new-subject-name').value.trim(), defaults, iso(), 'quantity', unit); }
+      else M().addSubject(latest, form.elements.namedItem('new-subject-name').value.trim(), readDefaults(form), iso(), 'minutes');
+    }
     persist(latest);
     closeSheet(true);
     render();
@@ -901,6 +937,12 @@
     dirty.delete('sheet');feedback.delete('sheet');syncFeedback(form);window.StudyDrafts.attach(form);
   }));
   document.addEventListener('change', event => {
+    if (event.target.id === 'new-subject-measure') {
+      const quantity = event.target.value === 'quantity', label = document.getElementById('new-subject-default-label'), box = document.getElementById('new-subject-defaults');
+      if (label) label.textContent = quantity ? '周一至周日的默认每日目标' : '周一至周日的默认参考区间（分钟）';
+      if (box) box.innerHTML = quantity ? quantityDefaultsFields('new-default-quantity', [0,0,0,0,0,0,0]) : defaultsFields('new-default', [0,0,0,0,0,0,0]);
+      const unit = document.getElementById('new-subject-unit'); if (unit) unit.required = quantity;
+    }
     if (event.target.id === 'day-picker') {
       const date = event.target.value;
       if (!date) return;

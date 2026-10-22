@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-21",
+  "date": "2026-10-22",
   "repository": "gaspainting/daily-study",
-  "version": "1.5.3",
-  "versionCode": 16,
+  "version": "1.6.0",
+  "versionCode": 17,
   "files": [
     {
       "path": ".gitattributes",
@@ -17,12 +17,12 @@
     {
       "path": "app/src/main/AndroidManifest.xml",
       "bytes": 3388,
-      "sha256": "64764e6f3a5c6707ebd507670ec60880ea0a7b920cbc775271dbfd6619f8e24f"
+      "sha256": "6585f02f89c304a02fa9b3d421fbedd61c287da7d280eccca59a81e02acc7029"
     },
     {
       "path": "app/src/main/assets/app.js",
-      "bytes": 113051,
-      "sha256": "93b06bdee43f862a71a21aed191462c7fe4f9b09a670e46b9c026c49d5ff87a0"
+      "bytes": 121645,
+      "sha256": "42d116141205793e950bbbb4fd3ddb3337b6d1f537e3f3d7971007399bbb4ee2"
     },
     {
       "path": "app/src/main/assets/course-schedule-data.js",
@@ -86,8 +86,8 @@
     },
     {
       "path": "app/src/main/assets/model.js",
-      "bytes": 36892,
-      "sha256": "ce986ace22fc468d61210c6979fe5af27ed2b8528377a5cac24f278accac09b7"
+      "bytes": 43663,
+      "sha256": "2a500aea97c4a6429c2b41d714d9fb0e35038a89443db0b3ba0a36a80697798b"
     },
     {
       "path": "app/src/main/assets/polish.css",
@@ -96,8 +96,8 @@
     },
     {
       "path": "app/src/main/assets/reference.js",
-      "bytes": 11668,
-      "sha256": "e1875d0f4ec0903b9e736daac0820413b49823df14ad3464a87b240764411908"
+      "bytes": 13633,
+      "sha256": "3e1dcc9af7e0882837684b0573a0e428be3b9f6d4b394f4dbfbc1fd186392d2f"
     },
     {
       "path": "app/src/main/assets/report-font-OFL.txt",
@@ -111,8 +111,8 @@
     },
     {
       "path": "app/src/main/assets/schedule.js",
-      "bytes": 9909,
-      "sha256": "6315ea9d3bccff4e2a380e1a6f6cabab9fee7e56c746b6d52591996dc557f576"
+      "bytes": 9933,
+      "sha256": "f7c0743cfc3cee4038b456970076c2a6d81b527a35026e9f8d35e9e50cdf6a76"
     },
     {
       "path": "app/src/main/assets/seed.json",
@@ -131,8 +131,8 @@
     },
     {
       "path": "app/src/main/assets/tracking.js",
-      "bytes": 17005,
-      "sha256": "4e50859d5023a46589f75eb6e63ecb8ff4eb0cf05ef72b53f5b10a1185f0e12e"
+      "bytes": 17814,
+      "sha256": "e0ce9104102f1ca2776e2f15ce58e55ae9811a3d64f7909459f7acc1d4bd0184"
     },
     {
       "path": "app/src/main/assets/weekly-goals.js",
@@ -181,8 +181,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/CourseSchedule.java",
-      "bytes": 9124,
-      "sha256": "0cfda3681293f9c48d2dfcae844e5fc259ed4e2122e9ca73f16f130f3e44daf0"
+      "bytes": 9173,
+      "sha256": "c0c9005114d02240d22796149ee084cad5f6c51f4ec4efef0da7a94b432e7b10"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/CourseScheduleData.java",
@@ -191,8 +191,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/DataStore.java",
-      "bytes": 20622,
-      "sha256": "ddb4007519ab87032e53e46b678c7fcfe527579dc0d744493daeae518ae01e15"
+      "bytes": 23311,
+      "sha256": "0dc95bf8924e8dec1c28c77dbeccf9103b24f7a12dd7fec303f242e6769e46a6"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/DraftStore.java",
@@ -236,8 +236,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/Reference.java",
-      "bytes": 11925,
-      "sha256": "7e6b7ddf78f410df3235fb3e65dd904da98af9618de90d7a51f6b41e6e9ec446"
+      "bytes": 14333,
+      "sha256": "6bef73844ccec7b46538c9a98284300fc485afe4ad3db22ccf9ff7e78edb5968"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReminderReceiver.java",
@@ -251,13 +251,13 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
-      "bytes": 24920,
-      "sha256": "5ee315bb55ccb65440e807ea45be73d361ff585a50bc3b6c7d7d3afab77d4648"
+      "bytes": 26724,
+      "sha256": "19af7c9a6d6d8705248fd49dfaa969d08d2746da183d42a9b1d5cd84ab428561"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
-      "bytes": 6115,
-      "sha256": "dfb109af03a510416978cc69b1a372252ef28154e5895e1c800f5c057c7dcb35"
+      "bytes": 6413,
+      "sha256": "39d4a651bc807731e2ebd0bf03c3193f0681731f27454812934d1fd3d78d73ef"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/TimerService.java",
@@ -376,8 +376,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 5402,
-      "sha256": "0c2fa4f33bf3839d1f8d37f25fa813f47daf98890ed3bd25b6fdb82b95034703"
+      "bytes": 5833,
+      "sha256": "dd460474eb014731bed7cc05ea7f0dee36579d1b61279650c5b26f0075127523"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -386,13 +386,13 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 4880,
-      "sha256": "c6cc79863bb456840ec13dad11bffcbcfdf7cfbe442bba980b9f3cb10e2e9a91"
+      "bytes": 4826,
+      "sha256": "c0896b05bdc583742e05ebcfc7c77d36fa53752d9a6a554347f840cf469ea5c6"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
-      "bytes": 1428,
-      "sha256": "f2df5f767573d3825cf81d88d77388ac5c146efb8840f89d6bd9b5234d9f6774"
+      "bytes": 1135,
+      "sha256": "e7f355cc4ad89301716641c690b58b67e6bd7d6b5c13542d2a9bddbfb84dd138"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
@@ -458,6 +458,11 @@
       "path": "docs/RELEASE-NOTES-v1.5.3.md",
       "bytes": 406,
       "sha256": "f4c40b9d548d2933057541bf3404898d9dad3f1e6165d75e315c7305c1dea423"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.6.0.md",
+      "bytes": 539,
+      "sha256": "ebc0795fa250090a4f9814dcef678b4ff5a900a1b5d5beaaae4c77a58619c8fe"
     },
     {
       "path": "docs/release-test-results.json",
@@ -1898,6 +1903,11 @@
       "path": "docs/V1.5.3.md",
       "bytes": 5880,
       "sha256": "f730daa3e82d71749f9bfd17d908ce48afabef42279d4a716bbff02ec02311c7"
+    },
+    {
+      "path": "docs/V1.6.0.md",
+      "bytes": 2536,
+      "sha256": "8083ff375200f35cdb933f05fac435015436ba64ff50e48de5dd49d90a75b78c"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3606,8 +3616,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3302,
-      "sha256": "a634412fda6ece0d6baa23bf225f27ab805ecaf89f74530fd51d62fa8fa64587"
+      "bytes": 3323,
+      "sha256": "36694407e7489dd90c4bbe8626e6d0bb1ce5c7a688e995ef3964dd9f79c998be"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -3738,6 +3748,16 @@
       "path": "release/v1.5.3/update.json",
       "bytes": 919,
       "sha256": "027a35fdab2842d4957e3f105373681c0775f62e3ca494d0c8a35f1691f103cf"
+    },
+    {
+      "path": "release/v1.6.0/RELEASE-NOTES.md",
+      "bytes": 539,
+      "sha256": "ebc0795fa250090a4f9814dcef678b4ff5a900a1b5d5beaaae4c77a58619c8fe"
+    },
+    {
+      "path": "release/v1.6.0/update.json",
+      "bytes": 1053,
+      "sha256": "b7dd53f49b3365661174053594f2e7dd462a48615bade88e50a68d0922d6d338"
     },
     {
       "path": "scripts/generate-course-schedule.py",
@@ -3906,8 +3926,8 @@
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/FeatureModelTests.java",
-      "bytes": 14098,
-      "sha256": "f9c22ce29038c226a2ab008d94f1c87945f0c5b9466584c78c01391c259e9a54"
+      "bytes": 16183,
+      "sha256": "3965e4720cab59dcf9d7d5084cda2e78d5cdf8c5ee9facf3210e40921b6c8c4c"
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/InspirationSearchTests.java",
@@ -4003,6 +4023,11 @@
       "path": "tests/platform-polish-ui.cjs",
       "bytes": 15698,
       "sha256": "76d7a257017c45fc76ba45f3c58df73f0f097a2dcf409b2a649c4e25c3ab1e47"
+    },
+    {
+      "path": "tests/quantity-model.test.cjs",
+      "bytes": 3805,
+      "sha256": "a4a87ea6888f1286d4796f8f0b0a21ce9ddf0476f98f6bd36b0a1f36cf6b93ac"
     },
     {
       "path": "tests/reference-assessment.test.cjs",

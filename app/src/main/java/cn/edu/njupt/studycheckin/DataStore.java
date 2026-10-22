@@ -80,6 +80,7 @@ public final class DataStore {
             catch (Exception e) { if (out != null) af.failWrite(out); throw e; }
     }
     private static void require(boolean yes, String reason) throws Exception { if (!yes) throw new Exception(reason); }
+    private static int indexOf(JSONArray subjects,String id) throws Exception { for(int i=0;i<subjects.length();i++) if(id.equals(subjects.getJSONObject(i).optString("id"))) return i; throw new Exception("科目不存在"); }
     private static void keys(JSONObject o,String[] required,String[] optional,String name) throws Exception {
         Set<String> allowed=new HashSet<>(Arrays.asList(required));allowed.addAll(Arrays.asList(optional));
         for(String key:required)require(o.has(key),name+"缺少字段"+key);
@@ -112,7 +113,7 @@ public final class DataStore {
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
-        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
+        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
         require(!string(p,"title",128).trim().isEmpty(),"计划名不能为空");
         LocalDate start=date(string(p,"startDate",10)), end=date(string(p,"endDate",10));
         long days = ChronoUnit.DAYS.between(start,end)+1;
@@ -123,15 +124,19 @@ public final class DataStore {
         Set<String> ids = new HashSet<>(), vocabIds = new HashSet<>();
         for (int i=0;i<subjects.length();i++) {
             JSONObject s=subjects.getJSONObject(i); String id=string(s,"id",64);
-            keys(s,new String[]{"id","name","kind","defaults"},current?new String[]{"activePeriods","wordGoal","wordSteps"}:new String[]{},"subject");
+            keys(s,new String[]{"id","name","kind","defaults"},current?new String[]{"activePeriods","wordGoal","wordSteps","measure","unit"}:new String[]{},"subject");
             require(id.matches("[A-Za-z][A-Za-z0-9_-]{0,63}") && !id.equals("__proto__") && !id.equals("constructor") && !id.equals("prototype") && ids.add(id),"科目ID重复或无效");
             String name=string(s,"name",128); require(!name.trim().isEmpty(),"科目名不能为空");
             String kind=string(s,"kind",16); require(kind.equals("math")||kind.equals("vocab")||kind.equals("custom"),"科目类型无效");
             if(kind.equals("vocab"))vocabIds.add(id);
             if(s.has("wordGoal")){require(kind.equals("vocab"),"词数目标仅用于单词");number(s.get("wordGoal"),100000,true,false,"每日新学目标");}
             if(s.has("wordSteps")){require(kind.equals("vocab"),"快捷加数仅用于单词");JSONArray steps=s.getJSONArray("wordSteps");require(steps.length()==3,"快捷加数须为三个正整数");Set<Integer> seenSteps=new HashSet<>();for(int j=0;j<steps.length();j++){number(steps.get(j),100000,true,false,"快捷加数");require(steps.getInt(j)>=1&&seenSteps.add(steps.getInt(j)),"快捷加数须大于0且不能重复");}}
+            boolean quantity="quantity".equals(s.optString("measure"));
+            if(s.has("measure"))require(quantity,"科目计量方式无效");
+            if(quantity){require(kind.equals("custom"),"数量科目须为自定义科目");String unit=string(s,"unit",32);require(!unit.trim().isEmpty(),"数量科目单位不能为空");}
+            else require(!s.has("unit"),"分钟科目不能设置单位");
             JSONArray defaults=s.getJSONArray("defaults"); require(defaults.length()==7,"每日参考需为7个数字");
-            for(int j=0;j<7;j++) Reference.validate(defaults.get(j),state.getInt("version")>=4&&!kind.equals("vocab"));
+            for(int j=0;j<7;j++) {if(quantity){number(defaults.get(j),100000,true,false,"数量目标");}else Reference.validate(defaults.get(j),state.getInt("version")>=4&&!kind.equals("vocab"));}
             if(s.has("activePeriods")) {
                 JSONArray periods=s.getJSONArray("activePeriods");require(periods.length()<=1000,"科目启用时段过多");LocalDate previous=null;
                 for(int j=0;j<periods.length();j++) {JSONObject period=periods.getJSONObject(j);keys(period,new String[]{"from","to"},new String[]{},"activePeriod");LocalDate from=date(string(period,"from",10));LocalDate to=period.isNull("to")?null:date(string(period,"to",10));require(to==null||to.isAfter(from),"科目启用时段结束日期无效");require(j==0||previous!=null&&!from.isBefore(previous),"科目启用时段重叠或顺序无效");previous=to;}
@@ -139,8 +144,9 @@ public final class DataStore {
         }
         JSONObject targets=p.getJSONObject("targets"); Iterator<String> dates=targets.keys();
         while(dates.hasNext()) { String day=dates.next(); date(day); JSONObject t=targets.getJSONObject(day); Iterator<String> ss=t.keys();
-            while(ss.hasNext()) {String id=ss.next();require(ids.contains(id),"参考量科目不存在"); Reference.validate(t.get(id),state.getInt("version")>=4&&!vocabIds.contains(id));}
+            while(ss.hasNext()) {String id=ss.next();require(ids.contains(id),"参考量科目不存在");require(!"quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量科目应使用数量目标"); Reference.validate(t.get(id),state.getInt("version")>=4&&!vocabIds.contains(id));}
         }
+        if(p.has("quantityTargets")){JSONObject quantities=p.getJSONObject("quantityTargets");require(quantities.length()<=100000,"数量目标日期过多");Iterator<String> qd=quantities.keys();while(qd.hasNext()){String day=qd.next();date(day);JSONObject goals=quantities.getJSONObject(day);Iterator<String> qi=goals.keys();while(qi.hasNext()){String id=qi.next();require(ids.contains(id)&&"quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量目标科目无效");number(goals.get(id),100000,true,false,"数量目标");}}}
         if(p.has("manualWeekGoals"))require(Boolean.TRUE.equals(p.get("manualWeekGoals")),"周目标模式无效");
         if(p.has("wordTargets")){JSONObject words=p.getJSONObject("wordTargets");require(words.length()<=100000,"词数目标日期过多");Iterator<String> wd=words.keys();while(wd.hasNext()){String day=wd.next();date(day);JSONObject goals=words.getJSONObject(day);Iterator<String> wi=goals.keys();while(wi.hasNext()){String id=wi.next();require(vocabIds.contains(id),"词数目标科目无效");number(goals.get(id),100000,true,false,"新学目标");}}}
         texts(p.getJSONObject("weekGoals"),8000); texts(p.getJSONObject("weekHints"),8000);
@@ -153,14 +159,17 @@ public final class DataStore {
             nullableBool(r.opt("restKept"),"休息边界"); if(r.has("note")) string(r,"note",8000);
             JSONObject subjectRecords=r.getJSONObject("subjects");Iterator<String> rs=subjectRecords.keys();
             while(rs.hasNext()) {String id=rs.next();require(ids.contains(id),"记录科目不存在");JSONObject s=subjectRecords.getJSONObject(id);
-                keys(s,new String[]{"minutes","content","problem","newWords","reviewWords","forgotWords"},new String[]{},"record subject");
+                keys(s,new String[]{"minutes","content","problem","newWords","reviewWords","forgotWords"},new String[]{"quantity","quantityUnit"},"record subject");
                 number(s.opt("minutes"),1440,false,true,"实际分钟");
+                if(s.has("quantity")){require("quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量记录仅用于数量科目");number(s.opt("quantity"),100000,true,true,"实际数量");}
+                if(s.has("quantityUnit")){String unit=string(s,"quantityUnit",32);require(!unit.trim().isEmpty(),"数量单位不能为空");}
+                if("quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure"))&&!s.isNull("quantity")&&(!s.has("quantityUnit")||s.optString("quantityUnit").trim().isEmpty()))throw new Exception("数量记录缺少单位");
                 for(String key:new String[]{"content","problem","forgotWords"}) if(s.has(key)) string(s,key,8000);
                 number(s.opt("newWords"),100000,true,true,"新学词数"); number(s.opt("reviewWords"),100000,true,true,"复习词数");
             }
             if(r.has("sessions"))sessions(r.getJSONArray("sessions"),ids);
         }
-        if(state.has("assessmentBases")){JSONObject bases=state.getJSONObject("assessmentBases");Iterator<String> bd=bases.keys();while(bd.hasNext()){String day=bd.next();date(day);require(records.has(day),"评估依据缺少对应记录");Reference.validateBasis(bases.getJSONObject(day),ids,vocabIds);}}
+        if(state.has("assessmentBases")){Set<String> quantityIds=new HashSet<>();for(int i=0;i<subjects.length();i++)if("quantity".equals(subjects.getJSONObject(i).optString("measure")))quantityIds.add(subjects.getJSONObject(i).getString("id"));JSONObject bases=state.getJSONObject("assessmentBases");Iterator<String> bd=bases.keys();while(bd.hasNext()){String day=bd.next();date(day);require(records.has(day),"评估依据缺少对应记录");Reference.validateBasis(bases.getJSONObject(day),ids,vocabIds,quantityIds);}}
         JSONObject reviews=state.getJSONObject("reviews");Iterator<String> wk=reviews.keys();
         while(wk.hasNext()) {String key=wk.next();date(key);JSONObject r=reviews.getJSONObject(key);
             keys(r,new String[]{"load","mathProblem","vocabReview","adjustment","reason","halfDayRest"},current?new String[]{"subjects"}:new String[]{},"review");
@@ -200,6 +209,7 @@ public final class DataStore {
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
         state.put("version",6);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
+        boolean hasQuantity=false;JSONArray qSubjects=state.getJSONObject("plan").getJSONArray("subjects");for(int i=0;i<qSubjects.length();i++)if("quantity".equals(qSubjects.getJSONObject(i).optString("measure")))hasQuantity=true;if(hasQuantity&&!state.getJSONObject("plan").has("quantityTargets"))state.getJSONObject("plan").put("quantityTargets",new JSONObject());
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
         while(dates.hasNext()) {JSONObject review=reviews.getJSONObject(dates.next());JSONObject text=review.optJSONObject("subjects");if(text==null){text=new JSONObject();review.put("subjects",text);}for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String kind=subject.getString("kind"),field=kind.equals("math")?"mathProblem":kind.equals("vocab")?"vocabReview":null;String id=subject.getString("id");if(field!=null&&!text.has(id))text.put(id,review.getString(field));}}
