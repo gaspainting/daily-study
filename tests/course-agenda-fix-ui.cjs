@@ -267,21 +267,22 @@ async function formalCases(){
   const before=read('files/study-state.json');android('shell','am','force-stop',pkg);android('install','--no-incremental','-r',path.join(root,'dist/每日学习-v'+version+'.apk'));
   check(read('files/study-state.json').equals(before),'same-signature formal cover installation preserves the complete original learning file');check(info().version===version&&info().code===code&&!info().debuggable,'installed formal APK matches current version and code without debug mode');
   await bootFormal();check(read('files/study-state.json').equals(before),'first formal launch migrates only the view and does not rewrite saved legacy observations');
-  await tap('计划',false);await tap('课程与区间安排');
+  await tap('计划',false);if(code>=19)await tap('计划设置');await tap('课程与区间安排');
   const preview=ui.nodes().map(n=>n.text||'').join(' ');check(preview.includes('60—120')&&preview.includes('240—360')&&preview.includes('180—300'),'formal preview exposes weekday and both weekend intervals');
   await tap('取消',false);check(read('files/study-state.json').equals(before),'cancelling formal reference replacement preserves the original learning file');
   await tap('课程与区间安排');await tap('应用安排',false);const after=JSON.parse(read('files/study-state.json'));
-  check(after.version===7&&after._revision===12,'formal interval application commits current schema exactly once');check(after.plan.courseSchedule.versions[0].courses.length===16,'formal migration persists the verified timetable with original period and week data');check(after.assessmentBases[rememberedDay].source==='existing','formal first save identifies retained legacy criteria correctly');check(require('../app/src/main/assets/reference.js').assess(after,rememberedDay).time.kind==='within','formal first save retains the previous saved-day assessment');assert.deepEqual(after.records,old.records);assert.deepEqual(after.plan.weekTasks,old.plan.weekTasks);assert.deepEqual(after.plan.weekGoals,old.plan.weekGoals);check(true,'formal interval application retains actual zero unknown fields word counts rest notes and tasks');
+  check(after.version===8&&after._revision===12,'formal interval application commits current schema exactly once');check(after.plan.courseSchedule.versions[0].courses.length===16,'formal migration persists the verified timetable with original period and week data');check(after.assessmentBases[rememberedDay].source==='existing','formal first save identifies retained legacy criteria correctly');check(require('../app/src/main/assets/reference.js').assess(after,rememberedDay).time.kind==='within','formal first save retains the previous saved-day assessment');assert.deepEqual(after.records,old.records);assert.deepEqual(after.plan.weekTasks,old.plan.weekTasks);assert.deepEqual(after.plan.weekGoals,old.plan.weekGoals);check(true,'formal interval application retains actual zero unknown fields word counts rest notes and tasks');
   const now=android('shell','date','+%Y-%m-%d'),affected=M.dates([now,old.plan.startDate].sort().at(-1),old.plan.endDate);
   check(affected.every(d=>typeof after.plan.targets[d].math==='object'&&typeof after.plan.targets[d]['course-review']==='object'),'formal saved future references contain both endpoints rather than midpoint values');
   M.dates(old.plan.startDate,shift(affected[0],-1)).forEach(d=>assert.deepEqual(after.plan.targets[d],old.plan.targets[d]));check(true,'formal future arrangement leaves all historical reference values unchanged');
   await tap('今日',false);
+  if(code>=19){await tap('单词 未记录');}
   await tap('单词 新学增加5个');
   const draftOnly=JSON.parse(read('files/study-state.json'));check(!draftOnly.records[now],'formal quick addition stays in the draft until daily save');
   await tap('保存这一天');const wordSaved=JSON.parse(read('files/study-state.json')),wordEntry=wordSaved.records[now].subjects.vocab;
   check(wordEntry.newWords===5&&wordEntry.reviewWords===null&&wordEntry.wordLog.entries.length===1&&wordEntry.wordLog.entries[0].source==='quick','formal v1.6.1 saves the word batch and daily totals together');
   const wordIds=wordEntry.wordLog.entries.map(e=>e.id);await tap('保存这一天');assert.deepEqual(JSON.parse(read('files/study-state.json')).records[now].subjects.vocab.wordLog.entries.map(e=>e.id),wordIds);check(true,'formal repeat save keeps the same word event ID');
-  await tap('设置',false);await tap('关于');check(ui.nodes().some(n=>(n.text||'').replace(/\s/g,'').includes('版本'+version)),'formal About page displays the actual installed version');
+  await tap('设置',false);if(code>=19)await tap('应用',false);await tap('关于');check(ui.nodes().some(n=>(n.text||'').replace(/\s/g,'').includes('版本'+version)),'formal About page displays the actual installed version');
   android('shell','screencap','-p','/sdcard/reference-formal-upgrade.png');android('pull','/sdcard/reference-formal-upgrade.png',path.join(shots,'formal-upgrade-about.png'));
 }
 async function main(){
@@ -289,7 +290,7 @@ async function main(){
     assert.equal(serial,'emulator-5572','fixture writes are restricted to the owned emulator');assert.equal(android('shell','getprop','ro.kernel.qemu'),'1','target must be an emulator');
     fs.mkdirSync(report,{recursive:true});fs.mkdirSync(shots,{recursive:true});oldFont=android('shell','settings','get','system','font_scale');await snapshot();
     android('shell','settings','put','system','font_scale','1.0');
-    if(customCases)await customCases({M,S,check,fixtureInstall,state,native,day,click,input,shot,android,shell,read,write,delay,root,report,shots,baseFixture,evaluate:expression=>c.evaluate(expression),nativeCases,boot});else if(formal)await formalCases();else if(process.env.COURSE_LAYOUT==='1'){
+    if(customCases)await customCases({M,S,check,fixtureInstall,state,native,day,click,input,shot,android,shell,read,write,delay,root,report,shots,baseFixture,evaluate:expression=>c.evaluate(expression),protocol:(method,params)=>c.call(method,params),nativeCases,boot});else if(formal)await formalCases();else if(process.env.COURSE_LAYOUT==='1'){
       cp.execFileSync(process.execPath,[path.join(root,'tests/plan-layout-ui.cjs')],{stdio:'inherit',env:process.env});
       const result=JSON.parse(fs.readFileSync(path.join(report,'plan-layout-results.json'),'utf8'));check(result.passed===76&&!result.error,'all seventy-six current plan-list layout regressions pass');
     }else if(process.env.COURSE_NATIVE_ONLY==='1')nativeCases();else{

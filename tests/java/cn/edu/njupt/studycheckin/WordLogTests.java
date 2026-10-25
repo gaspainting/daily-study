@@ -26,7 +26,7 @@ final class WordLogTests {
             JSONObject log=cases.getJSONObject(2).getJSONObject("log");subject.put("wordLog",new JSONObject(log.toString()));
             JSONObject record=new JSONObject().put("subjects",new JSONObject().put("vocab",subject)).put("status","正常参考").put("restKept",JSONObject.NULL).put("note","");
             state.getJSONObject("records").put("2026-10-25",record);DataStore.save(isolated,state);JSONObject loaded=DataStore.load(isolated);
-            check(passes,loaded.getInt("version")==7&&loaded.getJSONObject("records").getJSONObject("2026-10-25").getJSONObject("subjects").getJSONObject("vocab").getJSONObject("wordLog").getJSONArray("entries").length()==3,"atomic state save retains all word batches and current schema");
+            check(passes,loaded.getInt("version")==8&&loaded.getJSONObject("records").getJSONObject("2026-10-25").getJSONObject("subjects").getJSONObject("vocab").getJSONObject("wordLog").getJSONArray("entries").length()==3,"atomic state save retains all word batches and current schema");
             long revision=loaded.getLong("_revision");DataStore.save(isolated,loaded);JSONObject again=DataStore.load(isolated);
             check(passes,again.getJSONObject("records").toString().equals(loaded.getJSONObject("records").toString()),"repeat native save retains word IDs and counts without appending");
             JSONObject bad=new JSONObject(again.toString());bad.getJSONObject("records").getJSONObject("2026-10-25").getJSONObject("subjects").getJSONObject("vocab").put("newWords",31);

@@ -80,6 +80,10 @@ public final class DataStore {
             catch (Exception e) { if (out != null) af.failWrite(out); throw e; }
     }
     private static void require(boolean yes, String reason) throws Exception { if (!yes) throw new Exception(reason); }
+    private static void manualIds(JSONArray list,JSONArray subjects,Set<String> ids,Set<String> vocabIds)throws Exception{
+        require(list.length()<=24,"手动参考标记无效");Set<String> seen=new HashSet<>();
+        for(int i=0;i<list.length();i++){Object value=list.get(i);require(value instanceof String&&ids.contains(value),"手动参考科目无效");String id=(String)value;require(seen.add(id)&&!vocabIds.contains(id)&&!"quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"手动参考科目无效");}
+    }
     private static int indexOf(JSONArray subjects,String id) throws Exception { for(int i=0;i<subjects.length();i++) if(id.equals(subjects.getJSONObject(i).optString("id"))) return i; throw new Exception("科目不存在"); }
     private static void keys(JSONObject o,String[] required,String[] optional,String name) throws Exception {
         Set<String> allowed=new HashSet<>(Arrays.asList(required));allowed.addAll(Arrays.asList(optional));
@@ -109,11 +113,11 @@ public final class DataStore {
     }
     public static void validate(JSONObject state) throws Exception {
         keys(state,new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
-        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7), "备份版本不支持");
+        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7 || state.getDouble("version")==8), "备份版本不支持");
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
-        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
+        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=8?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets","manualReferences","manualReferenceDefaults"}:state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
         require(!string(p,"title",128).trim().isEmpty(),"计划名不能为空");
         LocalDate start=date(string(p,"startDate",10)), end=date(string(p,"endDate",10));
         long days = ChronoUnit.DAYS.between(start,end)+1;
@@ -142,6 +146,8 @@ public final class DataStore {
                 for(int j=0;j<periods.length();j++) {JSONObject period=periods.getJSONObject(j);keys(period,new String[]{"from","to"},new String[]{},"activePeriod");LocalDate from=date(string(period,"from",10));LocalDate to=period.isNull("to")?null:date(string(period,"to",10));require(to==null||to.isAfter(from),"科目启用时段结束日期无效");require(j==0||previous!=null&&!from.isBefore(previous),"科目启用时段重叠或顺序无效");previous=to;}
             }
         }
+        if(p.has("manualReferenceDefaults"))manualIds(p.getJSONArray("manualReferenceDefaults"),subjects,ids,vocabIds);
+        if(p.has("manualReferences")){JSONObject marked=p.getJSONObject("manualReferences");require(marked.length()<=100000,"手动参考日期过多");Iterator<String> it=marked.keys();while(it.hasNext()){String d=it.next();date(d);manualIds(marked.getJSONArray(d),subjects,ids,vocabIds);}}
         JSONObject targets=p.getJSONObject("targets"); Iterator<String> dates=targets.keys();
         while(dates.hasNext()) { String day=dates.next(); date(day); JSONObject t=targets.getJSONObject(day); Iterator<String> ss=t.keys();
             while(ss.hasNext()) {String id=ss.next();require(ids.contains(id),"参考量科目不存在");require(!"quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量科目应使用数量目标"); Reference.validate(t.get(id),state.getInt("version")>=4&&!vocabIds.contains(id));}
@@ -209,7 +215,7 @@ public final class DataStore {
     }
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
-        state.put("version",7);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
+        state.put("version",8);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
         boolean hasQuantity=false;JSONArray qSubjects=state.getJSONObject("plan").getJSONArray("subjects");for(int i=0;i<qSubjects.length();i++)if("quantity".equals(qSubjects.getJSONObject(i).optString("measure")))hasQuantity=true;if(hasQuantity&&!state.getJSONObject("plan").has("quantityTargets"))state.getJSONObject("plan").put("quantityTargets",new JSONObject());
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();

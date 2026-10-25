@@ -15,7 +15,7 @@ test('legacy schema1–6 migration retains totals and sessions without generatin
     const state=structuredClone(seed),record=M.record(state,date);
     record.subjects.vocab.newWords=50;record.subjects.vocab.reviewWords=0;state.records[date]=record;state.version=version;
     const original=structuredClone(state),next=M.migrateState(state,date);
-    assert.equal(next.version,7);assert.deepEqual(next.records,original.records);assert.deepEqual(state,original);
+    assert.equal(next.version,8);assert.deepEqual(next.records,original.records);assert.deepEqual(state,original);
     assert.equal(next.records[date].subjects.vocab.wordLog,undefined);
   }
 });

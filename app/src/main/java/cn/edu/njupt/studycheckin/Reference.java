@@ -25,7 +25,7 @@ final class Reference {
     static double max(Object value)throws Exception{return value instanceof Number?((Number)value).doubleValue():((JSONObject)value).getDouble("max");}
     static double midpoint(Object value)throws Exception{return (min(value)+max(value))/2;}
     static String decimal(double value){return BigDecimal.valueOf(Math.round(value*1000000d)/1000000d).stripTrailingZeros().toPlainString();}
-    static String text(Object value)throws Exception{return value instanceof Number?decimal(min(value)):decimal(min(value))+"—"+decimal(max(value));}
+    static String text(Object value)throws Exception{String low=decimal(min(value)),high=decimal(max(value));return low.equals(high)?low:low+"—"+high;}
     static Object value(JSONObject plan,JSONObject subject,LocalDate date)throws Exception{
         JSONObject row=plan.getJSONObject("targets").optJSONObject(date.toString());String id=subject.getString("id");
         return row!=null&&row.has(id)?row.get(id):subject.getJSONArray("defaults").get(date.getDayOfWeek().getValue()-1);

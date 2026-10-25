@@ -191,10 +191,10 @@
   }
   function validateState(state) {
     keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
-    if (![1, 2, 3, 4, 5, 6, 7].includes(state.version)) fail('不支持此备份版本');
+    if (![1, 2, 3, 4, 5, 6, 7, 8].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
-    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets']:[]) : []) : [], 'plan');
+    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets'].concat(state.version>=8?['manualReferences','manualReferenceDefaults']:[]):[]) : []) : [], 'plan');
     string(plan.title, 128, 'plan.title', true);
     dates(plan.startDate, plan.endDate);
     weekNumber(plan.startWeek);
@@ -223,6 +223,9 @@
         });
       }
     });
+    function manualIds(list){if(!Array.isArray(list)||list.length>24||new Set(list).size!==list.length)fail('手动参考标记无效');list.forEach(function(id){if(!ids[id]||subjectMap[id].kind==='vocab'||isQuantity(subjectMap[id]))fail('手动参考科目无效');});}
+    if(has(plan,'manualReferenceDefaults'))manualIds(plan.manualReferenceDefaults);
+    if(has(plan,'manualReferences')){object(plan.manualReferences,'manualReferences');if(Object.keys(plan.manualReferences).length>100000)fail('手动参考日期过多');Object.keys(plan.manualReferences).forEach(function(d){dateStamp(d);manualIds(plan.manualReferences[d]);});}
     object(plan.targets, 'plan.targets');
     if (Object.keys(plan.targets).length > 100000) fail('参考日期过多');
     Object.keys(plan.targets).forEach(function (date) {
@@ -327,7 +330,7 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 7;
+    result.version = 8;
     courses.initialize(result);
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
@@ -470,8 +473,9 @@
       if (hasData) fail('已有记录的科目不能切换计量方式');
     }
     item.name = name.trim();
+    if(item.kind!=='vocab'&&measure!=='quantity'&&JSON.stringify(item.defaults)!==JSON.stringify(defaults)){state.version=Math.max(state.version,8);state.plan.manualReferenceDefaults=Array.from(new Set((state.plan.manualReferenceDefaults||[]).concat(id)));}
     item.defaults = clone(defaults);
-    if (measure === 'quantity') { item.measure = 'quantity'; item.unit = String(unit).trim(); }
+    if (measure === 'quantity') { item.measure = 'quantity'; item.unit = String(unit).trim(); if(state.plan.manualReferenceDefaults)state.plan.manualReferenceDefaults=state.plan.manualReferenceDefaults.filter(function(key){return key!==id;}); Object.keys(state.plan.manualReferences||{}).forEach(function(date){state.plan.manualReferences[date]=state.plan.manualReferences[date].filter(function(key){return key!==id;});if(!state.plan.manualReferences[date].length)delete state.plan.manualReferences[date];}); }
     else { delete item.measure; delete item.unit; }
     fillTargets(state); fillQuantityTargets(state);
     return clone(item);

@@ -60,6 +60,7 @@
       var date=new Date(stamp).toISOString().slice(0,10),row=plannedDay(state,date),stored=plan.targets[date]||(plan.targets[date]={});
       if(force||(data.days[date]&&(Object.prototype.hasOwnProperty.call(stored,'math')?stored.math===row.legacyMath:legacyDefaults)))stored.math=clone(row.mathRange);
       if(force||!Object.prototype.hasOwnProperty.call(stored,course.id))stored[course.id]=clone(row.reviewRange);
+      if(force)clearManual(state,date,[course.id,math.id]);
     }
     if(force){preserveDefaults(state,[course,math],first,false);course.defaults=[0,1,2,3,4,5,6].map(function(d){return fallback(d,'review');});}
     if(legacyDefaults||force)math.defaults=[0,1,2,3,4,5,6].map(function(d){return fallback(d,'math');});
@@ -67,6 +68,28 @@
     state.version=Math.max(state.version,4);return state;
   }
   function upgrade(state,now){if(original(state)&&!find(state,data.subjectId)&&canApply(state,now))apply(state,now,false);return state;}
+  var referenceUpgradeAt=new Date().toISOString();
+  function same(a,b){var x=R.range(a),y=R.range(b);return x.min===y.min&&x.max===y.max;}
+  function manual(state,date,id,value){
+    var p=state.plan,dates=p.manualReferences||{},defaults=p.manualReferenceDefaults||[],s=find(state,id),weekday=day(date).weekday;
+    return !!(dates[date]||[]).includes(id)||defaults.includes(id)&&s&&same(value,s.defaults[weekday]);
+  }
+  function markManual(state,date,ids){
+    state.version=Math.max(state.version,8);var all=state.plan.manualReferences||(state.plan.manualReferences={});
+    all[date]=Array.from(new Set((all[date]||[]).concat(ids)));return state;
+  }
+  function clearManual(state,date,ids){var all=state.plan.manualReferences;if(!all||!all[date])return;all[date]=all[date].filter(function(id){return !ids.includes(id);});if(!all[date].length)delete all[date];}
+  function oldPreset(value,key,weekday){
+    var r=R.range(value),values=key==='review'?[30,40,60,90]:[25,30,35,40,50,55,60,90,150,210];
+    if(r.max<=0)return false;
+    if(r.min===r.max)return values.includes(r.min);
+    return weekday>=5&&['busy','light'].some(function(load){return same(value,data.weekdayRanges[load][key]);});
+  }
+  function automaticRange(state,date,subject,value,row){
+    if(manual(state,date,subject.id,value))return null;
+    var key=subject.id===data.subjectId&&subject.kind==='custom'?'review':subject.id==='math'&&subject.kind==='math'?'math':null;
+    return key&&oldPreset(value,key,row.weekday)?row[key+'Range']:null;
+  }
   function autoReferences(state,now){
     var first=[now,state.plan.startDate].sort().pop();
     for(var stamp=Date.parse(first+'T00:00:00Z'),last=Date.parse(state.plan.endDate+'T00:00:00Z');stamp<=last;stamp+=DAY){
@@ -74,10 +97,17 @@
       state.plan.subjects.forEach(function(s){
         if(s.kind==='vocab'||s.measure==='quantity'||!active(s,date))return;
         var ref=Object.prototype.hasOwnProperty.call(stored,s.id)?stored[s.id]:s.defaults[row.weekday];
-        if(typeof ref!=='number')return;
-        var recommended=s.id===data.subjectId&&s.kind==='custom'&&ref===row.review?row.reviewRange:s.id==='math'&&s.kind==='math'&&(ref===row.math||original(state)&&data.days[date]&&ref===row.legacyMath)?row.mathRange:null;
-        stored[s.id]=clone(ref>0&&recommended?recommended:{min:ref,max:ref});
+        var recommended=automaticRange(state,date,s,ref,row);
+        if(recommended)stored[s.id]=clone(recommended);
+        else if(typeof ref==='number')stored[s.id]={min:ref,max:ref};
       });
+      var basis=state.assessmentBases&&state.assessmentBases[date],changed=false;
+      if(basis)basis.time.forEach(function(e){
+        var s=find(state,e.id);if(!s||!active(s,date)||s.measure==='quantity')return;
+        var recommended=automaticRange(state,date,s,e.reference,row);
+        if(recommended&&stored[e.id]&&same(stored[e.id],recommended)&&!same(e.reference,recommended)){e.reference=clone(recommended);changed=true;}
+      });
+      if(changed){basis.source='recalculated';basis.capturedAt=referenceUpgradeAt;}
     }return state;
   }
   function weekendDates(state,now){
@@ -93,7 +123,7 @@
     var dates=weekendDates(state,now);
     if(!dates.length)throw new Error('当前计划没有可调整的周末日期');
     var course=find(state,data.subjectId),math=find(state,'math');preserveDefaults(state,[course,math],from(state,now),true);
-    dates.forEach(function(date){var row=plannedDay(state,date),stored=state.plan.targets[date]||(state.plan.targets[date]={});stored[data.subjectId]=clone(row.reviewRange);stored.math=clone(row.mathRange);});
+    dates.forEach(function(date){var row=plannedDay(state,date),stored=state.plan.targets[date]||(state.plan.targets[date]={});stored[data.subjectId]=clone(row.reviewRange);stored.math=clone(row.mathRange);clearManual(state,date,[course.id,math.id]);});
     [5,6].forEach(function(d){course.defaults[d]=fallback(d,'review');math.defaults[d]=fallback(d,'math');});
     state.version=Math.max(state.version,4);
     return state;
@@ -114,5 +144,5 @@
     var periods=ranges&&courseRange!==null&&mathRange!==null&&R.range(courseRange).min===ranges.morning[0]&&R.range(courseRange).max===ranges.morning[1]&&R.range(mathRange).min===ranges.afternoon[0]&&R.range(mathRange).max===ranges.afternoon[1]?clone(ranges):null;
     return {courseId:course.id,courseName:course.name,courseMinutes:courseMinutes,courseRange:clone(courseRange),mathName:math?math.name:'高数',mathMinutes:mathMinutes,mathRange:clone(mathRange),courses:row.courses,weekday:weekday,periods:periods};
   }
-  return Object.freeze({autoReferences:autoReferences,day:day,from:from,canApply:canApply,apply:apply,upgrade:upgrade,agenda:agenda,weekendDates:weekendDates,applyWeekends:applyWeekends,weekendRanges:clone(data.weekendRanges),subjectId:data.subjectId,budgetRanges:{weekday:budget(0),saturday:budget(5),sunday:budget(6)},budgets:Object.freeze({weekday:data.weekdayBudget,saturday:data.saturdayBudget,sunday:data.sundayBudget})});
+  return Object.freeze({markManual:markManual,autoReferences:autoReferences,day:day,from:from,canApply:canApply,apply:apply,upgrade:upgrade,agenda:agenda,weekendDates:weekendDates,applyWeekends:applyWeekends,weekendRanges:clone(data.weekendRanges),subjectId:data.subjectId,budgetRanges:{weekday:budget(0),saturday:budget(5),sunday:budget(6)},budgets:Object.freeze({weekday:data.weekdayBudget,saturday:data.saturdayBudget,sunday:data.sundayBudget})});
 });

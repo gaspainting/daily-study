@@ -1,0 +1,8 @@
+{
+  "command": "node --test tests/*.test.cjs",
+  "tests": 171,
+  "pass": 171,
+  "fail": 0,
+  "skipped": 0,
+  "report": "tmp/v162-node.txt"
+}

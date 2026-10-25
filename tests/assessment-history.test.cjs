@@ -4,7 +4,7 @@ const M=require('../app/src/main/assets/model.js'),R=require('../app/src/main/as
 const seed=require('../app/src/main/assets/seed.json'),date='2026-10-19',at='2026-10-19T02:00:00.000Z';
 function fixture(){const s=M.migrateState(structuredClone(seed),'2026-10-16');s.plan.targets[date].math={min:30,max:70};s.plan.targets[date]['course-review']={min:30,max:50};const r=M.record(s,date);r.status='正常参考';r.subjects.math.minutes=30;r.subjects['course-review'].minutes=30;r.subjects.vocab.newWords=50;M.saveRecord(s,date,r);return s;}
 test('saved basis survives changed references names defaults vocabulary goals and archive while actual changes still count',()=>{
- const s=fixture(),before=structuredClone(s.records);assert.equal(s.version,7);assert.equal(R.assess(s,date).basis.source,'record');
+ const s=fixture(),before=structuredClone(s.records);assert.equal(s.version,8);assert.equal(R.assess(s,date).basis.source,'record');
  s.plan.targets[date].math={min:200,max:300};s.plan.wordTargets={[date]:{vocab:80}};s.plan.subjects.find(s=>s.id==='math').name='数学新名称';M.archiveSubject(s,'course-review',date);
  assert.equal(R.assess(s,date).time.kind,'within');assert.equal(R.assess(s,date).words[0].kind,'within');assert.equal(R.basis(s,date).time.find(s=>s.id==='math').name,'高数');assert.deepEqual(s.records,before);
  s.records[date].subjects.math.minutes=200;assert.equal(R.assess(s,date).time.kind,'above');

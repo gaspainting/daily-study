@@ -18,7 +18,7 @@ for(const c of cases)test('saved assessment: '+c.id,()=>{
  assert.deepEqual(s,before,'assessment never writes records, goals, references or status');
 });
 test('interval references have one source, preserve old scalar values, and reject invalid backups',()=>{
- const s=fresh();assert.equal(s.version,7);assert.deepEqual(s.plan.targets['2026-10-15']['course-review'],{min:30,max:50});assert.equal(s.plan.targets['2026-10-14'].math,60);
+ const s=fresh();assert.equal(s.version,8);assert.deepEqual(s.plan.targets['2026-10-15']['course-review'],{min:30,max:50});assert.equal(s.plan.targets['2026-10-14'].math,60);
  for(const invalid of [{min:40,max:30},{min:0,max:1441},{min:-1,max:2},{min:null,max:2},{min:'0',max:2},{min:0,max:2,other:1},[0,2]]){
   const bad=structuredClone(s);bad.plan.targets[date].math=invalid;assert.throws(()=>M.validateState(bad));
  }

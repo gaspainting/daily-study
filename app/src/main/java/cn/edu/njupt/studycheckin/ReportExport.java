@@ -103,7 +103,7 @@ public final class ReportExport {
                 row.courseReviews="course-review".equals(row.id)||independent&&rows.size()==rowsBefore?Courses.reviewText(state,day):"";row.status = text(record, "status"); row.note = text(record, "note"); row.rest = rest(record);
                 boolean active = DataStore.activeSubject(subject, date);
                 if (active && !date.isBefore(planStart) && !date.isAfter(planEnd)){if(row.quantityBased){row.quantityGoal=(double)Reference.quantityTarget(state,date,subject);row.reference=row.quantityGoal;row.referenceText=decimal(row.quantityGoal);row.referenceMin=row.referenceMax=row.quantityGoal;}else{Object ref=Reference.value(plan,subject,date);row.reference=Reference.midpoint(ref);row.referenceMin=Reference.min(ref);row.referenceMax=Reference.max(ref);row.referenceText=Reference.text(ref);row.interval=ref instanceof JSONObject;}}
-                row.assessment=time.getString("label");String assessedKind=time.getString("kind");row.assessmentRange=assessedKind.equals("below")||assessedKind.equals("within")||assessedKind.equals("above")?time.getString("scope")+" "+decimal(time.getDouble("min"))+"—"+decimal(time.getDouble("max")):"—";
+                row.assessment=time.getString("label");String assessedKind=time.getString("kind");row.assessmentRange=assessedKind.equals("below")||assessedKind.equals("within")||assessedKind.equals("above")?time.getString("scope")+" "+Reference.text(new JSONObject().put("min",time.getDouble("min")).put("max",time.getDouble("max"))):"—";
                 applyAssessment(row,assessed);
                 if(row.wordBased&&active&&!date.isBefore(planStart)&&!date.isAfter(planEnd))row.wordGoal=(double)DataStore.wordTarget(state,day,row.id);
                 JSONObject daySessions = byDate.optJSONObject(day), count = daySessions == null ? null : daySessions.optJSONObject(row.id);
@@ -131,7 +131,7 @@ public final class ReportExport {
         return result.toString();
     }
     private static void applyAssessment(Row row,JSONObject assessed)throws Exception{
-        JSONObject t=assessed.getJSONObject("time"),basis=assessed.getJSONObject("basis");row.assessment=t.getString("label");String kind=t.getString("kind");row.assessmentRange=kind.equals("below")||kind.equals("within")||kind.equals("above")?t.getString("scope")+" "+decimal(t.getDouble("min"))+"—"+decimal(t.getDouble("max")):"—";
+        JSONObject t=assessed.getJSONObject("time"),basis=assessed.getJSONObject("basis");row.assessment=t.getString("label");String kind=t.getString("kind");row.assessmentRange=kind.equals("below")||kind.equals("within")||kind.equals("above")?t.getString("scope")+" "+Reference.text(new JSONObject().put("min",t.getDouble("min")).put("max",t.getDouble("max"))):"—";
         row.basisSource=Reference.sourceLabel(basis.getString("source"));row.basisAt=basis.isNull("capturedAt")?"—":basis.getString("capturedAt");row.wordAssessment="";JSONArray words=assessed.getJSONArray("words");for(int i=0;i<words.length();i++){JSONObject w=words.getJSONObject(i);if(w.getString("id").equals(row.id)){row.wordAssessment=w.getString("label");row.assessedWordGoal=number(w,"goal");}}JSONArray quantities=assessed.optJSONArray("quantities");if(quantities!=null)for(int i=0;i<quantities.length();i++){JSONObject q=quantities.getJSONObject(i);if(q.getString("id").equals(row.id)){row.wordAssessment=q.getString("label");row.assessedWordGoal=number(q,"goal");}}
     }
     private static JSONObject sessions(JSONObject state, LocalDate first, LocalDate last) throws Exception {
@@ -158,7 +158,7 @@ public final class ReportExport {
     }
     private static final class Total {
         double actual, reference,referenceMin,referenceMax, learned, reviewed, wordGoal;boolean interval; int recorded, referenceDays, days, newDays, reviewDays, goalDays;
-        String referenceText(){return referenceDays==0?"—":interval?decimal(referenceMin)+"—"+decimal(referenceMax):decimal(reference);}
+        String referenceText(){return referenceDays==0?"—":interval?(referenceMin==referenceMax?decimal(referenceMin):decimal(referenceMin)+"—"+decimal(referenceMax)):decimal(reference);}
     }
     private static Map<String,Total> totals(List<Row> rows) {
         Map<String,Total> result=new HashMap<>();

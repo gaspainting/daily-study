@@ -12,7 +12,7 @@
   }
   function midpoint(value){var r=range(value);return (r.min+r.max)/2;}
   function decimal(value){return String(Math.round(value*1000000)/1000000);}
-  function text(value){if(value==null)return '—';var r=range(value);return r.legacy?decimal(r.min):decimal(r.min)+'—'+decimal(r.max);}
+  function text(value){if(value==null)return '—';var r=range(value);var low=decimal(r.min),high=decimal(r.max);return low===high?low:low+'—'+high;}
   function active(subject,date){return !subject.activePeriods||subject.activePeriods.some(function(p){return p.from<=date&&(p.to===null||date<p.to);});}
   function value(state,date,subject){var row=state.plan.targets[date];return row&&has(row,subject.id)?row[subject.id]:subject.defaults[(new Date(date+'T00:00:00Z').getUTCDay()+6)%7];}
   function isQuantity(subject){return subject&&subject.measure==='quantity';}

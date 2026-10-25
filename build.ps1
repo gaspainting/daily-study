@@ -26,6 +26,7 @@ foreach ($part in @('java','assets','res')) {
 }
 if ($TestBuild) { Copy-Item -LiteralPath (Join-Path $projectRoot 'tests\fixtures\assessment-cases.json') -Destination (Join-Path $mainRoot 'assets\assessment-test-cases.json') -Force }
 if ($TestBuild) { Copy-Item -LiteralPath (Join-Path $projectRoot 'tests\fixtures\word-log-cases.json') -Destination (Join-Path $mainRoot 'assets\word-log-test-cases.json') -Force }
+if ($TestBuild) { Copy-Item -LiteralPath (Join-Path $projectRoot 'tests\fixtures\reference-legacy-v161.json') -Destination (Join-Path $mainRoot 'assets\reference-legacy-v161.json') -Force }
 $manifest = Get-Content -LiteralPath (Join-Path $originalMainRoot 'AndroidManifest.xml') -Raw -Encoding UTF8
 [xml]$versionManifest=$manifest
 $androidNamespace='http://schemas.android.com/apk/res/android'
