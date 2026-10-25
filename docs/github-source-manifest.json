@@ -1971,8 +1971,8 @@
     },
     {
       "path": "docs/V1.6.1.md",
-      "bytes": 4811,
-      "sha256": "7089df15efe9b381eec1733ebe6ea32fc3bdcf63429ae4de10f5096b29a0346d"
+      "bytes": 5166,
+      "sha256": "a907be06110201a1e56c9db2c15db1aa9cca6d0fb097a700a319f66d02cacfce"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -3695,6 +3695,11 @@
       "sha256": "4cea7391b9f5210dc6b9d43d31044ac051acd95f71822f64e7c7239774b4c4b2"
     },
     {
+      "path": "docs/validation-v1.6.1/public-release-results.json",
+      "bytes": 1302,
+      "sha256": "dc7dce6d0b6ae2052222b1d292a6cd159c7105e072a08448f1c3f69788526e1c"
+    },
+    {
       "path": "docs/validation-v1.6.1/reference-validation.csv",
       "bytes": 1767,
       "sha256": "9142bf4a9e8817235f7c29893371a5748a9d344f4b36d638d804106a6581deb0"
@@ -3731,8 +3736,8 @@
     },
     {
       "path": "docs/使用说明.md",
-      "bytes": 11456,
-      "sha256": "5c5f263b3e5a0c7313e9da0dfd8684167b61b86ed71f7fa98aa711d55fc29036"
+      "bytes": 11462,
+      "sha256": "f95c1c9eca27be57d51658caae4b89cf193bd8c382979a78f9fdaf9b5ba2b981"
     },
     {
       "path": "docs/插图来源与选择核查.md",
