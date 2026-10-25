@@ -109,7 +109,7 @@ public final class DataStore {
     }
     public static void validate(JSONObject state) throws Exception {
         keys(state,new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
-        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6), "备份版本不支持");
+        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7), "备份版本不支持");
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
@@ -159,13 +159,14 @@ public final class DataStore {
             nullableBool(r.opt("restKept"),"休息边界"); if(r.has("note")) string(r,"note",8000);
             JSONObject subjectRecords=r.getJSONObject("subjects");Iterator<String> rs=subjectRecords.keys();
             while(rs.hasNext()) {String id=rs.next();require(ids.contains(id),"记录科目不存在");JSONObject s=subjectRecords.getJSONObject(id);
-                keys(s,new String[]{"minutes","content","problem","newWords","reviewWords","forgotWords"},new String[]{"quantity","quantityUnit"},"record subject");
+                keys(s,new String[]{"minutes","content","problem","newWords","reviewWords","forgotWords"},state.getInt("version")>=7?new String[]{"quantity","quantityUnit","wordLog"}:new String[]{"quantity","quantityUnit"},"record subject");
                 number(s.opt("minutes"),1440,false,true,"实际分钟");
                 if(s.has("quantity")){require("quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量记录仅用于数量科目");number(s.opt("quantity"),100000,true,true,"实际数量");}
                 if(s.has("quantityUnit")){String unit=string(s,"quantityUnit",32);require(!unit.trim().isEmpty(),"数量单位不能为空");}
                 if("quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure"))&&!s.isNull("quantity")&&(!s.has("quantityUnit")||s.optString("quantityUnit").trim().isEmpty()))throw new Exception("数量记录缺少单位");
                 for(String key:new String[]{"content","problem","forgotWords"}) if(s.has(key)) string(s,key,8000);
                 number(s.opt("newWords"),100000,true,true,"新学词数"); number(s.opt("reviewWords"),100000,true,true,"复习词数");
+                if(s.has("wordLog")){require(vocabIds.contains(id),"单词明细仅用于单词科目");WordLog.validate(s.getJSONObject("wordLog"),s);}
             }
             if(r.has("sessions"))sessions(r.getJSONArray("sessions"),ids);
         }
@@ -208,7 +209,7 @@ public final class DataStore {
     }
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
-        state.put("version",6);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
+        state.put("version",7);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
         boolean hasQuantity=false;JSONArray qSubjects=state.getJSONObject("plan").getJSONArray("subjects");for(int i=0;i<qSubjects.length();i++)if("quantity".equals(qSubjects.getJSONObject(i).optString("measure")))hasQuantity=true;if(hasQuantity&&!state.getJSONObject("plan").has("quantityTargets"))state.getJSONObject("plan").put("quantityTargets",new JSONObject());
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();

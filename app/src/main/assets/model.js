@@ -8,6 +8,7 @@
 
   var DAY = 86400000;
   var ranges = typeof globalThis!=='undefined'&&globalThis.StudyReference || (typeof require==='function'?require('./reference.js'):null);
+  var wordLog = typeof globalThis!=='undefined'&&globalThis.StudyWordLog || (typeof require==='function'?require('./word-log.js'):null);
   var courses = typeof globalThis!=='undefined'&&globalThis.StudyCourses || (typeof require==='function'?require('./courses.js'):null);
   var STATUSES = ['正常参考', '减量', '仅回顾', '休息'];
   var ID = /^[A-Za-z][A-Za-z0-9_-]{0,63}$/;
@@ -158,14 +159,14 @@
       dateStamp(session.endedAt.slice(0, 10));
     });
   }
-  function recordValid(value, ids, path, subjectMap) {
+  function recordValid(value, ids, path, subjectMap, version) {
     keys(value, ['subjects', 'status', 'restKept', 'note'], ['sessions'], path);
     object(value.subjects, path + '.subjects');
     Object.keys(value.subjects).forEach(function (id) {
       if (!ids[id]) fail(path + '科目不存在：' + id);
       var item = value.subjects[id], prefix = path + '.' + id;
       var subject = subjectMap && subjectMap[id];
-      keys(item, ['minutes', 'content', 'problem', 'newWords', 'reviewWords', 'forgotWords'], ['quantity', 'quantityUnit'], prefix);
+      keys(item, ['minutes', 'content', 'problem', 'newWords', 'reviewWords', 'forgotWords'], ['quantity', 'quantityUnit'].concat(version >= 7 ? ['wordLog'] : []), prefix);
       optionalNumber(item.minutes, 1440, prefix + '.minutes', false);
       optionalNumber(item.newWords, 100000, prefix + '.newWords', true);
       optionalNumber(item.reviewWords, 100000, prefix + '.reviewWords', true);
@@ -175,6 +176,7 @@
       }
       if (has(item, 'quantityUnit')) unitValid(item.quantityUnit, prefix + '.quantityUnit');
       if (subject && isQuantity(subject) && item.quantity != null && (!has(item, 'quantityUnit') || !item.quantityUnit.trim())) fail(prefix + '.quantityUnit 缺少单位');
+      if (has(item, 'wordLog')) { if (!subject || subject.kind !== 'vocab') fail('单词明细仅用于单词科目'); wordLog.validate(item.wordLog, item); }
       string(item.content, 8000, prefix + '.content', false);
       string(item.problem, 8000, prefix + '.problem', false);
       string(item.forgotWords, 8000, prefix + '.forgotWords', false);
@@ -189,7 +191,7 @@
   }
   function validateState(state) {
     keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
-    if (![1, 2, 3, 4, 5, 6].includes(state.version)) fail('不支持此备份版本');
+    if (![1, 2, 3, 4, 5, 6, 7].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
     keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets']:[]) : []) : [], 'plan');
@@ -258,7 +260,7 @@
     courses.validate(state);
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');
-    Object.keys(state.records).forEach(function (date) { dateStamp(date); recordValid(state.records[date], ids, 'records.' + date, subjectMap); });
+    Object.keys(state.records).forEach(function (date) { dateStamp(date); recordValid(state.records[date], ids, 'records.' + date, subjectMap, state.version); });
     if(has(state,'assessmentBases')){
       object(state.assessmentBases,'assessmentBases');
       Object.keys(state.assessmentBases).forEach(function(date){dateStamp(date);if(!has(state.records,date))fail('评估依据缺少对应记录');var words=Object.create(null),quantities=Object.create(null);state.plan.subjects.filter(function(s){if(s.kind==='vocab')words[s.id]=true;if(isQuantity(s))quantities[s.id]=true;});ranges.validateBasis(state.assessmentBases[date],ids,words,quantities);});
@@ -325,7 +327,7 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 6;
+    result.version = 7;
     courses.initialize(result);
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
@@ -397,7 +399,7 @@
       if (entry && isQuantity(item) && entry.quantity != null && (!entry.quantityUnit || !entry.quantityUnit.trim())) entry.quantityUnit = item.unit;
     });
     var subjectMap = Object.create(null); state.plan.subjects.forEach(function (item) { subjectMap[item.id] = item; });
-    recordValid(value, ids, '记录', subjectMap);
+    recordValid(value, ids, '记录', subjectMap, state.version);
     var existed=has(state.records,date);
     state.version=Math.max(state.version,5);
     state.assessmentBases=state.assessmentBases||{};
@@ -510,7 +512,7 @@
     }); if(quantityDays) result.quantityRecordedDays=quantityDays; return result;
   }
   function meaningfulSubject(item) {
-    return !!item && (item.minutes != null || item.quantity != null || item.newWords != null || item.reviewWords != null || !!item.content || !!item.problem || !!item.forgotWords);
+    return !!item && (item.minutes != null || item.quantity != null || item.newWords != null || item.reviewWords != null || !!item.content || !!item.problem || !!item.forgotWords || !!item.wordLog?.entries.length);
   }
   function recordSummary(state, date) {
     dateStamp(date);
@@ -525,7 +527,7 @@
     var note = !!value && (!!value.note || value.status != null || value.restKept != null || Object.keys(entries).some(function (id) { return meaningfulSubject(entries[id]); }));
     var kind = written.length ? (written.length < relevant.length ? 'partial' : (total || 0) === 0 && (learned || 0) === 0 && (reviewed || 0) === 0 ? 'zero' : 'complete') : note ? 'note' : 'empty';
     var quantities = relevant.filter(isQuantity).map(function (item) { var entry=entries[item.id],unit=entry&&entry.quantityUnit||item.unit; return {id:item.id,name:item.name,unit:unit,quantity:entry&&entry.quantity!=null?entry.quantity:null}; });
-    var summary={ date: date, total: total, newWords: learned, reviewWords: reviewed, recordedSubjects: written.length, totalSubjects: relevant.length, kind: kind, status: value ? value.status : null, note: value ? value.note : '', entry: !!value }; if(quantities.length) summary.quantities=quantities; return summary;
+    var summary={ date: date, total: total, newWords: learned, reviewWords: reviewed, recordedSubjects: written.length, totalSubjects: relevant.length, kind: kind, status: value ? value.status : null, note: value ? value.note : '', entry: !!value }; if(quantities.length) summary.quantities=quantities; var batches=vocab.reduce(function(n,s){return n+(entries[s.id]?.wordLog?.entries.length||0);},0); if(batches)summary.wordEntryCount=batches; return summary;
   }
   function normalizedFilters(filters) {
     filters = filters || {};

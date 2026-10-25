@@ -2,9 +2,9 @@
 
 面向 Android 的学习手记：安排课程复习与考研学习，记录时间、单词和每周目标。
 
-[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.0.md)
+[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.1.md)
 
-当前版本 **v1.6.0**，支持 Android 8.0 及以上。
+当前版本 **v1.6.1**，支持 Android 8.0 及以上。
 
 **主要功能**
 
@@ -12,7 +12,7 @@
 |---|---|
 | 今日记录 | 手动填写、学习计时、随记、草稿恢复 |
 | 课程复习 | 编辑课表、临时调课与停课、逐门复习清单 |
-| 单词学习 | 新学与复习分别计数，支持分次累加和撤销 |
+| 单词学习 | 新学与复习分别计数，分次明细、总数调整、修改与撤销 |
 | 目标与评估 | 自填周目标与任务、自动生成每日参考区间、分钟与数量目标、按今日安排评估完成情况 |
 | 复盘与统计 | 周复盘、历史搜索与筛选、月历、趋势、计时明细 |
 | 计划管理 | 多计划切换、科目添加（分钟或数量）、归档与排序 |
@@ -51,9 +51,10 @@ adb -s emulator-5572 shell am instrument -w -r cn.edu.njupt.studycheckin/cn.edu.
 node tests/startup-update-ui.cjs
 node tests/update-regression-ui.cjs
 node tests/manual-ui.cjs
+node tests/word-log-ui.cjs
 ```
 
-设备交互测试逐个执行。构建和执行结果见[v1.6.0 验证报告](docs/V1.6.0.md)，发布命令见[发行通道](docs/APP-UPDATES.md)。
+设备交互测试逐个执行。构建和执行结果见[v1.6.1 验证报告](docs/V1.6.1.md)，发布命令见[发行通道](docs/APP-UPDATES.md)。
 
 **项目资料**
 

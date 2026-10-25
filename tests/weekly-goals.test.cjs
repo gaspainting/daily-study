@@ -13,7 +13,7 @@ test('schema1/2 clone migration preserves text, quantities, sessions and dates w
   const s=copy(seed);s.version=version;s.plan.weekGoals[key]='我的教材\n两段文字';s.plan.weekHints[key]='自己填写';if(version===2)s.plan.manualWeekGoals=true;
   const r=M.record(s,key);r.subjects.math.minutes=0;r.subjects.vocab.newWords=null;M.saveRecord(s,key,r);
   const original=copy(s),next=M.migrateState(s,'2026-10-18');
-  assert.deepEqual(s,original);assert.equal(next.version,6);assert.deepEqual(next.plan.weekTasks,{});
+  assert.deepEqual(s,original);assert.equal(next.version,7);assert.deepEqual(next.plan.weekTasks,{});
   assert.equal(next.plan.weekGoals[key],original.plan.weekGoals[key]);assert.deepEqual(next.records,s.records);assert.deepEqual(next.sessions,s.sessions);
   assert.deepEqual(M.migrateState(next,'2026-10-18'),next);
  }
@@ -22,7 +22,7 @@ test('stable IDs and exact task contents survive JSON backup and schema-preservi
  const s=fresh();put(s,key,goal([task(1,{subjectId:'math',done:true}),task(2)]));
  M.archiveSubject(s,'math','2026-10-18');M.restoreSubject(s,'math','2026-10-19');M.setWordSteps(s,'vocab',[1,2,3]);M.setWordGoal(s,'vocab',40,'2026-10-18');
  M.addSubject(s,'阅读',[0,0,0,0,0,0,0],'2026-10-18');M.moveSubject(s,'vocab',-1);
- const next=M.applyCourseSchedule(s,'2026-10-19');assert.equal(next.version,6);assert.equal(s.version,6);assert.deepEqual(next.plan.weekTasks,s.plan.weekTasks);
+ const next=M.applyCourseSchedule(s,'2026-10-19');assert.equal(next.version,7);assert.equal(s.version,7);assert.deepEqual(next.plan.weekTasks,s.plan.weekTasks);
  assert.deepEqual(W.snapshot(JSON.parse(JSON.stringify(s)).plan,key),W.snapshot(s.plan,key));
 });
 test('checking a task changes no learning observations, reference budgets, reviews or historical statistics', () => {

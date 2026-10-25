@@ -72,6 +72,7 @@ public class SmokeTests extends Instrumentation {
             PlanTests.run(c,passes);
             InspirationSearchTests.run(c,passes);
             VocabularyTests.run(c,passes);
+            WordLogTests.run(c,passes);
             AuditTests.run(c,passes);
             CourseScheduleTests.run(c,passes);
             WeeklyGoalsTests.run(c,passes);

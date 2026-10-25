@@ -34,7 +34,7 @@
   const restReason = () => { const d = new Date(); return d.getDay() === 0 || d.getDay() === 6 ? (d.getHours() * 60 + d.getMinutes() < 570 ? '09:30 前为休息时段' : '19:00 起为休息时段') : '20:30 起为休息时段'; };
   const recordCount = record => state.plan.subjects.filter(s => record && (isQuantity(s) ? record.subjects[s.id]?.quantity != null : record.subjects[s.id]?.minutes != null || s.kind === 'vocab' && (record.subjects[s.id]?.newWords != null || record.subjects[s.id]?.reviewWords != null))).length;
   const weekOf = date => M().weekInfo(state.plan, date);
-  const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.quantity != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords));
+  const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.quantity != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords || s.wordLog?.entries.length));
   const actualTotal = record => { const values = Object.values(record && record.subjects || {}).filter(s => s.minutes != null).map(s => s.minutes); return values.length ? values.reduce((a, b) => a + b, 0) : null; };
   const visibleSubjects = date => state.plan.subjects.filter(s => M().subjectActive(s, date) || meaningful({ subjects: { [s.id]: state.records[date]?.subjects?.[s.id] || {} } }));
   const refTotal = date => within(date)?R().total(state,date):null;
@@ -288,7 +288,7 @@
   function vocabEntry(subject, r, index) {
     const id=subject.id,goal=within(selectedDate)?M().wordTarget(state,selectedDate,id):null;
     const quick=(field,label)=>'<div class="word-add-row"><span>'+label+'累加</span>'+M().wordSteps(state,id).map(n=>'<button type="button" data-action="add-words" data-field="'+field+'-'+id+'" data-amount="'+n+'" aria-label="'+escape(subject.name)+' '+label+'增加'+n+'个">+'+n+'</button>').join('')+'<button type="button" class="word-undo" data-action="undo-words" data-field="'+field+'-'+id+'" aria-label="撤销'+escape(subject.name)+'最近一次'+label+'累加" hidden>撤销</button></div>';
-    return '<div class="subject-entry word-entry"><div class="subject-heading"><h3><span class="subject-index">'+String(index+1).padStart(2,'0')+'</span>'+escape(subject.name)+'</h3>'+(goal!==null&&M().subjectActive(subject,selectedDate)?'<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="'+selectedDate+'" data-subject="'+escape(id)+'" aria-label="修改'+escape(subject.name)+'新学目标">新学目标 '+goal+' 个</button>':'<span class="reference-pill">'+(!M().subjectActive(subject,selectedDate)?'已归档':'计划范围外')+'</span>')+'</div><div class="field-inline">'+field('新学（个）','newWords-'+id,r.newWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+field('复习（个）','reviewWords-'+id,r.reviewWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+'</div>'+quick('newWords','新学')+quick('reviewWords','复习')+'<span class="visually-hidden" role="status" aria-live="polite" data-word-feedback></span><details class="details-toggle"'+(r.content||r.forgotWords?' open':'')+'><summary>内容与易忘词</summary>'+field('学习内容','content-'+id,r.content,{maxLength:3000})+field('易忘词','forgotWords-'+id,r.forgotWords,{textarea:true,maxLength:3000})+'</details>'+(r.minutes!=null?'<details class="details-toggle"><summary>时长记录</summary>'+field('历史时长（分钟）','minutes-'+id,r.minutes,{type:'number',min:0,max:1440,step:'any',placeholder:'未记录'})+'</details>':'')+'</div>';
+    return '<div class="subject-entry word-entry"><div class="subject-heading"><h3><span class="subject-index">'+String(index+1).padStart(2,'0')+'</span>'+escape(subject.name)+'</h3>'+(goal!==null&&M().subjectActive(subject,selectedDate)?'<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="'+selectedDate+'" data-subject="'+escape(id)+'" aria-label="修改'+escape(subject.name)+'新学目标">新学目标 '+goal+' 个</button>':'<span class="reference-pill">'+(!M().subjectActive(subject,selectedDate)?'已归档':'计划范围外')+'</span>')+'</div><div class="field-inline">'+field('新学（个）','newWords-'+id,r.newWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+field('复习（个）','reviewWords-'+id,r.reviewWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+'</div>'+quick('newWords','新学')+quick('reviewWords','复习')+'<span class="visually-hidden" role="status" aria-live="polite" data-word-feedback></span>'+window.StudyWordLogUI.view(subject,r,escape)+'<details class="details-toggle"'+(r.content||r.forgotWords?' open':'')+'><summary>内容与易忘词</summary>'+field('学习内容','content-'+id,r.content,{maxLength:3000})+field('易忘词','forgotWords-'+id,r.forgotWords,{textarea:true,maxLength:3000})+'</details>'+(r.minutes!=null?'<details class="details-toggle"><summary>时长记录</summary>'+field('历史时长（分钟）','minutes-'+id,r.minutes,{type:'number',min:0,max:1440,step:'any',placeholder:'未记录'})+'</details>':'')+'</div>';
   }
   function assessmentView(date){
     const result=R().assess(state,date),t=result.time;
@@ -454,6 +454,7 @@
     app.querySelectorAll('form[data-dirty]').forEach(window.StudyDrafts.attach);
     drafts.forEach(draft => { const form = document.getElementById(draft.id); if (!form) return; draft.controls.forEach(saved => { const controls = Array.from(form.elements).filter(control => control.name === saved.name); const control = saved.type === 'radio' ? controls.find(item => item.value === saved.value) : controls[0]; if (!control) return; if (saved.type === 'checkbox' || saved.type === 'radio') control.checked = saved.checked; else control.value = saved.value; }); if (form.dataset.weekMode) { window.StudyWeekUI.sync(form); form.querySelector('.save-row').hidden=false; } });
     if(dailyBaseline&&document.getElementById('daily-form'))initialDaily=dailyBaseline;
+    window.StudyWordLogUI.sync(document.getElementById('daily-form'),true);
     app.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
     if (drafts.length) Array.from(app.querySelectorAll('details')).forEach((detail, index) => { if (openDetails[index]) detail.open = true; });
     document.querySelectorAll('[data-height]').forEach(bar => { bar.style.height = Math.max(0, Number(bar.dataset.height)) + '%';if(bar.dataset.bottom!==undefined)bar.style.bottom=Math.max(0,Number(bar.dataset.bottom))+'%'; });
@@ -497,8 +498,15 @@
       const content = form.elements.namedItem('content-' + id).value;
       if (content !== (baseline.content || '')) r.content = content;
       if (subject.kind === 'vocab') {
-      const newWords = optionalNumber(form, 'newWords-' + id, true), reviewWords = optionalNumber(form, 'reviewWords-' + id, true), forgotWords = form.elements.namedItem('forgotWords-' + id).value;
-        for (const [field, value, label] of [['newWords', newWords, '新学'], ['reviewWords', reviewWords, '复习']]) { const before = baseline[field] ?? null; if (value !== before && r[field] !== before && r[field] !== value) { clearWordUndo(form.elements.namedItem(field+'-'+id)); if (!window.confirm('「' + subject.name + '」' + label + '数量已更新。用当前输入替换？')) throw new Error('数量未替换，输入已保留'); } if (value !== before) r[field] = value; }
+        optionalNumber(form, 'newWords-' + id, true); optionalNumber(form, 'reviewWords-' + id, true);
+        const words = window.StudyWordLogUI.record(form,id), forgotWords = form.elements.namedItem('forgotWords-' + id).value;
+        const group = s => ({newWords:s.newWords??null,reviewWords:s.reviewWords??null,wordLog:s.wordLog??null});
+        const before=JSON.stringify(group(baseline)),next=JSON.stringify(group(words)),current=JSON.stringify(group(r));
+        if(next!==before){
+          if(current!==before&&current!==next&&!window.confirm('「'+subject.name+'」的数量或明细已更新。用当前输入替换？'))throw new Error('数量和明细未替换');
+          r.newWords=words.newWords;r.reviewWords=words.reviewWords;
+          if(words.wordLog)r.wordLog=clone(words.wordLog);else delete r.wordLog;
+        }
         if (forgotWords !== (baseline.forgotWords || '')) r.forgotWords = forgotWords;
       } else { const problem = form.elements.namedItem('problem-' + id).value; if (problem !== (baseline.problem || '')) r.problem = problem; }
     });
@@ -693,14 +701,16 @@
   function changeWords(input, amount) {
     if (!input.checkValidity()) { input.reportValidity(); return; }
     const change = window.StudyWords.addition(input.value, amount);
+    change.entryId = window.StudyWordLogUI.addition(input, amount);
     wordUndo.set(input, change); input.value = change.after;
     input.closest('.word-entry').querySelector('[data-action="undo-words"][data-field="'+input.id+'"]').hidden = false;
     notifyWordChange(input);
   }
   function undoWords(input) {
-    const before = window.StudyWords.undo(wordUndo.get(input), input.value);
+    const change = wordUndo.get(input), before = window.StudyWords.undo(change, input.value);
+    if (before === null) { clearWordUndo(input); return; }
+    window.StudyWordLogUI.undoAddition(input,change.entryId);
     clearWordUndo(input);
-    if (before === null) return;
     input.value = before; notifyWordChange(input);
   }
   function notifyWordChange(input) {
@@ -735,7 +745,7 @@
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 6, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
+      const fresh = { version: 7, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => { fresh.plan.targets[date][s.id] = clone(s.defaults[(localDate(date).getDay() + 6) % 7]); }); });
       M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
@@ -853,6 +863,11 @@
         if(call('getPlans').activeId!==button.dataset.plan||to!==button.dataset.to||from!==button.dataset.from||String(latest._revision||0)!==button.dataset.revision)throw new Error('计划已变化，请重新打开安排');
         persist(weekendsOnly?M().applyWeekendSchedule(latest,iso()):M().applyCourseSchedule(latest,iso()));closeSheet();render();tell('安排已更新');
       }
+      if (action === 'word-log-reset') window.StudyWordLogUI.restoreSaved(button.dataset.subject);
+      if (action === 'word-log-add') window.StudyWordLogUI.editor(button.dataset.subject);
+      if (action === 'word-log-edit') window.StudyWordLogUI.editor(button.dataset.subject,button.dataset.entry);
+      if (action === 'word-log-remove') window.StudyWordLogUI.remove(button.dataset.subject,button.dataset.entry);
+      if (action === 'word-log-restore') window.StudyWordLogUI.restore(button.dataset.subject);
       if (action === 'add-words') changeWords(document.getElementById(button.dataset.field), Number(button.dataset.amount));
       if (action === 'undo-words') undoWords(document.getElementById(button.dataset.field));
       if (action === 'edit-reference') editReference(button.dataset.date,button.dataset.subject);
@@ -916,13 +931,13 @@
     const form = event.target.closest('form[data-dirty]');
     if (!form || event.target.id === 'reference-date') return;
     if(form.id==='reference-form')syncReferenceForm(form,event.target.id);
-    if (!dispatchingWordChange) clearWordUndo(event.target);
+    if (!dispatchingWordChange) { clearWordUndo(event.target); attempt(()=>window.StudyWordLogUI.input(event.target)); }
     dirty.add(form.dataset.dirty);
     feedback.delete(form.dataset.dirty);
     syncFeedback(form);
     window.StudyDrafts.save(form);
   });
-  document.addEventListener('study-draft-applied',event=>{if(event.target.id==='reference-form')syncReferenceForm(event.target,'');});
+  document.addEventListener('study-draft-applied',event=>{if(event.target.id==='reference-form')syncReferenceForm(event.target,'');window.StudyWordLogUI.reset(event.target);window.StudyWordLogUI.sync(event.target,true);});
   document.addEventListener('study-reference-draft', event => attempt(() => {
     const {form,draft,sourceKey}=event.detail,date=draft.values['reference-date'];
     if(typeof date!=='string'||!within(date))throw new Error('草稿日期不在当前计划范围，请先调整计划日期');
@@ -1096,6 +1111,7 @@
       if (!window.StudyModel) throw new Error('记录模块未加载，请重新打开 APP。');
       bridge = window.Native || await createPreviewBridge();
       state = readState();
+      window.StudyWordLogUI.init({escape,field,selectField,openSheet,closeSheet,clearUndo:clearFormWordUndo,baseline:subject=>initialDaily?.subjects[subject]});
       window.StudyWeekUI.init(() => state.plan);
       activePlanId = call('getPlans').activeId;
       window.StudyDrafts.init(call, draftKey, (form, value = true) => { clearFormWordUndo(form); if (value) dirty.add(form.dataset.dirty); else dirty.delete(form.dataset.dirty); feedback.delete(form.dataset.dirty); syncFeedback(form); });

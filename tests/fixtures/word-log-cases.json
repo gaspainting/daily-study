@@ -1,0 +1,634 @@
+[
+  {
+    "name": "blank base",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": []
+    },
+    "valid": true,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "explicit zero base",
+    "log": {
+      "base": {
+        "newWords": 0,
+        "reviewWords": null
+      },
+      "entries": []
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 0,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "three separate sessions",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        },
+        {
+          "id": "b",
+          "kind": "new",
+          "operation": "add",
+          "count": 20,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        },
+        {
+          "id": "c",
+          "kind": "review",
+          "operation": "add",
+          "count": 7,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 30,
+      "reviewWords": 7
+    }
+  },
+  {
+    "name": "legacy base plus session",
+    "log": {
+      "base": {
+        "newWords": 50,
+        "reviewWords": 0
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 5,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 55,
+      "reviewWords": 0
+    }
+  },
+  {
+    "name": "manual total adjustment",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        },
+        {
+          "id": "b",
+          "kind": "new",
+          "operation": "set",
+          "count": 8,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "manual"
+        },
+        {
+          "id": "c",
+          "kind": "new",
+          "operation": "add",
+          "count": 2,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 10,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "clear to blank",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        },
+        {
+          "id": "b",
+          "kind": "new",
+          "operation": "set",
+          "count": null,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "manual"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "set explicit zero",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "set",
+          "count": 0,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "manual"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 0,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "manual increment",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "review",
+          "operation": "add",
+          "count": 11,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "manual"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": null,
+      "reviewWords": 11
+    }
+  },
+  {
+    "name": "maximum",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 100000,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": true,
+    "totals": {
+      "newWords": 100000,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "zero add",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 0,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "negative add",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": -1,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "fraction",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 1.5,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "numeric string",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": "10",
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "null add",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": null,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "quick set",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "set",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "unknown source",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "import"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "unknown operation",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "other",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "unknown kind",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "math",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "invalid day",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-02-30T03:04:05Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "invalid time",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T27:04:05Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "unknown key",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick",
+          "extra": 1
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "invalid edited time",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick",
+          "editedAt": null
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "invalid id",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "<x>",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "duplicate id",
+    "log": {
+      "base": {
+        "newWords": null,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        },
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 10,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  },
+  {
+    "name": "overflow",
+    "log": {
+      "base": {
+        "newWords": 99999,
+        "reviewWords": null
+      },
+      "entries": [
+        {
+          "id": "a",
+          "kind": "new",
+          "operation": "add",
+          "count": 2,
+          "at": "2026-10-25T03:04:05.000Z",
+          "source": "quick"
+        }
+      ]
+    },
+    "valid": false,
+    "totals": {
+      "newWords": null,
+      "reviewWords": null
+    }
+  }
+]

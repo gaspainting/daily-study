@@ -54,7 +54,7 @@ public final class StudyWidget extends AppWidgetProvider {
         if(record==null)return false;
         for(String field:new String[]{"minutes","quantity","newWords","reviewWords"})if(record.has(field)&&!record.isNull(field))return true;
         for(String field:new String[]{"content","problem","forgotWords"})if(!record.optString(field,"").isEmpty())return true;
-        return false;
+        JSONObject log=record.optJSONObject("wordLog");return log!=null&&log.getJSONArray("entries").length()>0;
     }
     private static void update(Context c,AppWidgetManager manager,int id,LocalDate now,JSONObject value){
         RemoteViews v=new RemoteViews(c.getPackageName(),R.layout.widget_study);

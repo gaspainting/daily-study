@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 18,
+  "versionName": "1.6.1",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.1/daily-study-v1.6.1.apk",
+  "apkBytes": 6613568,
+  "apkSha256": "7c4713af58bd051dff4c3311faddd6d5cfa120002df9fc7c4ad7ed6033210f4c",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v1.6.1\r\n\r\n- 单词新增分次记录，保留新学/复习数量、记录时间和来源。\r\n- 快捷累加、任意数量添加、修改与移除先保留为草稿，保存当天记录后提交。\r\n- 明细修改可预览当天总数，移除后可撤销。\r\n- 直接编辑每日数量保留总数调整，统计、评估和小组件使用当日总数。\r\n- CSV/PDF报表增加分次明细；完整备份包含已保存明细。\r\n- 旧记录保留原有总数，旧备份继续导入。\r\n",
+  "releaseDate": "2026-10-25"
+}
