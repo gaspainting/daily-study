@@ -1,0 +1,34 @@
+{
+  "version": "1.6.8",
+  "versionCode": 25,
+  "releaseUrl": "https://github.com/gaspainting/daily-study/releases/tag/v1.6.8",
+  "draft": false,
+  "prerelease": false,
+  "implementationCommit": "ebc36f5d4233fda54590d4535005a52543f49e64",
+  "assets": [
+    {
+      "name": "daily-study-v1.6.8.apk",
+      "digest": "sha256:67190d4d334955005e2063dee870b483a1cf1fe6fa524fe0b59819fd9ce1d839",
+      "bytes": 6675472
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "digest": "sha256:f5304c8e9a470982ac97aa27d5ee1201b51bc28336bae3834399d23877e8bd2f",
+      "bytes": 298
+    },
+    {
+      "name": "update.json",
+      "digest": "sha256:01e74ccfd8eb65a4e7ac98605c4393edace6f8a8ab73cb849f6d989afeb9a0e1",
+      "bytes": 809
+    }
+  ],
+  "stableManifestUrls": [
+    "https://github.com/gaspainting/daily-study/releases/latest/download/update.json",
+    "https://github.com/gaspainting/daily-study-releases/releases/latest/download/update.json"
+  ],
+  "legacyApkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.8/daily-study-v1.6.8.apk",
+  "downloadedApkSha256": "67190d4d334955005e2063dee870b483a1cf1fe6fa524fe0b59819fd9ce1d839",
+  "downloadedApkBytes": 6675472,
+  "exactLocalMatch": true,
+  "checkedAt": "2026-10-26T17:33:23.6346919Z"
+}

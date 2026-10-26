@@ -1,0 +1,35 @@
+{
+  "physicalPhoneTouched": false,
+  "devices": [
+    {
+      "serial": "emulator-5572",
+      "ownedAVD": "StudyCheckinApi36",
+      "sdk": 36,
+      "installedVersion": "1.6.8",
+      "versionCode": 25,
+      "debuggable": false,
+      "originalFileBytesVerified": 28,
+      "restoredScope": [
+        "files/",
+        "shared_prefs/"
+      ],
+      "fontScale": "1.0",
+      "emulatorShutdownRequested": true
+    },
+    {
+      "serial": "emulator-5574",
+      "ownedAVD": "StudyCheckinApi35Baseline",
+      "sdk": 35,
+      "installedVersion": "1.6.8",
+      "versionCode": 25,
+      "debuggable": false,
+      "originalFileBytesVerified": 11,
+      "restoredScope": [
+        "files/",
+        "shared_prefs/"
+      ],
+      "fontScale": "1.0",
+      "emulatorShutdownRequested": true
+    }
+  ]
+}

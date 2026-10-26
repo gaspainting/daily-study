@@ -48,5 +48,11 @@
     "Android8-14 runtime",
     "long-duration observation"
   ],
-  "remaining": "Long-history latency recorded in v1.6.7; v1.7.0 follow-up; no new performance sampling in this patch."
+  "remaining": "Long-history latency recorded in v1.6.7; v1.7.0 follow-up; no new performance sampling in this patch.",
+  "publishedRelease": "https://github.com/gaspainting/daily-study/releases/tag/v1.6.8",
+  "publicApkMatchesLocal": true,
+  "realPreviousClientStartupChecks": 7,
+  "previousClientVersion": "1.6.7",
+  "patchPreservesExistingActivationDate": true,
+  "finalDeviceReport": "final-device-results.json"
 }
