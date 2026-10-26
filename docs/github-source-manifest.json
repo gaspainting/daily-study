@@ -2301,8 +2301,8 @@
     },
     {
       "path": "docs/V1.6.3.md",
-      "bytes": 6662,
-      "sha256": "6659d30859e5d261cbe71a9d966d969e7439ee5fd204ecccf9535be5eae6a765"
+      "bytes": 7021,
+      "sha256": "b8cdc4f81690bb8d9a2cde5db4b3f6e74f1c6d10fb87a1af46b23ad0e07dadbd"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -4205,6 +4205,11 @@
       "sha256": "fd6d4608f4f4c38722f39820a73714ec462d50bb642d5f9c7bd9817799fefc23"
     },
     {
+      "path": "docs/validation-v1.6.3/public-release-results.json",
+      "bytes": 1302,
+      "sha256": "43b1c98b5e0c446dbb896025a6329fa529553ea45402d8b49716fa4b824a020f"
+    },
+    {
       "path": "docs/validation-v1.6.3/quantity-accessibility.json",
       "bytes": 281185,
       "sha256": "f19d74b055ebd3b22461d7fd9a4ee595aab4791a6a6f254a9555b3bab6870fb6"
@@ -4306,8 +4311,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 3406,
-      "sha256": "ba067da0ac17ceff53ae3e650697a98dc858cdc9cdce44074cd54fae6b062370"
+      "bytes": 3468,
+      "sha256": "c8da20831d8c08251546e504046b2caca99fca7a7529bef71af5d309cea9f994"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
