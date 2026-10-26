@@ -1,6 +1,6 @@
 # GitHub项目与归档
 
-仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前版本为v1.6.1/code18，见[V1.6.1](V1.6.1.md)。
+仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前版本为v1.6.4/code21，见[V1.6.4](V1.6.4.md)。
 
 **main分支**
 
@@ -9,6 +9,7 @@
 | app/ | Java宿主、网页界面、Android资源、报表字体与许可 |
 | scripts/、build.ps1、generate_seed.py | 构建、发布、字体生成、交付打包 |
 | tests/ | 模型、原生与真实WebView回归，测试夹具 |
+| design/ | 界面方向比较、可操作样稿与参考资料 |
 | docs/ | 需求、设计、约定、使用说明、代码审查、版本报告与规划 |
 | docs/screenshots/、docs/validation-*/ | 各轮页面截图、导出样例、原始测试结果与摘要 |
 | docs/source/seed-reference.md | 可独立重建seed的70日原参考数据 |

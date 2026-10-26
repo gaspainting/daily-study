@@ -1,0 +1,7 @@
+'use strict';
+const frames=[...document.querySelectorAll('iframe')];
+document.querySelectorAll('[data-view]').forEach(button=>{if(button.tagName!=='BUTTON')return;button.onclick=()=>{document.querySelector('.comparison').dataset.view=button.dataset.view;document.querySelectorAll('button[data-view]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));};});
+document.querySelectorAll('[data-case]').forEach(button=>{button.onclick=()=>{frames.forEach(frame=>frame.contentWindow.postMessage({type:'sample',value:button.dataset.case},location.origin));document.querySelectorAll('[data-case]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));};});
+document.querySelector('#large-type').onclick=e=>{const next=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(next));frames.forEach(frame=>frame.contentWindow.postMessage({type:'large',value:next},location.origin));};
+document.querySelectorAll('[data-screen]').forEach(button=>{button.onclick=()=>{frames.forEach(frame=>frame.contentWindow.postMessage({type:'screen',value:button.dataset.screen},location.origin));document.querySelectorAll('[data-screen]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));};});
+document.querySelector('#narrow-screen').onclick=e=>{const next=e.currentTarget.getAttribute('aria-pressed')!=='true';e.currentTarget.setAttribute('aria-pressed',String(next));document.querySelector('.comparison').classList.toggle('narrow',next);};

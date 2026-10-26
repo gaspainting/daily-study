@@ -1,0 +1,79 @@
+PASS the initial overview shows actual and reference separately
+PASS all three learning subjects are simultaneously visible
+PASS the final subject is above the save dock at normal text size
+PASS arrangement and note actions remain above the save dock for the three-subject plan
+PASS action is visible in the active layer: [data-layout-subject-button="course-review"]
+PASS draft time updates the preview and is clearly pending
+PASS editing a subject does not save learning observations
+PASS action is visible in the active layer: #daily-record-editor [data-layout-subject="course-review"] .reference-edit
+PASS the reference editor opens above the daily editor
+PASS action is visible in the active layer: #reference-form [type=submit]
+PASS saving a target returns to the same subject and keeps its entered time
+PASS target saving does not commit the pending actual time
+PASS the real Android back key closes editing while keeping the pending draft
+PASS action is visible in the active layer: #daily-form [type=submit]
+PASS the visible save button commits the edited actual time
+PASS confirmed saving changes the preview to a recorded state
+PASS action is visible in the active layer: [data-layout-subject-button="math"]
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS invalid input is distinct from unknown or zero
+PASS action is visible in the active layer: #daily-form [type=submit]
+PASS saving invalid hidden input reveals the relevant editor
+PASS invalid input leaves the saved record unchanged
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS action is visible in the active layer: #daily-form [type=submit]
+PASS action is visible in the active layer: [data-layout-subject-button="vocab"]
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS word zero and unknown review stay distinct in the list
+PASS action is visible in the active layer: #daily-form [type=submit]
+PASS action is visible in the active layer: [data-layout-subject-button="vocab"]
+PASS saved words retain explicit zero and unknown review
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 39.2 MB/s (196250 bytes in 0.005s)
+PASS action is visible in the active layer: [data-layout-subject-button="vocab"]
+PASS Android exposes the focused word editor and its labelled fields
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 47.2 MB/s (140511 bytes in 0.003s)
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS action is visible in the active layer: #today-module-tab-courses
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 47.5 MB/s (127979 bytes in 0.003s)
+PASS action is visible in the active layer: #today-module-tab-assessment
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 51.0 MB/s (179939 bytes in 0.003s)
+PASS action is visible in the active layer: .bottom-nav [data-nav="plan"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 56.2 MB/s (191796 bytes in 0.003s)
+PASS the weekly list exposes both confirmed weekend intervals
+PASS action is visible in the active layer: .bottom-nav [data-nav="review"]
+PASS action is visible in the active layer: [data-action=week-prev][data-scope=review]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 49.4 MB/s (166761 bytes in 0.003s)
+PASS action is visible in the active layer: #review-module-tab-statistics
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 44.6 MB/s (141284 bytes in 0.003s)
+PASS action is visible in the active layer: .bottom-nav [data-nav="settings"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 28.1 MB/s (93159 bytes in 0.003s)
+PASS settings includes labelled direct entries
+PASS action is visible in the active layer: [data-layout-settings=reminders]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 31.0 MB/s (122065 bytes in 0.004s)
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS action is visible in the active layer: [data-action=about]
+PASS About reads the actual native build version
+PASS action is visible in the active layer: #sheet [data-action=close-sheet]
+PASS action is visible in the active layer: [data-layout-settings=reminders]
+PASS opening About retains unsaved reminder input
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS action is visible in the active layer: .bottom-nav [data-nav="inspiration"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 36.7 MB/s (117672 bytes in 0.003s)
+PASS action is visible in the active layer: .bottom-nav [data-nav="today"]
+PASS action is visible in the active layer: #today-module-tab-record
+PASS action is visible in the active layer: [data-layout-subject-button="math"]
+PASS background refresh retains the open subject editor
+PASS background refresh retains the editor scroll position
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS the selected calendar date fits its enlarged selection marker
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 47.6 MB/s (183415 bytes in 0.004s)
+PASS action is visible in the active layer: [data-layout-subject-button="math"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 16.5 MB/s (176318 bytes in 0.010s)
+PASS the focused editor fits the narrow large-text screen
+PASS action is visible in the active layer: .layout-editor[open] [data-layout-done]
+PASS action is visible in the active layer: .bottom-nav [data-nav="inspiration"]
+PASS inspiration fits the narrow large-text screen
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 42.7 MB/s (146419 bytes in 0.003s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":65,"restored":true,"error":null}

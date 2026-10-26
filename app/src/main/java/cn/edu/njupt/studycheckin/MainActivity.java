@@ -64,8 +64,8 @@ public class MainActivity extends Activity {
         startupUpdateEligible=bundle==null;
         try{recoverStorage();}catch(Exception ignored){}
         InspirationPoster.cleanOldExports(this);
-        FrameLayout root=new FrameLayout(this);root.setBackgroundColor(Color.rgb(248,247,243));
-        webView=new WebView(this);webView.setBackgroundColor(Color.rgb(248,247,243));
+        FrameLayout root=new FrameLayout(this);root.setBackgroundColor(Color.WHITE);
+        webView=new WebView(this);webView.setBackgroundColor(Color.WHITE);
         root.addView(webView,new FrameLayout.LayoutParams(-1,-1));setContentView(root);
         root.setOnApplyWindowInsetsListener((v,insets)->{
             if(Build.VERSION.SDK_INT>=30){android.graphics.Insets i=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());v.setPadding(i.left,i.top,i.right,i.bottom);}

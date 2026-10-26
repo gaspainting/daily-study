@@ -1,0 +1,49 @@
+PASS cold boot initiates a real native update check without entering About
+PASS native cold-start claim cannot be consumed twice
+PASS one launch check does not automatically download an APK
+PASS checking runs alongside the existing startup image
+PASS newer candidate opens an update prompt directly during startup
+PASS update prompt replaces the image splash and releases its inert state
+PASS startup version and notes render safely as text
+PASS download and later are discoverable startup actions
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 52.5 MB/s (171458 bytes in 0.003s)
+PASS later dismisses the prompt and keeps a page-header entry
+PASS repeated native callbacks do not repeat a dismissed startup prompt
+PASS ordinary resume does not recheck or reprompt
+PASS explicit startup download uses the existing updater action and real progress state
+PASS startup progress follows reported bytes
+PASS cancellation remains retryable without claiming download success
+PASS download failure retains an actionable retry in the startup prompt
+PASS installation permission is requested through an explicit action
+PASS requesting installation does not claim installation success
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 38.6 MB/s (177816 bytes in 0.004s)
+PASS startup prompt and header fit 320px with enlarged text
+PASS startup update actions have names in the real accessibility tree
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 42.6 MB/s (163148 bytes in 0.004s)
+PASS current version produces no update interruption
+PASS offline check failure produces no blocking prompt or error toast
+PASS offline startup can enter the app immediately
+PASS native refusal on an already-consumed or restored Activity suppresses automatic prompts
+PASS unexpected update-state read failure does not stop app startup
+PASS late startup update does not cover an open clean subject editor
+PASS a deferred update remains in the header after subject editing closes
+PASS late startup update does not cover an open settings editor
+PASS canceling the pending check in About also cancels its automatic prompt
+PASS a slow startup response does not interrupt or overwrite unsaved input
+PASS installation remains blocked until current page edits are saved
+PASS closing the update prompt retains unsaved input
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 33.1 MB/s (98657 bytes in 0.003s)
+PASS a late response does not replace an existing dialog
+PASS returning from actual Android background does not present a late startup prompt
+PASS startup polling observes completion even when a previous Activity owned the callback
+PASS Android back dismisses the startup prompt without reopening
+PASS same or older builds are never offered by the startup UI
+PASS all startup update choices preserve formal learning records
+PASS active paused timer blocks startup installation with concrete choices
+PASS timer cancel returns to the startup updater rather than About
+PASS canceling installation preserves the paused timer
+PASS save and continue actually finishes the timer before requesting installation
+PASS timer save creates exactly one session
+PASS repeated install action does not duplicate a saved session
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":44,"restored":true,"error":null}

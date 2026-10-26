@@ -5,7 +5,7 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
  const {M,check,fixtureInstall,state,native,click,input,evaluate,delay,shot}=h;
  const seed=require('../app/src/main/assets/seed.json');await fixtureInstall(M.migrateState(structuredClone(seed),'2026-10-19'));
  await click('.bottom-nav [data-nav=settings]');const before=await state();
- check(await evaluate('document.querySelector(".manual-entry").textContent==="使用手册"'),'settings includes a visible labelled manual entry');
+ check(await evaluate('document.querySelector("[data-action=user-manual]").textContent==="使用手册"'),'settings includes a visible labelled manual entry');
  await click('[data-action=user-manual]');
  check(await evaluate('document.querySelector("#sheet").open&&document.querySelector("#sheet-title").textContent==="使用手册"'),'manual opens in the existing in-app sheet');
  check(await evaluate('document.querySelectorAll(".manual-toc button").length===12&&document.querySelectorAll(".manual-chapter").length===12'),'all twelve current feature chapters are discoverable from the table of contents');
@@ -19,14 +19,14 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
  await click('[data-section=backup]');check(await evaluate('document.querySelector("#manual-backup").innerText.includes("覆盖不能撤销")'),'backup chapter retains the actual overwrite consequence');
  assert.deepEqual(await state(),before);check(true,'opening and reading all chapters does not change any saved learning state');
  check(await evaluate('window.handleNativeBack()===true&&!document.querySelector("#sheet").open'),'Android back handler closes the manual before leaving settings');
- await input('#weekday-time','18:45');await click('[data-action=user-manual]');await evaluate('window.onNativeResume()');await click('#sheet [data-action=close-sheet]');
+ await click('[data-layout-settings=reminders]');await input('#weekday-time','18:45');await click('#settings-editor [data-layout-done]');await click('[data-action=user-manual]');await evaluate('window.onNativeResume()');await click('#sheet [data-action=close-sheet]');await click('[data-layout-settings=reminders]');
  check(await evaluate('document.querySelector("#weekday-time").value==="18:45"&&StudyUI.snapshot().dirty.includes("reminders")'),'opening closing and background return retain unsaved settings input');
  check((await state()).settings.reminders.weekdayTime===before.settings.reminders.weekdayTime,'reading help does not submit reminder settings');
  const network=await connect();
  try{
   await network.call('Network.enable');await network.call('Network.emulateNetworkConditions',{offline:true,latency:0,downloadThroughput:0,uploadThroughput:0});
   check(await evaluate('navigator.onLine===false'),'actual WebView is offline for the reading check');
-  await click('[data-action=user-manual]');await click('[data-section=courses]');
+  await click('#settings-editor [data-layout-done]');await click('[data-action=user-manual]');await click('[data-section=courses]');
   check(await evaluate('document.querySelector("#manual-courses").open&&document.querySelector("#manual-courses").innerText.includes("保存复习清单")'),'the complete course chapter remains available offline');
  }finally{await network.call('Network.emulateNetworkConditions',{offline:false,latency:0,downloadThroughput:-1,uploadThroughput:-1});network.close();}
  await click('#sheet [data-action=close-sheet]');

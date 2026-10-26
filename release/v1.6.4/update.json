@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 21,
+  "versionName": "1.6.4",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.4/daily-study-v1.6.4.apk",
+  "apkBytes": 6630076,
+  "apkSha256": "b3ecb0ce2113f370531444cef5cee083ed21711fd4fb57be7d91023c9e5521e3",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v1.6.4\n\n- 采用白底列表界面，统一标题、细分隔线、蓝色操作和底部导航。\n- 今日页同时展示各科学习记录与参考值，点科目打开编辑，完成后手动保存。\n- 今日安排与随记各有入口，编辑后显示待保存；保留草稿恢复、空白、0 和部分记录状态。\n- 计划周列表突出总参考区间与课程摘要；复盘、日签和编辑弹层统一排版。\n- 设置改为分组列表，提醒、备份、小组件、使用手册和关于直接可见。\n- 调整窄屏与大字号布局，更新使用手册中的操作路径。\n",
+  "releaseDate": "2026-10-26"
+}

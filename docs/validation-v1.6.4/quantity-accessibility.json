@@ -1,0 +1,8353 @@
+{
+  "nodes": [
+    {
+      "nodeId": "1",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "RootWebArea"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 144
+      },
+      "name": {
+        "type": "computedString",
+        "value": "每日学习",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label",
+            "superseded": true
+          },
+          {
+            "type": "relatedElement",
+            "value": {
+              "type": "computedString",
+              "value": "每日学习"
+            },
+            "nativeSource": "title"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "url",
+          "value": {
+            "type": "string",
+            "value": "file:///android_asset/index.html"
+          }
+        }
+      ],
+      "childIds": [
+        "116"
+      ],
+      "backendDOMNodeId": 1,
+      "frameId": "EED71CB3C5CD8A2CE35EC4BFE3BBF8B4"
+    },
+    {
+      "nodeId": "116",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "1",
+      "childIds": [
+        "210",
+        "222",
+        "224",
+        "234",
+        "271",
+        "278",
+        "289",
+        "299",
+        "305",
+        "315",
+        "321",
+        "331",
+        "337",
+        "347",
+        "353",
+        "363",
+        "373",
+        "379",
+        "387",
+        "626",
+        "630",
+        "632",
+        "644",
+        "648",
+        "650",
+        "662",
+        "666",
+        "668",
+        "680",
+        "684",
+        "686",
+        "698",
+        "702",
+        "704",
+        "716",
+        "720",
+        "722",
+        "784",
+        "791",
+        "796",
+        "802",
+        "810",
+        "35"
+      ],
+      "backendDOMNodeId": 116
+    },
+    {
+      "nodeId": "210",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 33
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 210
+    },
+    {
+      "nodeId": "222",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 220
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 222
+    },
+    {
+      "nodeId": "224",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "225",
+        "95"
+      ],
+      "backendDOMNodeId": 224
+    },
+    {
+      "nodeId": "225",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenElement",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "224",
+      "childIds": [
+        "226"
+      ],
+      "backendDOMNodeId": 225
+    },
+    {
+      "nodeId": "226",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 225
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "225",
+      "childIds": [
+        "227"
+      ],
+      "backendDOMNodeId": 226
+    },
+    {
+      "nodeId": "227",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 225
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "226",
+      "childIds": [],
+      "backendDOMNodeId": 227
+    },
+    {
+      "nodeId": "95",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "224",
+      "childIds": [
+        "230"
+      ],
+      "backendDOMNodeId": 95
+    },
+    {
+      "nodeId": "230",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "95",
+      "childIds": [],
+      "backendDOMNodeId": 230
+    },
+    {
+      "nodeId": "234",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 232
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 234
+    },
+    {
+      "nodeId": "271",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 269
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 271
+    },
+    {
+      "nodeId": "278",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 278
+    },
+    {
+      "nodeId": "289",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 287
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 289
+    },
+    {
+      "nodeId": "299",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 297
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 299
+    },
+    {
+      "nodeId": "305",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 303
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 305
+    },
+    {
+      "nodeId": "315",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 313
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 315
+    },
+    {
+      "nodeId": "321",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 319
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 321
+    },
+    {
+      "nodeId": "331",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 329
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 331
+    },
+    {
+      "nodeId": "337",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 335
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 337
+    },
+    {
+      "nodeId": "347",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 345
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 347
+    },
+    {
+      "nodeId": "353",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 351
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 353
+    },
+    {
+      "nodeId": "363",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 361
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 363
+    },
+    {
+      "nodeId": "373",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 371
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 373
+    },
+    {
+      "nodeId": "379",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 377
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 379
+    },
+    {
+      "nodeId": "387",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "dialog"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 35
+      },
+      "name": {
+        "type": "computedString",
+        "value": "数量练习",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "value": {
+              "type": "computedString",
+              "value": "数量练习"
+            },
+            "attribute": "aria-labelledby",
+            "attributeValue": {
+              "type": "idrefList",
+              "value": "daily-record-editor-title",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 390,
+                  "idref": "daily-record-editor-title",
+                  "text": "数量练习"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label",
+            "superseded": true
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "modal",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "labelledby",
+          "value": {
+            "type": "nodeList",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 390,
+                "idref": "daily-record-editor-title",
+                "text": "数量练习"
+              }
+            ]
+          }
+        }
+      ],
+      "parentId": "116",
+      "childIds": [
+        "388",
+        "396",
+        "399",
+        "400",
+        "408",
+        "411",
+        "413",
+        "429",
+        "432",
+        "433",
+        "441",
+        "444",
+        "446",
+        "464",
+        "465",
+        "466",
+        "471",
+        "472",
+        "473",
+        "498",
+        "500",
+        "507",
+        "509",
+        "520",
+        "554",
+        "555",
+        "562",
+        "564",
+        "580",
+        "582",
+        "584",
+        "586",
+        "589",
+        "591",
+        "597",
+        "598",
+        "599"
+      ],
+      "backendDOMNodeId": 387
+    },
+    {
+      "nodeId": "626",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "96",
+        "627"
+      ],
+      "backendDOMNodeId": 626
+    },
+    {
+      "nodeId": "96",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "626",
+      "childIds": [],
+      "backendDOMNodeId": 96
+    },
+    {
+      "nodeId": "627",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "626",
+      "childIds": [
+        "953",
+        "628"
+      ],
+      "backendDOMNodeId": 627
+    },
+    {
+      "nodeId": "953",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "627",
+      "childIds": [],
+      "backendDOMNodeId": 953
+    },
+    {
+      "nodeId": "628",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "627",
+      "childIds": [
+        "954"
+      ],
+      "backendDOMNodeId": 628
+    },
+    {
+      "nodeId": "954",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "628",
+      "childIds": [],
+      "backendDOMNodeId": 954
+    },
+    {
+      "nodeId": "630",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "634"
+      ],
+      "backendDOMNodeId": 630
+    },
+    {
+      "nodeId": "634",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "630",
+      "childIds": [],
+      "backendDOMNodeId": 634
+    },
+    {
+      "nodeId": "632",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "635",
+        "638"
+      ],
+      "backendDOMNodeId": 632
+    },
+    {
+      "nodeId": "635",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "632",
+      "childIds": [
+        "636",
+        "637"
+      ],
+      "backendDOMNodeId": 635
+    },
+    {
+      "nodeId": "636",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "635",
+      "childIds": [
+        "956"
+      ],
+      "backendDOMNodeId": 636
+    },
+    {
+      "nodeId": "956",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "636",
+      "childIds": [],
+      "backendDOMNodeId": 956
+    },
+    {
+      "nodeId": "637",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "635",
+      "childIds": [],
+      "backendDOMNodeId": 637
+    },
+    {
+      "nodeId": "638",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "632",
+      "childIds": [
+        "639",
+        "641"
+      ],
+      "backendDOMNodeId": 638
+    },
+    {
+      "nodeId": "639",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "638",
+      "childIds": [
+        "957"
+      ],
+      "backendDOMNodeId": 639
+    },
+    {
+      "nodeId": "957",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "639",
+      "childIds": [],
+      "backendDOMNodeId": 957
+    },
+    {
+      "nodeId": "641",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "638",
+      "childIds": [
+        "642"
+      ],
+      "backendDOMNodeId": 641
+    },
+    {
+      "nodeId": "642",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "641",
+      "childIds": [],
+      "backendDOMNodeId": 642
+    },
+    {
+      "nodeId": "644",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "99",
+        "645"
+      ],
+      "backendDOMNodeId": 644
+    },
+    {
+      "nodeId": "99",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "644",
+      "childIds": [],
+      "backendDOMNodeId": 99
+    },
+    {
+      "nodeId": "645",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "644",
+      "childIds": [
+        "958",
+        "646"
+      ],
+      "backendDOMNodeId": 645
+    },
+    {
+      "nodeId": "958",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "645",
+      "childIds": [],
+      "backendDOMNodeId": 958
+    },
+    {
+      "nodeId": "646",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "645",
+      "childIds": [
+        "959"
+      ],
+      "backendDOMNodeId": 646
+    },
+    {
+      "nodeId": "959",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "646",
+      "childIds": [],
+      "backendDOMNodeId": 959
+    },
+    {
+      "nodeId": "648",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "652"
+      ],
+      "backendDOMNodeId": 648
+    },
+    {
+      "nodeId": "652",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "648",
+      "childIds": [],
+      "backendDOMNodeId": 652
+    },
+    {
+      "nodeId": "650",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "653",
+        "656"
+      ],
+      "backendDOMNodeId": 650
+    },
+    {
+      "nodeId": "653",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "650",
+      "childIds": [
+        "654",
+        "655"
+      ],
+      "backendDOMNodeId": 653
+    },
+    {
+      "nodeId": "654",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "653",
+      "childIds": [
+        "961"
+      ],
+      "backendDOMNodeId": 654
+    },
+    {
+      "nodeId": "961",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "654",
+      "childIds": [],
+      "backendDOMNodeId": 961
+    },
+    {
+      "nodeId": "655",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "653",
+      "childIds": [],
+      "backendDOMNodeId": 655
+    },
+    {
+      "nodeId": "656",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "650",
+      "childIds": [
+        "657",
+        "659"
+      ],
+      "backendDOMNodeId": 656
+    },
+    {
+      "nodeId": "657",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "656",
+      "childIds": [
+        "962"
+      ],
+      "backendDOMNodeId": 657
+    },
+    {
+      "nodeId": "962",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "657",
+      "childIds": [],
+      "backendDOMNodeId": 962
+    },
+    {
+      "nodeId": "659",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "656",
+      "childIds": [
+        "660"
+      ],
+      "backendDOMNodeId": 659
+    },
+    {
+      "nodeId": "660",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "659",
+      "childIds": [],
+      "backendDOMNodeId": 660
+    },
+    {
+      "nodeId": "662",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "102",
+        "663"
+      ],
+      "backendDOMNodeId": 662
+    },
+    {
+      "nodeId": "102",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "662",
+      "childIds": [],
+      "backendDOMNodeId": 102
+    },
+    {
+      "nodeId": "663",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "662",
+      "childIds": [
+        "963",
+        "664"
+      ],
+      "backendDOMNodeId": 663
+    },
+    {
+      "nodeId": "963",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "663",
+      "childIds": [],
+      "backendDOMNodeId": 963
+    },
+    {
+      "nodeId": "664",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "663",
+      "childIds": [
+        "964"
+      ],
+      "backendDOMNodeId": 664
+    },
+    {
+      "nodeId": "964",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "664",
+      "childIds": [],
+      "backendDOMNodeId": 964
+    },
+    {
+      "nodeId": "666",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "670"
+      ],
+      "backendDOMNodeId": 666
+    },
+    {
+      "nodeId": "670",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "666",
+      "childIds": [],
+      "backendDOMNodeId": 670
+    },
+    {
+      "nodeId": "668",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "671",
+        "674"
+      ],
+      "backendDOMNodeId": 668
+    },
+    {
+      "nodeId": "671",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "668",
+      "childIds": [
+        "672",
+        "673"
+      ],
+      "backendDOMNodeId": 671
+    },
+    {
+      "nodeId": "672",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "671",
+      "childIds": [
+        "966"
+      ],
+      "backendDOMNodeId": 672
+    },
+    {
+      "nodeId": "966",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "672",
+      "childIds": [],
+      "backendDOMNodeId": 966
+    },
+    {
+      "nodeId": "673",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "671",
+      "childIds": [],
+      "backendDOMNodeId": 673
+    },
+    {
+      "nodeId": "674",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "668",
+      "childIds": [
+        "675",
+        "677"
+      ],
+      "backendDOMNodeId": 674
+    },
+    {
+      "nodeId": "675",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "674",
+      "childIds": [
+        "967"
+      ],
+      "backendDOMNodeId": 675
+    },
+    {
+      "nodeId": "967",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "675",
+      "childIds": [],
+      "backendDOMNodeId": 967
+    },
+    {
+      "nodeId": "677",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "674",
+      "childIds": [
+        "678"
+      ],
+      "backendDOMNodeId": 677
+    },
+    {
+      "nodeId": "678",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "677",
+      "childIds": [],
+      "backendDOMNodeId": 678
+    },
+    {
+      "nodeId": "680",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "105",
+        "681"
+      ],
+      "backendDOMNodeId": 680
+    },
+    {
+      "nodeId": "105",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "680",
+      "childIds": [],
+      "backendDOMNodeId": 105
+    },
+    {
+      "nodeId": "681",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "680",
+      "childIds": [
+        "968",
+        "682"
+      ],
+      "backendDOMNodeId": 681
+    },
+    {
+      "nodeId": "968",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "681",
+      "childIds": [],
+      "backendDOMNodeId": 968
+    },
+    {
+      "nodeId": "682",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "681",
+      "childIds": [
+        "969"
+      ],
+      "backendDOMNodeId": 682
+    },
+    {
+      "nodeId": "969",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "682",
+      "childIds": [],
+      "backendDOMNodeId": 969
+    },
+    {
+      "nodeId": "684",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "688"
+      ],
+      "backendDOMNodeId": 684
+    },
+    {
+      "nodeId": "688",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "684",
+      "childIds": [],
+      "backendDOMNodeId": 688
+    },
+    {
+      "nodeId": "686",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "689",
+        "692"
+      ],
+      "backendDOMNodeId": 686
+    },
+    {
+      "nodeId": "689",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "686",
+      "childIds": [
+        "690",
+        "691"
+      ],
+      "backendDOMNodeId": 689
+    },
+    {
+      "nodeId": "690",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "689",
+      "childIds": [
+        "971"
+      ],
+      "backendDOMNodeId": 690
+    },
+    {
+      "nodeId": "971",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "690",
+      "childIds": [],
+      "backendDOMNodeId": 971
+    },
+    {
+      "nodeId": "691",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "689",
+      "childIds": [],
+      "backendDOMNodeId": 691
+    },
+    {
+      "nodeId": "692",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "686",
+      "childIds": [
+        "693",
+        "695"
+      ],
+      "backendDOMNodeId": 692
+    },
+    {
+      "nodeId": "693",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "692",
+      "childIds": [
+        "972"
+      ],
+      "backendDOMNodeId": 693
+    },
+    {
+      "nodeId": "972",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "693",
+      "childIds": [],
+      "backendDOMNodeId": 972
+    },
+    {
+      "nodeId": "695",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "692",
+      "childIds": [
+        "696"
+      ],
+      "backendDOMNodeId": 695
+    },
+    {
+      "nodeId": "696",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "695",
+      "childIds": [],
+      "backendDOMNodeId": 696
+    },
+    {
+      "nodeId": "698",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "108",
+        "699"
+      ],
+      "backendDOMNodeId": 698
+    },
+    {
+      "nodeId": "108",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "698",
+      "childIds": [],
+      "backendDOMNodeId": 108
+    },
+    {
+      "nodeId": "699",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "698",
+      "childIds": [
+        "973",
+        "700"
+      ],
+      "backendDOMNodeId": 699
+    },
+    {
+      "nodeId": "973",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "699",
+      "childIds": [],
+      "backendDOMNodeId": 973
+    },
+    {
+      "nodeId": "700",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "699",
+      "childIds": [
+        "974"
+      ],
+      "backendDOMNodeId": 700
+    },
+    {
+      "nodeId": "974",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "700",
+      "childIds": [],
+      "backendDOMNodeId": 974
+    },
+    {
+      "nodeId": "702",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "706"
+      ],
+      "backendDOMNodeId": 702
+    },
+    {
+      "nodeId": "706",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "702",
+      "childIds": [],
+      "backendDOMNodeId": 706
+    },
+    {
+      "nodeId": "704",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "707",
+        "710"
+      ],
+      "backendDOMNodeId": 704
+    },
+    {
+      "nodeId": "707",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "704",
+      "childIds": [
+        "708",
+        "709"
+      ],
+      "backendDOMNodeId": 707
+    },
+    {
+      "nodeId": "708",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "707",
+      "childIds": [
+        "976"
+      ],
+      "backendDOMNodeId": 708
+    },
+    {
+      "nodeId": "976",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "708",
+      "childIds": [],
+      "backendDOMNodeId": 976
+    },
+    {
+      "nodeId": "709",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "707",
+      "childIds": [],
+      "backendDOMNodeId": 709
+    },
+    {
+      "nodeId": "710",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "704",
+      "childIds": [
+        "711",
+        "713"
+      ],
+      "backendDOMNodeId": 710
+    },
+    {
+      "nodeId": "711",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "710",
+      "childIds": [
+        "977"
+      ],
+      "backendDOMNodeId": 711
+    },
+    {
+      "nodeId": "977",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "711",
+      "childIds": [],
+      "backendDOMNodeId": 977
+    },
+    {
+      "nodeId": "713",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "710",
+      "childIds": [
+        "714"
+      ],
+      "backendDOMNodeId": 713
+    },
+    {
+      "nodeId": "714",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "713",
+      "childIds": [],
+      "backendDOMNodeId": 714
+    },
+    {
+      "nodeId": "716",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "111",
+        "717"
+      ],
+      "backendDOMNodeId": 716
+    },
+    {
+      "nodeId": "111",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "716",
+      "childIds": [],
+      "backendDOMNodeId": 111
+    },
+    {
+      "nodeId": "717",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "716",
+      "childIds": [
+        "978",
+        "718"
+      ],
+      "backendDOMNodeId": 717
+    },
+    {
+      "nodeId": "978",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "717",
+      "childIds": [],
+      "backendDOMNodeId": 978
+    },
+    {
+      "nodeId": "718",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "717",
+      "childIds": [
+        "979"
+      ],
+      "backendDOMNodeId": 718
+    },
+    {
+      "nodeId": "979",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "718",
+      "childIds": [],
+      "backendDOMNodeId": 979
+    },
+    {
+      "nodeId": "720",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "724"
+      ],
+      "backendDOMNodeId": 720
+    },
+    {
+      "nodeId": "724",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "720",
+      "childIds": [],
+      "backendDOMNodeId": 724
+    },
+    {
+      "nodeId": "722",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [
+        "725",
+        "728"
+      ],
+      "backendDOMNodeId": 722
+    },
+    {
+      "nodeId": "725",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "722",
+      "childIds": [
+        "726",
+        "727"
+      ],
+      "backendDOMNodeId": 725
+    },
+    {
+      "nodeId": "726",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "725",
+      "childIds": [
+        "981"
+      ],
+      "backendDOMNodeId": 726
+    },
+    {
+      "nodeId": "981",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "726",
+      "childIds": [],
+      "backendDOMNodeId": 981
+    },
+    {
+      "nodeId": "727",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "725",
+      "childIds": [],
+      "backendDOMNodeId": 727
+    },
+    {
+      "nodeId": "728",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "722",
+      "childIds": [
+        "729",
+        "731"
+      ],
+      "backendDOMNodeId": 728
+    },
+    {
+      "nodeId": "729",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "728",
+      "childIds": [
+        "982"
+      ],
+      "backendDOMNodeId": 729
+    },
+    {
+      "nodeId": "982",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "729",
+      "childIds": [],
+      "backendDOMNodeId": 982
+    },
+    {
+      "nodeId": "731",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "728",
+      "childIds": [
+        "732"
+      ],
+      "backendDOMNodeId": 731
+    },
+    {
+      "nodeId": "732",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "731",
+      "childIds": [],
+      "backendDOMNodeId": 732
+    },
+    {
+      "nodeId": "784",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 784
+    },
+    {
+      "nodeId": "791",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 791
+    },
+    {
+      "nodeId": "796",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 796
+    },
+    {
+      "nodeId": "802",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 802
+    },
+    {
+      "nodeId": "810",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 810
+    },
+    {
+      "nodeId": "35",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "activeModalDialog",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 387,
+                "idref": "daily-record-editor"
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "116",
+      "childIds": [],
+      "backendDOMNodeId": 35
+    },
+    {
+      "nodeId": "388",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "generic"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 88
+      },
+      "name": {
+        "type": "computedString",
+        "value": "",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "387",
+      "childIds": [
+        "389",
+        "390",
+        "391"
+      ],
+      "backendDOMNodeId": 388
+    },
+    {
+      "nodeId": "396",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "886"
+      ],
+      "backendDOMNodeId": 396
+    },
+    {
+      "nodeId": "886",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "396",
+      "childIds": [],
+      "backendDOMNodeId": 886
+    },
+    {
+      "nodeId": "399",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 399
+    },
+    {
+      "nodeId": "400",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 400
+    },
+    {
+      "nodeId": "408",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 406
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 408
+    },
+    {
+      "nodeId": "411",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "415"
+      ],
+      "backendDOMNodeId": 411
+    },
+    {
+      "nodeId": "415",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "411",
+      "childIds": [],
+      "backendDOMNodeId": 415
+    },
+    {
+      "nodeId": "413",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "417",
+        "421"
+      ],
+      "backendDOMNodeId": 413
+    },
+    {
+      "nodeId": "417",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "413",
+      "childIds": [
+        "418",
+        "419",
+        "420"
+      ],
+      "backendDOMNodeId": 417
+    },
+    {
+      "nodeId": "418",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "417",
+      "childIds": [
+        "891"
+      ],
+      "backendDOMNodeId": 418
+    },
+    {
+      "nodeId": "891",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "418",
+      "childIds": [],
+      "backendDOMNodeId": 891
+    },
+    {
+      "nodeId": "419",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "417",
+      "childIds": [],
+      "backendDOMNodeId": 419
+    },
+    {
+      "nodeId": "420",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "417",
+      "childIds": [],
+      "backendDOMNodeId": 420
+    },
+    {
+      "nodeId": "421",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "413",
+      "childIds": [
+        "422",
+        "423",
+        "424"
+      ],
+      "backendDOMNodeId": 421
+    },
+    {
+      "nodeId": "422",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "421",
+      "childIds": [
+        "892"
+      ],
+      "backendDOMNodeId": 422
+    },
+    {
+      "nodeId": "892",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "422",
+      "childIds": [],
+      "backendDOMNodeId": 892
+    },
+    {
+      "nodeId": "423",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "421",
+      "childIds": [],
+      "backendDOMNodeId": 423
+    },
+    {
+      "nodeId": "424",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "421",
+      "childIds": [],
+      "backendDOMNodeId": 424
+    },
+    {
+      "nodeId": "429",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "894"
+      ],
+      "backendDOMNodeId": 429
+    },
+    {
+      "nodeId": "894",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "429",
+      "childIds": [],
+      "backendDOMNodeId": 894
+    },
+    {
+      "nodeId": "432",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 432
+    },
+    {
+      "nodeId": "433",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 433
+    },
+    {
+      "nodeId": "441",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "ariaHiddenSubtree",
+          "value": {
+            "type": "idref",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 439
+              }
+            ]
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 441
+    },
+    {
+      "nodeId": "444",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "448"
+      ],
+      "backendDOMNodeId": 444
+    },
+    {
+      "nodeId": "448",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "444",
+      "childIds": [],
+      "backendDOMNodeId": 448
+    },
+    {
+      "nodeId": "446",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "450",
+        "454"
+      ],
+      "backendDOMNodeId": 446
+    },
+    {
+      "nodeId": "450",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "446",
+      "childIds": [
+        "451",
+        "452",
+        "453"
+      ],
+      "backendDOMNodeId": 450
+    },
+    {
+      "nodeId": "451",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "450",
+      "childIds": [
+        "899"
+      ],
+      "backendDOMNodeId": 451
+    },
+    {
+      "nodeId": "899",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "451",
+      "childIds": [],
+      "backendDOMNodeId": 899
+    },
+    {
+      "nodeId": "452",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "450",
+      "childIds": [],
+      "backendDOMNodeId": 452
+    },
+    {
+      "nodeId": "453",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "450",
+      "childIds": [],
+      "backendDOMNodeId": 453
+    },
+    {
+      "nodeId": "454",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "446",
+      "childIds": [
+        "455",
+        "456",
+        "457"
+      ],
+      "backendDOMNodeId": 454
+    },
+    {
+      "nodeId": "455",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "454",
+      "childIds": [
+        "900"
+      ],
+      "backendDOMNodeId": 455
+    },
+    {
+      "nodeId": "900",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "455",
+      "childIds": [],
+      "backendDOMNodeId": 900
+    },
+    {
+      "nodeId": "456",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "454",
+      "childIds": [],
+      "backendDOMNodeId": 456
+    },
+    {
+      "nodeId": "457",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "454",
+      "childIds": [],
+      "backendDOMNodeId": 457
+    },
+    {
+      "nodeId": "464",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "902"
+      ],
+      "backendDOMNodeId": 464
+    },
+    {
+      "nodeId": "902",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "464",
+      "childIds": [],
+      "backendDOMNodeId": 902
+    },
+    {
+      "nodeId": "465",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 465
+    },
+    {
+      "nodeId": "466",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 466
+    },
+    {
+      "nodeId": "471",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "903"
+      ],
+      "backendDOMNodeId": 471
+    },
+    {
+      "nodeId": "903",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "471",
+      "childIds": [],
+      "backendDOMNodeId": 903
+    },
+    {
+      "nodeId": "472",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 472
+    },
+    {
+      "nodeId": "473",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 473
+    },
+    {
+      "nodeId": "498",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "502"
+      ],
+      "backendDOMNodeId": 498
+    },
+    {
+      "nodeId": "502",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "498",
+      "childIds": [],
+      "backendDOMNodeId": 502
+    },
+    {
+      "nodeId": "500",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "504"
+      ],
+      "backendDOMNodeId": 500
+    },
+    {
+      "nodeId": "504",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "500",
+      "childIds": [],
+      "backendDOMNodeId": 504
+    },
+    {
+      "nodeId": "507",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "511"
+      ],
+      "backendDOMNodeId": 507
+    },
+    {
+      "nodeId": "511",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "507",
+      "childIds": [],
+      "backendDOMNodeId": 511
+    },
+    {
+      "nodeId": "509",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "512",
+        "516"
+      ],
+      "backendDOMNodeId": 509
+    },
+    {
+      "nodeId": "512",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "509",
+      "childIds": [
+        "513",
+        "514",
+        "515"
+      ],
+      "backendDOMNodeId": 512
+    },
+    {
+      "nodeId": "513",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "512",
+      "childIds": [
+        "919"
+      ],
+      "backendDOMNodeId": 513
+    },
+    {
+      "nodeId": "919",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "513",
+      "childIds": [],
+      "backendDOMNodeId": 919
+    },
+    {
+      "nodeId": "514",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "512",
+      "childIds": [],
+      "backendDOMNodeId": 514
+    },
+    {
+      "nodeId": "515",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "512",
+      "childIds": [],
+      "backendDOMNodeId": 515
+    },
+    {
+      "nodeId": "516",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "509",
+      "childIds": [
+        "517",
+        "518",
+        "519"
+      ],
+      "backendDOMNodeId": 516
+    },
+    {
+      "nodeId": "517",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "516",
+      "childIds": [
+        "920"
+      ],
+      "backendDOMNodeId": 517
+    },
+    {
+      "nodeId": "920",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "517",
+      "childIds": [],
+      "backendDOMNodeId": 920
+    },
+    {
+      "nodeId": "518",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "516",
+      "childIds": [],
+      "backendDOMNodeId": 518
+    },
+    {
+      "nodeId": "519",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "516",
+      "childIds": [],
+      "backendDOMNodeId": 519
+    },
+    {
+      "nodeId": "520",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "group"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 93
+      },
+      "name": {
+        "type": "computedString",
+        "value": "数量练习",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "type": "computedString",
+              "value": "数量练习"
+            },
+            "attribute": "aria-label",
+            "attributeValue": {
+              "type": "string",
+              "value": "数量练习"
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "387",
+      "childIds": [
+        "521"
+      ],
+      "backendDOMNodeId": 520
+    },
+    {
+      "nodeId": "554",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 554
+    },
+    {
+      "nodeId": "555",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 555
+    },
+    {
+      "nodeId": "562",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "566"
+      ],
+      "backendDOMNodeId": 562
+    },
+    {
+      "nodeId": "566",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "562",
+      "childIds": [],
+      "backendDOMNodeId": 566
+    },
+    {
+      "nodeId": "564",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "568",
+        "572"
+      ],
+      "backendDOMNodeId": 564
+    },
+    {
+      "nodeId": "568",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "564",
+      "childIds": [
+        "569",
+        "570",
+        "571"
+      ],
+      "backendDOMNodeId": 568
+    },
+    {
+      "nodeId": "569",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "568",
+      "childIds": [
+        "933"
+      ],
+      "backendDOMNodeId": 569
+    },
+    {
+      "nodeId": "933",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "569",
+      "childIds": [],
+      "backendDOMNodeId": 933
+    },
+    {
+      "nodeId": "570",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "568",
+      "childIds": [],
+      "backendDOMNodeId": 570
+    },
+    {
+      "nodeId": "571",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "568",
+      "childIds": [],
+      "backendDOMNodeId": 571
+    },
+    {
+      "nodeId": "572",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "564",
+      "childIds": [
+        "573",
+        "574",
+        "575"
+      ],
+      "backendDOMNodeId": 572
+    },
+    {
+      "nodeId": "573",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "572",
+      "childIds": [
+        "934"
+      ],
+      "backendDOMNodeId": 573
+    },
+    {
+      "nodeId": "934",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "573",
+      "childIds": [],
+      "backendDOMNodeId": 934
+    },
+    {
+      "nodeId": "574",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "572",
+      "childIds": [],
+      "backendDOMNodeId": 574
+    },
+    {
+      "nodeId": "575",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "572",
+      "childIds": [],
+      "backendDOMNodeId": 575
+    },
+    {
+      "nodeId": "580",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "89",
+        "581"
+      ],
+      "backendDOMNodeId": 580
+    },
+    {
+      "nodeId": "89",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "580",
+      "childIds": [],
+      "backendDOMNodeId": 89
+    },
+    {
+      "nodeId": "581",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "580",
+      "childIds": [
+        "936"
+      ],
+      "backendDOMNodeId": 581
+    },
+    {
+      "nodeId": "936",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "581",
+      "childIds": [],
+      "backendDOMNodeId": 936
+    },
+    {
+      "nodeId": "582",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "90",
+        "583"
+      ],
+      "backendDOMNodeId": 582
+    },
+    {
+      "nodeId": "90",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "582",
+      "childIds": [],
+      "backendDOMNodeId": 90
+    },
+    {
+      "nodeId": "583",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "582",
+      "childIds": [
+        "937"
+      ],
+      "backendDOMNodeId": 583
+    },
+    {
+      "nodeId": "937",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "583",
+      "childIds": [],
+      "backendDOMNodeId": 937
+    },
+    {
+      "nodeId": "584",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "91",
+        "585"
+      ],
+      "backendDOMNodeId": 584
+    },
+    {
+      "nodeId": "91",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "584",
+      "childIds": [],
+      "backendDOMNodeId": 91
+    },
+    {
+      "nodeId": "585",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "584",
+      "childIds": [
+        "938"
+      ],
+      "backendDOMNodeId": 585
+    },
+    {
+      "nodeId": "938",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "585",
+      "childIds": [],
+      "backendDOMNodeId": 938
+    },
+    {
+      "nodeId": "586",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "92",
+        "587"
+      ],
+      "backendDOMNodeId": 586
+    },
+    {
+      "nodeId": "92",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "586",
+      "childIds": [],
+      "backendDOMNodeId": 92
+    },
+    {
+      "nodeId": "587",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "586",
+      "childIds": [
+        "939"
+      ],
+      "backendDOMNodeId": 587
+    },
+    {
+      "nodeId": "939",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "587",
+      "childIds": [],
+      "backendDOMNodeId": 939
+    },
+    {
+      "nodeId": "589",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "940"
+      ],
+      "backendDOMNodeId": 589
+    },
+    {
+      "nodeId": "940",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "589",
+      "childIds": [],
+      "backendDOMNodeId": 940
+    },
+    {
+      "nodeId": "591",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "592",
+        "593",
+        "594"
+      ],
+      "backendDOMNodeId": 591
+    },
+    {
+      "nodeId": "592",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "591",
+      "childIds": [],
+      "backendDOMNodeId": 592
+    },
+    {
+      "nodeId": "593",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "591",
+      "childIds": [],
+      "backendDOMNodeId": 593
+    },
+    {
+      "nodeId": "594",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "591",
+      "childIds": [],
+      "backendDOMNodeId": 594
+    },
+    {
+      "nodeId": "597",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [
+        "941"
+      ],
+      "backendDOMNodeId": 597
+    },
+    {
+      "nodeId": "941",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "597",
+      "childIds": [],
+      "backendDOMNodeId": 941
+    },
+    {
+      "nodeId": "598",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 598
+    },
+    {
+      "nodeId": "599",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "387",
+      "childIds": [],
+      "backendDOMNodeId": 599
+    },
+    {
+      "nodeId": "389",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "button"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 9
+      },
+      "name": {
+        "type": "computedString",
+        "value": "关闭编辑",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "type": "computedString",
+              "value": "关闭编辑"
+            },
+            "attribute": "aria-label",
+            "attributeValue": {
+              "type": "string",
+              "value": "关闭编辑"
+            }
+          },
+          {
+            "type": "relatedElement",
+            "superseded": true,
+            "nativeSource": "label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "×"
+            },
+            "superseded": true
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "invalid",
+          "value": {
+            "type": "token",
+            "value": "false"
+          }
+        },
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "focused",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        }
+      ],
+      "parentId": "388",
+      "childIds": [
+        "882"
+      ],
+      "backendDOMNodeId": 389
+    },
+    {
+      "nodeId": "390",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "heading"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 96
+      },
+      "name": {
+        "type": "computedString",
+        "value": "数量练习",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "数量练习"
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "level",
+          "value": {
+            "type": "integer",
+            "value": 2
+          }
+        }
+      ],
+      "parentId": "388",
+      "childIds": [
+        "883"
+      ],
+      "backendDOMNodeId": 390
+    },
+    {
+      "nodeId": "391",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "button"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 9
+      },
+      "name": {
+        "type": "computedString",
+        "value": "完成",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "relatedElement",
+            "nativeSource": "label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "完成"
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "invalid",
+          "value": {
+            "type": "token",
+            "value": "false"
+          }
+        },
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        }
+      ],
+      "parentId": "388",
+      "childIds": [
+        "884"
+      ],
+      "backendDOMNodeId": 391
+    },
+    {
+      "nodeId": "521",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "520",
+      "childIds": [
+        "522",
+        "524",
+        "533"
+      ],
+      "backendDOMNodeId": 521
+    },
+    {
+      "nodeId": "522",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "521",
+      "childIds": [
+        "523"
+      ],
+      "backendDOMNodeId": 522
+    },
+    {
+      "nodeId": "523",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "button"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 9
+      },
+      "name": {
+        "type": "computedString",
+        "value": "修改数量练习每日目标",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "type": "computedString",
+              "value": "修改数量练习每日目标"
+            },
+            "attribute": "aria-label",
+            "attributeValue": {
+              "type": "string",
+              "value": "修改数量练习每日目标"
+            }
+          },
+          {
+            "type": "relatedElement",
+            "superseded": true,
+            "nativeSource": "label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "目标 10 套"
+            },
+            "superseded": true
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "invalid",
+          "value": {
+            "type": "token",
+            "value": "false"
+          }
+        },
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        }
+      ],
+      "parentId": "522",
+      "childIds": [
+        "921"
+      ],
+      "backendDOMNodeId": 523
+    },
+    {
+      "nodeId": "524",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "521",
+      "childIds": [
+        "525"
+      ],
+      "backendDOMNodeId": 524
+    },
+    {
+      "nodeId": "525",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "524",
+      "childIds": [
+        "83",
+        "531"
+      ],
+      "backendDOMNodeId": 525
+    },
+    {
+      "nodeId": "83",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "spinbutton"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 156
+      },
+      "name": {
+        "type": "computedString",
+        "value": "数量练习实际数量（套）",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "type": "computedString",
+              "value": "数量练习实际数量（套）"
+            },
+            "attribute": "aria-label",
+            "attributeValue": {
+              "type": "string",
+              "value": "数量练习实际数量（套）"
+            }
+          },
+          {
+            "type": "relatedElement",
+            "superseded": true,
+            "nativeSource": "label"
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          },
+          {
+            "type": "placeholder",
+            "value": {
+              "type": "computedString",
+              "value": "未记录"
+            },
+            "attribute": "placeholder",
+            "attributeValue": {
+              "type": "string",
+              "value": "未记录"
+            },
+            "superseded": true
+          },
+          {
+            "type": "placeholder",
+            "attribute": "aria-placeholder",
+            "superseded": true
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "value": {
+        "type": "number",
+        "value": 7
+      },
+      "properties": [
+        {
+          "name": "invalid",
+          "value": {
+            "type": "token",
+            "value": "false"
+          }
+        },
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "editable",
+          "value": {
+            "type": "token",
+            "value": "plaintext"
+          }
+        },
+        {
+          "name": "settable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "required",
+          "value": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "name": "valuemin",
+          "value": {
+            "type": "number",
+            "value": 0
+          }
+        },
+        {
+          "name": "valuemax",
+          "value": {
+            "type": "number",
+            "value": 100000
+          }
+        },
+        {
+          "name": "valuetext",
+          "value": {
+            "type": "string",
+            "value": "7"
+          }
+        }
+      ],
+      "parentId": "525",
+      "childIds": [
+        "526",
+        "527"
+      ],
+      "backendDOMNodeId": 83
+    },
+    {
+      "nodeId": "531",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "525",
+      "childIds": [
+        "923"
+      ],
+      "backendDOMNodeId": 531
+    },
+    {
+      "nodeId": "923",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "实际 套",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "实际 套"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "531",
+      "childIds": [],
+      "backendDOMNodeId": 923
+    },
+    {
+      "nodeId": "533",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "group"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 34
+      },
+      "name": {
+        "type": "computedString",
+        "value": "",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "attribute",
+            "attribute": "title"
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "521",
+      "childIds": [
+        "534",
+        "536"
+      ],
+      "backendDOMNodeId": 533
+    },
+    {
+      "nodeId": "882",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "×",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "×"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "389",
+      "childIds": [],
+      "backendDOMNodeId": 882
+    },
+    {
+      "nodeId": "883",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "数量练习",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "数量练习"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "390",
+      "childIds": [],
+      "backendDOMNodeId": 883
+    },
+    {
+      "nodeId": "884",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "完成",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "完成"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "391",
+      "childIds": [],
+      "backendDOMNodeId": 884
+    },
+    {
+      "nodeId": "921",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "目标 10 套",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "目标 10 套"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "523",
+      "childIds": [],
+      "backendDOMNodeId": 921
+    },
+    {
+      "nodeId": "526",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "83",
+      "childIds": [],
+      "backendDOMNodeId": 526
+    },
+    {
+      "nodeId": "527",
+      "ignored": true,
+      "ignoredReasons": [],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "83",
+      "childIds": [
+        "529"
+      ],
+      "backendDOMNodeId": 527
+    },
+    {
+      "nodeId": "529",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "generic"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 88
+      },
+      "name": {
+        "type": "computedString",
+        "value": "",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "editable",
+          "value": {
+            "type": "token",
+            "value": "plaintext"
+          }
+        }
+      ],
+      "parentId": "527",
+      "childIds": [
+        "922"
+      ],
+      "backendDOMNodeId": 529
+    },
+    {
+      "nodeId": "534",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "533",
+      "childIds": [
+        "538"
+      ],
+      "backendDOMNodeId": 534
+    },
+    {
+      "nodeId": "538",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "DisclosureTriangle"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 37
+      },
+      "name": {
+        "type": "computedString",
+        "value": "内容与问题 展开记录 ＋",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "内容与问题 展开记录 ＋"
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "expanded",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": false
+          }
+        }
+      ],
+      "parentId": "534",
+      "childIds": [
+        "924",
+        "539",
+        "926"
+      ],
+      "backendDOMNodeId": 538
+    },
+    {
+      "nodeId": "536",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "533",
+      "childIds": [
+        "540",
+        "544"
+      ],
+      "backendDOMNodeId": 536
+    },
+    {
+      "nodeId": "540",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "536",
+      "childIds": [
+        "541",
+        "542",
+        "543"
+      ],
+      "backendDOMNodeId": 540
+    },
+    {
+      "nodeId": "541",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "540",
+      "childIds": [
+        "927"
+      ],
+      "backendDOMNodeId": 541
+    },
+    {
+      "nodeId": "927",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "541",
+      "childIds": [],
+      "backendDOMNodeId": 927
+    },
+    {
+      "nodeId": "542",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "540",
+      "childIds": [],
+      "backendDOMNodeId": 542
+    },
+    {
+      "nodeId": "543",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "540",
+      "childIds": [],
+      "backendDOMNodeId": 543
+    },
+    {
+      "nodeId": "544",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "536",
+      "childIds": [
+        "545",
+        "546",
+        "547"
+      ],
+      "backendDOMNodeId": 544
+    },
+    {
+      "nodeId": "545",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "544",
+      "childIds": [
+        "928"
+      ],
+      "backendDOMNodeId": 545
+    },
+    {
+      "nodeId": "928",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "545",
+      "childIds": [],
+      "backendDOMNodeId": 928
+    },
+    {
+      "nodeId": "546",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "544",
+      "childIds": [],
+      "backendDOMNodeId": 546
+    },
+    {
+      "nodeId": "547",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "notRendered",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "544",
+      "childIds": [],
+      "backendDOMNodeId": 547
+    },
+    {
+      "nodeId": "922",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "7",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "7"
+            }
+          }
+        ]
+      },
+      "properties": [
+        {
+          "name": "editable",
+          "value": {
+            "type": "token",
+            "value": "plaintext"
+          }
+        }
+      ],
+      "parentId": "529",
+      "childIds": [],
+      "backendDOMNodeId": 922
+    },
+    {
+      "nodeId": "924",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "内容与问题",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "内容与问题"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "538",
+      "childIds": [],
+      "backendDOMNodeId": 924
+    },
+    {
+      "nodeId": "539",
+      "ignored": true,
+      "ignoredReasons": [
+        {
+          "name": "uninteresting",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "role": {
+        "type": "role",
+        "value": "none"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 0
+      },
+      "parentId": "538",
+      "childIds": [
+        "925"
+      ],
+      "backendDOMNodeId": 539
+    },
+    {
+      "nodeId": "925",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "展开记录",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "展开记录"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "539",
+      "childIds": [],
+      "backendDOMNodeId": 925
+    },
+    {
+      "nodeId": "926",
+      "ignored": false,
+      "role": {
+        "type": "role",
+        "value": "generic"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 88
+      },
+      "name": {
+        "type": "computedString",
+        "value": "",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "538",
+      "childIds": [
+        "-1000000002"
+      ],
+      "backendDOMNodeId": 926
+    },
+    {
+      "nodeId": "-1000000002",
+      "ignored": false,
+      "role": {
+        "type": "internalRole",
+        "value": "StaticText"
+      },
+      "chromeRole": {
+        "type": "internalRole",
+        "value": 158
+      },
+      "name": {
+        "type": "computedString",
+        "value": "＋",
+        "sources": [
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "＋"
+            }
+          }
+        ]
+      },
+      "properties": [],
+      "parentId": "926",
+      "childIds": []
+    }
+  ]
+}

@@ -77,7 +77,8 @@ async function day(date){await click('.bottom-nav [data-nav=today]');await input
 async function shot(name,selector){
   await c.evaluate('document.activeElement.blur();document.querySelector("#toast").hidden=true');
   if(selector)await c.evaluate(`document.querySelector(${JSON.stringify(selector)}).scrollIntoView({block:'start'})`);
-  await delay(450);const remote='/sdcard/course-agenda-fix-ui.png';android('shell','screencap','-p',remote);android('pull',remote,path.join(shots,name+'.png'));
+  await c.evaluate('new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))');
+  await delay(1000);const remote='/sdcard/course-agenda-fix-ui.png';android('shell','screencap','-p',remote);android('pull',remote,path.join(shots,name+'.png'));
 }
 async function fixtureInstall(value){
   closeClient();android('shell','am','force-stop',pkg);shell('chmod 700 files');
@@ -254,7 +255,7 @@ async function formalCases(){
   const ui=require('./native-ui.cjs');assert.match(android('shell','id'),/uid=0/,'formal upgrade requires the owned emulator root shell');
   const info=()=>{const out=android('shell','dumpsys','package',pkg);return {version:/versionName=([^\s]+)/.exec(out)?.[1],code:Number(/versionCode=(\d+)/.exec(out)?.[1]),debuggable:/flags=\[[^\]]*DEBUGGABLE/.test(out)};};
   const bootFormal=async()=>{android('shell','am','force-stop',pkg);android('shell','am','start','-W','-n',pkg+'/.MainActivity');await delay(1200);let skip=ui.nodes().find(n=>n.text?.includes('跳过'));if(skip){ui.tap(skip);await delay(200);}};
-  const tap=async(text,scroll=true)=>{for(let i=0;i<9;i++){const n=ui.nodes().find(n=>{const b=[...n.bounds.matchAll(/\d+/g)].map(x=>Number(x[0]));return (n.text===text||n['content-desc']===text)&&b[1]>0&&b[3]<(scroll?2110:2300);});if(n){ui.tap(n);await delay(250);return;}if(scroll)android('shell','input','swipe','500','1700','500','650','250');await delay(100);}throw Error('Visible formal control missing: '+text);};
+  const tap=async(text,scroll=true)=>{const matches=value=>text instanceof RegExp?text.test(value||''):value===text;for(let i=0;i<9;i++){const n=ui.nodes().find(n=>{const b=[...n.bounds.matchAll(/\d+/g)].map(x=>Number(x[0]));return (matches(n.text)||matches(n['content-desc']))&&b[1]>0&&b[3]<(scroll?2110:2300);});if(n){ui.tap(n);await delay(250);return;}if(scroll)android('shell','input','swipe','500','1700','500','650','250');await delay(100);}throw Error('Visible formal control missing: '+text);};
   const old=structuredClone(require('../app/src/main/assets/seed.json'));old.version=3;old._revision=11;old.plan.manualWeekGoals=true;old.plan.weekGoals={'2026-10-12':'保留我的课程目标'};old.plan.weekHints={};old.plan.weekTasks={'2026-10-12':[{id:'task_cover',title:'保留已有任务',subjectId:'math',done:true,updatedAt:'2026-10-16T08:00:00Z'}]};
   old.plan.subjects.unshift({id:'course-review',name:'课程复习',kind:'custom',defaults:[30,30,30,30,30,60,30],activePeriods:[{from:'2026-10-16',to:null}]});
   M.dates('2026-10-16',old.plan.endDate).forEach(date=>{old.plan.targets[date]['course-review']=weekday(date)===5?60:30;});
@@ -276,13 +277,14 @@ async function formalCases(){
   check(affected.every(d=>typeof after.plan.targets[d].math==='object'&&typeof after.plan.targets[d]['course-review']==='object'),'formal saved future references contain both endpoints rather than midpoint values');
   M.dates(old.plan.startDate,shift(affected[0],-1)).forEach(d=>assert.deepEqual(after.plan.targets[d],old.plan.targets[d]));check(true,'formal future arrangement leaves all historical reference values unchanged');
   await tap('今日',false);
-  if(code>=19){await tap('单词 未记录');}
+  if(code>=21)await tap(/^单词，.*编辑记录$/);else if(code>=19)await tap('单词 未记录');
   await tap('单词 新学增加5个');
   const draftOnly=JSON.parse(read('files/study-state.json'));check(!draftOnly.records[now],'formal quick addition stays in the draft until daily save');
-  await tap('保存这一天');const wordSaved=JSON.parse(read('files/study-state.json')),wordEntry=wordSaved.records[now].subjects.vocab;
+  if(code>=21)await tap('完成',false);
+  await tap(code>=21?'保存记录':'保存这一天');const wordSaved=JSON.parse(read('files/study-state.json')),wordEntry=wordSaved.records[now].subjects.vocab;
   check(wordEntry.newWords===5&&wordEntry.reviewWords===null&&wordEntry.wordLog.entries.length===1&&wordEntry.wordLog.entries[0].source==='quick','formal v1.6.1 saves the word batch and daily totals together');
-  const wordIds=wordEntry.wordLog.entries.map(e=>e.id);await tap('保存这一天');assert.deepEqual(JSON.parse(read('files/study-state.json')).records[now].subjects.vocab.wordLog.entries.map(e=>e.id),wordIds);check(true,'formal repeat save keeps the same word event ID');
-  await tap('设置',false);if(code>=19)await tap('应用',false);await tap('关于');check(ui.nodes().some(n=>(n.text||'').replace(/\s/g,'').includes('版本'+version)),'formal About page displays the actual installed version');
+  const wordIds=wordEntry.wordLog.entries.map(e=>e.id);await tap(code>=21?'保存记录':'保存这一天');assert.deepEqual(JSON.parse(read('files/study-state.json')).records[now].subjects.vocab.wordLog.entries.map(e=>e.id),wordIds);check(true,'formal repeat save keeps the same word event ID');
+  await tap('设置',false);if(code>=19&&code<21)await tap('应用',false);await tap('关于');check(ui.nodes().some(n=>(n.text||'').replace(/\s/g,'').includes('版本'+version)),'formal About page displays the actual installed version');
   android('shell','screencap','-p','/sdcard/reference-formal-upgrade.png');android('pull','/sdcard/reference-formal-upgrade.png',path.join(shots,'formal-upgrade-about.png'));
 }
 async function main(){

@@ -1,0 +1,185 @@
+{
+  "version": "1.6.4",
+  "passed": 29,
+  "checks": [
+    "settings includes a visible labelled manual entry",
+    "manual opens in the existing in-app sheet",
+    "all twelve current feature chapters are discoverable from the table of contents",
+    "table of contents opens and focuses records chapter",
+    "table of contents opens and focuses timer chapter",
+    "table of contents opens and focuses words chapter",
+    "table of contents opens and focuses weeks chapter",
+    "table of contents opens and focuses courses chapter",
+    "table of contents opens and focuses assessment chapter",
+    "table of contents opens and focuses history chapter",
+    "table of contents opens and focuses plans chapter",
+    "table of contents opens and focuses inspiration chapter",
+    "table of contents opens and focuses reminders chapter",
+    "table of contents opens and focuses backup chapter",
+    "table of contents opens and focuses update chapter",
+    "directory control returns to the top and restores focus",
+    "backup chapter retains the actual overwrite consequence",
+    "opening and reading all chapters does not change any saved learning state",
+    "Android back handler closes the manual before leaving settings",
+    "opening closing and background return retain unsaved settings input",
+    "reading help does not submit reminder settings",
+    "actual WebView is offline for the reading check",
+    "the complete course chapter remains available offline",
+    "manual directory fits 320px at 200 percent Android font",
+    "manual navigation keeps visible labels and touch targets",
+    "long course instructions wrap without horizontal overflow at large text",
+    "chapter heading remains fully below the fixed reader controls",
+    "offline reading large text and process restart leave formal learning records unchanged",
+    "all original app files and preferences restored byte for byte; fixture-only files removed"
+  ],
+  "metrics": [],
+  "runtimeExceptions": [],
+  "restored": true,
+  "originalFiles": [
+    {
+      "file": "files/inspiration-media/00dca249ed7e13f2d09711904c681da2594a7882ecff0e362db2caef5794b0d1.jpg",
+      "bytes": 51576,
+      "sha256": "00dca249ed7e13f2d09711904c681da2594a7882ecff0e362db2caef5794b0d1"
+    },
+    {
+      "file": "files/inspiration-media/039bd4350b6e4b0fdcd96f311626b59b0f6a515fe20395903d92923756070b1f.jpg",
+      "bytes": 147029,
+      "sha256": "039bd4350b6e4b0fdcd96f311626b59b0f6a515fe20395903d92923756070b1f"
+    },
+    {
+      "file": "files/inspiration-media/09fcb9cd8965e8cbd0aaae943e89258882bb61aaf2ebe0551cc0474225904a48.jpg",
+      "bytes": 108273,
+      "sha256": "09fcb9cd8965e8cbd0aaae943e89258882bb61aaf2ebe0551cc0474225904a48"
+    },
+    {
+      "file": "files/inspiration-media/0d49e28af695e159c5e2bd39ee92a6b7791587fa69fcd430c9d0b5adcddae558.jpg",
+      "bytes": 146955,
+      "sha256": "0d49e28af695e159c5e2bd39ee92a6b7791587fa69fcd430c9d0b5adcddae558"
+    },
+    {
+      "file": "files/inspiration-media/44a8cd313d952e38b0bdb09c01466518a3085e96b85d6d58849dc9a203b90738.png",
+      "bytes": 13094,
+      "sha256": "44a8cd313d952e38b0bdb09c01466518a3085e96b85d6d58849dc9a203b90738"
+    },
+    {
+      "file": "files/inspiration-media/4cebf24062dd4b9dc73444956fbf63c8c35e878486fa2275c64d76519bb9fbe4.png",
+      "bytes": 37130,
+      "sha256": "4cebf24062dd4b9dc73444956fbf63c8c35e878486fa2275c64d76519bb9fbe4"
+    },
+    {
+      "file": "files/inspiration-media/5690f6e82ac2070a59deb4105e02254cbf7ab940815007415a1eb3ba52abc745.jpg",
+      "bytes": 59865,
+      "sha256": "5690f6e82ac2070a59deb4105e02254cbf7ab940815007415a1eb3ba52abc745"
+    },
+    {
+      "file": "files/inspiration-media/a4915228d9582fdde9d793346544761b7dae4b01ef7a31bb38b7fdac1b5d117a.jpg",
+      "bytes": 182578,
+      "sha256": "a4915228d9582fdde9d793346544761b7dae4b01ef7a31bb38b7fdac1b5d117a"
+    },
+    {
+      "file": "files/inspiration-media/bfe0052395309a7679fe4d9c4305872e87bc8a7b67c4fa0da8d37a2bb3123d88.png",
+      "bytes": 28983,
+      "sha256": "bfe0052395309a7679fe4d9c4305872e87bc8a7b67c4fa0da8d37a2bb3123d88"
+    },
+    {
+      "file": "files/inspiration-media/c574822f9e548468a0a815a17d7acaea94a600ae5113203d8fce1cc613115860.jpg",
+      "bytes": 77195,
+      "sha256": "c574822f9e548468a0a815a17d7acaea94a600ae5113203d8fce1cc613115860"
+    },
+    {
+      "file": "files/inspiration-media/dfd13582971246eb1e0847473801c48f48c2ebc6a1399fc86045efd05e839db6.jpg",
+      "bytes": 111536,
+      "sha256": "dfd13582971246eb1e0847473801c48f48c2ebc6a1399fc86045efd05e839db6"
+    },
+    {
+      "file": "files/inspiration-media/f89a66f63f3ff625a331d3e81ecd282ebf4ffa14a631a3668107c6ae90b9a856.jpg",
+      "bytes": 37776,
+      "sha256": "f89a66f63f3ff625a331d3e81ecd282ebf4ffa14a631a3668107c6ae90b9a856"
+    },
+    {
+      "file": "files/inspiration.json",
+      "bytes": 23978,
+      "sha256": "3e7ce251236dd166bde5ae7043686c25e04a325c794884ead42c9889e45291cc"
+    },
+    {
+      "file": "files/plans.json",
+      "bytes": 118,
+      "sha256": "febc9b5d4289bf53f4652593bdb31d72b0fcf368631b35266a3840ed09832d41"
+    },
+    {
+      "file": "files/study-state.json",
+      "bytes": 8567,
+      "sha256": "b438cf88400df383bf434687645354a8cf57d6a64423a4759ca1edb105c6c562"
+    },
+    {
+      "file": "shared_prefs/WebViewChromiumPrefs.xml",
+      "bytes": 127,
+      "sha256": "970423a749761a1b1910007a00d527008c7c83caeaf700e826e37abda9d2c8ba"
+    },
+    {
+      "file": "shared_prefs/backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/plan-test-a316dc7b-28fc-49e0-8abd-2404fe69a1fe-stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/plan-test-a98eaf21-779e-4d05-beb7-4c8906899195-stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/plan-test-f49f34d8-d8d3-4296-8212-73bea373a36b-stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/reminder_delivery.xml",
+      "bytes": 114,
+      "sha256": "2b08df78ce8211cad6ab0f1042290e504539a63545a8c1df751b7374129dcf7a"
+    },
+    {
+      "file": "shared_prefs/report-test-6bcb031c-ad67-4f9a-b8ed-61ef8f89ee74-backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/report-test-96ef9352-1786-48ee-aeb6-25d36b8d1ffb-backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/report-test-e218e990-6d5d-4e4a-b89e-3edf4720fa62-backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/v132-words-0e9dcfc6-f50a-4380-b170-100b86774b14stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/v132-words-69f9e419-e239-4549-aa29-165a5e1dd671stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/v132-words-75321b93-b9e3-4468-bd77-61b8660fb241stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    }
+  ],
+  "error": null,
+  "unverified": [
+    "Physical vivo X100s operation",
+    "TalkBack spoken output and gesture navigation"
+  ]
+}

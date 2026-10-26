@@ -10,7 +10,7 @@ parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--verify',action='store_true')
 args=parser.parse_args()
 files=[]
-for directory in ('app','scripts','tests','docs'):
+for directory in ('app','scripts','tests','docs','design'):
     files.extend(p for p in (root/directory).rglob('*') if p.is_file() and p!=output and '__pycache__' not in p.parts and p.suffix.lower() not in ('.pyc','.pyo'))
 files.extend(root/name for name in ('.gitignore','.gitattributes','README.md','build.ps1','generate_seed.py'))
 for directory in (root/'release').iterdir():

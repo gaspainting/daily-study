@@ -81,6 +81,13 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
   await reload({accepted:false});await result({phase:'available',candidate});
   check(!(await view()).open,'native refusal on an already-consumed or restored Activity suppresses automatic prompts');
   await reload({readFailure:true});check(!(await view()).open,'unexpected update-state read failure does not stop app startup');
+  await reload();await evaluate('InspirationUI.dismiss()');await click('[data-layout-subject-button=math]');await result({phase:'available',candidate});
+  check(!(await view()).open&&await evaluate('document.querySelector("#daily-record-editor").open'),'late startup update does not cover an open clean subject editor');
+  await click('#daily-record-editor [data-layout-done]');await result({phase:'available',candidate});
+  check(!(await view()).open&&(await view()).badge,'a deferred update remains in the header after subject editing closes');
+  await reload();await evaluate('InspirationUI.dismiss()');await click('.bottom-nav [data-nav=settings]');await click('[data-layout-settings=reminders]');await result({phase:'available',candidate});
+  check(!(await view()).open&&await evaluate('document.querySelector("#settings-editor").open'),'late startup update does not cover an open settings editor');
+  await click('#settings-editor [data-layout-done]');
   await reload();await evaluate('InspirationUI.dismiss()');await click('.bottom-nav [data-nav=settings]');await click('[data-action=about]');await click('[data-action=update-cancel]');await evaluate('onAppUpdateChanged()');await click('[data-action=close-sheet]');await result({phase:'available',candidate});
   check(!(await view()).open,'canceling the pending check in About also cancels its automatic prompt');
   await reload();await evaluate('InspirationUI.dismiss()');await click('.bottom-nav [data-nav=settings]');

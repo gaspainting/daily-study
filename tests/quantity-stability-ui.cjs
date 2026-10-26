@@ -10,7 +10,7 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
  const other=M.addSubject(s,'阅读',[20,20,20,20,20,20,20],s.plan.startDate,'quantity','页');
  const visible=selector=>evaluate(`(()=>{const e=document.querySelector(${JSON.stringify(selector)});return !!e&&!e.closest('[hidden]')&&e.getClientRects().length>0;})()`);
  const click=async selector=>{check(await visible(selector),'quantity visible action '+selector);await h.click(selector);};
- const select=async date=>{await day(date);await click('#today-module-tab-record');if(await visible('#layout-subject-picker'))await input('#layout-subject-picker',q.id,'change');else await click('#record-subject-tab-'+q.id);};
+ const select=async date=>{await day(date);await click('#today-module-tab-record');await click('[data-layout-subject-button="'+q.id+'"]');};
  const reviewWeek=async()=>{for(let i=0;i<12;i++){const number=await evaluate('Number(document.querySelector(".week-label strong").textContent.match(/第\\s*(\\d+)\\s*教学周/)[1])');if(number===8)return;await click('[data-action="'+(number>8?'week-prev':'week-next')+'"][data-scope=review]');}throw Error('Review fixture week unavailable');};
  const submit=async()=>{await evaluate('document.querySelector("#daily-form").requestSubmit()');await delay(200);};
  await fixtureInstall(s);await select('2026-10-21');check(await evaluate(`document.querySelector('#quantity-${q.id}').dataset.unit==='题'&&document.querySelector('.quantity-entry .reference-edit').textContent.includes('题')`),'historical form and goal show their saved unit');

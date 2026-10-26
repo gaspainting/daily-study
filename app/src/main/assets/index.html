@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f8f7f3">
+  <meta name="theme-color" content="#ffffff">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data:; script-src 'self'; style-src 'self'; img-src 'self' data: https://study.local; connect-src 'self'; object-src 'none'; base-uri 'none'">
   <title>每日学习</title>
   <link rel="stylesheet" href="styles.css">
@@ -51,11 +51,15 @@
     <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></symbol>
     <symbol id="i-note" viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 8h6m-6 4h6m-6 4h4"/></symbol>
     <symbol id="i-inspiration" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="m7 13 3-3 3 3 2-2 3 3M7 17h7"/><circle cx="15" cy="7" r="1"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-course" viewBox="0 0 24 24"><path d="M5 3h12l2 3v15H5zM8 8h8m-8 4h8m-8 4h5"/></symbol>
+    <symbol id="i-math" viewBox="0 0 24 24"><path d="M5 7h5m-2.5-2.5v5M15 6l4 4m0-4-4 4M5 17h5m5-2h5m-5 4h5"/></symbol>
+    <symbol id="i-words" viewBox="0 0 24 24"><path d="m4 19 5-14 5 14m-8-5h6M15 9h3a3 3 0 0 1 0 6h-3m3 0a3 3 0 0 1 0 5h-3V9"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20S3 14 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6-9 12-9 12z"/></symbol>
     <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V3m-4 4 4-4 4 4M5 11v10h14V11"/></symbol>
   </svg>
   <div class="app-shell">
-    <header class="masthead"><a href="#today" class="brand" data-nav="today" aria-label="每日学习，返回今日"><span class="brand-mark">日</span><span>每日学习<small>留一点时间，也留一点余地</small></span></a><div class="header-actions"><span id="header-tag" class="header-tag" hidden></span><button type="button" id="update-entry" class="text-button" data-action="update-open" hidden>有新版本</button></div></header>
+    <header class="masthead"><button type="button" class="header-plan" id="header-plan" data-action="plan-picker" aria-label="切换计划"><span id="header-plan-name">每日学习</span><svg aria-hidden="true"><use href="#i-down"/></svg></button><div class="header-actions"><span id="header-tag" class="header-tag" hidden></span><button type="button" id="update-entry" class="text-button" data-action="update-open" hidden>有新版本</button></div></header>
     <main id="app" tabindex="-1"><div class="loading"><span class="brand-mark">日</span><p>正在打开学习手记…</p></div></main>
     <nav class="bottom-nav" aria-label="主要页面">
       <button type="button" data-nav="today" aria-current="page"><svg><use href="#i-today"/></svg><span>今日</span></button>

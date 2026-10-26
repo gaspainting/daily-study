@@ -1,0 +1,20 @@
+PASS actual previous formal 1.6.3 launches with the legacy interval-free fixture
+PASS same-signature formal cover installation preserves the complete original learning file
+PASS installed formal APK matches current version and code without debug mode
+PASS first formal launch migrates only the view and does not rewrite saved legacy observations
+PASS formal preview exposes weekday and both weekend intervals
+PASS cancelling formal reference replacement preserves the original learning file
+PASS formal interval application commits current schema exactly once
+PASS formal migration persists the verified timetable with original period and week data
+PASS formal first save identifies retained legacy criteria correctly
+PASS formal first save retains the previous saved-day assessment
+PASS formal interval application retains actual zero unknown fields word counts rest notes and tasks
+PASS formal saved future references contain both endpoints rather than midpoint values
+PASS formal future arrangement leaves all historical reference values unchanged
+PASS formal quick addition stays in the draft until daily save
+PASS formal v1.6.1 saves the word batch and daily totals together
+PASS formal repeat save keeps the same word event ID
+PASS formal About page displays the actual installed version
+/sdcard/reference-formal-upgrade.png: 1 file pulled, 0 skipped. 28.1 MB/s (103487 bytes in 0.004s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":18,"restored":true,"error":null}

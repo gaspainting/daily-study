@@ -5,7 +5,7 @@ const {connect}=require('./cdp-client.cjs');
 process.env.COURSE_REPORT_NAME='word-log-ui-results.json';
 wrapper(async h=>{
   const {M,check,fixtureInstall,state,native,click,input,shot,android,shell,delay,evaluate,boot}=h;
-  const day=async date=>{await h.day(date);await click('#today-module-tab-record');if(await evaluate('!!document.querySelector("#layout-subject-picker")'))await input('#layout-subject-picker','vocab','change');else await click('#record-subject-tab-vocab');};
+  const day=async date=>{await h.day(date);await click('#today-module-tab-record');await click('[data-layout-subject-button="vocab"]');};
   const date='2026-10-25',older='2026-10-24',value=M.migrateState(structuredClone(require('../app/src/main/assets/seed.json')),date);
   const old=M.record(value,older);old.subjects.vocab.newWords=20;old.subjects.vocab.reviewWords=0;old.subjects.math.minutes=0;old.status='休息';M.saveRecord(value,older,old);
   const oldFootprint=structuredClone(value.records[older]);

@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>每日学习 · 视觉样稿</title><link rel="stylesheet" href="gallery.css"><script src="gallery.js" defer></script></head>
+<body>
+<header class="gallery-head"><div><p class="overline">每日学习 / 视觉重做</p><h1>每日学习，两种界面。</h1><p class="intro">两套不同构图的可操作样稿，使用相同的示例记录。</p></div><a href="references.html">参考与取舍 ↗</a></header>
+<nav class="gallery-controls" aria-label="样稿控制"><div class="control-set" aria-label="显示方案"><button data-view="both" aria-pressed="true">并排比较</button><button data-view="system" aria-pressed="false">只看 A</button><button data-view="linear" aria-pressed="false">只看 B</button></div><div class="control-set" aria-label="示例记录"><button data-case="saved" aria-pressed="true">已记录</button><button data-case="empty" aria-pressed="false">未记录</button><button data-case="partial" aria-pressed="false">部分记录</button><button data-case="zero" aria-pressed="false">明确为 0</button></div><button class="text-toggle" id="large-type" aria-pressed="false">大字号</button></nav>
+<nav class="screen-controls" aria-label="同步切换页面"><span>比较页面</span><button data-screen="today" aria-pressed="true">今日</button><button data-screen="plan" aria-pressed="false">计划</button><button data-screen="review" aria-pressed="false">复盘</button><button data-screen="settings" aria-pressed="false">设置</button><button id="narrow-screen" aria-pressed="false">320px 窄屏</button></nav>
+<main class="comparison" data-view="both">
+ <section class="direction" data-direction="system"><header><span class="direction-letter">A</span><div><h2>清晰的系统感</h2><p>Apple / Things：白底、字重层级、列表、蓝色操作。</p></div><a href="phone.html?theme=system" target="_blank">单独打开 ↗</a></header><div class="device"><iframe id="system-preview" title="方案 A：清晰的系统感" src="phone.html?theme=system"></iframe></div></section>
+ <section class="direction" data-direction="linear"><header><span class="direction-letter">B</span><div><h2>紧凑的工作台</h2><p>Linear：深色、细线、紧凑工具栏、行内录入。</p></div><a href="phone.html?theme=linear" target="_blank">单独打开 ↗</a></header><div class="device dark-device"><iframe id="linear-preview" title="方案 B：紧凑的工作台" src="phone.html?theme=linear"></iframe></div></section>
+</main><footer class="gallery-foot">交互样稿 · 示例数据 · 可切换页面、编辑记录、查看评估；保存写入此样稿的浏览器存储。</footer>
+</body></html>

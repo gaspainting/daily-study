@@ -1,0 +1,66 @@
+{
+  "version": "1.6.4",
+  "versionCode": 21,
+  "schema": 8,
+  "modelChecks": 178,
+  "nativeChecks": 626,
+  "deviceReports": [
+    {
+      "scope": "白底列表与编辑",
+      "command": "node tests/system-list-ui.cjs",
+      "checks": 65,
+      "resultFile": "system-list-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "导航与表单布局",
+      "command": "node tests/layout-navigation-ui.cjs",
+      "checks": 116,
+      "resultFile": "layout-navigation-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "数量记录",
+      "command": "node tests/quantity-stability-ui.cjs",
+      "checks": 66,
+      "resultFile": "quantity-stability-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "单词分次",
+      "command": "node tests/word-log-ui.cjs",
+      "checks": 48,
+      "resultFile": "word-log-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "使用手册",
+      "command": "node tests/manual-ui.cjs",
+      "checks": 29,
+      "resultFile": "manual-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "启动更新",
+      "command": "node tests/startup-update-ui.cjs",
+      "checks": 44,
+      "resultFile": "startup-update-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "正式覆盖升级",
+      "command": "$env:COURSE_FORMAL_UPGRADE='1'; $env:FORMAL_BASE_VERSION='1.6.3'; node tests/course-agenda-fix-ui.cjs",
+      "checks": 18,
+      "resultFile": "formal-upgrade-results.json",
+      "originalFilesRestored": 28
+    }
+  ],
+  "releaseToolingChecks": 39,
+  "apkSha256": "b3ecb0ce2113f370531444cef5cee083ed21711fd4fb57be7d91023c9e5521e3",
+  "apkBytes": 6630076,
+  "unverified": [
+    "vivo X100s physical-device operation",
+    "TalkBack spoken output and gestures",
+    "Android 8 through 15 runtime"
+  ]
+}

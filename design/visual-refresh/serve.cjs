@@ -1,0 +1,5 @@
+'use strict';
+const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
+const own=__dirname,assets=path.resolve(own,'../../app/src/main/assets'),port=Number(process.env.DESIGN_PORT||8818);
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png'};
+http.createServer((req,res)=>{try{const url=new URL(req.url,'http://127.0.0.1'),base=url.pathname.startsWith('/assets/')?assets:own,relative=decodeURIComponent(url.pathname.startsWith('/assets/')?url.pathname.slice(8):url.pathname==='/'?'index.html':url.pathname.slice(1)),file=path.resolve(base,relative);if(!file.startsWith(base+path.sep)||!['.html','.css','.js','.json','.png'].includes(path.extname(file))||!fs.statSync(file).isFile()){res.writeHead(404);res.end();return;}res.writeHead(200,{'Content-Type':mime[path.extname(file)],'Cache-Control':'no-store'});fs.createReadStream(file).pipe(res);}catch{res.writeHead(404);res.end();}}).listen(port,'127.0.0.1',()=>console.log('Design preview: http://127.0.0.1:'+port));
