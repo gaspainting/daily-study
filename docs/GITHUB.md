@@ -1,6 +1,6 @@
 # GitHub项目与归档
 
-仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前版本为v1.6.4/code21，见[V1.6.4](V1.6.4.md)。
+仓库：[gaspainting/daily-study](https://github.com/gaspainting/daily-study)，公开。当前版本为v1.6.5/code22，见[V1.6.5](V1.6.5.md)。
 
 **main分支**
 

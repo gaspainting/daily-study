@@ -1,0 +1,54 @@
+PASS actual WebView loads the word ledger
+PASS new date starts with two unknown word counts
+PASS three shortcut presses create separate draft batches with independent counts
+PASS draft batches do not create a formal daily record
+PASS native draft storage retains event IDs quantities time and sources
+PASS shortcut undo restores unknown review count and removes only its batch
+PASS explicit zero is retained as a total adjustment
+PASS background return retains draft counts
+PASS background return does not replay the startup screen
+PASS cold start restores exactly the same draft batch IDs
+PASS manual daily save persists totals and three batches atomically
+PASS successful save clears the corresponding draft
+PASS saved feedback follows native persistence
+PASS duplicate save does not duplicate word batches
+PASS editing a batch previews its aggregate impact
+PASS applying an edit updates the draft while the saved record stays unchanged
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 44.7 MB/s (186506 bytes in 0.004s)
+PASS cancelling removal retains the draft
+PASS removal recalculates the daily draft
+PASS undo removal restores the original event ID and edited quantity
+PASS saving edited detail retains original time source and edited timestamp
+PASS manual total typing coalesces into one pending adjustment
+PASS clearing a count remains unknown rather than zero
+PASS real native write failure offers retry
+PASS write failure leaves saved records unchanged
+PASS write failure retains entered totals and batch IDs
+PASS retry saves the same IDs with a null review adjustment and no duplicate event
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 48.0 MB/s (197919 bytes in 0.004s)
+PASS custom batch entry records review quantity and manual source
+PASS word statistics use the daily total once
+PASS word batches never enter minute totals
+PASS history shows saved word aggregates
+PASS old daily totals have no fabricated event history
+PASS adding to a legacy record keeps original totals as its base
+PASS editing legacy words keeps zero minute and rest records intact
+PASS competing update stores a separate valid ledger
+PASS declining a conflicting replace preserves the newer saved log and current input
+PASS explicit conflict replacement saves the draft total and matching ledger
+PASS create an independent plan for isolation coverage
+PASS another plan does not inherit word totals or batches
+PASS switching back restores the original plan word draft
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 51.2 MB/s (189508 bytes in 0.004s)
+PASS damaged word draft shows a local recovery action and leaves the daily page usable
+PASS word recovery restores saved quantities and retains unrelated draft inputs
+PASS ledger fits 320 CSS pixels with actual 200 percent Android text
+PASS count units and individual edit actions are exposed to accessibility
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 59.0 MB/s (235329 bytes in 0.004s)
+PASS word editor fits narrow large-text display
+PASS editor exposes units and a named apply action
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 51.9 MB/s (202042 bytes in 0.004s)
+PASS capacity errors identify the record limit instead of calling a valid ledger corrupted
+PASS capacity validation preserves saved data and the pending input
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":48,"restored":true,"error":null}

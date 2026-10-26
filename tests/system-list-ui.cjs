@@ -17,7 +17,7 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
   await fixtureInstall(sample);await day(date);await evaluate('window.scrollTo(0,0)');
   check(await evaluate('document.querySelector("#daily-total").textContent==="85"&&document.querySelector(".range-value").textContent==="60—120"'),'the initial overview shows actual and reference separately');
   check(await evaluate('document.querySelectorAll(".layout-subject-row").length===3&&[...document.querySelectorAll(".layout-subject-row")].every(e=>e.getClientRects().length)'),'all three learning subjects are simultaneously visible');
-  check(await evaluate('document.querySelector(".layout-subject-row:last-child").getBoundingClientRect().bottom<=document.querySelector(".layout-save-dock").getBoundingClientRect().top'),'the final subject is above the save dock at normal text size');
+  check(await evaluate('[...document.querySelectorAll(".layout-subject-row")].at(-1).getBoundingClientRect().bottom<=document.querySelector(".layout-save-dock").getBoundingClientRect().top'),'the final subject is above the save dock at normal text size');
   check(await evaluate('document.querySelector(".layout-record-tools").getBoundingClientRect().bottom<=document.querySelector(".layout-save-dock").getBoundingClientRect().top'),'arrangement and note actions remain above the save dock for the three-subject plan');
   const baseline=await state();await subject('course-review');await input('#minutes-course-review','45');
   check(await evaluate('document.querySelector("#daily-total").textContent==="95"&&document.querySelector("#daily-total").parentElement.querySelector(".metric-label").textContent==="填写时长"&&document.querySelector(".layout-save-state").textContent==="待保存"'),'draft time updates the preview and is clearly pending');

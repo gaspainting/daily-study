@@ -1,0 +1,72 @@
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS historical form and goal show their saved unit
+PASS editing a historical count preserves its original unit
+PASS quantity visible action .quantity-entry .reference-edit
+PASS quantity actual and goal controls have unique IDs while retaining compatible draft keys
+PASS editing a quantity target changes the goal without changing the actual count
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS next record displays its own set unit
+PASS clearing a count saves unknown instead of zero
+PASS quantity visible action [data-nav=review]
+PASS quantity visible action [data-action="week-prev"][data-scope=review]
+PASS quantity visible action #review-module-tab-statistics
+PASS weekly charts group quantities by unit without merging questions and sets
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 37.1 MB/s (109372 bytes in 0.003s)
+PASS quantity visible action [data-nav=month]
+PASS monthly statistics also separate recorded units
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 39.0 MB/s (173508 bytes in 0.004s)
+PASS quantity visible action [data-nav=history]
+PASS quantity visible action [data-action=tracking-search]
+PASS quantity zero history filter is independent of unknown time and vocabulary
+PASS quantity visible action [data-action=tracking-search]
+PASS history searches the recorded quantity and unit
+PASS quantity visible action [data-action=tracking-search]
+PASS selected subject assessment ignores another unrecorded quantity subject
+PASS history date and summary keep a readable main column
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 46.8 MB/s (137624 bytes in 0.003s)
+PASS quantity visible action [data-nav=plan]
+PASS quantity visible action #plan-module-tab-subjects
+PASS quantity visible action .layout-subject-editor:has(#subject-custom_1)>summary
+PASS unit edit through the real form preserves all historical record units
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS unrecorded future dates use the new unit
+PASS quantity save failure provides retry
+PASS failed zero save keeps the entered zero
+PASS quantity visible action [data-action=retry-save][data-form=daily-form]
+PASS retry and repeat save persist zero once
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS cold draft restoration preserves quantity and its unit
+PASS background return preserves quantity draft
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS quantity visible action [data-nav=plan]
+PASS quantity visible action #plan-module-tab-subjects
+PASS quantity visible action .layout-subject-editor:has(#subject-custom_1)>summary
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS quantity draft detects a changed unit instead of silently reinterpreting the count
+PASS unresolved unit conflict cannot save a reinterpreted count
+PASS quantity visible action #daily-form [data-draft-action=apply]
+PASS choosing the draft restores its original count and unit together
+PASS saving the restored draft retains its original measurement
+PASS quantity visible action #today-module-tab-assessment
+PASS different actual and target units remain ungraded
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS a fresh date starts with the new unit and an unknown count
+PASS quantity visible action #today-module-tab-record
+PASS quantity visible action [data-layout-subject-button="custom_1"]
+PASS quantity input fits 320px at 200 percent Android text
+PASS quantity unit is exposed in the input accessible name
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 48.0 MB/s (158225 bytes in 0.003s)
+PASS quantity visible action [data-nav=review]
+PASS quantity visible action [data-action="week-prev"][data-scope=review]
+PASS quantity visible action #review-module-tab-statistics
+PASS quantity charts fit narrow large-text display
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 37.7 MB/s (140836 bytes in 0.004s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":66,"restored":true,"error":null}

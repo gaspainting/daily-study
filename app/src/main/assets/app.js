@@ -83,8 +83,9 @@
     element.setAttribute('role', item?.kind === 'error' ? 'alert' : 'status');
     window.StudyLayout?.sync();
     element.innerHTML = item ? '<span>' + escape(item.message) + '</span>' + (item.kind === 'error' ? '<button class="text-button" type="button" data-action="retry-save" data-form="' + escape(form.id) + '">重试</button>' : '') : '';
+    if(form.id==='daily-form'){const inside=form.querySelector('.layout-editor-feedback');if(inside){inside.hidden=!item;inside.setAttribute('role',item?.kind==='error'?'alert':'status');inside.innerHTML=element.innerHTML;}}
   }
-  async function submitForm(form) {
+  async function submitForm(form, closeDailyEditor = false) {
     if (!form || saving.has(form.dataset.dirty) || !form.reportValidity()) return false;
     if (window.StudyDrafts.hasContextConflict(form)) { tell(form.dataset.quantityConflict?'请选择数量草稿的处理方式':form.dataset.weekConflict ? '请选择目标冲突的处理方式' : '请先查看或清除其他日期的目标草稿'); return false; }
     const key = form.dataset.dirty, buttons = Array.from(form.querySelectorAll('[type="submit"]')), labels = buttons.map(b => b.innerHTML);
@@ -101,10 +102,11 @@
       else if (form.dataset.weekMode) saved = saveWeek(form);
       else if (form.id === 'week-move-form') saved = moveWeek(form);
       else if (form.dataset.subjectEdit) saved = saveSubject(form);
+      else if (form.id === 'allocation-form') saved = saveAllocation(form);
       else if (form.id === 'reminder-form') saved = saveReminder(form);
       else if (form.id === 'backup-reminder-form') { call('setBackupReminder', form.elements.namedItem('backup-enabled').checked, Number(form.elements.namedItem('backup-days').value)); completeDraft(); dirty.delete('backup-reminder'); render(); saved = true; }
       else if (['week-form', 'reference-form', 'new-subject-form', 'new-plan-form'].includes(form.id)) saved = saveSheet(form);
-      if (saved) { feedback.set(key, { kind: 'saved', message: '已保存' }); syncFeedback(document.getElementById(form.id)); }
+      if (saved) { feedback.set(key, { kind: 'saved', message: '已保存' }); syncFeedback(document.getElementById(form.id)); if(form.id==='daily-form'&&closeDailyEditor)window.StudyLayout.closeEditor(); }
       return !!saved;
     } catch (error) {
       feedback.set(key, { kind: 'error', message: '保存失败：' + (error.message || '请重试') });
@@ -226,9 +228,13 @@
     nativeRefreshPending = false;
     return true;
   }
+  const scrollPositions=new Map();
+  const scrollKey=()=>activePlanId+':'+route+(route==='today'?':'+selectedDate:'');
   function navigate(destination, date) {
     if (destination === route && !date) return;
+    const previousScroll=window.scrollY,previousKey=scrollKey();
     if (!attempt(leaveEdits)) return;
+    scrollPositions.set(previousKey,previousScroll);
     if (dialog.open) dialog.close();
     dialog.replaceChildren();
     route = destination;
@@ -236,7 +242,7 @@
     if (route === 'plan') planDate = clampPlanDate(planDate || selectedDate);
     if (route === 'review') reviewDate = clampPlanDate(reviewDate || selectedDate);
     render();
-    window.scrollTo(0, 0);
+    window.scrollTo({top:scrollPositions.get(scrollKey())||0,behavior:'instant'});
     app.focus({ preventScroll: true });
   }
   function trackingTabs() { return '<div class="tracking-tabs" role="group" aria-label="记录视图">' + [['review', '周复盘'], ['month', '月历'], ['history', '历史'], ['sessions', '计时明细']].map(([id, text]) => '<button data-nav="' + id + '" aria-pressed="' + (route === id) + '">' + text + '</button>').join('') + '</div>'; }
@@ -385,6 +391,7 @@
     const w = weekOf(planDate), dates = M().dates(w.start || w.key, w.end).filter(within);
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><h1>计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
+    html+='<button class="secondary-wide allocation-entry" type="button" data-action="edit-allocation">总体任务分配'+icon('next')+'</button>';
     html+='<button class="secondary-wide" type="button" data-action="course-manager">课程表</button>';
     if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程与区间安排</button>';
     if(window.StudySchedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">周末安排</button>';
@@ -685,6 +692,22 @@
     const form=document.getElementById('reference-form');form.dataset.referenceDate=document.getElementById('reference-date').value;form.dataset.plan=activePlanId;form.dataset.revision=state._revision||0;
     const target=form.elements.namedItem(subjectId?'target-'+subjectId:'reference-total');if(target){target.focus();target.closest('fieldset,.field').scrollIntoView({block:'nearest'});}
   }
+  function editAllocation(){
+    state=readState();if(state.plan.endDate<iso())throw new Error('计划已结束，请先在计划设置中调整日期');
+    window.StudyAllocationUI.init({field,rangeFields,quantityDefaultsFields,selectField,escape,today:iso});
+    openSheet('总体任务分配',window.StudyAllocationUI.view(state),true);
+    const form=document.getElementById('allocation-form');form.dataset.plan=activePlanId;form.dataset.revision=state._revision||0;
+    window.StudyAllocationUI.sync(form,state);
+  }
+  function saveAllocation(form){
+    const latest=readState();
+    if(form.dataset.plan!==call('getPlans').activeId)throw new Error('计划已切换，请重新打开总体任务分配');
+    if(Number(form.dataset.revision)!==(latest._revision||0))throw new Error('记录已更新，请重新打开总体任务分配');
+    const result=window.StudyAllocation.apply(latest,window.StudyAllocationUI.values(form,latest),iso());
+    if(!result.report.changes.length){feedback.delete('sheet');syncFeedback(form);tell('分配未修改');return false;}
+    if(!window.confirm(window.StudyAllocationUI.summary(result.report))){feedback.delete('sheet');syncFeedback(form);return false;}
+    persist(result.state);dirty.delete('sheet');closeSheet(true);render();tell('分配已应用');return true;
+  }
   function syncReferenceForm(form,changed){
     const date=form.elements.namedItem('reference-date').value,subjects=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab'&&!isQuantity(s)),entries=subjects.map(s=>({id:s.id,reference:{min:Number(form.elements.namedItem('target-'+s.id).value),max:Number(form.elements.namedItem('target-'+s.id+':max').value)}}));
     if(!entries.length)return;
@@ -838,6 +861,8 @@
       const action = button.dataset.action;
       if (action === 'close-sheet') { closeSheet(); return; }
       if (action === 'timer-picker') { timerPicker(); return; }
+      if (action === 'edit-allocation') { editAllocation(); return; }
+      if (action === 'allocation-weekdays') { window.StudyAllocationUI.weekdays(button.closest('form'),state); return; }
       if (action === 'start-timer') { const started=startTimer(button.dataset.subject);if(started&&dialog.classList.contains('timer-picker-sheet'))closeSheet(true);return; }
       if (action.startsWith('timer-')) { timerAction(action.slice(6)); return; }
       if (action === 'choose-day' || action === 'day-prev' || action === 'day-next' || action === 'go-today') {
@@ -936,7 +961,7 @@
       if (action === 'update-return') returnToUpdate();
       if (action === 'update-finish') { const result = call('timerAction', 'finish'); if (!result.finished) throw new Error('当前计时未能保存'); state = readState(); returnToUpdate(); installUpdate(); }
       if (action === 'update-discard') { if (!window.confirm('丢弃本次未保存计时？')) return; const result = call('timerAction', 'discard'); if (result.active) throw new Error('当前计时未能丢弃'); returnToUpdate(); installUpdate(); }
-      if (action === 'retry-save') { submitForm(document.getElementById(button.dataset.form)); return; }
+      if (action === 'retry-save') { submitForm(document.getElementById(button.dataset.form),!!button.closest('#daily-record-editor')); return; }
       if (action === 'finish-for-restore') { const result = call('timerAction', 'finish'); if (!result.finished) throw new Error('当前计时未能保存'); state = readState(); closeSheet(true); backupAction('importBackup'); }
       if (action === 'discard-for-restore') { if (!window.confirm('丢弃本次未保存计时？')) return; const result = call('timerAction', 'discard'); if (result.active) throw new Error('当前计时未能丢弃'); closeSheet(true); backupAction('importBackup'); }
       if (action === 'retry-load') boot();
@@ -946,13 +971,14 @@
     const form = event.target.closest('form[data-dirty]');
     if (!form || event.target.id === 'reference-date') return;
     if(form.id==='reference-form')syncReferenceForm(form,event.target.id);
+    if(form.id==='allocation-form'){window.StudyAllocationUI.sync(form,state,event.target.id);if(event.target.id==='allocation-weekday')return;}
     if (!dispatchingWordChange) { clearWordUndo(event.target); attempt(()=>window.StudyWordLogUI.input(event.target)); }
     dirty.add(form.dataset.dirty);
     feedback.delete(form.dataset.dirty);
     syncFeedback(form);
     window.StudyDrafts.save(form);
   });
-  document.addEventListener('study-draft-applied',event=>{if(event.target.id==='reference-form')syncReferenceForm(event.target,'');window.StudyWordLogUI.reset(event.target);window.StudyWordLogUI.sync(event.target,true);window.StudyLayout.sync();});
+  document.addEventListener('study-draft-applied',event=>{if(event.target.id==='reference-form')syncReferenceForm(event.target,'');if(event.target.id==='allocation-form')window.StudyAllocationUI.sync(event.target,state);window.StudyWordLogUI.reset(event.target);window.StudyWordLogUI.sync(event.target,true);window.StudyLayout.sync();});
   document.addEventListener('study-reference-draft', event => attempt(() => {
     const {form,draft,sourceKey}=event.detail,date=draft.values['reference-date'];
     if(typeof date!=='string'||!within(date))throw new Error('草稿日期不在当前计划范围，请先调整计划日期');
@@ -990,6 +1016,7 @@
       window.StudyDrafts.attach(form);
       return;
     }
+    if(event.target.id==='allocation-weekday'){window.StudyAllocationUI.sync(event.target.form,state);return;}
     if(event.target.id==='course-view-date'){showCourses(event.target.value);return;}
     if(event.target.closest('#course-change-form')&&['course-from','course-change-mode'].includes(event.target.id))window.StudyCourseUI.refreshChange(event.target.form,state);
     const form = event.target.closest('form[data-dirty]');
@@ -1001,7 +1028,7 @@
   document.addEventListener('submit', event => {
     event.preventDefault();
     if (event.target.id === 'report-form') { const form = event.target; if (!form.reportValidity()) return; attempt(() => { call('exportReport', form.elements.namedItem('report-format').value, form.elements.namedItem('report-from').value, form.elements.namedItem('report-to').value, form.elements.namedItem('report-subject').value); closeSheet(true); }); return; }
-    if (event.target.matches('form[data-dirty]')) submitForm(event.target);
+    if (event.target.matches('form[data-dirty]')) submitForm(event.target,event.submitter?.hasAttribute('data-daily-editor-save'));
   });
 
   dialog.addEventListener('cancel', event => { event.preventDefault(); closeSheet(); });

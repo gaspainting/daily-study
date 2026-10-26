@@ -70,7 +70,10 @@
       const kind=subject.kind==='vocab'?'words':subject.kind==='math'?'math':'course';
       const mark=node('span','layout-subject-icon '+kind),main=node('span','layout-subject-label'),actual=node('span','layout-subject-actual');
       mark.append(icon(kind));main.append(node('strong','',subject.name),node('small','layout-subject-reference'));
-      actual.append(node('strong','layout-subject-value'),node('small','layout-subject-unit'));button.append(mark,main,actual,icon('next'));list.append(button);
+      actual.append(node('strong','layout-subject-value'),node('small','layout-subject-unit'));button.append(mark,main,actual,icon('next'));
+      if(subject.kind==='vocab'){
+        const line=node('div','layout-word-line'),quick=node('button','text-button layout-word-quick','记一笔');quick.type='button';quick.dataset.action='word-log-add';quick.dataset.subject=id;quick.setAttribute('aria-label',subject.name+'，记一笔');button.lastElementChild.remove();line.append(button,quick);list.append(line);
+      }else list.append(button);
       return {id,label:subject.name,nodes:[entry]};
     });section.prepend(list);return items;
   }
@@ -96,6 +99,7 @@
     const preview=node('p','layout-note-preview');arrangement.replaceChildren(tools,preview);
     if(limit){limit.id='layout-timer-reason';arrangement.append(limit);items.forEach(item=>{if(item.nodes[0]?.querySelector('[data-action=start-timer]:disabled'))item.nodes[0].append(node('p','inline-form-note',limit.textContent));});}
     const api=editor(form,'daily-record-editor',items);
+    const editorDock=node('div','layout-editor-save'),insideFeedback=node('div','layout-editor-feedback'),save=node('button','primary','保存记录');save.type='submit';save.dataset.dailyEditorSave='';save.setAttribute('aria-label','保存今日全部记录');insideFeedback.hidden=true;editorDock.append(insideFeedback,save);api.dialog.append(editorDock);
     form.querySelectorAll('[data-layout-subject-button]').forEach(button=>button.onclick=()=>api.activate(button.dataset.layoutSubjectButton));
     form.querySelectorAll('[data-layout-open]').forEach(button=>button.onclick=()=>api.activate(button.dataset.layoutOpen));
     const host=node('div','layout-modules');element.append(host);
@@ -105,7 +109,7 @@
   }
   function plan(element) {
     const dateDetails=element.querySelector('#range-form')?.closest('details'),subjectDetails=element.querySelector('[data-subject-edit]')?.closest('details');if(!dateDetails||!subjectDetails)return;
-    const oldSection=dateDetails.parentElement,week=element.querySelector('.week-navigation'),dayNodes=Array.from(element.children).filter(e=>!e.matches('.page-intro,.week-navigation')&&e!==oldSection);
+    const oldSection=dateDetails.parentElement,week=element.querySelector('.week-navigation'),dayNodes=Array.from(element.children).filter(e=>!e.matches('.page-intro,.week-navigation,.allocation-entry')&&e!==oldSection);
     const settings=[dateDetails],subjectsPanel=node('div','layout-subject-editors');
     element.querySelectorAll('[data-action="course-schedule"],[data-action="weekend-schedule"]').forEach(e=>settings.push(e));
     element.querySelectorAll('[data-subject-edit]').forEach(form=>{const subject=context.state.plan.subjects.find(s=>s.id===form.dataset.subjectEdit),detail=node('details','layout-subject-editor'),heading=node('summary');heading.append(node('strong','',subject.name),node('span','',subject.kind==='vocab'?'单词数量':subject.measure==='quantity'?'数量 · '+subject.unit:'时间 · 分钟'),icon('next'));detail.append(heading,form);subjectsPanel.append(detail);});
@@ -165,6 +169,7 @@
   let revealingInvalid=false;
   document.addEventListener('invalid',e=>{if(revealingInvalid)return;revealingInvalid=true;reveal(e.target);setTimeout(()=>{revealingInvalid=false;},0);},true);
   document.addEventListener('input',sync);document.addEventListener('change',sync);window.addEventListener('resize',sizes);
+  window.visualViewport?.addEventListener('resize',()=>{const field=document.activeElement;if(field?.matches('input,textarea,select')&&field.closest('dialog[open]'))requestAnimationFrame(()=>field.scrollIntoView({block:'nearest',behavior:'instant'}));});
   document.addEventListener('click',e=>{const button=e.target.closest('[data-action="start-timer"]');if(button&&!button.disabled)editors.forEach(api=>api.close());});
   document.getElementById('sheet').addEventListener('close',()=>{if(deferredRestore){const value=deferredRestore;deferredRestore=null;restore(value);}});
   root.StudyLayout={mount(element,options){

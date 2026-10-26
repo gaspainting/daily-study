@@ -1,0 +1,48 @@
+PASS overall allocation is a standalone visible plan entry
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 52.0 MB/s (194338 bytes in 0.004s)
+PASS one editor contains word defaults and linked total time intervals
+PASS an invalid hidden-day total is revealed and rejected before saving
+PASS an inverted hidden subject interval is revealed with its weekday
+PASS weekday copy applies the edited time distribution to all five weekdays
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 38.9 MB/s (117454 bytes in 0.003s)
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 38.5 MB/s (131649 bytes in 0.003s)
+PASS the real Android confirmation appears before target changes
+PASS cancelling batch replacement leaves every native record and goal unchanged
+PASS cancel retains the editable proposed allocation
+PASS the real Android confirmation appears before target changes
+PASS confirmed application preserves actual learning and historical criteria
+PASS word forty applies from today through the future while yesterday stays fifty
+PASS weekday Saturday and untouched Sunday intervals stay distinct
+PASS saved word assessment uses the newly confirmed goal
+PASS real native reload retains the batch targets instead of restoring old presets
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 50.7 MB/s (180954 bytes in 0.003s)
+PASS native plan extension inherits the long-term word and weekend allocations
+PASS today list opens word batch entry directly
+PASS quick word entry remains a draft until save
+PASS editor save commits the complete pending daily record once
+PASS successful editor save returns to the list
+PASS save failure keeps the editor and input with visible retry
+PASS failed editor save leaves the confirmed native value intact
+PASS retry in the focused editor saves the intended value
+PASS the plan list is actually scrolled before navigation
+PASS returning to a route restores its prior reading position
+PASS the real Android confirmation appears before target changes
+PASS batch editor preserves custom daily words while changing future words and quantities
+PASS the real Android confirmation appears before target changes
+PASS explicit overwrite applies the new overall goal to a custom day
+PASS the real Android confirmation appears before target changes
+PASS batch persistence failure keeps the proposal and confirmed native state
+PASS cold restart restores the uncommitted overall-allocation draft
+PASS the real Android confirmation appears before target changes
+PASS applying a current-plan allocation leaves the other plan unchanged
+PASS a stale batch form rejects overwrite and keeps its input
+PASS revision conflict preserves the latest native goal
+PASS overall allocation fits 320px and 200 percent font
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 48.5 MB/s (174479 bytes in 0.003s)
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 35.1 MB/s (191856 bytes in 0.005s)
+PASS the long-text editor and save dock fit the narrow screen
+PASS the actual Android soft keyboard is shown
+PASS the focused input remains above the real keyboard
+/sdcard/v165-keyboard.png: 1 file pulled, 0 skipped. 35.0 MB/s (210754 bytes in 0.006s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":40,"restored":true,"error":null}

@@ -263,3 +263,28 @@ main{padding:2px 24px calc(var(--layout-nav-height) + 28px);min-height:calc(100v
 .large-text .word-log-info strong,.large-text .word-log-info small,.large-text .word-log-actions button{font-size:1rem}
 .large-text .inspiration-tabs button,.large-text .card-actions button{font-size:1rem}
 @media(prefers-reduced-motion:no-preference){button{transition:background-color .15s,color .15s}}
+
+.layout-word-line{position:relative}
+.layout-word-line:not(:last-child){border-bottom:1px solid var(--line)}
+.layout-word-line .layout-subject-row{grid-template-columns:33px minmax(0,1fr) auto;border:0;padding-right:58px}
+.layout-word-quick{position:absolute;right:0;top:50%;transform:translateY(-50%);min-width:48px;font-size:12px}
+.layout-editor-save{position:sticky;bottom:-28px;z-index:2;margin:18px -24px -28px;padding:12px 24px max(16px,env(safe-area-inset-bottom));background:#fff;border-top:1px solid var(--line)}
+.layout-editor-save>.primary{width:100%;min-height:47px;font-size:15px}
+.layout-editor-feedback{font-size:13px;line-height:1.6;margin-bottom:9px}
+.layout-editor-feedback[role=alert]{color:#a12e24}
+.allocation-entry{justify-content:space-between;margin:0 0 16px}
+.allocation-entry svg{width:16px;height:16px}
+.allocation-plan,.allocation-scope{color:var(--muted);font-size:13px;line-height:1.65}
+.allocation-scope{margin-top:8px}
+.allocation-section{border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
+.allocation-section>h3{font-size:17px;font-weight:600}
+.allocation-section .reference-range{margin-top:17px}
+.allocation-copy-state{display:block;color:var(--muted);font-size:12px;line-height:1.6}
+.allocation-quantity{padding:12px 0;border-bottom:1px solid var(--line)}
+.allocation-quantity summary{min-height:44px;font-size:15px}
+@media(min-width:620px){.layout-editor-save{margin-left:-28px;margin-right:-28px;padding-left:28px;padding-right:28px}}
+@media(max-width:359px){.layout-editor-save{margin-left:-18px;margin-right:-18px;padding-left:18px;padding-right:18px}.layout-word-line .layout-subject-row{grid-template-columns:28px minmax(0,1fr) auto;gap:7px}}
+.large-text .layout-word-line .layout-subject-row{grid-template-columns:27px minmax(0,1fr) auto;padding-right:0}
+.large-text .layout-word-quick{position:static;transform:none;font-size:.9rem;display:flex;justify-content:flex-end;margin-left:auto}
+.large-text .layout-editor-save>.primary,.large-text .layout-editor-feedback,.large-text .allocation-section>h3,.large-text .allocation-quantity summary{font-size:1rem}
+.large-text .allocation-plan,.large-text .allocation-scope,.large-text .allocation-copy-state{font-size:.8rem}

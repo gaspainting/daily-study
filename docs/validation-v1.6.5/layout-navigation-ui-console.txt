@@ -1,0 +1,129 @@
+PASS actual native load repairs both weekend intervals
+PASS today exposes four distinct modules
+PASS all subjects appear in a single list while every original input remains in the form
+PASS moving panels retains native form ownership
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="course-review"]
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="math"]
+PASS subject navigation retains explicit zero and unknown input
+PASS visible action #today-module-tab-assessment
+PASS assessment shows pending during unsaved edits
+PASS daily save dock leaves unrelated modules unobstructed
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+PASS visible action [data-action="add-words"][data-field="newWords-vocab"][data-amount="5"]
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="custom_1"]
+PASS visible action #today-module-tab-courses
+PASS course module is directly reachable
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 36.7 MB/s (153872 bytes in 0.004s)
+PASS visible action #today-module-tab-week
+PASS weekly goals are directly reachable
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-open="arrangement"]
+PASS visible action [name="status"][value="正常参考"]
+PASS visible action [data-layout-open="note"]
+PASS note opens in a labelled editor
+PASS one manual save commits values from every visible and hidden subject
+PASS zero plus unknown remains partial after saving
+PASS success is shown only after native persistence
+PASS repeat save retains the same record and word batch IDs
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="math"]
+PASS save failure has an actionable retry
+PASS failed save preserves original records
+PASS failed save preserves the active input
+PASS visible action [data-action="retry-save"][data-form="daily-form"]
+PASS retry commits the entered time
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+PASS visible action .range-edit
+PASS total edit remains directly accessible from any subject
+PASS reference editing preserves unsaved subject input
+PASS day editing stores explicit manual reference provenance
+PASS explicit point target survives native reload
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+PASS cold restart restores the unsaved zero draft
+PASS background return keeps input and does not replay startup
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="math"]
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+PASS validation opens the subject that contains the invalid input
+PASS invalid hidden input never changes the saved record
+PASS keyboard arrows move focus and activate the module tab
+PASS visible action #today-module-tab-record
+PASS subject rows and save action have accessible names
+PASS every tab points to an existing named panel
+PASS switching dates displays Sunday reference independently
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 26.7 MB/s (186857 bytes in 0.007s)
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 32.1 MB/s (142012 bytes in 0.004s)
+PASS visible action [data-nav="plan"]
+PASS visible action #plan-module-tab-subjects
+PASS subject editor is one module away
+PASS all subject editors survive regrouping
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 12.0 MB/s (124407 bytes in 0.010s)
+PASS visible action #plan-module-tab-settings
+PASS visible action [data-action="weekend-schedule"]
+PASS weekend replacement preview uses correct Saturday range
+PASS visible action #sheet [data-action="close-sheet"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 28.7 MB/s (100675 bytes in 0.003s)
+PASS visible action [data-nav="review"]
+PASS visible action #review-module-tab-statistics
+PASS weekly statistics retained inside the statistics module
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 39.3 MB/s (131696 bytes in 0.003s)
+PASS visible action #review-module-tab-note
+PASS weekly note form retained and reachable
+PASS visible action [data-nav="settings"]
+PASS settings exposes reminders rest backup widget manual and About as direct list entries
+PASS visible action [data-layout-settings="backup"]
+PASS backup restore and report actions remain visible together
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 24.1 MB/s (123521 bytes in 0.005s)
+PASS visible action [data-action="about"]
+PASS About displays the real current build version
+PASS visible action #sheet [data-action="close-sheet"]
+PASS visible action [data-action="user-manual"]
+PASS manual navigation reflects the new layout
+PASS visible action #sheet [data-action="close-sheet"]
+PASS visible action [data-layout-settings="reminders"]
+PASS disabled reminders retain their actual state
+PASS visible action [data-nav="inspiration"]
+PASS inspiration page fits with shared navigation styling
+PASS layout retains translation and date labels while removing decorative page eyebrow
+PASS visible action [data-action=plan-picker]
+PASS visible action [data-action=new-plan]
+PASS new plan copies quantity goals without making minute references
+PASS new plan starts without inherited actual records
+PASS visible action [data-action=plan-picker]
+PASS visible action [data-action=switch-plan][data-plan="main"]
+PASS switching plans retains the original records
+PASS today fits 320 CSS pixels with 200 percent Android text
+PASS large text keeps every subject in the list
+PASS visible action #today-module-tab-record
+PASS visible action [data-layout-subject-button="vocab"]
+PASS large text subject editor fits without horizontal overflow
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 35.0 MB/s (145255 bytes in 0.004s)
+PASS large-text module touch targets remain at least 44 CSS pixels
+PASS visible action .range-edit
+PASS reference editor fits narrow large-text width
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 35.6 MB/s (163005 bytes in 0.004s)
+PASS visible action #sheet [data-action="close-sheet"]
+PASS visible action [data-nav="plan"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 41.5 MB/s (215085 bytes in 0.005s)
+PASS plan fits narrow large-text width
+PASS visible action [data-nav="review"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 31.2 MB/s (170200 bytes in 0.005s)
+PASS review fits narrow large-text width
+PASS visible action [data-nav="settings"]
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 37.4 MB/s (121937 bytes in 0.003s)
+PASS settings fits narrow large-text width
+PASS eight subjects remain individually named in the list
+PASS visible action [data-layout-subject-button="custom_5"]
+PASS the final subject row opens its own quantity form
+PASS quantity subjects do not acquire a timer through layout grouping
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":116,"restored":true,"error":null}

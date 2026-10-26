@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 22,
+  "versionName": "1.6.5",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.5/daily-study-v1.6.5.apk",
+  "apkBytes": 6638403,
+  "apkSha256": "3df8e79f46f44577e1bcdf02416e4130f8a58689c86be3b41de9a773ee085170",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v1.6.5\r\n\r\n- 新增独立的“总体任务分配”入口，集中修改单词新学、每周参考时间和数量目标。\r\n- 支持生效日期、总时间与各科分项联动，以及工作日批量填写；新增日期沿用修改后的默认分配。\r\n- 应用前确认日期和修改范围，可保留或覆盖单日自定目标，并选择已记录日期是否按新目标评估。\r\n- 今日列表可直接“记一笔”；编辑弹层内可保存记录，失败时在弹层内重试。\r\n- 完善页面返回位置、窄屏、大字号和键盘弹出时的编辑体验。\r\n",
+  "releaseDate": "2026-10-26"
+}

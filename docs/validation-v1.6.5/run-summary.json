@@ -1,0 +1,74 @@
+{
+  "version": "1.6.5",
+  "versionCode": 22,
+  "schema": 8,
+  "modelChecks": 193,
+  "newAllocationModelCases": 15,
+  "nativeChecks": 626,
+  "deviceReports": [
+    {
+      "scope": "总体任务分配与编辑操作",
+      "command": "node tests/allocation-ui.cjs",
+      "checks": 40,
+      "resultFile": "allocation-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "白底列表",
+      "command": "node tests/system-list-ui.cjs",
+      "checks": 65,
+      "resultFile": "system-list-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "布局导航",
+      "command": "node tests/layout-navigation-ui.cjs",
+      "checks": 116,
+      "resultFile": "layout-navigation-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "数量记录",
+      "command": "node tests/quantity-stability-ui.cjs",
+      "checks": 66,
+      "resultFile": "quantity-stability-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "单词分次",
+      "command": "node tests/word-log-ui.cjs",
+      "checks": 48,
+      "resultFile": "word-log-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "使用手册",
+      "command": "node tests/manual-ui.cjs",
+      "checks": 29,
+      "resultFile": "manual-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "启动更新",
+      "command": "node tests/startup-update-ui.cjs",
+      "checks": 44,
+      "resultFile": "startup-update-ui-results.json",
+      "originalFilesRestored": 28
+    },
+    {
+      "scope": "正式覆盖升级",
+      "command": "$env:COURSE_FORMAL_UPGRADE=1; $env:FORMAL_BASE_VERSION='1.6.4'; node tests/course-agenda-fix-ui.cjs",
+      "checks": 20,
+      "resultFile": "formal-upgrade-results.json",
+      "originalFilesRestored": 28
+    }
+  ],
+  "releaseToolingChecks": 39,
+  "apkSha256": "3df8e79f46f44577e1bcdf02416e4130f8a58689c86be3b41de9a773ee085170",
+  "apkBytes": 6638403,
+  "unverified": [
+    "vivo X100s physical operation",
+    "TalkBack spoken output and gestures",
+    "Android 8 through 15 runtime"
+  ]
+}

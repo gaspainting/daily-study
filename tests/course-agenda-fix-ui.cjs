@@ -255,7 +255,7 @@ async function formalCases(){
   const ui=require('./native-ui.cjs');assert.match(android('shell','id'),/uid=0/,'formal upgrade requires the owned emulator root shell');
   const info=()=>{const out=android('shell','dumpsys','package',pkg);return {version:/versionName=([^\s]+)/.exec(out)?.[1],code:Number(/versionCode=(\d+)/.exec(out)?.[1]),debuggable:/flags=\[[^\]]*DEBUGGABLE/.test(out)};};
   const bootFormal=async()=>{android('shell','am','force-stop',pkg);android('shell','am','start','-W','-n',pkg+'/.MainActivity');await delay(1200);let skip=ui.nodes().find(n=>n.text?.includes('跳过'));if(skip){ui.tap(skip);await delay(200);}};
-  const tap=async(text,scroll=true)=>{const matches=value=>text instanceof RegExp?text.test(value||''):value===text;for(let i=0;i<9;i++){const n=ui.nodes().find(n=>{const b=[...n.bounds.matchAll(/\d+/g)].map(x=>Number(x[0]));return (matches(n.text)||matches(n['content-desc']))&&b[1]>0&&b[3]<(scroll?2110:2300);});if(n){ui.tap(n);await delay(250);return;}if(scroll)android('shell','input','swipe','500','1700','500','650','250');await delay(100);}throw Error('Visible formal control missing: '+text);};
+  const tap=async(text,scroll=true,maxBottom=scroll?2110:2300)=>{const matches=value=>text instanceof RegExp?text.test(value||''):value===text;for(let i=0;i<9;i++){const n=ui.nodes().find(n=>{const b=[...n.bounds.matchAll(/\d+/g)].map(x=>Number(x[0]));return (matches(n.text)||matches(n['content-desc']))&&b[1]>0&&b[3]>b[1]&&b[3]<maxBottom;});if(n){ui.tap(n);await delay(250);return;}if(scroll)android('shell','input','swipe','500','1700','500','650','250');await delay(100);}throw Error('Visible formal control missing: '+text);};
   const old=structuredClone(require('../app/src/main/assets/seed.json'));old.version=3;old._revision=11;old.plan.manualWeekGoals=true;old.plan.weekGoals={'2026-10-12':'保留我的课程目标'};old.plan.weekHints={};old.plan.weekTasks={'2026-10-12':[{id:'task_cover',title:'保留已有任务',subjectId:'math',done:true,updatedAt:'2026-10-16T08:00:00Z'}]};
   old.plan.subjects.unshift({id:'course-review',name:'课程复习',kind:'custom',defaults:[30,30,30,30,30,60,30],activePeriods:[{from:'2026-10-16',to:null}]});
   M.dates('2026-10-16',old.plan.endDate).forEach(date=>{old.plan.targets[date]['course-review']=weekday(date)===5?60:30;});
@@ -286,6 +286,15 @@ async function formalCases(){
   const wordIds=wordEntry.wordLog.entries.map(e=>e.id);await tap(code>=21?'保存记录':'保存这一天');assert.deepEqual(JSON.parse(read('files/study-state.json')).records[now].subjects.vocab.wordLog.entries.map(e=>e.id),wordIds);check(true,'formal repeat save keeps the same word event ID');
   await tap('设置',false);if(code>=19&&code<21)await tap('应用',false);await tap('关于');check(ui.nodes().some(n=>(n.text||'').replace(/\s/g,'').includes('版本'+version)),'formal About page displays the actual installed version');
   android('shell','screencap','-p','/sdcard/reference-formal-upgrade.png');android('pull','/sdcard/reference-formal-upgrade.png',path.join(shots,'formal-upgrade-about.png'));
+  if(code>=22){
+    await tap('关闭',false);await tap('计划',false);await tap('总体任务分配');
+    let wordInput;for(let i=0;i<5;i++){wordInput=ui.nodes().find(n=>n.class==='android.widget.EditText'&&parseFloat(n.text)===50&&(n.text||'').includes('单词'));if(wordInput)break;await delay(200);}assert.ok(wordInput,'formal overall word-goal field');ui.tap(wordInput);android('shell','input','keyevent','KEYCODE_MOVE_END');for(let i=0;i<3;i++)android('shell','input','keyevent','KEYCODE_DEL');android('shell','input','text','40');if(/mInputShown=true|isInputViewShown\(\)=true/.test(android('shell','dumpsys','input_method')))android('shell','input','keyevent','KEYCODE_BACK');
+    await tap('应用分配',true,2300);await ui.byId('android:id/button1');await delay(350);const allocation=JSON.parse(read('files/study-state.json'));
+    check(require('../app/src/main/assets/model.js').wordTarget(allocation,now,'vocab')===40&&require('../app/src/main/assets/model.js').wordTarget(allocation,allocation.plan.endDate,'vocab')===40,'formal native controls apply forty new words to today and the remaining plan');
+    assert.deepEqual(allocation.records,wordSaved.records);check(allocation.assessmentBases[now].words.find(w=>w.id==='vocab').goal===40&&allocation.assessmentBases[rememberedDay].words.find(w=>w.id==='vocab').goal===50,'formal batch change updates current criteria and preserves past criteria and actual records');
+    await tap('今日',false);android('shell','screencap','-p','/sdcard/formal-allocation.png');android('pull','/sdcard/formal-allocation.png',path.join(shots,'formal-allocation-today.png'));
+  }
+
 }
 async function main(){
   try{
