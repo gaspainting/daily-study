@@ -36,7 +36,7 @@
   const weekOf = date => M().weekInfo(state.plan, date);
   const meaningful = record => !!record && (record.status != null || record.restKept != null || !!record.note || Object.values(record.subjects || {}).some(s => s.minutes != null || s.quantity != null || s.content || s.problem || s.newWords != null || s.reviewWords != null || s.forgotWords || s.wordLog?.entries.length));
   const actualTotal = record => { const values = Object.values(record && record.subjects || {}).filter(s => s.minutes != null).map(s => s.minutes); return values.length ? values.reduce((a, b) => a + b, 0) : null; };
-  const visibleSubjects = date => state.plan.subjects.filter(s => M().subjectActive(s, date) || meaningful({ subjects: { [s.id]: state.records[date]?.subjects?.[s.id] || {} } }));
+  const visibleSubjects = date => {const required=new Set((state.evaluation?.bases[date]?.items||[]).filter(i=>i.required).flatMap(i=>i.sources.filter(s=>s.requiredInput).map(s=>s.subjectId)));return state.plan.subjects.filter(s => M().subjectActive(s,date)||required.has(s.id)||meaningful({subjects:{[s.id]:state.records[date]?.subjects?.[s.id]||{}}}));};
   const refTotal = date => within(date)?R().total(state,date):null;
   const clampPlanDate = date => date < state.plan.startDate ? state.plan.startDate : date > state.plan.endDate ? state.plan.endDate : date;
 
@@ -379,7 +379,7 @@
       if (subject.kind === 'vocab') return vocabEntry(subject, r, index);
       if (isQuantity(subject)) {
         const goal = within(selectedDate) ? M().quantityTarget(state, selectedDate, id) : null;
-        const unit = r.quantity!=null&&r.quantityUnit || M().quantityUnit(state,selectedDate,id),goalUnit=M().quantityUnit(state,selectedDate,id);
+        const unit = r.quantityUnit || M().quantityUnit(state,selectedDate,id),goalUnit=M().quantityUnit(state,selectedDate,id);
         return '<div class="subject-entry quantity-entry"><div class="subject-heading"><h3><span class="subject-index">' + String(index + 1).padStart(2, '0') + '</span>' + escape(subject.name) + '</h3>' + (goal !== null && M().subjectActive(subject, selectedDate) ? '<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="' + selectedDate + '" data-subject="' + escape(id) + '" aria-label="修改' + escape(subject.name) + '每日目标">目标 ' + goal + ' ' + escape(goalUnit) + '</button>' : '<span class="reference-pill">' + (M().subjectActive(subject, selectedDate) ? '目标 ' + (goal === null ? '—' : goal) + ' ' + escape(unit) : '已归档') + '</span>') + '</div><div class="actual-row"><div class="actual-input"><input type="number" id="quantity-' + id + '" name="quantity-' + id + '" data-unit="'+escape(unit)+'" min="0" max="100000" step="1" inputmode="numeric" value="' + escape(r.quantity) + '" placeholder="未记录" aria-label="' + escape(subject.name) + '实际数量（'+escape(unit)+'）"><span>实际 ' + escape(unit) + '</span><input type="hidden" id="quantity-unit-'+id+'" name="quantity-unit-'+id+'" data-draft-unit-for="quantity-'+id+'" value="'+escape(unit)+'"></div></div><details class="details-toggle"' + (r.content || r.problem ? ' open' : '') + '><summary>内容与问题 <span class="visually-hidden">展开记录</span></summary>' + field('内容 / 题号', 'content-' + id, r.content, { placeholder: '这次完成了什么', maxLength: 3000 }) + field('需要回顾的一个问题', 'problem-' + id, r.problem, { textarea: true, maxLength: 3000 }) + '</details></div>';
       }
       const ref = within(selectedDate) ? R().text(M().reference(state, selectedDate, id)) : '—';
@@ -890,7 +890,7 @@
       if (action === 'timer-picker') { timerPicker(); return; }
       if (action === 'edit-allocation') { editAllocation(); return; }
       if(action==='evaluation-schedule'){const ctx=window.StudyEvaluation.context(state.evaluation.timezone);if(window.StudyEvaluation.shift(ctx.today,1)>state.plan.endDate)throw new Error('计划内没有可安排的未来日期');openSheet('评估日程',window.StudyEvaluationUI.editor(state));window.StudyEvaluationUI.sync(document.getElementById('evaluation-schedule-form'));return;}
-      if(action==='auto-continue'){const r=window.StudyEvaluation.assess(state,selectedDate),item=r&&r.items.find(i=>i.required&&i.achieved!==true),id=item?.sources[0]?.subjectId||visibleSubjects(selectedDate)[0]?.id;if(id)window.StudyLayout.showSubject(id);return;}
+      if(action==='auto-continue'){const r=window.StudyEvaluation.assess(state,selectedDate),item=r&&r.items.find(i=>i.required&&i.achieved!==true),id=(item?.sources.find(s=>s.requiredInput&&state.records[selectedDate]?.subjects?.[s.subjectId]?.[s.field]==null)||item?.sources[0])?.subjectId||visibleSubjects(selectedDate)[0]?.id;if(id)window.StudyLayout.showSubject(id);return;}
       if (action === 'allocation-weekdays') { window.StudyAllocationUI.weekdays(button.closest('form'),state); return; }
       if (action === 'start-timer') { const started=startTimer(button.dataset.subject);if(started&&dialog.classList.contains('timer-picker-sheet'))closeSheet(true);return; }
       if (action.startsWith('timer-')) { timerAction(action.slice(6)); return; }

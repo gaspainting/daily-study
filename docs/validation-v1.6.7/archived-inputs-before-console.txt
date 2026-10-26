@@ -1,0 +1,13 @@
+AssertionError [ERR_ASSERTION]: archived unrecorded required time and vocabulary remain reachable outside the current plan range
+    at Object.check (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:20:35)
+    at D:\南京邮电大学\learning\study-checkin-android\tests\archived-inputs-ui.cjs:9:4
+    at async main (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:304:20) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":1,"restored":true,"error":"archived unrecorded required time and vocabulary remain reachable outside the current plan range"}

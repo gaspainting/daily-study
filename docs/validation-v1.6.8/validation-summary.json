@@ -1,0 +1,52 @@
+{
+  "version": "1.6.8",
+  "versionCode": 25,
+  "schema": 9,
+  "modelTests": 253,
+  "sharedJavaScriptJavaCases": 29,
+  "android36NativeChecks": 707,
+  "android35NativeChecks": 705,
+  "archivedUI": {
+    "checks": 11,
+    "report": "archived-inputs-ui-results.json",
+    "filesAndPreferencesRestored": true
+  },
+  "automaticUI": {
+    "checks": 22,
+    "report": "automatic-ui-results.json",
+    "filesAndPreferencesRestored": true
+  },
+  "formalUpgrade": {
+    "checks": 13,
+    "report": "automatic-formal-upgrade-results.json",
+    "filesAndPreferencesRestored": true
+  },
+  "api35": {
+    "checks": 4,
+    "report": "api35/api35-native-wrapper-results.json",
+    "filesAndPreferencesRestored": true
+  },
+  "releaseToolingAssertions": 39,
+  "apk": {
+    "version": "1.6.8",
+    "versionCode": 25,
+    "apkBytes": 6675472,
+    "apkSha256": "67190d4d334955005e2063dee870b483a1cf1fe6fa524fe0b59819fd9ce1d839",
+    "exactWorkspaceAssets": 35,
+    "testAssetsAndInstrumentationAbsent": true
+  },
+  "nativeCodeConsistency": {
+    "nativeDexUnchangedAfterFinalComparisonTextFix": true,
+    "dexSha256": "55846ab2e8fe4d6746842f8d1645596e500a6d69786268c21445c473ea9b38dc",
+    "scope": "Native707 checks and Android15 native705 checks executed with byte-identical DEX; final WebView assets checked again."
+  },
+  "coreRelease": "v1.6.7",
+  "scope": "Synthetic fixtures on owned Android35/36 emulators; formal v1.6.6 cover upgrade; actual WebView backfill and failure recovery. No physical phone used. Native code byte identity is recorded after the final comparison-text adjustment.",
+  "unverified": [
+    "vivo X100s hands-on operation",
+    "TalkBack speech and gestures",
+    "Android8-14 runtime",
+    "long-duration observation"
+  ],
+  "remaining": "Long-history latency recorded in v1.6.7; v1.7.0 follow-up; no new performance sampling in this patch."
+}

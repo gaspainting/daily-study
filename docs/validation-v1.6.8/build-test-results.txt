@@ -1,0 +1,12 @@
+ע: ĳЩ�����ļ�ʹ�û򸲸����ѹ�ʱ�� API��
+ע: �й���ϸ��Ϣ, ��ʹ�� -Xlint:deprecation ���±��롣
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+APK: D:\南京邮电大学\learning\study-checkin-android\dist\每日学习-v1.6.8-test.apk
+SHA256: 7e12c578de861cb6d47a6c58db9d2d9933632487329d5b542c5f5d58065b73d0

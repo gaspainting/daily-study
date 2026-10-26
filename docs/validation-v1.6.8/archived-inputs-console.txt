@@ -1,0 +1,13 @@
+PASS archived unrecorded required time and vocabulary remain reachable outside the current plan range
+PASS archived quantity obligation also retains an input entry
+PASS new historical quantity input uses its original fixed unit rather than the new default unit
+PASS actual native save accepts archived fixed-goal backfill without converting its values or unit
+PASS backfill keeps the original basis and archived periods unchanged
+PASS backfill is assessed against the original required time words and quantity
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 25.1 MB/s (181478 bytes in 0.007s)
+PASS removing a current subject still offers an adjusted comparison in basis details
+PASS install a saved partial fixed-goal total
+PASS Continue opens the missing archived time component
+PASS cold restart keeps the archived required input available
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":11,"restored":true,"error":null}

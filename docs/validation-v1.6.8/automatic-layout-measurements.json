@@ -1,0 +1,25 @@
+{
+  "today": "2026-10-27",
+  "bounds": {
+    "width": 320,
+    "body": 320,
+    "buttons": [
+      {
+        "text": "评估规则",
+        "height": 45.397727966308594,
+        "width": 84
+      },
+      {
+        "text": "继续记录",
+        "height": 45.397727966308594,
+        "width": 84
+      },
+      {
+        "text": "查看依据",
+        "height": 45.397727966308594,
+        "width": 84
+      }
+    ]
+  },
+  "scope": "Android36 actual WebView, synthetic fixtures; JS confirmations controlled for positive/cancel cases; no TalkBack speech or physical vivo test"
+}

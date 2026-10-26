@@ -139,7 +139,7 @@
     dateStamp(date);
     var value = has(state.records, date) ? clone(state.records[date]) : { subjects: {}, status: null, restKept: null, note: '' };
     state.plan.subjects.forEach(function (item) {
-      if (!has(value.subjects, item.id)) {value.subjects[item.id] = blankSubject(item);if(isQuantity(item))value.subjects[item.id].quantityUnit=ranges.quantityUnit(state,date,item);}
+      var missing=!has(value.subjects,item.id);if(missing)value.subjects[item.id]=blankSubject(item);if(isQuantity(item)&&(missing||!value.subjects[item.id].quantityUnit))value.subjects[item.id].quantityUnit=(state.evaluation&&state.evaluation.bases[date]&&state.evaluation.bases[date].quantities.find(function(q){return q.id===item.id;})||{}).unit||ranges.quantityUnit(state,date,item);
     });
     return value;
   }

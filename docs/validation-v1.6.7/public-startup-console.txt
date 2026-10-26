@@ -1,0 +1,7 @@
+PASS public-channel discovery runs the actual previous formal version
+PASS previous formal APK discovers the real published update on cold start without entering About
+PASS real public startup discovery does not automatically download or request installation
+/sdcard/public-startup-update.png: 1 file pulled, 0 skipped. 34.4 MB/s (354861 bytes in 0.010s)
+PASS public-channel check restores all original emulator proxy settings
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":5,"restored":true,"error":null}

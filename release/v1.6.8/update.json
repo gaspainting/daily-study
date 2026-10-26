@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 25,
+  "versionName": "1.6.8",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.8/daily-study-v1.6.8.apk",
+  "apkBytes": 6675472,
+  "apkSha256": "67190d4d334955005e2063dee870b483a1cf1fe6fa524fe0b59819fd9ce1d839",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# v1.6.8\n\n- 补齐已归档科目原计划未记录项的补录入口，缩短计划范围后仍可从历史日期补记。\n- 历史数量填写使用原单位，保留已有明确记录和评估依据。\n- “继续记录”定位未填写的分项；依据详情补全移除目标后的对照。\n",
+  "releaseDate": "2026-10-27"
+}

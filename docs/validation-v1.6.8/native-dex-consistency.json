@@ -1,0 +1,5 @@
+{
+  "nativeDexUnchangedAfterFinalComparisonTextFix": true,
+  "dexSha256": "55846ab2e8fe4d6746842f8d1645596e500a6d69786268c21445c473ea9b38dc",
+  "scope": "Native707 checks and Android15 native705 checks executed with byte-identical DEX; final WebView assets checked again."
+}

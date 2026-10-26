@@ -1,0 +1,75 @@
+{
+  "version": "1.6.8",
+  "passed": 4,
+  "checks": [
+    "complete native SmokeTests finish with instrumentation code -1 and no failed result",
+    "actual Android pdf interval assessment sample is exported for review",
+    "actual Android csv interval assessment sample is exported for review",
+    "all original app files and preferences restored byte for byte; fixture-only files removed"
+  ],
+  "metrics": [],
+  "runtimeExceptions": [],
+  "restored": true,
+  "originalFiles": [
+    {
+      "file": "files/inspiration-media/44a8cd313d952e38b0bdb09c01466518a3085e96b85d6d58849dc9a203b90738.png",
+      "bytes": 13094,
+      "sha256": "44a8cd313d952e38b0bdb09c01466518a3085e96b85d6d58849dc9a203b90738"
+    },
+    {
+      "file": "files/inspiration-media/4cebf24062dd4b9dc73444956fbf63c8c35e878486fa2275c64d76519bb9fbe4.png",
+      "bytes": 37130,
+      "sha256": "4cebf24062dd4b9dc73444956fbf63c8c35e878486fa2275c64d76519bb9fbe4"
+    },
+    {
+      "file": "files/inspiration-media/bfe0052395309a7679fe4d9c4305872e87bc8a7b67c4fa0da8d37a2bb3123d88.png",
+      "bytes": 28983,
+      "sha256": "bfe0052395309a7679fe4d9c4305872e87bc8a7b67c4fa0da8d37a2bb3123d88"
+    },
+    {
+      "file": "files/inspiration.json",
+      "bytes": 140,
+      "sha256": "150a767ba675c253db7d09d7b34a3557660e16ac5616407f4efed44dcdcc4fea"
+    },
+    {
+      "file": "files/plans.json",
+      "bytes": 118,
+      "sha256": "febc9b5d4289bf53f4652593bdb31d72b0fcf368631b35266a3840ed09832d41"
+    },
+    {
+      "file": "files/study-state.json",
+      "bytes": 8349,
+      "sha256": "1e01c45b0cad0349da9cb8b3f229fd43d30f869ea7a82f141b3f1e0b2a75607b"
+    },
+    {
+      "file": "shared_prefs/backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/plan-test-a216d0e0-537f-4d0b-8b61-1f264971bbb4-stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/report-test-02c770b9-1ae0-410b-ae8e-6def682c5dac-backup_status.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/stopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    },
+    {
+      "file": "shared_prefs/v132-words-3d5eadd5-95d5-4697-956c-359c36ac348fstopwatch.xml",
+      "bytes": 65,
+      "sha256": "3325d2a819fdd8062c2cdc48a09b995c9b012915bcdf88b1cf9742a7f057c793"
+    }
+  ],
+  "error": null,
+  "unverified": [
+    "Physical vivo X100s operation",
+    "TalkBack spoken output and gesture navigation"
+  ]
+}

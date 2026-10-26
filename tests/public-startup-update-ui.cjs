@@ -16,7 +16,8 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
   h.check(labels.includes('稍后')&&!labels.includes('安装更新'),'real public startup discovery does not automatically download or request installation');
  }finally{
   for(const key of keys){if(old[key]==='null')h.android('shell','settings','delete','global',key);else h.android('shell','settings','put','global',key,old[key]);}
-  h.android('install','--no-incremental','-r',path.join(h.root,'dist/每日学习-v'+version+'.apk'));
+  const studyBefore=h.read('files/study-state.json');h.android('install','--no-incremental','-r',path.join(h.root,'dist/每日学习-v'+version+'.apk'));h.check(h.read('files/study-state.json').equals(studyBefore),'real public-client cover installation keeps the saved learning file unchanged');
+  const saved=JSON.parse(studyBefore);if(saved.evaluation){h.android('shell','am','start','-W','-n',pkg+'/.MainActivity');await h.delay(1200);assert.deepEqual(JSON.parse(h.read('files/study-state.json')).evaluation,saved.evaluation);h.check(true,'patch launch retains the existing automatic-assessment ledger and activation date');}
   h.check(keys.every(k=>h.android('shell','settings','get','global',k)===old[k]),'public-channel check restores all original emulator proxy settings');
  }
 });
