@@ -34,9 +34,20 @@
     html += rows.length ? rows.map(function (row) {
       var snippet = row.note || Object.keys(row.record.subjects).map(function (id) { var item = row.record.subjects[id]; return item.content || item.problem || item.forgotWords || ''; }).filter(Boolean).join('；');
       const result=refs().assess(state,row.date),assessment=result.time;const wordResult=refs().kind(result,'words'),wordLabel=({below:'未完成',within:'完成',above:'超额完成',rest:'休息日',empty:'未记录',partial:'待补全'})[wordResult]||'待评估';
-      return '<button type="button" class="plan-day tracking-record" data-action="tracking-open-day" data-date="' + row.date + '" aria-label="打开 ' + row.date + '，' + escape(summaryText(row)+'，'+assessment.label) + '"><span class="plan-day-meta"><strong class="plan-day-date">' + row.date.replaceAll('-', '.') + '</strong><span class="plan-day-subjects">' + escape(summaryText(row)) + '</span><span class="tracking-assessment">'+escape('时长：'+assessment.label+' · 新学：'+wordLabel)+'</span>' + (snippet ? '<span class="tracking-note">' + escape(snippet.slice(0, 100)) + '</span>' : '') + '</span>' + (row.status ? '<span class="saved-mark">' + escape(row.status === '正常参考' ? '照常' : row.status) + '</span>' : '') + (helpers.icon ? helpers.icon('next') : '') + '</button>';
+      var quantities=(result.quantities||[]).filter(q=>!filters.subjectId||filters.subjectId==='all'||q.id===filters.subjectId),qLabel=quantities.length===1?quantities[0].label:({below:'未完成',within:'完成',above:'超额完成',rest:'休息日',empty:'未记录',partial:'待补全'})[refs().kind({...result,quantities},'quantity')]||'待评估';
+      return '<button type="button" class="plan-day tracking-record" data-action="tracking-open-day" data-date="' + row.date + '" aria-label="打开 ' + row.date + '，' + escape(summaryText(row)+'，'+assessment.label) + '"><span class="plan-day-meta"><strong class="plan-day-date">' + row.date.replaceAll('-', '.') + '</strong><span class="plan-day-subjects">' + escape(summaryText(row)) + '</span><span class="tracking-assessment">'+escape((filters.subjectId&&model().isQuantity(state.plan.subjects.find(s=>s.id===filters.subjectId))?'数量：'+qLabel:'时长：'+assessment.label+' · 新学：'+wordLabel+(quantities.length?' · 数量：'+qLabel:'')))+'</span>' + (snippet ? '<span class="tracking-note">' + escape(snippet.slice(0, 100)) + '</span>' : '') + '</span>' + (row.status ? '<span class="saved-mark">' + escape(row.status === '正常参考' ? '照常' : row.status) + '</span>' : '') + (helpers.icon ? helpers.icon('next') : '') + '</button>';
     }).join('') : '<div class="empty">暂无匹配记录</div>';
     return html + '</div>';
+  }
+  function renderQuantityStats(state,days){
+    return state.plan.subjects.filter(model().isQuantity).map(function(item){return model().quantityStats(state,days,item).map(function(group){
+      var unit=group.unit,active=d=>d>=state.plan.startDate&&d<=state.plan.endDate&&model().subjectActive(item,d),goal=d=>active(d)&&model().quantityUnit(state,d,item.id)===unit?model().quantityTarget(state,d,item.id):null;
+      var actual=d=>{var e=state.records[d]?.subjects?.[item.id];return e&&e.quantityUnit===unit?e.quantity:null;};
+      var description=days.map(d=>d+'，'+(actual(d)===null?'未记录':actual(d)+' '+unit)+'，目标 '+(goal(d)===null?'—':goal(d)+' '+unit)).join('；');
+      var html='<section class="quantity-summary" aria-label="'+escape(item.name+' · '+unit)+'"><div class="chart-subject-head"><h3>'+escape(item.name)+' · '+escape(unit)+'</h3><span class="chart-value">'+(group.actual===null?'未记录':group.actual+' '+escape(unit))+' <small>/ 目标 '+group.reference+' '+escape(unit)+'</small></span></div>';
+      if(days.length<=7){var maximum=Math.max(1,...days.map(d=>Math.max(actual(d)||0,goal(d)||0)));html+='<div class="bar-chart" role="img" aria-label="'+escape(description)+'">'+days.map(d=>{const count=actual(d),target=goal(d);return '<div class="chart-day" title="'+escape(d+' · '+(count===null?'未记录':count+' '+unit))+'">'+(target===null?'':'<i class="bar reference" data-height="'+target/maximum*100+'"></i>')+'<i class="bar'+(count===null?' missing':count===0?' zero':'')+'" data-height="'+(count||0)/maximum*100+'"></i></div>';}).join('')+'</div><div class="chart-labels">'+days.map(d=>'<span>'+Number(d.slice(8))+'日</span>').join('')+'</div>';}
+      return html+'<p class="chart-caption">'+group.recordedDays+'/'+group.totalDays+' 天已记录</p></section>';
+    }).join('');}).join('');
   }
   function renderWordStats(state, days) {
     return model().wordStats(state, days).filter(function(s){return s.totalDays||s.newWords!==null||s.reviewWords!==null;}).map(function(s){
@@ -62,7 +73,7 @@
     html += '</div></div>'+renderAssessments(state,stats.days,helpers)+'<section class="section"><div class="section-heading"><h2>科目统计</h2></div>';
     var wordHtml = renderWordStats(state, stats.days); html += wordHtml;
     var subjectRows = stats.subjects.filter(function (item) { return item.kind !== 'vocab' ? item.totalDays || item.actual !== null : item.actual !== null; });
-    html += subjectRows.length ? subjectRows.map(function (item) { if(item.measure==='quantity') return '<div class="settings-row"><div><h3>' + escape(item.name) + '</h3><p class="chart-caption">' + item.recordedDays + '/' + item.totalDays + ' 天已记录 · 目标 ' + item.reference + ' ' + escape(item.unit || '') + '</p></div><span class="chart-value">' + (item.actual===null?'未记录':item.actual+' '+escape(item.unit || '')) + '</span></div>'; return '<div class="settings-row"><div><h3>' + escape(item.name) + (item.kind==='vocab'?' · 历史时长':'') + '</h3><p class="chart-caption">' + item.recordedDays + '/' + item.totalDays + ' 天已记录 · 参考 ' + refs().text(item.referenceRange||item.reference) + ' 分钟</p></div><span class="chart-value">' + escape(minutes(item.actual)) + '</span></div>'; }).join('') : wordHtml ? '' : '<div class="empty">暂无科目记录</div>';
+    html += subjectRows.length ? renderQuantityStats(state,stats.days)+subjectRows.filter(function(item){return item.measure!=='quantity';}).map(function (item) { if(item.measure==='quantity') return '<div class="settings-row"><div><h3>' + escape(item.name) + '</h3><p class="chart-caption">' + item.recordedDays + '/' + item.totalDays + ' 天已记录 · 目标 ' + item.reference + ' ' + escape(item.unit || '') + '</p></div><span class="chart-value">' + (item.actual===null?'未记录':item.actual+' '+escape(item.unit || '')) + '</span></div>'; return '<div class="settings-row"><div><h3>' + escape(item.name) + (item.kind==='vocab'?' · 历史时长':'') + '</h3><p class="chart-caption">' + item.recordedDays + '/' + item.totalDays + ' 天已记录 · 参考 ' + refs().text(item.referenceRange||item.reference) + ' 分钟</p></div><span class="chart-value">' + escape(minutes(item.actual)) + '</span></div>'; }).join('') : wordHtml ? '' : '<div class="empty">暂无科目记录</div>';
     return html + '</section>';
   }
   function duration(seconds) {
@@ -81,5 +92,5 @@
     }).join('') : '<div class="empty">暂无计时记录</div>';
     return html + '</div>';
   }
-  return Object.freeze({ summaryText: summaryText, renderWordStats: renderWordStats, renderAssessments: renderAssessments, renderHistory: renderHistory, renderMonth: renderMonth, renderSessions: renderSessions, duration: duration });
+  return Object.freeze({ summaryText: summaryText, renderQuantityStats:renderQuantityStats, renderWordStats: renderWordStats, renderAssessments: renderAssessments, renderHistory: renderHistory, renderMonth: renderMonth, renderSessions: renderSessions, duration: duration });
 });

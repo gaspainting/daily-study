@@ -117,7 +117,7 @@ public final class DataStore {
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
-        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=8?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets","manualReferences","manualReferenceDefaults"}:state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
+        keys(p,new String[]{"title","startDate","endDate","startWeek","subjects","targets","weekGoals","weekHints"},state.getInt("version")>=8?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets","manualReferences","manualReferenceDefaults","quantityUnits"}:state.getInt("version")>=6?new String[]{"wordTargets","manualWeekGoals","weekTasks","courseSchedule","quantityTargets"}:state.getInt("version")>=3?new String[]{"wordTargets","manualWeekGoals","weekTasks"}:current?new String[]{"wordTargets","manualWeekGoals"}:new String[]{},"plan");
         require(!string(p,"title",128).trim().isEmpty(),"计划名不能为空");
         LocalDate start=date(string(p,"startDate",10)), end=date(string(p,"endDate",10));
         long days = ChronoUnit.DAYS.between(start,end)+1;
@@ -146,6 +146,7 @@ public final class DataStore {
                 for(int j=0;j<periods.length();j++) {JSONObject period=periods.getJSONObject(j);keys(period,new String[]{"from","to"},new String[]{},"activePeriod");LocalDate from=date(string(period,"from",10));LocalDate to=period.isNull("to")?null:date(string(period,"to",10));require(to==null||to.isAfter(from),"科目启用时段结束日期无效");require(j==0||previous!=null&&!from.isBefore(previous),"科目启用时段重叠或顺序无效");previous=to;}
             }
         }
+        if(p.has("quantityUnits")){JSONObject units=p.getJSONObject("quantityUnits");require(units.length()<=100000,"数量单位日期过多");Iterator<String> dates=units.keys();while(dates.hasNext()){String day=dates.next();date(day);JSONObject row=units.getJSONObject(day);Iterator<String> names=row.keys();while(names.hasNext()){String id=names.next();require(ids.contains(id)&&"quantity".equals(subjects.getJSONObject(indexOf(subjects,id)).optString("measure")),"数量单位科目无效");require(!string(row,id,32).trim().isEmpty(),"数量单位不能为空");}}}
         if(p.has("manualReferenceDefaults"))manualIds(p.getJSONArray("manualReferenceDefaults"),subjects,ids,vocabIds);
         if(p.has("manualReferences")){JSONObject marked=p.getJSONObject("manualReferences");require(marked.length()<=100000,"手动参考日期过多");Iterator<String> it=marked.keys();while(it.hasNext()){String d=it.next();date(d);manualIds(marked.getJSONArray(d),subjects,ids,vocabIds);}}
         JSONObject targets=p.getJSONObject("targets"); Iterator<String> dates=targets.keys();

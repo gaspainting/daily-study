@@ -32,11 +32,11 @@ public final class StudyWidget extends AppWidgetProvider {
             total++;
             boolean quantity="quantity".equals(s.optString("measure")),known=quantity?actual!=null&&actual.has("quantity")&&!actual.isNull("quantity"):actual!=null&&actual.has("minutes")&&!actual.isNull("minutes"),words="vocab".equals(s.getString("kind")),learned=actual!=null&&!actual.isNull("newWords"),reviewed=actual!=null&&!actual.isNull("reviewWords");if(known||words&&(learned||reviewed))recorded++;
             if(shown>=3)continue;
-            String unit=s.optString("unit","个"),a=known?(quantity?actual.getInt("quantity")+" "+unit:minutes(actual.getDouble("minutes"))+" 分钟"):"未记录";
+            String goalUnit=quantity?Reference.quantityUnit(state,now,s):"个",unit=quantity&&actual!=null?actual.optString("quantityUnit",goalUnit):goalUnit,a=known?(quantity?actual.getInt("quantity")+" "+unit:minutes(actual.getDouble("minutes"))+" 分钟"):"未记录";
             Object ref=quantity?null:Reference.value(p,s,now);
             if(shown>0)text.append("\n");shown++;String name=s.getString("name");if(name.length()>10)name=name.substring(0,10)+"…";
             if(words){text.append(name).append("  新学 ").append(learned?actual.getInt("newWords")+" 个":"未记录").append(inside&&active?" / "+DataStore.wordTarget(state,day,subjectId)+" 个":"");text.append("\n复习 ").append(reviewed?actual.getInt("reviewWords")+" 个":"未记录");if(known)text.append(" · 时长 ").append(a);}
-            else text.append(name).append("  ").append(a).append(!inside?" / 计划范围外":active?(quantity?" / 目标 "+Reference.quantityTarget(state,now,s)+" "+unit:" / 参考 "+Reference.text(ref)+" 分钟"):"");
+            else text.append(name).append("  ").append(a).append(!inside?" / 计划范围外":active?(quantity?" / 目标 "+Reference.quantityTarget(state,now,s)+" "+goalUnit:" / 参考 "+Reference.text(ref)+" 分钟"):"");
         }
         if(total>3)text.append("\n另有 ").append(total-3).append(" 科");
         if(total==0)text.append("暂无科目");

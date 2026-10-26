@@ -1,0 +1,6 @@
+Prepared: C:\Users\18307\AppData\Local\Temp\daily-study-release-18a7ec70d23f434b97181486732270ee\prepared
+APK version: 1.6.3 / code 20
+APK SHA256: 8b56ec4e8c1d7f82a269c49b9125015ed16399b519990bef6007d67a1f40e481
+Signer SHA256: fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5
+Public files: APK, update.json, RELEASE-NOTES.md
+PASS: 39 release tooling assertions; no remote mutations.

@@ -52,11 +52,12 @@
       }
       const patches = {}, conflicts = [];
       Object.keys(draft.values).forEach(k => {
-        if (!(k in base) || draft.values[k] === draft.base[k]) return;
-        if (base[k] !== draft.base[k] && base[k] !== draft.values[k]) conflicts.push(k);
+        const control=controls(form).find(e=>controlKey(form,e)===k),pair=control?.dataset.draftUnitFor,paired=pair&&draft.values[pair]!==draft.base[pair];
+        if (!(k in base) || draft.values[k] === draft.base[k]&&!paired) return;
+        if (base[k] !== draft.base[k] && base[k] !== draft.values[k]) {conflicts.push(k);if(pair)form.dataset.quantityConflict='true';}
         patches[k] = draft.values[k];
       });
-      if (conflicts.length) { entry.pending = patches; banner(form, '记录已更新', [['apply', '使用草稿'], ['clear', '保留当前记录']], true); return; }
+      if (conflicts.length) { entry.pending = patches; banner(form, form.dataset.quantityConflict?'数量单位已更新':'记录已更新', [['apply', '使用草稿'], ['clear', '保留当前记录']], true); return; }
       if (!Object.keys(patches).length) { api('deleteDraft', key); return; }
       apply(form, patches); changed(form); banner(form, '已恢复草稿', [['clear', '清除草稿']]);
     } catch (e) { entry.saved = false; entry.readError = true; banner(form, '草稿读取失败', [['retry', '重试']], true); }
@@ -69,7 +70,7 @@
       const values = fields(form);
       if (equal(values, entry.base)) api('deleteDraft', entry.key);
       else api('saveDraft', entry.key, JSON.stringify(entry.base), JSON.stringify(values));
-      entry.saved = true; entry.pending = null;
+      entry.saved = true; entry.pending = null; delete form.dataset.quantityConflict;
       if (!equal(values, entry.base)) banner(form, '草稿', [['clear', '清除']]);
       else form.querySelector('.draft-status')?.remove();
       return true;
@@ -77,7 +78,7 @@
   }
   function clear(form) {
     const entry = entries.get(form); if (!entry) return;
-    api('deleteDraft', entry.key); apply(form, entry.base); entry.saved = true; entry.pending = null; entry.legacyReference = null; form.querySelector('.draft-status')?.remove(); changed(form, false);
+    api('deleteDraft', entry.key); apply(form, entry.base); entry.saved = true; entry.pending = null; delete form.dataset.quantityConflict; entry.legacyReference = null; form.querySelector('.draft-status')?.remove(); changed(form, false);
     form.dispatchEvent(new CustomEvent('study-draft-cleared', { bubbles: true }));
   }
   document.addEventListener('click', e => {
@@ -93,8 +94,8 @@
   window.StudyDrafts = {
     init(call, resolveKey, onChange) { api = call; keyFor = resolveKey; changed = onChange; },
     attach, save, fields,
-    hasContextConflict(form) { return !!entries.get(form)?.legacyReference || !!form.dataset.weekConflict; },
-    resolve(form, values) { const entry = entries.get(form); if (!entry) return; entry.pending = null; apply(form, values); changed(form); save(form); },
+    hasContextConflict(form) { return !!entries.get(form)?.legacyReference || !!form.dataset.weekConflict || !!form.dataset.quantityConflict; },
+    resolve(form, values) { const entry = entries.get(form); if (!entry) return; entry.pending = null;delete form.dataset.quantityConflict; apply(form, values); changed(form); save(form); },
     flush() { let ok = true; document.querySelectorAll('form[data-dirty]').forEach(f => { if(f.closest('dialog') && !f.closest('dialog').open)return; const entry = entries.get(f); if (entry && !entry.pending && !equal(fields(f), entry.base)) ok = save(f) && ok; }); return ok; },
     removeKey(key) { if (key) api('deleteDraft', key); }
   };

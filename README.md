@@ -2,9 +2,9 @@
 
 面向 Android 的学习手记：安排课程复习与考研学习，记录时间、单词和每周目标。
 
-[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.2.md)
+[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.3.md)
 
-当前版本 **v1.6.2**，支持 Android 8.0 及以上。
+当前版本 **v1.6.3**，支持 Android 8.0 及以上。
 
 **主要功能**
 

@@ -1,0 +1,40 @@
+{
+  "method": "WCAG sRGB relative luminance; selected new palette only",
+  "checks": [
+    {
+      "name": "body text",
+      "foreground": "#21332b",
+      "background": "#ffffff",
+      "ratio": 13.35,
+      "minimum": 4.5
+    },
+    {
+      "name": "secondary text",
+      "foreground": "#58675f",
+      "background": "#ffffff",
+      "ratio": 5.97,
+      "minimum": 4.5
+    },
+    {
+      "name": "selected and primary actions",
+      "foreground": "#ffffff",
+      "background": "#286448",
+      "ratio": 6.98,
+      "minimum": 4.5
+    },
+    {
+      "name": "reference actions",
+      "foreground": "#254e37",
+      "background": "#e8f2eb",
+      "ratio": 8.24,
+      "minimum": 4.5
+    },
+    {
+      "name": "input boundary",
+      "foreground": "#7e9183",
+      "background": "#ffffff",
+      "ratio": 3.35,
+      "minimum": 3
+    }
+  ]
+}

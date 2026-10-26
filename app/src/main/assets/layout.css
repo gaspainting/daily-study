@@ -92,6 +92,11 @@ main{padding:8px 18px calc(var(--layout-nav-height) + 28px)}
 .layout-module-panel .week-list{border:0}.plan-day{display:grid;grid-template-columns:32px minmax(0,1fr) auto;gap:8px 12px;border:1px solid var(--line);border-radius:13px;background:#fbfcfa;padding:13px;margin-bottom:10px}
 .plan-day .plan-day-state{grid-column:2;grid-row:2;text-align:left;white-space:normal;font-size:13px;line-height:1.65}
 .plan-day svg{grid-column:3;grid-row:1 / span 2}.plan-day .day-number{grid-row:1 / span 2;font-size:25px}
+.tracking-record{grid-template-columns:minmax(0,1fr) auto 20px;align-items:start}
+.tracking-record .plan-day-meta{grid-column:1;grid-row:1;min-width:0}
+.tracking-record>.saved-mark{grid-column:2;grid-row:1;align-self:start}
+.tracking-record>svg{grid-column:3;grid-row:1}
+.tracking-record .plan-day-date,.tracking-record .plan-day-subjects,.tracking-record .tracking-assessment{display:block;overflow-wrap:anywhere}
 .plan-day-subjects{font-size:13px;line-height:1.6}.plan-day-date{font-size:14px;font-weight:600;color:var(--ink)}
 .layout-subject-editor{border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
 .layout-subject-editor>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;cursor:pointer;list-style:none;overflow-wrap:anywhere}
@@ -102,7 +107,7 @@ main{padding:8px 18px calc(var(--layout-nav-height) + 28px)}
 .tracking-tabs{padding:5px;background:#e5ece5;border-radius:13px;gap:4px;margin:6px 0 17px}
 .tracking-tabs button{border:0;flex:1 1 auto;min-height:44px;font-size:13px;border-radius:10px;color:#41544a;background:transparent}
 .tracking-tabs [aria-pressed=true]{background:#fff;color:#244a33;box-shadow:0 1px 4px #1f3b271c;font-weight:700}
-.chart-subject,.word-summary{border:1px solid var(--line);border-radius:14px;padding:15px;margin:0 0 14px;min-width:0}
+.chart-subject,.word-summary,.quantity-summary{border:1px solid var(--line);border-radius:14px;padding:15px;margin:0 0 14px;min-width:0}
 .chart-subject-head{flex-wrap:wrap}.chart-value{font-size:15px;line-height:1.6}
 .setting-action,.secondary-wide{border-radius:11px;min-height:48px}
 .manual-entry{background:#fff;border:1px solid var(--line);padding:14px 16px;margin-bottom:12px;font-weight:600}
@@ -124,3 +129,6 @@ main{padding:8px 18px calc(var(--layout-nav-height) + 28px)}
 .large-text .layout-subject-editor>summary{flex-wrap:wrap}.large-text .layout-subject-editor>summary span{font-size:1rem}
 .large-text .word-log-info strong,.large-text .word-log-info small,.large-text .word-log-actions button{font-size:1rem}
 @media(prefers-reduced-motion:no-preference){button{transition:background-color .15s,border-color .15s,color .15s}}
+
+.large-text .tracking-record{grid-template-columns:minmax(0,1fr)}
+.large-text .tracking-record>.saved-mark{grid-column:1;grid-row:2}

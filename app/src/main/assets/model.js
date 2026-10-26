@@ -138,7 +138,7 @@
     dateStamp(date);
     var value = has(state.records, date) ? clone(state.records[date]) : { subjects: {}, status: null, restKept: null, note: '' };
     state.plan.subjects.forEach(function (item) {
-      if (!has(value.subjects, item.id)) value.subjects[item.id] = blankSubject(item);
+      if (!has(value.subjects, item.id)) {value.subjects[item.id] = blankSubject(item);if(isQuantity(item))value.subjects[item.id].quantityUnit=ranges.quantityUnit(state,date,item);}
     });
     return value;
   }
@@ -194,7 +194,7 @@
     if (![1, 2, 3, 4, 5, 6, 7, 8].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
-    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets'].concat(state.version>=8?['manualReferences','manualReferenceDefaults']:[]):[]) : []) : [], 'plan');
+    keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets'].concat(state.version>=8?['manualReferences','manualReferenceDefaults','quantityUnits']:[]):[]) : []) : [], 'plan');
     string(plan.title, 128, 'plan.title', true);
     dates(plan.startDate, plan.endDate);
     weekNumber(plan.startWeek);
@@ -224,6 +224,7 @@
       }
     });
     function manualIds(list){if(!Array.isArray(list)||list.length>24||new Set(list).size!==list.length)fail('手动参考标记无效');list.forEach(function(id){if(!ids[id]||subjectMap[id].kind==='vocab'||isQuantity(subjectMap[id]))fail('手动参考科目无效');});}
+    if(has(plan,'quantityUnits')){object(plan.quantityUnits,'quantityUnits');if(Object.keys(plan.quantityUnits).length>100000)fail('数量单位日期过多');Object.keys(plan.quantityUnits).forEach(function(date){dateStamp(date);object(plan.quantityUnits[date],'quantityUnits.'+date);Object.keys(plan.quantityUnits[date]).forEach(function(id){if(!ids[id]||!isQuantity(plan.subjects.find(function(x){return x.id===id;})))fail('数量单位科目无效');unitValid(plan.quantityUnits[date][id],'数量单位');});});}
     if(has(plan,'manualReferenceDefaults'))manualIds(plan.manualReferenceDefaults);
     if(has(plan,'manualReferences')){object(plan.manualReferences,'manualReferences');if(Object.keys(plan.manualReferences).length>100000)fail('手动参考日期过多');Object.keys(plan.manualReferences).forEach(function(d){dateStamp(d);manualIds(plan.manualReferences[d]);});}
     object(plan.targets, 'plan.targets');
@@ -399,7 +400,7 @@
     state.plan.subjects.forEach(function (item) { ids[item.id] = true; });
     state.plan.subjects.forEach(function (item) {
       var entry = value.subjects[item.id];
-      if (entry && isQuantity(item) && entry.quantity != null && (!entry.quantityUnit || !entry.quantityUnit.trim())) entry.quantityUnit = item.unit;
+      if (entry && isQuantity(item) && entry.quantity != null && (!entry.quantityUnit || !entry.quantityUnit.trim())) entry.quantityUnit = ranges.quantityUnit(state,date,item);
     });
     var subjectMap = Object.create(null); state.plan.subjects.forEach(function (item) { subjectMap[item.id] = item; });
     recordValid(value, ids, '记录', subjectMap, state.version);
@@ -472,6 +473,11 @@
       var hasData = Object.keys(state.records).some(function (date) { var entry = state.records[date].subjects[item.id]; return entry && (entry.minutes != null || entry.quantity != null); });
       if (hasData) fail('已有记录的科目不能切换计量方式');
     }
+    if(isQuantity(item)&&measure==='quantity'&&item.unit!==String(unit).trim()){
+      ranges.preserve(state,state);var units=state.plan.quantityUnits||(state.plan.quantityUnits={}),cutoff=today();
+      dates(state.plan.startDate,state.plan.endDate).forEach(function(date){var oldUnit=ranges.quantityUnit(state,date,item),keep=date<cutoff||has(state.records,date);units[date]=units[date]||{};units[date][id]=keep?oldUnit:String(unit).trim();});
+      state.version=Math.max(state.version,8);
+    }
     item.name = name.trim();
     if(item.kind!=='vocab'&&measure!=='quantity'&&JSON.stringify(item.defaults)!==JSON.stringify(defaults)){state.version=Math.max(state.version,8);state.plan.manualReferenceDefaults=Array.from(new Set((state.plan.manualReferenceDefaults||[]).concat(id)));}
     item.defaults = clone(defaults);
@@ -480,6 +486,15 @@
     fillTargets(state); fillQuantityTargets(state);
     return clone(item);
   }
+  function quantityStats(state,days,item){
+    var groups=new Map();
+    function group(unit){if(!groups.has(unit))groups.set(unit,{unit:unit,actual:null,reference:0,recordedDays:0,totalDays:0});return groups.get(unit);}
+    days.forEach(function(date){var entry=state.records[date]&&state.records[date].subjects[item.id],active=date>=state.plan.startDate&&date<=state.plan.endDate&&subjectActive(item,date),goalUnit=ranges.quantityUnit(state,date,item),actualUnit=entry&&entry.quantityUnit||goalUnit,known=entry&&entry.quantity!=null;
+      if(active){var target=group(goalUnit);target.reference+=quantityTarget(state,date,item.id);target.totalDays++;}
+      if(known){var actual=group(actualUnit);actual.actual=(actual.actual===null?0:actual.actual)+entry.quantity;actual.recordedDays++;if(!active||actualUnit!==goalUnit)actual.totalDays++;}
+    });return Array.from(groups.values());
+  }
+  function withQuantityStats(state,days,item,out){var groups=quantityStats(state,days,item);out.measure='quantity';out.unit=groups.length===1?groups[0].unit:item.unit;out.quantityGroups=groups;out.actual=groups.length===1?groups[0].actual:null;out.reference=groups.length===1?groups[0].reference:null;return out;}
   function weekStats(state, date) {
     var info = weekInfo(state.plan, date);
     var start = info.start < state.plan.startDate ? state.plan.startDate : info.start;
@@ -493,7 +508,7 @@
       if (state.plan.subjects.some(function (item) {
         var entry=value.subjects[item.id]; return entry && entry.minutes !== null;
       })) anyDays++;
-      if (state.plan.subjects.some(function (item) { var entry=value.subjects[item.id]; return isQuantity(item) && entry && entry.quantity !== null; })) quantityDays++;
+      if (state.plan.subjects.some(function (item) { var entry=value.subjects[item.id]; return isQuantity(item) && entry && entry.quantity != null; })) quantityDays++;
     });
     var result=Object.assign({}, info, {
       days: days,
@@ -505,10 +520,10 @@
             else {var r=ranges.range(ranges.value(state,day,item));reference += target(state,day,item.id);referenceMin+=r.min;referenceMax+=r.max;hasRange=hasRange||!r.legacy;}
           }
           var value = state.records[day] && state.records[day].subjects[item.id];
-          if (value && (isQuantity(item) ? value.quantity !== null : value.minutes !== null)) { actual += isQuantity(item) ? value.quantity : value.minutes; recordedDays++; }
+          if (value && (isQuantity(item) ? value.quantity != null : value.minutes !== null)) { actual += isQuantity(item) ? value.quantity : value.minutes; recordedDays++; }
         });
-        var totalDays = days.filter(function (day) { var entry=state.records[day]&&state.records[day].subjects[item.id]; return subjectActive(item, day) || entry && (isQuantity(item) ? entry.quantity !== null : entry.minutes !== null); }).length;
-        var out={ id: item.id, name: item.name, kind: item.kind, reference: reference, actual: recordedDays ? actual : null, recordedDays: recordedDays, totalDays: totalDays };if(isQuantity(item)){out.measure='quantity';out.unit=item.unit;}if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
+        var totalDays = days.filter(function (day) { var entry=state.records[day]&&state.records[day].subjects[item.id]; return subjectActive(item, day) || entry && (isQuantity(item) ? entry.quantity != null : entry.minutes !== null); }).length;
+        var out={ id: item.id, name: item.name, kind: item.kind, reference: reference, actual: recordedDays ? actual : null, recordedDays: recordedDays, totalDays: totalDays };if(isQuantity(item))withQuantityStats(state,days,item,out);if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
       }),
       recordedDays: anyDays,
       entryDays: entryDays,
@@ -518,10 +533,10 @@
   function meaningfulSubject(item) {
     return !!item && (item.minutes != null || item.quantity != null || item.newWords != null || item.reviewWords != null || !!item.content || !!item.problem || !!item.forgotWords || !!item.wordLog?.entries.length);
   }
-  function recordSummary(state, date) {
+  function recordSummary(state, date, subjectId) {
     dateStamp(date);
     var value = state.records[date], entries = value && value.subjects || {};
-    var relevant = state.plan.subjects.filter(function (item) { return subjectActive(item, date) || meaningfulSubject(entries[item.id]); });
+    var relevant = state.plan.subjects.filter(function (item) { return (!subjectId||subjectId==='all'||subjectId===item.id)&&(subjectActive(item, date) || meaningfulSubject(entries[item.id])); });
     var written = relevant.filter(function (item) { var r = entries[item.id]; return r && (r.minutes != null || isQuantity(item) && r.quantity != null || item.kind === 'vocab' && (r.newWords != null || r.reviewWords != null)); });
     var times = written.filter(function (item) { return entries[item.id].minutes != null; });
     var total = times.length ? times.reduce(function (sum, item) { return sum + entries[item.id].minutes; }, 0) : null;
@@ -529,7 +544,7 @@
     function count(field) { var values = vocab.map(function (item) { return entries[item.id] && entries[item.id][field]; }).filter(function (v) { return v != null; }); return values.length ? values.reduce(function (a,b) { return a+b; },0) : null; }
     var learned = count('newWords'), reviewed = count('reviewWords');
     var note = !!value && (!!value.note || value.status != null || value.restKept != null || Object.keys(entries).some(function (id) { return meaningfulSubject(entries[id]); }));
-    var kind = written.length ? (written.length < relevant.length ? 'partial' : (total || 0) === 0 && (learned || 0) === 0 && (reviewed || 0) === 0 ? 'zero' : 'complete') : note ? 'note' : 'empty';
+    var kind = written.length ? (written.length < relevant.length ? 'partial' : (total || 0) === 0 && (learned || 0) === 0 && (reviewed || 0) === 0 && !relevant.some(function(item){return isQuantity(item)&&entries[item.id]&&entries[item.id].quantity>0;}) ? 'zero' : 'complete') : note ? 'note' : 'empty';
     var quantities = relevant.filter(isQuantity).map(function (item) { var entry=entries[item.id],unit=entry&&entry.quantityUnit||item.unit; return {id:item.id,name:item.name,unit:unit,quantity:entry&&entry.quantity!=null?entry.quantity:null}; });
     var summary={ date: date, total: total, newWords: learned, reviewWords: reviewed, recordedSubjects: written.length, totalSubjects: relevant.length, kind: kind, status: value ? value.status : null, note: value ? value.note : '', entry: !!value }; if(quantities.length) summary.quantities=quantities; var batches=vocab.reduce(function(n,s){return n+(entries[s.id]?.wordLog?.entries.length||0);},0); if(batches)summary.wordEntryCount=batches; return summary;
   }
@@ -545,22 +560,23 @@
     query.assessmentDimension=filters&&filters.assessmentDimension||'time';query.assessmentKind=filters&&filters.assessmentKind||'';
     if(!['time','words','quantity'].includes(query.assessmentDimension)||!['','all','below','within','above','rest','empty','partial','pending'].includes(query.assessmentKind))fail('评估筛选无效');
     if (query.subjectId && query.subjectId !== 'all') subject(state, query.subjectId);
+    var scopedQuantity=query.subjectId&&query.subjectId!=='all'&&isQuantity(subject(state,query.subjectId));
     var rows = [];
     var searchDates=Object.keys(state.records);
     if(query.assessmentKind==='empty')searchDates=Array.from(new Set(searchDates.concat(dates(state.plan.startDate,state.plan.endDate))));
     searchDates.forEach(function (date) {
       if (query.from && date < query.from || query.to && date > query.to) return;
       var value = state.records[date]||record(state,date);
-      if (query.subjectId && query.subjectId !== 'all' && !meaningfulSubject(value.subjects[query.subjectId])) return;
+      if (query.subjectId && query.subjectId !== 'all' && !meaningfulSubject(value.subjects[query.subjectId])&&!(query.assessmentKind==='empty'&&date>=state.plan.startDate&&date<=state.plan.endDate&&subjectActive(subject(state,query.subjectId),date))) return;
       if (query.status && query.status !== 'all' && value.status !== query.status) return;
       if (query.keyword) {
         var text = [date, value.note, value.status];
-        state.plan.subjects.forEach(function (item) { var entry = value.subjects[item.id]; if (meaningfulSubject(entry)) text.push(item.name, entry.content, entry.problem, entry.forgotWords); });
+        state.plan.subjects.forEach(function (item) { var entry = value.subjects[item.id]; if ((!scopedQuantity||query.subjectId===item.id)&&meaningfulSubject(entry)) text.push(item.name, entry.content, entry.problem, entry.forgotWords,entry.quantity==null?'':entry.quantity+' '+(entry.quantityUnit||item.unit||'')); });
         if (text.join(' ').toLocaleLowerCase().indexOf(query.keyword) < 0) return;
       }
-      var summary = recordSummary(state, date);
+      var summary = recordSummary(state, date,scopedQuantity?query.subjectId:null);
       if (query.kind && query.kind !== 'all' && query.kind !== summary.kind) return;
-      if(!ranges.matches(state,date,query.assessmentDimension,query.assessmentKind))return;
+      if(!ranges.matches(state,date,query.assessmentDimension,query.assessmentKind,scopedQuantity?query.subjectId:null))return;
       rows.push(Object.assign(summary, { record: clone(value) }));
     });
     return rows.sort(function (a, b) { return a.date < b.date ? 1 : a.date > b.date ? -1 : 0; });
@@ -576,13 +592,13 @@
     var subjects = state.plan.subjects.map(function (item) {
       var actual = 0, reference = 0, referenceMin=0,referenceMax=0,hasRange=false,recordedDays = 0, totalDays = 0;
       days.forEach(function (day) {
-        var entry = state.records[day] && state.records[day].subjects[item.id], written = !!entry && (isQuantity(item) ? entry.quantity !== null : entry.minutes !== null);
+        var entry = state.records[day] && state.records[day].subjects[item.id], written = !!entry && (isQuantity(item) ? entry.quantity != null : entry.minutes !== null);
         var active = day >= state.plan.startDate && day <= state.plan.endDate && subjectActive(item, day);
         if (active) {if (isQuantity(item)) reference+=quantityTarget(state,day,item.id); else {var r=ranges.range(ranges.value(state,day,item));reference+=target(state,day,item.id);referenceMin+=r.min;referenceMax+=r.max;hasRange=hasRange||!r.legacy;}}
         if (active || written) totalDays++;
         if (written) { actual += isQuantity(item) ? entry.quantity : entry.minutes; recordedDays++; }
       });
-      var out={ id: item.id, name: item.name, kind: item.kind, actual: recordedDays ? actual : null, reference: reference, recordedDays: recordedDays, totalDays: totalDays };if(isQuantity(item)){out.measure='quantity';out.unit=item.unit;}if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
+      var out={ id: item.id, name: item.name, kind: item.kind, actual: recordedDays ? actual : null, reference: reference, recordedDays: recordedDays, totalDays: totalDays };if(isQuantity(item))withQuantityStats(state,days,item,out);if(hasRange)out.referenceRange={min:referenceMin,max:referenceMax};return out;
     });
     var actualExists = subjects.some(function (item) { return item.actual !== null && item.measure !== 'quantity'; });
     return { month: month, start: start, end: end, days: days, subjects: subjects, entryDays: entries, recordedDays: recorded, totalDays: days.length, actual: actualExists ? subjects.filter(function(item){return item.measure!=='quantity';}).reduce(function (sum, item) { return sum + (item.actual || 0); }, 0) : null, reference: subjects.filter(function(item){return item.measure!=='quantity';}).reduce(function (sum, item) { return sum + item.reference; }, 0) };
@@ -590,6 +606,7 @@
   function sessionSearch(state, filters) {
     validateState(state); var query = normalizedFilters(filters), seen = Object.create(null), sessions = [];
     if (query.subjectId && query.subjectId !== 'all') subject(state, query.subjectId);
+    var scopedQuantity=query.subjectId&&query.subjectId!=='all'&&isQuantity(subject(state,query.subjectId));
     function append(values) { (values || []).forEach(function (item) {
       if (seen[item.id]) return;
       seen[item.id] = true;
@@ -608,7 +625,7 @@
   }
   return Object.freeze({
     today: today, dates: dates, weekKey: weekKey, weekInfo: weekInfo,
-    subjectsForDate: subjectsForDate, subjectActive: subjectActive, target: target, quantityTarget: quantityTarget, isQuantity: isQuantity, reference: reference, record: record, saveRecord: saveRecord,
+    subjectsForDate: subjectsForDate, subjectActive: subjectActive, target: target, quantityTarget: quantityTarget, quantityUnit:function(state,date,id){return ranges.quantityUnit(state,date,subject(state,id));}, quantityStats:quantityStats, isQuantity: isQuantity, reference: reference, record: record, saveRecord: saveRecord,
     resizePlan: resizePlan, addSubject: addSubject, updateSubject: updateSubject,
     wordTarget: wordTarget, setWordGoal: setWordGoal, wordStats: wordStats, wordSteps: wordSteps, setWordSteps: setWordSteps,
     weekStats: weekStats, monthStats: monthStats, recordSummary: recordSummary, historySearch: historySearch, sessionSearch: sessionSearch,

@@ -17,6 +17,11 @@
   function value(state,date,subject){var row=state.plan.targets[date];return row&&has(row,subject.id)?row[subject.id]:subject.defaults[(new Date(date+'T00:00:00Z').getUTCDay()+6)%7];}
   function isQuantity(subject){return subject&&subject.measure==='quantity';}
   function quantityTarget(state,date,subject){var goals=state.plan.quantityTargets&&state.plan.quantityTargets[date];return goals&&has(goals,subject.id)?goals[subject.id]:subject.defaults[(new Date(date+'T00:00:00Z').getUTCDay()+6)%7];}
+  function quantityUnit(state,date,subject){
+    var p=state.plan.quantityUnits,row=p&&p[date];if(row&&has(row,subject.id))return row[subject.id];
+    var b=state.assessmentBases&&state.assessmentBases[date],saved=b&&(b.quantities||[]).find(function(q){return q.id===subject.id;});if(saved)return saved.unit;
+    var entry=state.records[date]&&state.records[date].subjects[subject.id];return entry&&entry.quantityUnit||subject.unit;
+  }
   function total(state,date){
     var min=0,max=0,legacy=true;
     state.plan.subjects.filter(function(s){return s.kind!=='vocab'&&!isQuantity(s)&&active(s,date);}).forEach(function(s){var r=range(value(state,date,s));min+=r.min;max+=r.max;if(!r.legacy)legacy=false;});
@@ -29,7 +34,7 @@
     var p=state.plan,time=[],words=[],quantities=[];
     p.subjects.filter(function(s){return active(s,date);}).forEach(function(s){
       if(s.kind==='vocab'){var goals=p.wordTargets&&p.wordTargets[date];words.push({id:s.id,name:s.name,goal:goals&&has(goals,s.id)?goals[s.id]:has(s,'wordGoal')?s.wordGoal:50});}
-      else if(isQuantity(s)) quantities.push({id:s.id,name:s.name,unit:s.unit,goal:quantityTarget(state,date,s)});
+      else if(isQuantity(s)) quantities.push({id:s.id,name:s.name,unit:quantityUnit(state,date,s),goal:quantityTarget(state,date,s)});
       else time.push({id:s.id,name:s.name,kind:s.kind,reference:clone(value(state,date,s))});
     });
     return {rule:1,source:source||'record',capturedAt:at===undefined?new Date().toISOString():at,inside:date>=p.startDate&&date<=p.endDate,time:time,words:words,quantities:quantities};
@@ -69,10 +74,9 @@
       return {id:s.id,name:s.name,goal:inside?goal:null,newWords:learned,reviewWords:reviewed,kind:kind,label:kind==='range'?'未设置新学目标':labels[kind]};
     });
     var quantities=(b.quantities||[]).map(function(s){
-      var row=entries[s.id],goal=s.goal,actual=row&&row.quantity!=null?row.quantity:null;
-      var qkind=!inside?'outside':status==='休息'?'rest':status==='仅回顾'?'review':actual===null?'empty':goal===0?'range':grade(actual,goal,goal);
-      if(status==='减量'&&goal>0){var reduced=goal*.5;qkind=actual===null?'empty':grade(actual,reduced,reduced);}
-      return {id:s.id,name:s.name,unit:s.unit,goal:inside?(status==='减量'?goal*.5:goal):null,quantity:actual,kind:qkind,label:qkind==='range'?'未设置数量目标':qkind==='review'?'仅回顾':labels[qkind]};
+      var row=entries[s.id],goal=status==='减量'?s.goal*.5:s.goal,actual=row&&row.quantity!=null?row.quantity:null,unit=row&&row.quantityUnit||s.unit;
+      var qkind=!inside?'outside':status==='休息'?'rest':status==='仅回顾'?'review':actual===null?'empty':unit!==s.unit?'unit':goal===0?'range':grade(actual,goal,goal);
+      return {id:s.id,name:s.name,unit:s.unit,actualUnit:unit,goal:inside?goal:null,quantity:actual,kind:qkind,label:qkind==='range'?'未设置数量目标':qkind==='unit'?'单位不同':qkind==='review'?'仅回顾':labels[qkind]};
     });
     return {time:time,words:words,quantities:quantities,basis:{saved:b.source!=='current',source:b.source,capturedAt:b.capturedAt,rule:b.rule}};
   }
@@ -119,6 +123,6 @@
   }
   function category(value){return ['below','within','above','rest','empty','partial'].includes(value)?value:'pending';}
   function summary(state,days,dimension){var c={below:0,within:0,above:0,rest:0,empty:0,partial:0,pending:0};days.forEach(function(d){c[category(kind(assess(state,d),dimension))]++;});c.graded=c.below+c.within+c.above;c.achieved=c.within+c.above;c.rate=c.graded?Math.round(c.achieved/c.graded*100):null;return c;}
-  function matches(state,date,dimension,filter){return !filter||filter==='all'||category(kind(assess(state,date),dimension))===filter;}
-  return Object.freeze({upgrade:upgrade,distribute:distribute,range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches,isQuantity:isQuantity,quantityTarget:quantityTarget});
+  function matches(state,date,dimension,filter,subjectId){if(!filter||filter==='all')return true;var result=assess(state,date);if(subjectId&&subjectId!=='all'&&dimension!=='time'){var field=dimension==='words'?'words':'quantities';result[field]=(result[field]||[]).filter(function(s){return s.id===subjectId;});}return category(kind(result,dimension))===filter;}
+  return Object.freeze({upgrade:upgrade,distribute:distribute,range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches,isQuantity:isQuantity,quantityTarget:quantityTarget,quantityUnit:quantityUnit});
 });

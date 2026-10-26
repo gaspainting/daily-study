@@ -43,7 +43,7 @@
     const learned=value('newWords'),reviewed=value('reviewWords'),quantity=value('quantity'),minutes=value('minutes');
     const subject=context.state.plan.subjects.find(s=>s.id===id);
     if(subject.kind==='vocab'){const parts=[];if(learned!==null)parts.push('新学 '+learned+' 个');if(reviewed!==null)parts.push('复习 '+reviewed+' 个');return parts.join(' · ')||'未记录';}
-    if(subject.measure==='quantity')return quantity===null?'未记录':quantity+' '+subject.unit;
+    if(subject.measure==='quantity')return quantity===null?'未记录':quantity+' '+(form.elements.namedItem('quantity-'+id)?.dataset.unit||subject.unit);
     return minutes===null?'未记录':minutes+' 分钟';
   }
   function subjects(form) {
@@ -93,7 +93,7 @@
   }
   function review(root) {
     const note=root.querySelector('#review-form');if(!note)return;
-    const stats=Array.from(root.querySelectorAll('.chart-subject,.word-summary,.legend'));
+    const stats=Array.from(root.querySelectorAll('.chart-subject:not(.quantity-chart),.word-summary,.quantity-summary,.legend'));
     const output=root.querySelector('[data-action="export-report"]');
     const overview=Array.from(root.children).filter(e=>!e.matches('.plan-switch,.tracking-tabs,.page-intro,.week-navigation')&&e!==note&&e!==output&&!stats.includes(e));
     const host=node('div','layout-modules');root.append(host);
@@ -113,6 +113,7 @@
   }
   function sync() {
     const form=document.getElementById('daily-form');if(form){
+      form.querySelectorAll('[data-draft-unit-for]').forEach(field=>{const input=form.elements.namedItem(field.dataset.draftUnitFor);if(!input)return;input.dataset.unit=field.value;input.closest('.actual-input').querySelector('span').textContent='实际 '+field.value;const id=field.dataset.draftUnitFor.slice(9),subject=context.state.plan.subjects.find(s=>s.id===id);input.setAttribute('aria-label',subject.name+'实际数量（'+field.value+'）');});
       form.querySelectorAll('[data-layout-subject-button]').forEach(button=>{button.querySelector('.layout-subject-preview').textContent=summary(form,button.dataset.layoutSubjectButton);});
       const checked=form.querySelector('[name="status"]:checked'),status=form.querySelector('.layout-arrangement-status');if(status)status.textContent=checked?(checked.value==='正常参考'?'照常':checked.value):'未选择';
     }sizes();
@@ -123,7 +124,7 @@
   root.StudyLayout={
     mount(element,options){
       observer?.disconnect();context=options;element.dataset.page=options.route;
-      element.querySelectorAll('.eyebrow,.section-number,.subject-index').forEach(e=>e.remove());
+      element.querySelectorAll('.page-intro>.eyebrow,.section-number,.subject-index').forEach(e=>e.remove());
       ({today:daily,plan,review,settings}[options.route]||(()=>{}))(element);
       element.querySelectorAll('.draft-status [role="alert"]').forEach(reveal);
       observer=new ResizeObserver(sizes);observer.observe(document.querySelector('.bottom-nav'));

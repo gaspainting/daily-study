@@ -1,0 +1,16 @@
+{
+  "source": "quantity-validation.pdf",
+  "renderTool": "pdftoppm 100dpi",
+  "pages": 1,
+  "reviewedPages": [
+    1
+  ],
+  "checks": [
+    "Chinese glyphs legible",
+    "unit-separated summary totals",
+    "quantity assessment uses correct unit",
+    "zero and unknown distinct",
+    "no clipped or overlapping content",
+    "header and page number visible"
+  ]
+}

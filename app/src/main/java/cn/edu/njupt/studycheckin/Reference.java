@@ -32,6 +32,11 @@ final class Reference {
     }
     private static boolean quantity(JSONObject subject){return "quantity".equals(subject.optString("measure"));}
     static int quantityTarget(JSONObject state,LocalDate date,JSONObject subject)throws Exception{JSONObject plan=state.getJSONObject("plan"),goals=plan.optJSONObject("quantityTargets"),daily=goals==null?null:goals.optJSONObject(date.toString());return daily!=null&&daily.has(subject.getString("id"))?daily.getInt(subject.getString("id")):subject.getJSONArray("defaults").getInt(date.getDayOfWeek().getValue()-1);}
+    static String quantityUnit(JSONObject state,LocalDate date,JSONObject subject)throws Exception{
+        String id=subject.getString("id");JSONObject all=state.getJSONObject("plan").optJSONObject("quantityUnits"),row=all==null?null:all.optJSONObject(date.toString());if(row!=null&&row.has(id))return row.getString(id);
+        JSONObject bases=state.optJSONObject("assessmentBases"),basis=bases==null?null:bases.optJSONObject(date.toString());JSONArray quantities=basis==null?null:basis.optJSONArray("quantities");if(quantities!=null)for(int i=0;i<quantities.length();i++){JSONObject q=quantities.getJSONObject(i);if(q.getString("id").equals(id))return q.getString("unit");}
+        JSONObject record=state.getJSONObject("records").optJSONObject(date.toString()),entry=record==null?null:record.getJSONObject("subjects").optJSONObject(id);return entry!=null&&entry.has("quantityUnit")?entry.getString("quantityUnit"):subject.getString("unit");
+    }
     private static String grade(double actual,double min,double max){return actual<min-1e-9?"below":actual>max+1e-9?"above":"within";}
     private static String label(String kind){switch(kind){case "empty":return "未记录";case "arrangement":return "未选择安排";case "partial":return "待补全时长";case "range":return "未安排时长";case "review":return "未设置课程复习";case "outside":return "计划范围外";case "rest":return "休息日";case "below":return "未完成（不合格）";case "within":return "完成（合格）";case "above":return "超额完成";default:throw new IllegalArgumentException(kind);}}
     static String timestamp(){return DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneOffset.UTC).format(Instant.now());}
@@ -39,7 +44,7 @@ final class Reference {
         JSONObject plan=state.getJSONObject("plan");JSONArray time=new JSONArray(),words=new JSONArray(),quantities=new JSONArray(),subjects=plan.getJSONArray("subjects");
         for(int i=0;i<subjects.length();i++){JSONObject s=subjects.getJSONObject(i);if(!DataStore.activeSubject(s,date))continue;String id=s.getString("id");JSONObject e=new JSONObject().put("id",id).put("name",s.getString("name"));
             if(s.getString("kind").equals("vocab")){e.put("goal",DataStore.wordTarget(state,date.toString(),id));words.put(e);}
-            else if(quantity(s)){e.put("unit",s.getString("unit")).put("goal",quantityTarget(state,date,s));quantities.put(e);}
+            else if(quantity(s)){e.put("unit",quantityUnit(state,date,s)).put("goal",quantityTarget(state,date,s));quantities.put(e);}
             else{Object ref=value(plan,s,date);e.put("kind",s.getString("kind")).put("reference",ref instanceof JSONObject?new JSONObject(ref.toString()):ref);time.put(e);}}
         return new JSONObject().put("rule",1).put("source",source).put("capturedAt",at==null?JSONObject.NULL:at).put("inside",date.toString().compareTo(plan.getString("startDate"))>=0&&date.toString().compareTo(plan.getString("endDate"))<=0).put("time",time).put("words",words).put("quantities",quantities);
     }
@@ -87,7 +92,11 @@ final class Reference {
         String kind=!inside?"outside":record==null?"empty":status.isEmpty()?"arrangement":"休息".equals(status)?"rest":"仅回顾".equals(status)&&selected==0?"review":targets==0?"range":missing>0?(known>0?"partial":"empty"):grade(actual,lower,upper);
         JSONObject time=new JSONObject().put("kind",kind).put("label",label(kind)).put("actual",known>0?actual:JSONObject.NULL).put("min",lower).put("max",upper).put("missing",missing).put("count",targets).put("scope","仅回顾".equals(status)?"课程复习":"学习时长").put("status",status.isEmpty()?JSONObject.NULL:status);
         if("above".equals(kind))time.put("excess",actual-upper);if("below".equals(kind))time.put("shortfall",lower-actual);
-        if(quantityBasis!=null)for(int i=0;i<quantityBasis.length();i++){JSONObject q=quantityBasis.getJSONObject(i),entry=entries.optJSONObject(q.getString("id"));int goal=q.getInt("goal"),actualQ=entry==null||entry.isNull("quantity")?-1:entry.getInt("quantity");String qkind=!inside?"outside":"休息".equals(status)?"rest":"仅回顾".equals(status)?"review":actualQ<0?"empty":goal==0?"range":grade(actualQ,"减量".equals(status)?goal*.5:goal,"减量".equals(status)?goal*.5:goal);if("减量".equals(status))goal=(int)Math.round(goal*.5);quantityResults.put(new JSONObject().put("id",q.getString("id")).put("name",q.getString("name")).put("unit",q.getString("unit")).put("goal",inside?goal:JSONObject.NULL).put("quantity",actualQ<0?JSONObject.NULL:actualQ).put("kind",qkind).put("label","range".equals(qkind)?"未设置数量目标":"review".equals(qkind)?"仅回顾":label(qkind)));}
+        if(quantityBasis!=null)for(int i=0;i<quantityBasis.length();i++){
+            JSONObject q=quantityBasis.getJSONObject(i),entry=entries.optJSONObject(q.getString("id"));double goal=q.getInt("goal")*("减量".equals(status)?.5:1);int actualQ=entry==null||entry.isNull("quantity")?-1:entry.getInt("quantity");String unit=entry==null?q.getString("unit"):entry.optString("quantityUnit",q.getString("unit"));
+            String qkind=!inside?"outside":"休息".equals(status)?"rest":"仅回顾".equals(status)?"review":actualQ<0?"empty":!unit.equals(q.getString("unit"))?"unit":goal==0?"range":grade(actualQ,goal,goal);
+            quantityResults.put(new JSONObject().put("id",q.getString("id")).put("name",q.getString("name")).put("unit",q.getString("unit")).put("actualUnit",unit).put("goal",inside?goal:JSONObject.NULL).put("quantity",actualQ<0?JSONObject.NULL:actualQ).put("kind",qkind).put("label","range".equals(qkind)?"未设置数量目标":"unit".equals(qkind)?"单位不同":"review".equals(qkind)?"仅回顾":label(qkind)));
+        }
         return new JSONObject().put("time",time).put("words",words).put("quantities",quantityResults).put("basis",new JSONObject().put("saved",!b.getString("source").equals("current")).put("source",b.get("source")).put("capturedAt",b.get("capturedAt")).put("rule",b.get("rule")));
     }
 }

@@ -40,7 +40,7 @@ final class ReportTests {
         ReportExport.write(original, state, output, "csv", "2026-10-14", "2026-10-15", "all");
         byte[] bytes = output.toByteArray(); String csv = new String(bytes, StandardCharsets.UTF_8); List<String[]> rows = parse(csv);
         check(passes, bytes.length > 3 && (bytes[0] & 255) == 239 && (bytes[1] & 255) == 187 && (bytes[2] & 255) == 191, "CSV has UTF8 BOM for Chinese Excel text");
-        check(passes, rows.size() == 7 && rows.get(0)[2].equals("参考时长（分钟）") && rows.get(0)[3].equals("已记录（分钟）"), "CSV has separate reference and observed headers with daily rows and subject totals");
+        check(passes, rows.size() == 7 && rows.get(0)[2].equals("参考值") && rows.get(0)[3].equals("已记录"), "CSV has separate reference and observed headers with daily rows and subject totals");
         check(passes, rows.get(1)[3].equals("未记录") && rows.get(2)[3].equals("0"), "CSV distinguishes unrecorded and explicit zero in a partial rest day");
         check(passes, rows.get(1)[4].equals("休息") && rows.get(2)[4].equals("休息") && rows.get(1)[5].equals("未记录"), "CSV rest label leaves unknown rest and time values unknown");
         check(passes, rows.get(1)[7].equals("第一行,含逗号\n第二行\"引号\""), "CSV quoted comma multiline and quote roundtrip without corruption");
@@ -103,7 +103,7 @@ final class ReportTests {
             check(passes, stateBefore.equals(DataStore.load(original).toString()), "report and backup status operations leave saved learning data unchanged");
         } finally { BackupStatus.set(context, false, 7); context.getSharedPreferences(BackupStatus.PREFS, Context.MODE_PRIVATE).edit().clear().commit(); BackupStatus.schedule(original); }
     }
-    private static List<String[]> parse(String csv) {
+    static List<String[]> parse(String csv) {
         List<String[]> rows = new ArrayList<>(); List<String> row = new ArrayList<>(); StringBuilder field = new StringBuilder(); boolean quoted = false;
         for (int i = csv.charAt(0) == '\ufeff' ? 1 : 0; i < csv.length(); i++) {
             char c = csv.charAt(i);
