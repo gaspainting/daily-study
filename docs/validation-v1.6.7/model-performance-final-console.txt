@@ -1,0 +1,53 @@
+[
+  {
+    "days": 70,
+    "recordDays": 63,
+    "stateBytes": 203760,
+    "mediansMs": {
+      "validate": 1.72,
+      "migrationRead": 5.641,
+      "serialize": 0.833,
+      "historyAll": 2.144,
+      "historyDateAndKeyword": 1.587,
+      "historyQuantity": 2.144,
+      "sessionsAll": 1.659,
+      "sessionsDateAndSubject": 1.505,
+      "weekStats": 0.141,
+      "monthStats": 1.99
+    }
+  },
+  {
+    "days": 365,
+    "recordDays": 331,
+    "stateBytes": 559931,
+    "mediansMs": {
+      "validate": 4.848,
+      "migrationRead": 16.749,
+      "serialize": 2.142,
+      "historyAll": 7.846,
+      "historyDateAndKeyword": 4.802,
+      "historyQuantity": 5.634,
+      "sessionsAll": 5.246,
+      "sessionsDateAndSubject": 4.953,
+      "weekStats": 0.024,
+      "monthStats": 5.384
+    }
+  },
+  {
+    "days": 730,
+    "recordDays": 663,
+    "stateBytes": 1001250,
+    "mediansMs": {
+      "validate": 9.659,
+      "migrationRead": 30.954,
+      "serialize": 3.073,
+      "historyAll": 15.929,
+      "historyDateAndKeyword": 9.217,
+      "historyQuantity": 11.361,
+      "sessionsAll": 10.295,
+      "sessionsDateAndSubject": 9.647,
+      "weekStats": 0.04,
+      "monthStats": 9.633
+    }
+  }
+]

@@ -1,0 +1,38 @@
+✔ 60—120 minutes / 0 (1.474ms)
+✔ 60—120 minutes / 59 (0.2049ms)
+✔ 60—120 minutes / 60 (0.1732ms)
+✔ 60—120 minutes / 79 (0.614ms)
+✔ 60—120 minutes / 80 (0.156ms)
+✔ 60—120 minutes / 90 (0.127ms)
+✔ 60—120 minutes / 99 (0.1259ms)
+✔ 60—120 minutes / 100 (0.1346ms)
+✔ 60—120 minutes / 120 (0.1246ms)
+✔ 60—120 minutes / 121 (0.187ms)
+✔ fixed interval endpoint (0.1224ms)
+✔ zero reference is not rest or an achievement (0.122ms)
+✔ all missing (0.0947ms)
+✔ known zero plus missing words (0.1129ms)
+✔ time success cannot compensate word shortfall (0.1153ms)
+✔ unit mismatch (0.1943ms)
+✔ integer quantity not rounded up (0.132ms)
+✔ ordinary day only review keeps normal requirements (0.0888ms)
+✔ missing new words does not establish only review (0.0937ms)
+✔ planned review reaches both goals plus extra new words (0.0948ms)
+✔ planned review time below fixed lower bound (0.0894ms)
+✔ planned review missing time (0.0978ms)
+✔ planned rest with extra learning (0.0878ms)
+✔ old rest selector cannot exempt an ordinary day (0.078ms)
+✔ old reduced selector cannot halve requirements (0.0971ms)
+✔ basis is established before midnight and same-day reductions cannot replace it (14.131ms)
+✔ D6 C4 P3 keeps missing dates in the denominator and excludes the current day (1.0989ms)
+✔ shortening a plan or clearing actual data does not erase ended obligations (1.0212ms)
+✔ scheduled rest is explicit, future-only, and cannot contain required goals (0.9147ms)
+✔ fixed historical activity roles survive renaming and future role changes (0.9163ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.0917

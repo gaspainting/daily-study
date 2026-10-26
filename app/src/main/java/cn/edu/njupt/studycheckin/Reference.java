@@ -48,8 +48,8 @@ final class Reference {
             else{Object ref=value(plan,s,date);e.put("kind",s.getString("kind")).put("reference",ref instanceof JSONObject?new JSONObject(ref.toString()):ref);time.put(e);}}
         return new JSONObject().put("rule",1).put("source",source).put("capturedAt",at==null?JSONObject.NULL:at).put("inside",date.toString().compareTo(plan.getString("startDate"))>=0&&date.toString().compareTo(plan.getString("endDate"))<=0).put("time",time).put("words",words).put("quantities",quantities);
     }
-    static JSONObject basis(JSONObject state,LocalDate date)throws Exception{JSONObject bases=state.optJSONObject("assessmentBases"),saved=bases==null?null:bases.optJSONObject(date.toString());return saved==null?capture(state,date,"current",null):saved;}
-    static String sourceLabel(String source){switch(source){case "record":return "保存时参考";case "existing":return "首次留存参考";case "recalculated":return "重评时参考";default:return "当前参考（未留存）";}}
+    static JSONObject basis(JSONObject state,LocalDate date)throws Exception{if(Evaluation.covers(state,date.toString())){JSONObject fixed=Evaluation.fixedBasis(state,date.toString());if(fixed!=null)return fixed;}JSONObject bases=state.optJSONObject("assessmentBases"),saved=bases==null?null:bases.optJSONObject(date.toString());return saved==null?capture(state,date,"current",null):saved;}
+    static String sourceLabel(String source){switch(source){case "fixed":return "原计划依据";case "record":return "保存时参考";case "existing":return "首次留存参考";case "recalculated":return "重评时参考";default:return "当前参考（未留存）";}}
     static void preserve(JSONObject previous,JSONObject next)throws Exception{
         next.put("version",Math.max(next.getInt("version"),5));JSONObject bases=next.optJSONObject("assessmentBases");if(bases==null){bases=new JSONObject();next.put("assessmentBases",bases);}JSONObject older=previous.optJSONObject("assessmentBases"),records=next.getJSONObject("records");String at=timestamp();Iterator<String> days=records.keys();
         while(days.hasNext()){String day=days.next();if(bases.has(day))continue;if(older!=null&&older.has(day))bases.put(day,new JSONObject(older.getJSONObject(day).toString()));else{boolean existed=previous.getJSONObject("records").has(day);bases.put(day,capture(existed?previous:next,LocalDate.parse(day),existed?"existing":"record",at));}}
@@ -77,9 +77,12 @@ final class Reference {
             if(useful){old.put("time",replacement).put("source","recalculated").put("capturedAt",UPGRADE_AT);}
         }
     }
-    static JSONObject assess(JSONObject state,LocalDate date)throws Exception{
+    static JSONObject assess(JSONObject state,LocalDate date)throws Exception {
+        if(Evaluation.covers(state,date.toString())){JSONObject result=Evaluation.adapter(state,date.toString(),Evaluation.clock(state).today);if(result!=null)return result;}return assessLegacy(state,date);
+    }
+    static JSONObject assessLegacy(JSONObject state,LocalDate date)throws Exception{
         JSONObject plan=state.getJSONObject("plan"),record=state.getJSONObject("records").optJSONObject(date.toString()),entries=record==null?new JSONObject():record.getJSONObject("subjects");
-        JSONObject b=basis(state,date);String status=record==null||record.isNull("status")?"":record.getString("status");boolean inside=b.getBoolean("inside");
+        JSONObject savedBases=state.optJSONObject("assessmentBases"),b=savedBases!=null&&savedBases.has(date.toString())?savedBases.getJSONObject(date.toString()):capture(state,date,"current",null);String status=record==null||record.isNull("status")?"":record.getString("status");boolean inside=b.getBoolean("inside");
         JSONArray subjects=new JSONArray(),words=new JSONArray(),quantityResults=new JSONArray(),timeBasis=b.getJSONArray("time"),wordBasis=b.getJSONArray("words"),quantityBasis=b.optJSONArray("quantities");for(int i=0;i<timeBasis.length();i++)subjects.put(timeBasis.getJSONObject(i));for(int i=0;i<wordBasis.length();i++)subjects.put(new JSONObject(wordBasis.getJSONObject(i).toString()).put("kind","vocab"));double lower=0,upper=0,actual=0;int known=0,missing=0,targets=0,selected=0;
         for(int i=0;i<subjects.length();i++){
             JSONObject s=subjects.getJSONObject(i);String id=s.getString("id");JSONObject entry=entries.optJSONObject(id);

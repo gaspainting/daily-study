@@ -1,0 +1,6248 @@
+[
+  {
+    "name": "60—120 minutes / 0",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "zero",
+      "kind": "below",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 59",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 59,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "partialGoal",
+      "kind": "below",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 60",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 60,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "basic",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 79",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 79,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "basic",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 80",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 80,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "standard",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 90",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 90,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "standard",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 99",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 99,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "standard",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 100",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 100,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "full",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 120",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 120,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "full",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "60—120 minutes / 121",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 121,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "excess",
+      "kind": "within",
+      "complete": true
+    }
+  },
+  {
+    "name": "fixed interval endpoint",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 60,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 60,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 60
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 60,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "exact",
+      "kind": "within"
+    }
+  },
+  {
+    "name": "zero reference is not rest or an achievement",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "unplanned",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 20,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "timeLevel": "reference",
+      "kind": "range",
+      "achieved": false
+    }
+  },
+  {
+    "name": "all missing",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": null,
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "empty",
+      "complete": false
+    }
+  },
+  {
+    "name": "known zero plus missing words",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "partial",
+      "complete": false
+    }
+  },
+  {
+    "name": "time success cannot compensate word shortfall",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 110,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 20,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below",
+      "complete": true
+    }
+  },
+  {
+    "name": "unit mismatch",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "quantity:practice",
+          "name": "练习",
+          "measure": "quantity",
+          "unit": "题",
+          "min": 3,
+          "max": 3,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "practice",
+              "field": "quantity",
+              "role": "unknown",
+              "requiredInput": true,
+              "unit": "题"
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "goal": 3,
+          "unit": "题"
+        }
+      ],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "practice",
+          "field": "quantity",
+          "role": "unknown",
+          "requiredInput": true,
+          "unit": "题"
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 90,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": "",
+          "quantity": 3,
+          "quantityUnit": "页"
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "pending",
+      "complete": false
+    }
+  },
+  {
+    "name": "integer quantity not rounded up",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "quantity:practice",
+          "name": "练习",
+          "measure": "quantity",
+          "unit": "题",
+          "min": 3,
+          "max": 3,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "practice",
+              "field": "quantity",
+              "role": "unknown",
+              "requiredInput": true,
+              "unit": "题"
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "goal": 3,
+          "unit": "题"
+        }
+      ],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "practice",
+          "field": "quantity",
+          "role": "unknown",
+          "requiredInput": true,
+          "unit": "题"
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 90,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": "",
+          "quantity": 2,
+          "quantityUnit": "题"
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below",
+      "complete": true
+    }
+  },
+  {
+    "name": "ordinary day only review keeps normal requirements",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 35,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below",
+      "activity": "仅回顾"
+    }
+  },
+  {
+    "name": "missing new words does not establish only review",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 35,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "partial",
+      "activity": "已记录回顾"
+    }
+  },
+  {
+    "name": "planned review reaches both goals plus extra new words",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "review",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "回顾时间",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 80,
+          "max": 80,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 45,
+            "max": 60
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 80
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 50,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 5,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "within",
+      "label": "回顾日达标",
+      "activity": "回顾与其他学习"
+    }
+  },
+  {
+    "name": "planned review time below fixed lower bound",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "review",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "回顾时间",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 80,
+          "max": 80,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 45,
+            "max": 60
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 80
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 20,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below"
+    }
+  },
+  {
+    "name": "planned review missing time",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "review",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "回顾时间",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 80,
+          "max": 80,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 45,
+            "max": 60
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 80
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "partial"
+    }
+  },
+  {
+    "name": "planned rest with extra learning",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "rest",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 20,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "rest",
+      "achieved": false
+    }
+  },
+  {
+    "name": "old rest selector cannot exempt an ordinary day",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below"
+    }
+  },
+  {
+    "name": "old reduced selector cannot halve requirements",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 40,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 40,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below"
+    }
+  },
+  {
+    "name": "review-only extra record with all required inputs blank",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": null,
+          "reviewWords": 80,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "partial",
+      "recordState": "待补全",
+      "activity": "已记录回顾"
+    }
+  },
+  {
+    "name": "all required zero is incomplete rather than partial success",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 60,
+          "max": 120,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 40,
+          "max": 40,
+          "required": true,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 60,
+            "max": 120
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 40,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below",
+      "label": "必达目标未完成",
+      "complete": true
+    }
+  },
+  {
+    "name": "inferred review cannot replace required review time with extra new learning",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "review",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "回顾时间",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": true,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 45,
+          "max": 60,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 45,
+            "max": 60
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 90,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "dayType": "review",
+      "kind": "below",
+      "timeLevel": "zero"
+    }
+  },
+  {
+    "name": "zero cannot achieve a positive target below the comparison resolution",
+    "basis": {
+      "rule": 2,
+      "date": "2026-10-27",
+      "timezone": "Asia/Shanghai",
+      "capturedAt": "2026-10-26T04:00:00.000Z",
+      "revision": 1,
+      "source": "default",
+      "dayType": "study",
+      "items": [
+        {
+          "id": "total-time",
+          "name": "总时长",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 1e-8,
+          "max": 1e-8,
+          "required": true,
+          "role": "unknown",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            },
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:math",
+          "name": "高数",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 1e-8,
+          "max": 1e-8,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "math",
+              "field": "minutes",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "time:course-review",
+          "name": "课程复习",
+          "measure": "time",
+          "unit": "分钟",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "course-review",
+              "field": "minutes",
+              "role": "review",
+              "requiredInput": false,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "new:vocab",
+          "name": "单词新学",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "study",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "newWords",
+              "role": "study",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        },
+        {
+          "id": "review:vocab",
+          "name": "单词复习",
+          "measure": "quantity",
+          "unit": "个",
+          "min": 0,
+          "max": 0,
+          "required": false,
+          "role": "review",
+          "sources": [
+            {
+              "subjectId": "vocab",
+              "field": "reviewWords",
+              "role": "review",
+              "requiredInput": true,
+              "unit": null
+            }
+          ]
+        }
+      ],
+      "time": [
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 1e-8,
+            "max": 1e-8
+          },
+          "role": "study"
+        },
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 0,
+            "max": 0
+          },
+          "role": "review"
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 0,
+          "reviewGoal": 0
+        }
+      ],
+      "quantities": [],
+      "activity": [
+        {
+          "subjectId": "math",
+          "field": "minutes",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "course-review",
+          "field": "minutes",
+          "role": "review",
+          "requiredInput": false,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "newWords",
+          "role": "study",
+          "requiredInput": true,
+          "unit": null
+        },
+        {
+          "subjectId": "vocab",
+          "field": "reviewWords",
+          "role": "review",
+          "requiredInput": true,
+          "unit": null
+        }
+      ]
+    },
+    "record": {
+      "subjects": {
+        "math": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "course-review": {
+          "minutes": 0,
+          "newWords": null,
+          "reviewWords": null,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "newWords": 0,
+          "reviewWords": 0,
+          "content": "",
+          "problem": "",
+          "forgotWords": ""
+        }
+      },
+      "status": null,
+      "restKept": null,
+      "note": ""
+    },
+    "recordRevision": 1,
+    "phase": "closed",
+    "expected": {
+      "kind": "below",
+      "achieved": false,
+      "timeLevel": "zero"
+    }
+  }
+]

@@ -1,0 +1,15 @@
+PASS real previous formal v1.6.6 starts the schema8 word-ledger fixture
+PASS same-signature formal cover install preserves every original learning-file byte
+PASS installed formal package has version1.6.7 code24 and no debug flag
+PASS actual first-migration write failure leaves the original schema8 file intact
+PASS first actual formal launch commits schema9 migration
+PASS formal migration retains zero blank modes notes and wordLog observations exactly
+PASS formal migration keeps the previous reduced-day result
+PASS upgrade-day original rest result is retained separately
+PASS new whole-day statistics begin on the next plan-zone day
+PASS tomorrow fixed criteria exist before midnight without an app-at-midnight requirement
+PASS another formal cold start does not reset policy activation or replace the fixed ledger
+PASS formal automatic current-day UI exposes rest recording without the daily mode choice
+/sdcard/automatic-formal.png: 1 file pulled, 0 skipped. 19.7 MB/s (183642 bytes in 0.009s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":13,"restored":true,"error":null}

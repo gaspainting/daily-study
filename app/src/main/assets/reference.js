@@ -2,6 +2,7 @@
   'use strict';var api=factory();if(typeof module==='object'&&module.exports)module.exports=api;root.StudyReference=api;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
+  var E=typeof globalThis!=='undefined'&&globalThis.StudyEvaluation||(typeof require==='function'?require('./evaluation.js'):null);
   var has=function(o,k){return Object.prototype.hasOwnProperty.call(o,k);};
   function range(value){return typeof value==='number'?{min:value,max:value,legacy:true}:{min:value.min,max:value.max,legacy:false};}
   function validate(value,allowRange){
@@ -39,7 +40,7 @@
     });
     return {rule:1,source:source||'record',capturedAt:at===undefined?new Date().toISOString():at,inside:date>=p.startDate&&date<=p.endDate,time:time,words:words,quantities:quantities};
   }
-  function basis(state,date){return state.assessmentBases&&state.assessmentBases[date]||capture(state,date,'current',null);}
+  function basis(state,date){if(E&&E.covers(state,date)){var fixed=E.fixedBasis(state,date);if(fixed)return fixed;}return state.assessmentBases&&state.assessmentBases[date]||capture(state,date,'current',null);}
   function validateBasis(b,ids,vocabIds,quantityIds){
     function exact(o,fields){if(!o||Array.isArray(o)||typeof o!=='object'||Object.getPrototypeOf(o)!==Object.prototype||Object.keys(o).length!==fields.length||fields.some(function(k){return !has(o,k);}))throw new Error('评估依据字段无效');}
     var hasQuantities=has(b,'quantities'); exact(b,hasQuantities?['rule','source','capturedAt','inside','time','words','quantities']:['rule','source','capturedAt','inside','time','words']);
@@ -56,8 +57,8 @@
     Object.keys(next.records).forEach(function(date){if(has(saved,date))return;if(previous.assessmentBases&&has(previous.assessmentBases,date))saved[date]=clone(previous.assessmentBases[date]);else saved[date]=capture(has(previous.records,date)?previous:next,date,has(previous.records,date)?'existing':'record',at);});return next;
   }
   function recalculate(state,date,at){if(!has(state.records,date))throw new Error('当天尚未保存记录');state.version=Math.max(state.version,5);state.assessmentBases=state.assessmentBases||{};state.assessmentBases[date]=capture(state,date,'recalculated',at);return state;}
-  function assess(state,date){
-    var record=state.records[date],entries=record&&record.subjects||{},status=record&&record.status,b=basis(state,date),inside=b.inside;
+  function assessLegacy(state,date){
+    var record=state.records[date],entries=record&&record.subjects||{},status=record&&record.status,b=state.assessmentBases&&state.assessmentBases[date]||capture(state,date,'current',null),inside=b.inside;
     var eligible=b.time;
     var selected=status==='仅回顾'?eligible.filter(function(s){return s.id==='course-review'&&s.kind==='custom';}):eligible;
     var min=0,max=0,actual=0,known=0,missing=0,targets=0;
@@ -80,6 +81,8 @@
     });
     return {time:time,words:words,quantities:quantities,basis:{saved:b.source!=='current',source:b.source,capturedAt:b.capturedAt,rule:b.rule}};
   }
+  function assess(state,date){if(E&&E.covers(state,date)){var result=E.adapter(state,date);if(result)return result;}return assessLegacy(state,date);}
+  function transitionLegacy(state){var e=state.evaluation;if(!e||!e.transitionLegacy)return null;var old=Object.assign({},state,{records:{[e.transitionDate]:e.transitionLegacy.record},assessmentBases:e.transitionLegacy.basis?{[e.transitionDate]:e.transitionLegacy.basis}:{}});return assessLegacy(old,e.transitionDate);}
   // Only ungradable/legacy criteria for today and future records are repaired.
   // Existing interval-based history and independent word criteria stay intact.
   var upgradeAt=new Date().toISOString();
@@ -114,6 +117,7 @@
   }
   function counts(state,dates){var result={below:0,within:0,above:0,rest:0,pending:0};dates.forEach(function(d){var kind=assess(state,d).time.kind;if(has(result,kind))result[kind]++;else result.pending++;});return result;}
   function kind(result,dimension){
+    if(dimension==='overall')return result.automatic?result.automatic.kind:'pending';
     if(dimension==='time')return result.time.kind;
     var words=dimension==='words'?result.words:result.quantities||[];if(!words.length)return 'range';
     if(words.every(function(w){return w.kind==='rest';}))return 'rest';
@@ -124,5 +128,5 @@
   function category(value){return ['below','within','above','rest','empty','partial'].includes(value)?value:'pending';}
   function summary(state,days,dimension){var c={below:0,within:0,above:0,rest:0,empty:0,partial:0,pending:0};days.forEach(function(d){c[category(kind(assess(state,d),dimension))]++;});c.graded=c.below+c.within+c.above;c.achieved=c.within+c.above;c.rate=c.graded?Math.round(c.achieved/c.graded*100):null;return c;}
   function matches(state,date,dimension,filter,subjectId){if(!filter||filter==='all')return true;var result=assess(state,date);if(subjectId&&subjectId!=='all'&&dimension!=='time'){var field=dimension==='words'?'words':'quantities';result[field]=(result[field]||[]).filter(function(s){return s.id===subjectId;});}return category(kind(result,dimension))===filter;}
-  return Object.freeze({upgrade:upgrade,distribute:distribute,range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches,isQuantity:isQuantity,quantityTarget:quantityTarget,quantityUnit:quantityUnit});
+  return Object.freeze({transitionLegacy:transitionLegacy,upgrade:upgrade,distribute:distribute,range:range,validate:validate,midpoint:midpoint,text:text,total:total,value:value,assess:assess,counts:counts,decimal:decimal,capture:capture,basis:basis,validateBasis:validateBasis,preserve:preserve,recalculate:recalculate,kind:kind,summary:summary,matches:matches,isQuantity:isQuantity,quantityTarget:quantityTarget,quantityUnit:quantityUnit});
 });

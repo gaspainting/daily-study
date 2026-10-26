@@ -1,0 +1,29 @@
+PASS daily automatic flow removes the mode selector
+PASS empty saved day remains unrecorded
+PASS saving one zero preserves other blank subjects
+PASS zero plus blank is partial, not all-day zero
+PASS unsaved edits do not change the formal evaluation
+PASS native write failure keeps the edited values and offers retry
+PASS native save success publishes the complete overall result
+PASS ninety saved minutes receives the middle interval band
+PASS repeat daily save does not add a revision or duplicate an event
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 41.4 MB/s (180353 bytes in 0.004s)
+PASS automatic reference editing offers no replacement of the original assessment
+PASS same-day target edits keep the original frozen minimum
+PASS basis details show the original and adjusted comparison
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 37.0 MB/s (195411 bytes in 0.005s)
+PASS cancelling a lower manual total keeps the formal timer total
+PASS confirmed correction saves its source and actual value together
+PASS schedule editor commits tomorrow review without changing today
+PASS advance rest requires a saved explicit future schedule
+PASS planned rest appears without grading it as success
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 43.0 MB/s (169418 bytes in 0.004s)
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 41.1 MB/s (166429 bytes in 0.004s)
+PASS cold restart retains automatic mode and fixed criteria
+PASS actual WebView statistics show plan rate, coverage and the conditional secondary rate
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 42.3 MB/s (192832 bytes in 0.004s)
+PASS small-screen large-font automatic card has labelled reachable actions without horizontal overflow
+PASS Android WebView accessibility tree exposes assessment and basis actions
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 34.6 MB/s (166329 bytes in 0.005s)
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":22,"restored":true,"error":null}

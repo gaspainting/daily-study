@@ -5,7 +5,7 @@ const legacy=require('./fixtures/reference-legacy-v161.json');
 const date='2026-10-26',sat='2026-10-31',sun='2026-11-01';
 const fresh=()=>M.migrateState(structuredClone(legacy),date);
 test('v1.6.1 point presets migrate to course-aware weekday and full weekend ranges without changing history',()=>{
- const s=fresh();assert.equal(s.version,8);
+ const s=fresh();assert.equal(s.version,9);
  assert.deepEqual(R.total(s,date),{min:60,max:120});
  assert.deepEqual(R.total(s,sat),{min:240,max:360});assert.deepEqual(R.total(s,sun),{min:180,max:300});
  assert.deepEqual(s.plan.targets[sat]['course-review'],{min:60,max:120});assert.deepEqual(s.plan.targets[sat].math,{min:180,max:240});
@@ -49,9 +49,9 @@ test('manual point criteria and nonpreset criteria are not rewritten by automati
  const original=structuredClone(s.assessmentBases[sat]);assert.deepEqual(M.migrateState(s,date).assessmentBases[sat],original);
 });
 test('schema7 migration and backup roundtrip retain the saved vocabulary ledger and exact daily totals',()=>{
- const s=fresh();s.version=7;const record=M.record(s,sat);record.status='减量';
+ const s=fresh();s.version=7;delete s.evaluation;const record=M.record(s,sat);record.status='减量';
  record.subjects.vocab.newWords=15;record.subjects.vocab.reviewWords=0;
  record.subjects.vocab.wordLog={base:{newWords:null,reviewWords:0},entries:[{id:'legacy_saved_batch',kind:'new',operation:'add',count:15,at:'2026-10-31T10:00:00Z',source:'quick'}]};
  M.saveRecord(s,sat,record);const oldRecords=structuredClone(s.records),loaded=M.migrateState(JSON.parse(JSON.stringify(s)),date);
- assert.equal(loaded.version,8);assert.deepEqual(loaded.records,oldRecords);assert.equal(M.validateState(loaded),true);assert.deepEqual(M.migrateState(loaded,date),loaded);
+ assert.equal(loaded.version,9);assert.deepEqual(loaded.records,oldRecords);assert.equal(M.validateState(loaded),true);assert.deepEqual(M.migrateState(loaded,date),loaded);
 });

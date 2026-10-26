@@ -32,6 +32,6 @@ final class CourseScheduleTests {
         JSONObject widget=DataStore.migrateState(raw),record=new JSONObject().put("subjects",new JSONObject().put("course-review",new JSONObject().put("minutes",0).put("content","").put("problem","").put("newWords",JSONObject.NULL).put("reviewWords",JSONObject.NULL).put("forgotWords",""))).put("status","休息").put("restKept",true).put("note","");
         String today=LocalDate.now().toString();widget.getJSONObject("records").put(today,record);DataStore.validate(widget);
         JSONObject summary=StudyWidget.content(widget,LocalDate.now());check(p,summary.getString("subjects").startsWith("课程复习  0 分钟")&&summary.getString("subjects").contains("高数  未记录")&&summary.getString("subjects").contains("新学 未记录"),"widget exposes course zero and unknown calculus and vocabulary independently");
-        check(p,summary.getString("status").equals("1/3 科目已记录 · 休息日"),"widget partial course zero is not interpreted as all-day zero");
+        check(p,summary.getString("status").startsWith("1/3 科目已记录")&&summary.getString("status").contains("待补全")&&!summary.getString("status").contains("休息日"),"widget partial course zero is not interpreted as all-day zero");
     }
 }

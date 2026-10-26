@@ -142,7 +142,8 @@ public class MainActivity extends Activity {
     }
     private JSONObject success(){try{return new JSONObject().put("ok",true);}catch(Exception e){return new JSONObject();}}
     private String error(Exception e){try{return new JSONObject().put("error",e.getMessage()==null?"操作失败":e.getMessage()).toString();}catch(Exception ignored){return "{\"error\":\"操作失败\"}";}}
-    private void refreshPlatforms(){runOnUiThread(()->{try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);resumePage();}catch(Exception e){show(e.getMessage());}});}
+    private void refreshPlatforms(){refreshPlatforms(true);}
+    private void refreshPlatforms(boolean notifyPage){runOnUiThread(()->{try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);if(notifyPage)resumePage();}catch(Exception e){show(e.getMessage());}});}
     private void refreshService(){runOnUiThread(()->{
         try {
             if(TimerStore.snapshot(this).optBoolean("active")){
@@ -227,18 +228,18 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String cleanInspirationPending(){try{storageReady();if(FETCHING.get())throw new Exception("请等本次素材准备结束后再清理");int n=InspirationStore.cleanPending(MainActivity.this);inspirationChanged();return success().put("removed",n).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveInspirationImage(String id){return makePoster(id,false);}
         @JavascriptInterface public String shareInspiration(String id){return makePoster(id,true);}
-        @JavascriptInterface public String getState(){try{synchronized(DataStore.LOCK){storageReady();return DataStore.readStable(MainActivity.this).toString();}}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String getState(){try{synchronized(DataStore.LOCK){storageReady();return DataStore.readForUi(MainActivity.this).toString();}}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String saveEvaluationSchedule(String raw){try{synchronized(DataStore.LOCK){storageReady();DataStore.ensureEvaluationState(MainActivity.this);JSONObject command=new JSONObject(raw);if(!command.getString("planId").equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开日程");long revision=DataStore.saveEvaluationSchedule(MainActivity.this,command);refreshPlatforms();return success().put("revision",revision).toString();}}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveState(String raw){
             try {
                 storageReady();
                 if(raw==null||raw.getBytes(StandardCharsets.UTF_8).length>DataStore.MAX_BYTES)throw new Exception("记录文件过大");
-                JSONObject s=new JSONObject(raw);DataStore.validate(s);
+                JSONObject s=new JSONObject(raw);
                 synchronized(DataStore.LOCK){
                     storageReady();DataStore.requireNoPendingRecovery(MainActivity.this);
-                    if(s.optLong("_revision",0)!=DataStore.load(MainActivity.this).optLong("_revision",0))throw new Exception("记录已更新，请刷新后再保存；当前编辑仍保留");
-                    DataStore.save(MainActivity.this,s);
+                    DataStore.saveFromBridge(MainActivity.this,s);
                 }
-                refreshPlatforms();return success().put("revision",s.getLong("_revision")).toString();
+                refreshPlatforms(false);return success().put("revision",s.getLong("_revision")).put("state",s).toString();
             }catch(Exception e){return error(e);}
         }
         @JavascriptInterface public String getTimer(){return TimerStore.snapshot(MainActivity.this).toString();}

@@ -59,9 +59,9 @@ public final class TimerStore {
         synchronized(DataStore.LOCK) {try {
             DataStore.requireNoPendingRecovery(c);
             if(checked(c)!=null)throw new Exception("请先结束或取消当前计时");
-            if(!LocalDate.now().toString().equals(day))throw new Exception("计时用于今天；其他日期请手动补记");
-            if(!AppRules.allowed(LocalDateTime.now()))throw new Exception(AppRules.restReason(LocalDateTime.now()));
             JSONObject state=DataStore.load(c),p=state.getJSONObject("plan");
+            if(!Evaluation.clock(state).today.equals(day))throw new Exception("计时用于今天；其他日期请手动补记");
+            if(!AppRules.allowed(LocalDateTime.now()))throw new Exception(AppRules.restReason(LocalDateTime.now()));
             if(day.compareTo(p.getString("startDate"))<0||day.compareTo(p.getString("endDate"))>0)throw new Exception("今天不在计划范围内，请先调整计划日期");
             JSONObject subject=activeTimerSubject(state,id,LocalDate.parse(day));if("vocab".equals(subject.getString("kind")))throw new Exception("单词按词数记录");String actualName=subject.getString("name");
             JSONObject t=new JSONObject().put("id",UUID.randomUUID().toString()).put("subjectId",id).put("subjectName",actualName).put("date",day)
@@ -85,9 +85,10 @@ public final class TimerStore {
                 if(t.optBoolean("running")) {t.put("accumulatedMs",t.optLong("accumulatedMs")+segment(t));t.put("running",false).put("message","");write(c,t);}return view(t);
             }
             if("resume".equals(action)) {
-                if(!t.getString("date").equals(LocalDate.now().toString()))throw new Exception("这是之前日期的计时，请结束保存后开始今天的计时");
+                JSONObject state=DataStore.load(c);String today=Evaluation.clock(state).today;
+                if(!t.getString("date").equals(today))throw new Exception("这是之前日期的计时，请结束保存后开始今天的计时");
                 if(!AppRules.allowed(LocalDateTime.now()))throw new Exception(AppRules.restReason(LocalDateTime.now())+"，计时保持暂停");
-                activeTimerSubject(DataStore.load(c),t.getString("subjectId"),LocalDate.now());
+                activeTimerSubject(state,t.getString("subjectId"),LocalDate.parse(today));
                 if(!t.optBoolean("running")){begin(c,t);write(c,t);}return view(t);
             }
             if("discard".equals(action)){write(c,null);return view(null);}

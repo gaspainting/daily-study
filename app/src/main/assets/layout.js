@@ -89,10 +89,10 @@
     const pending=node('span','layout-save-state');pending.setAttribute('role','status');pending.setAttribute('aria-live','polite');row.prepend(pending);
     row.querySelector('[type=submit]').textContent='保存记录';
     const note=arrangement.querySelector('#daily-note')?.closest('.field');arrangement.querySelector('.section-heading')?.remove();
-    items.push({id:'arrangement',label:'今日安排',nodes:Array.from(arrangement.children).filter(n=>n!==note)});
+    items.push({id:'arrangement',label:form.dataset.automaticEvaluation?'休息记录':'今日安排',nodes:Array.from(arrangement.children).filter(n=>n!==note)});
     if(note)items.push({id:'note',label:'随记',nodes:[note]});
     const tools=node('div','layout-record-tools'),choose=node('button','layout-arrangement-button');choose.type='button';choose.dataset.layoutOpen='arrangement';choose.setAttribute('aria-haspopup','dialog');
-    choose.append(node('span','','今日安排'),node('span','layout-arrangement-status'),icon('down'));
+    choose.append(node('span','',form.dataset.automaticEvaluation?'休息记录':'今日安排'),node('span','layout-arrangement-status'),icon('down'));
     const actions=node('span','layout-record-actions');
     if(timerAvailable){const timer=node('button','text-button','计时');timer.type='button';timer.dataset.action='timer-picker';timer.disabled=!timerAllowed;timer.prepend(icon('play'));if(limit)timer.setAttribute('aria-describedby','layout-timer-reason');actions.append(timer);}
     const notes=node('button','text-button','随记');notes.type='button';notes.dataset.layoutOpen='note';notes.setAttribute('aria-haspopup','dialog');notes.append(icon('next'));actions.append(notes);tools.append(choose,actions);
@@ -147,7 +147,7 @@
         button.querySelector('.layout-subject-reference').textContent=reference+(subject.kind==='vocab'&&value.reviewed?' · 复习 '+value.reviewed.value+' 个':'');
         button.setAttribute('aria-label',subject.name+'，'+value.value+(value.unit?' '+value.unit:'')+'，'+reference+'，编辑记录');
       });
-      const checked=form.querySelector('[name="status"]:checked'),status=form.querySelector('.layout-arrangement-status');if(status)status.textContent=checked?(checked.value==='正常参考'?'照常':checked.value):'未选择';
+      const checked=form.querySelector('[name="status"]:checked'),status=form.querySelector('.layout-arrangement-status');if(status)status.textContent=form.dataset.automaticEvaluation?({'':'未记录',true:'已保留',false:'需要调整'}[form.elements.namedItem('restKept').value]):checked?(checked.value==='正常参考'?'照常':checked.value):'未选择';
       const note=form.querySelector('.layout-note-preview');if(note){const text=Array.from((form.elements.namedItem('daily-note')?.value||'').replace(/\s+/g,' ').trim());note.textContent=text.slice(0,72).join('')+(text.length>72?'…':'');}
       const pending=!!context.isDailyDirty?.(),pendingState=form.querySelector('.layout-save-state');if(pendingState){pendingState.textContent=pending?'待保存':'';pendingState.hidden=!pending;}
       const total=document.getElementById('daily-total');if(total){

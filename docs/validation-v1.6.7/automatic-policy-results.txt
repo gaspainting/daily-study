@@ -1,0 +1,68 @@
+✔ migration retains an upgrade-day legacy result even when a saved basis was absent (62.735ms)
+✔ first-day legacy snapshot is strict and future bases cannot be created after their midnight (10.0996ms)
+✔ earlier future schedules retain later explicit rules and propagate unchanged rules (4.7763ms)
+✔ required course minimum is opt-in and cannot be offset by other time (4.5157ms)
+✔ plan review needs its independent time and review count; excess new words do not compensate (4.1234ms)
+✔ planned rest never produces a graded reference, success day or forced zero (4.1163ms)
+✔ one zero and one blank are partial; an unsaved draft cannot change the result (3.4115ms)
+✔ missing fixed basis remains an error and is discoverable in history (3.6939ms)
+✔ retired ended obligations remain discoverable without changing absolute totals (4.0506ms)
+✖ fixed goals and actuals survive JSON backup roundtrip and untrusted ledger edits are ignored (9.2859ms)
+✔ clock contexts use the plan timezone, offsets and DST; backward date does not thaw a basis (4.4151ms)
+✔ session IDs are counted once, contradictory totals need a confirmed correction, later timers add once (3.4333ms)
+✔ strict validation rejects duplicate sources, bad correction fields and conflicting rest requirements (9.6063ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 213.9034
+
+✖ failing tests:
+
+test at tests\automatic-policy.test.cjs:16:1
+✖ fixed goals and actuals survive JSON backup roundtrip and untrusted ledger edits are ignored (9.2859ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      _revision: 0,
+      assessmentBases: {
+        '2026-10-27': {
+          capturedAt: '2026-10-26T15:54:31.612Z',
+  ...
+        ],
+  +     targets: {
+  +       '2026-10-26': {},
+  +       '2026-10-27': {},
+  +       '2026-10-28': {},
+  +       '2026-10-29': {},
+  +       '2026-10-30': {},
+  +       '2026-10-31': {},
+  +       '2026-11-01': {},
+  +       '2026-11-02': {}
+  +     },
+  -     targets: {},
+        title: '课程复习与考研 · 低强度计划',
+        weekGoals: {},
+        weekHints: {},
+        weekTasks: {},
+        wordTargets: {}
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\automatic-policy.test.cjs:16:370)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { version: 9, _revision: 0, plan: { title: '课程复习与考研 · 低强度计划', startDate: '2026-10-25', endDate: '2026-11-02', startWeek: 7, subjects: [Array], targets: [Object], weekGoals: {}, weekHints: {}, courseSchedule: [Object], weekTasks: {}, manualWeekGoals: true, wordTargets: {} }, records: { '2026-10-27': [Object] }, reviews: {}, sessions: [], settings: { reminders: [Object] }, assessmentBases: { '2026-10-27': [Object] }, evaluation: { version: 1, timezone: 'Asia/Shanghai', activatedAt: '2026-10-25T04:00:00.000Z', startDate: '2026-10-26', transitionDate: '2026-10-25', highWaterDate: '2026-10-27', revision: 1, schedule: [Array], bases: [Object], changes: [], recordRoles: {}, transitionLegacy: null } },
+    expected: { version: 9, _revision: 0, plan: { title: '课程复习与考研 · 低强度计划', startDate: '2026-10-25', endDate: '2026-11-02', startWeek: 7, subjects: [Array], targets: {}, weekGoals: {}, weekHints: {}, courseSchedule: [Object], weekTasks: {}, manualWeekGoals: true, wordTargets: {} }, records: { '2026-10-27': [Object] }, reviews: {}, sessions: [], settings: { reminders: [Object] }, assessmentBases: { '2026-10-27': [Object] }, evaluation: { version: 1, timezone: 'Asia/Shanghai', activatedAt: '2026-10-25T04:00:00.000Z', startDate: '2026-10-26', transitionDate: '2026-10-25', highWaterDate: '2026-10-27', revision: 1, schedule: [Array], bases: [Object], changes: [], recordRoles: {}, transitionLegacy: null } },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

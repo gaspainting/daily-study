@@ -1,0 +1,16 @@
+PASS actual native state contains the pre-existing saved word batch
+PASS install a subject which will be absent from the restored plan
+PASS replace formal state with a valid plan lacking the old subject
+AssertionError [ERR_ASSERTION]: history remains accessible after restore removes a previously filtered subject
+    at check (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:20:35)
+    at D:\南京邮电大学\learning\study-checkin-android\tests\baseline-recovery-ui.cjs:33:2
+    at async main (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:304:20) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":4,"restored":true,"error":"history remains accessible after restore removes a previously filtered subject"}

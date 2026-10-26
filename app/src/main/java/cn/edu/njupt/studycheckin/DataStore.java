@@ -50,17 +50,26 @@ public final class DataStore {
                 } else {
                     state = new JSONObject(readText(c.getAssets().open("seed.json")));
                 }
-                return migrateState(state);
+                migrateInPlace(state);return state;
             } catch (Exception e) { throw new IllegalStateException("本地记录读取失败，未覆盖原文件："+e.getMessage(), e); }
         }
     }
-    public static void save(Context c, JSONObject state) throws Exception {
-        synchronized (LOCK) {
-            migrateInPlace(state);
-            JSONObject previous=load(c);Reference.preserve(previous,state);validate(state);
-            long next = previous.optLong("_revision", 0) + 1;
-            write(c,state,next);
+    public static JSONObject readForUi(Context c)throws Exception {
+        synchronized(LOCK){
+            requireNoPendingRecovery(c);AtomicFile af=file(c);JSONObject state;
+            if(af.getBaseFile().exists()||new File(af.getBaseFile().getPath()+".bak").exists())state=new JSONObject(readText(af.openRead()));else state=new JSONObject(readText(c.getAssets().open("seed.json")));
+            int originalVersion=state.optInt("version");migrateInPlace(state);Evaluation.Clock clock=Evaluation.clock(state);JSONObject e=state.getJSONObject("evaluation");boolean dayChanged=clock.today.compareTo(e.getString("highWaterDate"))>0;if(dayChanged)e.put("highWaterDate",clock.today);
+            if(originalVersion<9||dayChanged)write(c,state,state.optLong("_revision",0)+1);return state;
         }
+    }
+    public static void ensureEvaluationState(Context c)throws Exception {readForUi(c);}
+    public static long saveEvaluationSchedule(Context c,JSONObject command)throws Exception {
+        synchronized(LOCK){requireNoPendingRecovery(c);JSONObject previous=load(c);if(command.getLong("expectedRevision")!=previous.optLong("_revision",0))throw new Exception("记录已更新，请重新打开日程");JSONObject next=Evaluation.scheduleChange(previous,command,Evaluation.clock(previous));validate(next);long revision=previous.optLong("_revision",0)+1;write(c,next,revision);return revision;}
+    }
+    public static void save(Context c,JSONObject state)throws Exception{save(c,state,false);}
+    public static void saveFromBridge(Context c,JSONObject state)throws Exception{save(c,state,true);}
+    private static void save(Context c,JSONObject state,boolean checkRevision)throws Exception{
+        synchronized(LOCK){migrateInPlace(state);JSONObject previous=load(c);if(checkRevision&&state.optLong("_revision",0)!=previous.optLong("_revision",0))throw new Exception("记录已更新，请刷新后再保存；当前编辑仍保留");Reference.preserve(previous,state);Evaluation.requireTimeCorrections(previous,state);Evaluation.reconcile(previous,state,Evaluation.clock(previous));validate(state);write(c,state,previous.optLong("_revision",0)+1);}
     }
     public static void restore(Context c, JSONObject state) throws Exception {
         synchronized (LOCK) {
@@ -112,8 +121,8 @@ public final class DataStore {
         while (keys.hasNext()) { String key=keys.next(); date(key); string(obj,key,max); }
     }
     public static void validate(JSONObject state) throws Exception {
-        keys(state,new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
-        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7 || state.getDouble("version")==8), "备份版本不支持");
+        keys(state,state.optInt("version")>=9?new String[]{"version","plan","records","reviews","settings","evaluation"}:new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
+        require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7 || state.getDouble("version")==8 || state.getDouble("version")==9), "备份版本不支持");
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
         JSONObject p = state.getJSONObject("plan");
@@ -161,7 +170,7 @@ public final class DataStore {
         JSONObject records=state.getJSONObject("records"); Iterator<String> rd=records.keys();
         while(rd.hasNext()) {
             String day=rd.next();date(day);JSONObject r=records.getJSONObject(day);
-            keys(r,new String[]{"subjects","status","restKept","note"},new String[]{"sessions"},"record");
+            keys(r,new String[]{"subjects","status","restKept","note"},state.getInt("version")>=9?new String[]{"sessions","timeCorrections"}:new String[]{"sessions"},"record");
             Object status=r.opt("status");require(status==null||status==JSONObject.NULL||"正常参考".equals(status)||"减量".equals(status)||"仅回顾".equals(status)||"休息".equals(status),"当天状态无效");
             nullableBool(r.opt("restKept"),"休息边界"); if(r.has("note")) string(r,"note",8000);
             JSONObject subjectRecords=r.getJSONObject("subjects");Iterator<String> rs=subjectRecords.keys();
@@ -176,6 +185,8 @@ public final class DataStore {
                 if(s.has("wordLog")){require(vocabIds.contains(id),"单词明细仅用于单词科目");WordLog.validate(s.getJSONObject("wordLog"),s);}
             }
             if(r.has("sessions"))sessions(r.getJSONArray("sessions"),ids);
+            if(r.has("timeCorrections")){JSONObject corrections=r.getJSONObject("timeCorrections");for(Iterator<String> it=corrections.keys();it.hasNext();){String id=it.next();require(ids.contains(id),"计时修正科目不存在");JSONObject correction=corrections.getJSONObject(id);keys(correction,new String[]{"minutes","timerSeconds","at"},new String[]{},"timeCorrection");number(correction.get("minutes"),1440,false,true,"修正时长");number(correction.get("timerSeconds"),8640000000d,false,false,"计时修正依据");String stamp=correction.getString("at");require(stamp.matches("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z"),"计时修正时间无效");java.time.Instant.parse(stamp);}}
+
         }
         if(state.has("assessmentBases")){Set<String> quantityIds=new HashSet<>();for(int i=0;i<subjects.length();i++)if("quantity".equals(subjects.getJSONObject(i).optString("measure")))quantityIds.add(subjects.getJSONObject(i).getString("id"));JSONObject bases=state.getJSONObject("assessmentBases");Iterator<String> bd=bases.keys();while(bd.hasNext()){String day=bd.next();date(day);require(records.has(day),"评估依据缺少对应记录");Reference.validateBasis(bases.getJSONObject(day),ids,vocabIds,quantityIds);}}
         JSONObject reviews=state.getJSONObject("reviews");Iterator<String> wk=reviews.keys();
@@ -198,6 +209,7 @@ public final class DataStore {
         if(state.has("sessions")) {
             sessions(state.getJSONArray("sessions"),ids);
         }
+        if(state.getInt("version")>=9){Evaluation.validate(state);JSONObject e=state.getJSONObject("evaluation");if(!e.isNull("transitionLegacy")){JSONObject old=new JSONObject(state.toString()),saved=e.getJSONObject("transitionLegacy");old.remove("evaluation");old.put("version",8).put("records",new JSONObject().put(e.getString("transitionDate"),saved.getJSONObject("record"))).put("assessmentBases",saved.isNull("basis")?new JSONObject():new JSONObject().put(e.getString("transitionDate"),saved.getJSONObject("basis")));validate(old);}}
     }
     private static final Set<String> LEGACY_GOALS=new HashSet<>(Arrays.asList("函数与极限符号、已忘基础定位。","极限运算与初等函数基础。","常见极限与连续性。","导数定义与基本求导。","求导法则、复合函数。","高阶导数与微分（选做隐函数）。","中值定理直观与条件。","单调性、极值与最值。","函数、极限、导数的综合回顾。","小检查和寒假起点；积分仅可选接触。"));
     private static final Set<String> LEGACY_HINTS=new HashSet<>(Arrays.asList("周四3—4节、周五1—2节有单周课；周一就业指导、光电子学仍在。","本周不排周四3—4节、周五1—2节的单周课；就业指导、光电子学仍在。空课用于替换自习或休息。","就业指导已结束；光电子学仍在；周四3—4节、周五1—2节有单周课。","就业指导已结束；光电子学仍在；本周不排两处单周课。","光电子学固定课已结束；周四3—4节、周五1—2节有单周课；给习概实践、实验和作业留余量。","光电子学固定课已结束；本周不排两处单周课；空课优先兼顾作业、实验和休息。","光电子学固定课已结束；周四3—4节、周五1—2节有单周课；继续预留实践和作业时间。","光电子学固定课已结束；本周不排两处单周课；空课不自动转为额外考研任务。","周四3—4节、周五1—2节有单周课；如临近期末课程任务增加，可以减量。","本周不排两处单周课；完成短时检查并确定寒假起点，允许继续停在导数。"));
@@ -216,12 +228,14 @@ public final class DataStore {
     }
     private static void migrateInPlace(JSONObject state) throws Exception {
         validate(state);
-        state.put("version",8);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
+        int originalVersion=state.getInt("version");if(originalVersion==9)return;
+        state.put("version",9);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
         boolean hasQuantity=false;JSONArray qSubjects=state.getJSONObject("plan").getJSONArray("subjects");for(int i=0;i<qSubjects.length();i++)if("quantity".equals(qSubjects.getJSONObject(i).optString("measure")))hasQuantity=true;if(hasQuantity&&!state.getJSONObject("plan").has("quantityTargets"))state.getJSONObject("plan").put("quantityTargets",new JSONObject());
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
         while(dates.hasNext()) {JSONObject review=reviews.getJSONObject(dates.next());JSONObject text=review.optJSONObject("subjects");if(text==null){text=new JSONObject();review.put("subjects",text);}for(int i=0;i<subjects.length();i++){JSONObject subject=subjects.getJSONObject(i);String kind=subject.getString("kind"),field=kind.equals("math")?"mathProblem":kind.equals("vocab")?"vocabReview":null;String id=subject.getString("id");if(field!=null&&!text.has(id))text.put(id,review.getString(field));}}
-        LocalDate now=LocalDate.now();CourseSchedule.upgrade(state,now);CourseSchedule.autoReferences(state,now);Reference.upgrade(state,now);
+        LocalDate now=LocalDate.now();if(originalVersion<9){CourseSchedule.upgrade(state,now);CourseSchedule.autoReferences(state,now);Reference.upgrade(state,now);}
+        if(!state.has("evaluation")){Evaluation.Clock clock=Evaluation.clock(state);if(clock.today.compareTo("2026-10-26")<0)clock=new Evaluation.Clock("2026-10-26","2026-10-26T12:00:00.000Z",clock.timezone);Evaluation.initialize(state,clock);}
         validate(state);
     }
     public static boolean activeSubject(JSONObject subject,LocalDate day) throws Exception {

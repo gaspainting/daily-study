@@ -2,7 +2,8 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const M=require('../app/src/main/assets/model.js'),R=require('../app/src/main/assets/reference.js'),A=require('../app/src/main/assets/allocation.js');
 const now='2026-10-26',at='2026-10-26T07:00:00.000Z',seed=require('../app/src/main/assets/seed.json');
-const fresh=()=>M.migrateState(structuredClone(seed),now);
+// Legacy allocation behavior remains covered independently of the new fixed-day ledger.
+const fresh=()=>{const s=M.migrateState(structuredClone(seed),now);delete s.evaluation;s.version=8;return s;};
 const request=s=>({from:now,replaceDaily:false,reassess:true,values:A.template(s)});
 const apply=(s,r)=>A.apply(s,r,now,at);
 function recorded(s,date){const r=M.record(s,date);r.status='正常参考';r.subjects.math.minutes=50;r.subjects['course-review'].minutes=30;r.subjects.vocab.newWords=40;r.subjects.vocab.reviewWords=0;M.saveRecord(s,date,r);return r;}

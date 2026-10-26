@@ -1,0 +1,10 @@
+PASS 70 day baseline actual form saves forty-two minutes
+PASS 70 day baseline daily save retains independent vocabulary
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 36.7 MB/s (155601 bytes in 0.004s)
+PASS 730 day baseline actual form saves forty-two minutes
+PASS 730 day baseline daily save retains independent vocabulary
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 38.1 MB/s (158230 bytes in 0.004s)
+PASS all native bridge and WebView timings are finite recorded measurements
+[{"days":70,"metrics":[{"name":"nativeReadAndDecode","medianMs":99},{"name":"nativeReadEncodeAndSave","medianMs":303},{"name":"historyAll","medianMs":78},{"name":"monthStats","medianMs":80},{"name":"nativeWritePreparedPayload","medianMs":220}],"recordSavePaintMs":612},{"days":730,"metrics":[{"name":"nativeReadAndDecode","medianMs":724},{"name":"nativeReadEncodeAndSave","medianMs":2754},{"name":"historyAll","medianMs":733},{"name":"monthStats","medianMs":723},{"name":"nativeWritePreparedPayload","medianMs":2068}],"recordSavePaintMs":40}]
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":6,"restored":true,"error":null}

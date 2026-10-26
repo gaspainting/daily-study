@@ -3,7 +3,8 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const M=require('../app/src/main/assets/model.js'),R=require('../app/src/main/assets/reference.js');
 const S=require('../app/src/main/assets/schedule.js');
 const seed=require('../app/src/main/assets/seed.json'),day='2026-10-21',past='2026-10-20';
-const fresh=()=>M.migrateState(structuredClone(seed),'2026-10-15');
+// These fixtures exercise the pre-v1.6.7 migration and legacy reassessment contract.
+const fresh=()=>{const s=M.migrateState(structuredClone(seed),'2026-10-15');delete s.evaluation;s.version=8;return s;};
 function saved(s,d){const r=M.record(s,d);r.status='正常参考';r.subjects.math.minutes=60;r.subjects['course-review'].minutes=30;r.subjects.vocab.newWords=50;M.saveRecord(s,d,r);return r;}
 test('legacy positive references are usable point intervals without rewriting past records or targets',()=>{
  const s=fresh();s.plan.targets[past].math=50;s.plan.targets[past]['course-review']=40;saved(s,past);const before=structuredClone(s);
@@ -52,7 +53,7 @@ test('weekend period captions follow exact edited endpoints rather than a matchi
 test('reference editor defaults to new criteria and only offers retention when the previous time target is usable',()=>{
  const fs=require('node:fs'),vm=require('node:vm'),app=fs.readFileSync('app/src/main/assets/app.js','utf8'),source=app.slice(app.indexOf('function referenceFields'),app.indexOf('function editReference'));
  const s=fresh();saved(s,day);
- const render=()=>vm.runInNewContext('('+source+')('+JSON.stringify(day)+')',{M:()=>M,R:()=>R,state:s,rangeFields:(...a)=>JSON.stringify(a),field:(...a)=>JSON.stringify(a),selectField:(label,id,value,options)=>JSON.stringify({label,id,value,options})});
+ const render=()=>vm.runInNewContext('('+source+')('+JSON.stringify(day)+')',{window:{StudyEvaluation:require('../app/src/main/assets/evaluation.js')},M:()=>M,R:()=>R,state:s,rangeFields:(...a)=>JSON.stringify(a),field:(...a)=>JSON.stringify(a),selectField:(label,id,value,options)=>JSON.stringify({label,id,value,options})});
  assert.ok(render().includes('recalculate'));assert.ok(render().includes('keep'));assert.ok(render().includes('reference-total'));
  s.assessmentBases[day].time.forEach(e=>e.reference={min:0,max:0});assert.ok(!render().includes('keep'));assert.ok(render().includes('recalculate'));
 });

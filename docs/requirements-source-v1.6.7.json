@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-26",
+  "sources": [
+    {
+      "sourceFile": "每日学习后续开发阶段表和视觉重做方案.md",
+      "sha256": "b33c9487f5773a933dbdff0f5a3a7cd81bf5e21fbf8372a34aded0bc358ad91b",
+      "repositoryCopy": "docs/DEVELOPMENT-ROADMAP.md"
+    },
+    {
+      "sourceFile": "每日学习自动评估机制与实施方案 (1).md",
+      "sha256": "3454d1fa51c56cdc2209896071bf4ef709e3f09909d9badd5fff3f5568bcf7cb",
+      "repositoryCopy": "docs/AUTOMATIC-ASSESSMENT-PLAN.md"
+    }
+  ],
+  "scopeDecision": "Automatic assessment is delivered in v1.6.7. The explicit current user instruction and the specific automatic-assessment plan override older v2.1.0 scheduling references in the roadmap.",
+  "referenceLinks": "Private ChatGPT library and page links replaced with repository document links; original files unchanged."
+}

@@ -14,7 +14,7 @@
       html+='<button class="text-button" type="button" data-action="allocation-weekdays">复制本日时间分配到周一至周五</button><span class="allocation-copy-state" role="status"></span></section>';
     }
     const quantities=items.filter(s=>s.measure==='quantity');if(quantities.length)html+='<section class="allocation-section"><h3>数量目标</h3>'+quantities.map(s=>'<details class="plain-details allocation-quantity"><summary>'+h.escape(s.name)+' · '+h.escape(s.unit)+'</summary>'+h.quantityDefaultsFields('allocation-quantity-'+s.id,s.defaults)+'</details>').join('')+'</section>';
-    html+='<section class="allocation-section">'+h.selectField('单日自定目标','allocation-daily','keep',[['keep','保留'],['replace','覆盖']])+h.selectField('已记录日期的评估','allocation-assessment','recalculate',[['recalculate','按新目标评估'],['keep','保留原评估']])+'</section><div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">应用分配</button></div></form>';
+    html+='<section class="allocation-section">'+h.selectField('单日自定目标','allocation-daily','keep',[['keep','保留'],['replace','覆盖']])+(state.evaluation?'':h.selectField('已记录日期的评估','allocation-assessment','recalculate',[['recalculate','按新目标评估'],['keep','保留原评估']]))+'</section><div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">应用分配</button></div></form>';
     return html;
   }
   function values(form,state){
@@ -30,7 +30,7 @@
       if(s.kind==='vocab')out[s.id]={goal:Number(form.elements.namedItem('allocation-word-'+s.id).value)};
       else if(s.measure==='quantity')out[s.id]={defaults:Array.from({length:7},(_,i)=>Number(form.elements.namedItem('allocation-quantity-'+s.id+'-'+i).value))};
       else out[s.id]={defaults:Array.from({length:7},(_,i)=>({min:Number(form.elements.namedItem('allocation-time-'+s.id+'-'+i).value),max:Number(form.elements.namedItem('allocation-time-'+s.id+'-'+i+':max').value)}))};
-    });return {from:form.elements.namedItem('allocation-from').value,replaceDaily:form.elements.namedItem('allocation-daily').value==='replace',reassess:form.elements.namedItem('allocation-assessment').value==='recalculate',values:out};
+    });return {from:form.elements.namedItem('allocation-from').value,replaceDaily:form.elements.namedItem('allocation-daily').value==='replace',reassess:form.elements.namedItem('allocation-assessment')?.value==='recalculate',values:out};
   }
   function sync(form,state,changed=''){
     if(!form||form.id!=='allocation-form')return;
@@ -51,7 +51,7 @@
     items.forEach(s=>[0,1,2,3,4].forEach(i=>['',':max'].forEach(end=>{form.elements.namedItem('allocation-time-'+s.id+'-'+i+end).value=form.elements.namedItem('allocation-time-'+s.id+'-'+day+end).value;})));
     sync(form,state,'copy');form.querySelector('.allocation-copy-state').textContent='已填入周一至周五，待应用';form.elements.namedItem('allocation-from').dispatchEvent(new Event('input',{bubbles:true}));
   }
-  function summary(report){return '应用总体任务分配？\n'+report.from+' 至 '+report.to+'：'+report.days+' 天、'+report.targets+' 项目标。\n'+report.changes.map(c=>c.name+(c.kind==='words'?'：'+c.before+' → '+c.after+' 个 / 天':'：'+c.days.map((v,i)=>v?labels[i]:null).filter(Boolean).join('、'))).join('\n')+'\n更新 '+report.reassessed+' 天评估。'+(report.keptDaily?'保留 '+report.keptDaily+' 项单日自定目标。':'')+(report.keptUnits?'跳过 '+report.keptUnits+' 项单位不同的数量目标。':'')+'\n新增日期沿用修改后的默认分配。';}
+  function summary(report){return '应用总体任务分配？\n'+report.from+' 至 '+report.to+'：'+report.days+' 天、'+report.targets+' 项目标。\n'+report.changes.map(c=>c.name+(c.kind==='words'?'：'+c.before+' → '+c.after+' 个 / 天':'：'+c.days.map((v,i)=>v?labels[i]:null).filter(Boolean).join('、'))).join('\n')+(report.reassessed?'\n更新 '+report.reassessed+' 天旧规则评估。':'')+(report.keptDaily?'保留 '+report.keptDaily+' 项单日自定目标。':'')+(report.keptUnits?'跳过 '+report.keptUnits+' 项单位不同的数量目标。':'')+'\n新增日期沿用修改后的默认分配。';}
   let revealing=false;
   document.addEventListener('invalid',e=>{const day=e.target.closest('[data-allocation-day]');if(!day||revealing)return;revealing=true;const form=day.closest('form');form.elements.namedItem('allocation-weekday').value=day.dataset.allocationDay;form.querySelectorAll('[data-allocation-day]').forEach(el=>el.hidden=el!==day);setTimeout(()=>{revealing=false;},0);},true);
   root.StudyAllocationUI={init(helpers){h=helpers;},view,values,sync,weekdays,summary};

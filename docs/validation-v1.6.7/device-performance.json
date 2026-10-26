@@ -1,0 +1,205 @@
+{
+  "environment": {
+    "sdk": "36",
+    "release": "16",
+    "timezone": "GMT",
+    "webView": "Current WebView package (name, version): (com.google.android.webview, 133.0.6943.137)\r",
+    "scope": "3 samples per operation, maximum shown instead of p95; full automatic bases for each synthetic day. Actual Android WebView and native bridge; synthetic states; route and save paint use two animation frames; timings are not vivo measurements"
+  },
+  "results": [
+    {
+      "days": 70,
+      "recordDays": 63,
+      "sessions": 126,
+      "stateBytes": 259190,
+      "metrics": [
+        {
+          "name": "nativeReadAndDecode",
+          "samplesMs": [
+            111.09999999962747,
+            104,
+            86.19999999925494
+          ],
+          "medianMs": 104,
+          "maxMs": 111.09999999962747
+        },
+        {
+          "name": "nativeReadEncodeAndSave",
+          "samplesMs": [
+            315.90000000037253,
+            306,
+            289.7999999988824
+          ],
+          "medianMs": 306,
+          "maxMs": 315.90000000037253
+        },
+        {
+          "name": "historyAll",
+          "samplesMs": [
+            77.59999999962747,
+            81,
+            79.59999999962747
+          ],
+          "medianMs": 79.59999999962747,
+          "maxMs": 81
+        },
+        {
+          "name": "monthStats",
+          "samplesMs": [
+            84.80000000074506,
+            79.5,
+            77.40000000037253
+          ],
+          "medianMs": 79.5,
+          "maxMs": 84.80000000074506
+        },
+        {
+          "name": "nativeWritePreparedPayload",
+          "samplesMs": [
+            212.7999999988824,
+            222.90000000037253,
+            212.5
+          ],
+          "medianMs": 212.7999999988824,
+          "maxMs": 222.90000000037253
+        }
+      ],
+      "routes": [
+        {
+          "route": "plan",
+          "renderThroughTwoFramesMs": 166.69999999925494
+        },
+        {
+          "route": "review",
+          "renderThroughTwoFramesMs": 152.09999999962747
+        },
+        {
+          "route": "history",
+          "renderThroughTwoFramesMs": 169.09999999962747
+        },
+        {
+          "route": "sessions",
+          "renderThroughTwoFramesMs": 171.80000000074506
+        },
+        {
+          "route": "inspiration",
+          "renderThroughTwoFramesMs": 151.5
+        },
+        {
+          "route": "settings",
+          "renderThroughTwoFramesMs": 164.2999999988824
+        },
+        {
+          "route": "today",
+          "renderThroughTwoFramesMs": 147.40000000037253
+        }
+      ],
+      "programmaticRecord": {
+        "steps": [
+          "open subject editor",
+          "fill minutes",
+          "save record"
+        ],
+        "stepCount": 3,
+        "saveThroughTwoFramesMs": 589.0999999996275
+      }
+    },
+    {
+      "days": 730,
+      "recordDays": 663,
+      "sessions": 1326,
+      "stateBytes": 2677643,
+      "metrics": [
+        {
+          "name": "nativeReadAndDecode",
+          "samplesMs": [
+            738.4000000003725,
+            739.8999999985099,
+            696.8000000007451
+          ],
+          "medianMs": 738.4000000003725,
+          "maxMs": 739.8999999985099
+        },
+        {
+          "name": "nativeReadEncodeAndSave",
+          "samplesMs": [
+            2826.800000000745,
+            2818.4000000003725,
+            2725.800000000745
+          ],
+          "medianMs": 2818.4000000003725,
+          "maxMs": 2826.800000000745
+        },
+        {
+          "name": "historyAll",
+          "samplesMs": [
+            745.9000000003725,
+            729.7999999988824,
+            739.1000000014901
+          ],
+          "medianMs": 739.1000000014901,
+          "maxMs": 745.9000000003725
+        },
+        {
+          "name": "monthStats",
+          "samplesMs": [
+            744,
+            727.5999999996275,
+            743.2000000011176
+          ],
+          "medianMs": 743.2000000011176,
+          "maxMs": 744
+        },
+        {
+          "name": "nativeWritePreparedPayload",
+          "samplesMs": [
+            2082.9000000003725,
+            2009.9000000003725,
+            1999.4000000003725
+          ],
+          "medianMs": 2009.9000000003725,
+          "maxMs": 2082.9000000003725
+        }
+      ],
+      "routes": [
+        {
+          "route": "plan",
+          "renderThroughTwoFramesMs": 1113.699999999255
+        },
+        {
+          "route": "review",
+          "renderThroughTwoFramesMs": 1150.2000000011176
+        },
+        {
+          "route": "history",
+          "renderThroughTwoFramesMs": 1544.7000000011176
+        },
+        {
+          "route": "sessions",
+          "renderThroughTwoFramesMs": 1491.4000000003725
+        },
+        {
+          "route": "inspiration",
+          "renderThroughTwoFramesMs": 1139.6000000014901
+        },
+        {
+          "route": "settings",
+          "renderThroughTwoFramesMs": 1139.699999999255
+        },
+        {
+          "route": "today",
+          "renderThroughTwoFramesMs": 1200.300000000745
+        }
+      ],
+      "programmaticRecord": {
+        "steps": [
+          "open subject editor",
+          "fill minutes",
+          "save record"
+        ],
+        "stepCount": 3,
+        "saveThroughTwoFramesMs": 6044.5999999996275
+      }
+    }
+  ]
+}

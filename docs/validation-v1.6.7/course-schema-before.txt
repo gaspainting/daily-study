@@ -1,0 +1,155 @@
+✖ course review preserves schema 7 word batches and newer plan fields (17.8557ms)
+✖ course timetable preserves schema 7 word batches and newer plan fields (5.6836ms)
+✖ course change preserves schema 7 word batches and newer plan fields (5.2408ms)
+✖ course review preserves schema 8 word batches and newer plan fields (5.3379ms)
+✖ course timetable preserves schema 8 word batches and newer plan fields (6.7873ms)
+✖ course change preserves schema 8 word batches and newer plan fields (3.8237ms)
+✖ unchanged checklist repeat save retains newer data version and batch identity (10.1007ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 0
+ℹ fail 7
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 383.1169
+
+✖ failing tests:
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course review preserves schema 7 word batches and newer plan fields (17.8557ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 7
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.start (node:internal/test_runner/test:1096:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 7,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course timetable preserves schema 7 word batches and newer plan fields (5.6836ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 7
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 7,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course change preserves schema 7 word batches and newer plan fields (5.2408ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 7
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 7,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course review preserves schema 8 word batches and newer plan fields (5.3379ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 8
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 8,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course timetable preserves schema 8 word batches and newer plan fields (6.7873ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 8
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 8,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:13:57
+✖ course change preserves schema 8 word batches and newer plan fields (3.8237ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  6 !== 8
+  
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 6,
+    expected: 8,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\course-schema-compatibility.test.cjs:24:1
+✖ unchanged checklist repeat save retains newer data version and batch identity (10.1007ms)
+  Error: plan含未知字段manualReferences
+      at fail (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:19:34)
+      at D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:33:67
+      at Array.forEach (<anonymous>)
+      at keys (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:32:24)
+      at Object.validateState (D:\南京邮电大学\learning\study-checkin-android\app\src\main\assets\model.js:197:5)
+      at TestContext.<anonymous> (D:\南京邮电大学\learning\study-checkin-android\tests\course-schema-compatibility.test.cjs:26:4)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)

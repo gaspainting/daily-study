@@ -18,7 +18,7 @@ for(const c of cases)test('saved assessment: '+c.id,()=>{
  assert.deepEqual(s,before,'assessment never writes records, goals, references or status');
 });
 test('interval references have one source, preserve old scalar values, and reject invalid backups',()=>{
- const s=fresh();assert.equal(s.version,8);assert.deepEqual(s.plan.targets['2026-10-15']['course-review'],{min:30,max:50});assert.equal(s.plan.targets['2026-10-14'].math,60);
+ const s=fresh();assert.equal(s.version,9);assert.deepEqual(s.plan.targets['2026-10-15']['course-review'],{min:30,max:50});assert.equal(s.plan.targets['2026-10-14'].math,60);
  for(const invalid of [{min:40,max:30},{min:0,max:1441},{min:-1,max:2},{min:null,max:2},{min:'0',max:2},{min:0,max:2,other:1},[0,2]]){
   const bad=structuredClone(s);bad.plan.targets[date].math=invalid;assert.throws(()=>M.validateState(bad));
  }
@@ -54,11 +54,11 @@ test('assessment shows the saved arrangement beside its effective interval',()=>
  const source=app.slice(app.indexOf('function assessmentView'),app.indexOf('function assessmentSummary'));
  for(const id of ['normal-at-lower','reduced-at-lower','review-at-lower']){
   const c=cases.find(c=>c.id===id),s=fixture(c),status=c.status==='正常参考'?'照常':c.status;
-  const html=vm.runInNewContext('('+source+')('+JSON.stringify(date)+')',{R:()=>R,state:s,escape:x=>String(x),within:()=>true,statusLabel:x=>x==='正常参考'?'照常':x});
+  const html=vm.runInNewContext('('+source+')('+JSON.stringify(date)+')',{window:{StudyEvaluation:require('../app/src/main/assets/evaluation.js')},R:()=>R,state:s,escape:x=>String(x),within:()=>true,statusLabel:x=>x==='正常参考'?'照常':x});
   assert.ok(html.includes(status+' · '));assert.ok(html.includes(c.expected.min+'—'+c.expected.max+' 分钟'));
  }
  const s=fixture(cases.find(c=>c.outsidePlan));
- const html=vm.runInNewContext('('+source+')('+JSON.stringify(date)+')',{R:()=>R,state:s,escape:x=>String(x),within:()=>false,statusLabel:x=>x==='正常参考'?'照常':x});
+ const html=vm.runInNewContext('('+source+')('+JSON.stringify(date)+')',{window:{StudyEvaluation:require('../app/src/main/assets/evaluation.js')},R:()=>R,state:s,escape:x=>String(x),within:()=>false,statusLabel:x=>x==='正常参考'?'照常':x});
  assert.ok(html.includes('计划范围外'));assert.ok(!html.includes('null 个'));assert.ok(!html.includes(' / 50 个'));
 });
 module.exports={fixture};

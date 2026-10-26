@@ -3,7 +3,7 @@ const test=require('node:test'),assert=require('node:assert/strict');
 const M=require('../app/src/main/assets/model.js'),C=require('../app/src/main/assets/courses.js'),R=require('../app/src/main/assets/reference.js');
 const seed=require('../app/src/main/assets/seed.json'),fresh=()=>M.migrateState(structuredClone(seed),'2026-10-19'),date='2026-10-19';
 test('legacy migration is a view and seeds only the original semester with verified period labels',()=>{
- const old=structuredClone(seed),before=structuredClone(old),s=M.migrateState(old,date);assert.deepEqual(old,before);assert.equal(s.version,8);assert.equal(s.plan.courseSchedule.versions[0].courses.length,16);assert.deepEqual(C.occurrences(s,date).map(c=>c.slot),['3—4节','6—7节','8—9节']);assert.equal(C.occurrences(s,'2026-10-15').length,3);assert.equal(C.occurrences(s,'2026-10-22').length,2);assert.deepEqual(s.records,old.records);
+ const old=structuredClone(seed),before=structuredClone(old),s=M.migrateState(old,date);assert.deepEqual(old,before);assert.equal(s.version,9);assert.equal(s.plan.courseSchedule.versions[0].courses.length,16);assert.deepEqual(C.occurrences(s,date).map(c=>c.slot),['3—4节','6—7节','8—9节']);assert.equal(C.occurrences(s,'2026-10-15').length,3);assert.equal(C.occurrences(s,'2026-10-22').length,2);assert.deepEqual(s.records,old.records);
  const custom=structuredClone(seed);custom.plan.endDate='2026-12-19';assert.equal(C.occurrences(M.migrateState(custom,date),date).length,0);
 });
 test('effective revisions preserve prior dates and do not change actuals criteria or reference intervals',()=>{

@@ -18,31 +18,32 @@ public final class StudyWidget extends AppWidgetProvider {
     private static void updateAll(Context c,AppWidgetManager manager,int[] ids){
         if(ids.length==0)return;
         LocalDate now=LocalDate.now();JSONObject value=null;
-        try{value=content(DataStore.readStable(c),now);}catch(Exception ignored){}
+        try{JSONObject state=DataStore.readForUi(c);if(state.has("evaluation"))now=LocalDate.parse(Evaluation.clock(state).today);value=content(state,now);}catch(Exception ignored){}
         for(int id:ids)update(c,manager,id,now,value);
     }
     private static String minutes(double v){return v>0&&v<1?"不足1":v==Math.floor(v)?String.format(Locale.ROOT,"%.0f",v):String.format(Locale.ROOT,"%.1f",v);}
     static JSONObject content(JSONObject state,LocalDate now)throws Exception{
-        String day=now.toString();JSONObject p=state.getJSONObject("plan"),record=state.getJSONObject("records").optJSONObject(day),targets=p.getJSONObject("targets").optJSONObject(day);
-        boolean inside=day.compareTo(p.getString("startDate"))>=0&&day.compareTo(p.getString("endDate"))<=0;JSONArray subjects=p.getJSONArray("subjects");StringBuilder text=new StringBuilder();int recorded=0,total=0,shown=0;
+        String day=now.toString();JSONObject fixed=Evaluation.covers(state,day)?Evaluation.fixedBasis(state,day):null;JSONObject p=state.getJSONObject("plan"),record=state.getJSONObject("records").optJSONObject(day),targets=p.getJSONObject("targets").optJSONObject(day);
+        boolean showGoals=fixed==null||!state.getJSONObject("evaluation").getJSONObject("bases").getJSONObject(day).getString("dayType").equals("rest");boolean inside=day.compareTo(p.getString("startDate"))>=0&&day.compareTo(p.getString("endDate"))<=0;JSONArray subjects=p.getJSONArray("subjects");StringBuilder text=new StringBuilder();int recorded=0,total=0,shown=0;
         for(int i=0;i<subjects.length();i++){
             JSONObject s=subjects.getJSONObject(i);String subjectId=s.getString("id");JSONObject actual=record==null?null:record.getJSONObject("subjects").optJSONObject(subjectId);
-            boolean active=DataStore.activeSubject(s,now);
+            JSONObject original=fixed==null?null:find(fixed.getJSONArray(s.getString("kind").equals("vocab")?"words":s.optString("measure").equals("quantity")?"quantities":"time"),subjectId);boolean active=original!=null||DataStore.activeSubject(s,now);
             if(!active&&!meaningful(actual))continue;
             total++;
             boolean quantity="quantity".equals(s.optString("measure")),known=quantity?actual!=null&&actual.has("quantity")&&!actual.isNull("quantity"):actual!=null&&actual.has("minutes")&&!actual.isNull("minutes"),words="vocab".equals(s.getString("kind")),learned=actual!=null&&!actual.isNull("newWords"),reviewed=actual!=null&&!actual.isNull("reviewWords");if(known||words&&(learned||reviewed))recorded++;
             if(shown>=3)continue;
             String goalUnit=quantity?Reference.quantityUnit(state,now,s):"个",unit=quantity&&actual!=null?actual.optString("quantityUnit",goalUnit):goalUnit,a=known?(quantity?actual.getInt("quantity")+" "+unit:minutes(actual.getDouble("minutes"))+" 分钟"):"未记录";
-            Object ref=quantity?null:Reference.value(p,s,now);
+            Object ref=quantity?null:original!=null&&original.has("reference")?original.get("reference"):Reference.value(p,s,now);
             if(shown>0)text.append("\n");shown++;String name=s.getString("name");if(name.length()>10)name=name.substring(0,10)+"…";
-            if(words){text.append(name).append("  新学 ").append(learned?actual.getInt("newWords")+" 个":"未记录").append(inside&&active?" / "+DataStore.wordTarget(state,day,subjectId)+" 个":"");text.append("\n复习 ").append(reviewed?actual.getInt("reviewWords")+" 个":"未记录");if(known)text.append(" · 时长 ").append(a);}
-            else text.append(name).append("  ").append(a).append(!inside?" / 计划范围外":active?(quantity?" / 目标 "+Reference.quantityTarget(state,now,s)+" "+goalUnit:" / 参考 "+Reference.text(ref)+" 分钟"):"");
+            if(words){text.append(name).append("  新学 ").append(learned?actual.getInt("newWords")+" 个":"未记录").append(showGoals&&inside&&active?" / "+(original!=null?original.getInt("goal"):DataStore.wordTarget(state,day,subjectId))+" 个":"");text.append("\n复习 ").append(reviewed?actual.getInt("reviewWords")+" 个":"未记录");if(known)text.append(" · 时长 ").append(a);}
+            else text.append(name).append("  ").append(a).append(!showGoals?"":!inside?" / 计划范围外":active?(quantity?" / 目标 "+(original!=null?original.getInt("goal"):Reference.quantityTarget(state,now,s))+" "+goalUnit:" / 参考 "+Reference.text(ref)+" 分钟"):"");
         }
         if(total>3)text.append("\n另有 ").append(total-3).append(" 科");
         if(total==0)text.append("暂无科目");
         String status=recorded==0?"未记录":recorded+"/"+total+" 科目已记录";
-        if(record!=null&&!record.isNull("status"))status+=" · "+("正常参考".equals(record.getString("status"))?"照常":"休息".equals(record.getString("status"))?"休息日":record.getString("status"));
-        JSONObject assessed=Reference.assess(state,now).getJSONObject("time");String kind=assessed.getString("kind");
+        if(!Evaluation.covers(state,day)&&record!=null&&!record.isNull("status"))status+=" · "+("正常参考".equals(record.getString("status"))?"照常":"休息".equals(record.getString("status"))?"休息日":record.getString("status"));
+        JSONObject full=Reference.assess(state,now),automatic=full.optJSONObject("automatic");if(automatic!=null){String type=automatic.getString("dayType"),phase=automatic.getString("phase");status=status+" · "+Evaluation.dayTypeLabel(type)+" · "+automatic.getString("label")+" · "+automatic.getString("recordState")+(phase.equals("current")?" · 进行中":phase.equals("transition")?" · 过渡日":"");return new JSONObject().put("subjects",text.toString()).put("status",status).put("recorded",recorded).put("totalSubjects",total);}
+        JSONObject assessed=full.getJSONObject("time");String kind=assessed.getString("kind");
         if(kind.equals("below")||kind.equals("within")||kind.equals("above")||kind.equals("partial")){
             String assessmentLabel=assessed.getString("label");JSONObject basis=Reference.basis(state,now),current=Reference.capture(state,now,"current",null);
             if(!kind.equals("partial")&&!basis.getString("source").equals("current")&&(!basis.getJSONArray("time").toString().equals(current.getJSONArray("time").toString())||basis.getBoolean("inside")!=current.getBoolean("inside")))assessmentLabel="按原区间"+(kind.equals("within")?"完成":kind.equals("above")?"超额":"未完成");
@@ -50,6 +51,7 @@ public final class StudyWidget extends AppWidgetProvider {
         }
         return new JSONObject().put("subjects",text.toString()).put("status",status).put("recorded",recorded).put("totalSubjects",total);
     }
+    private static JSONObject find(JSONArray rows,String id)throws Exception{for(int i=0;i<rows.length();i++)if(rows.getJSONObject(i).getString("id").equals(id))return rows.getJSONObject(i);return null;}
     private static boolean meaningful(JSONObject record) throws Exception {
         if(record==null)return false;
         for(String field:new String[]{"minutes","quantity","newWords","reviewWords"})if(record.has(field)&&!record.isNull(field))return true;

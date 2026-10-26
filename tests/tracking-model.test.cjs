@@ -26,7 +26,7 @@ test('schema 1 migrates without mutating original null/zero/status/rest/session 
   legacy.sessions = [{ id: 'one', date: '2026-10-12', subjectId: 'math', seconds: 61, endedAt: '2026-10-12T10:00:00Z' }];
   const before = JSON.stringify(legacy), state = Model.migrateState(legacy);
   assert.equal(JSON.stringify(legacy), before);
-  assert.equal(state.version, 8);
+  assert.equal(state.version, 9);
   assert.deepEqual(state.records, legacy.records);
   assert.deepEqual(state.sessions, legacy.sessions);
   assert.deepEqual(state.reviews['2026-10-12'].subjects, { math: '极限', vocab: '易忘词' });

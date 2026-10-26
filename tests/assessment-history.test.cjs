@@ -4,7 +4,7 @@ const M=require('../app/src/main/assets/model.js'),R=require('../app/src/main/as
 const seed=require('../app/src/main/assets/seed.json'),date='2026-10-19',at='2026-10-19T02:00:00.000Z';
 function fixture(){const s=M.migrateState(structuredClone(seed),'2026-10-16');s.plan.targets[date].math={min:30,max:70};s.plan.targets[date]['course-review']={min:30,max:50};const r=M.record(s,date);r.status='正常参考';r.subjects.math.minutes=30;r.subjects['course-review'].minutes=30;r.subjects.vocab.newWords=50;M.saveRecord(s,date,r);return s;}
 test('saved basis survives changed references names defaults vocabulary goals and archive while actual changes still count',()=>{
- const s=fixture(),before=structuredClone(s.records);assert.equal(s.version,8);assert.equal(R.assess(s,date).basis.source,'record');
+ const s=fixture(),before=structuredClone(s.records);assert.equal(s.version,9);assert.equal(R.assess(s,date).basis.source,'record');
  s.plan.targets[date].math={min:200,max:300};s.plan.wordTargets={[date]:{vocab:80}};s.plan.subjects.find(s=>s.id==='math').name='数学新名称';M.archiveSubject(s,'course-review',date);
  assert.equal(R.assess(s,date).time.kind,'within');assert.equal(R.assess(s,date).words[0].kind,'within');assert.equal(R.basis(s,date).time.find(s=>s.id==='math').name,'高数');assert.deepEqual(s.records,before);
  s.records[date].subjects.math.minutes=200;assert.equal(R.assess(s,date).time.kind,'above');
@@ -14,7 +14,7 @@ test('explicit recalculation replaces only selected basis with current threshold
  const preview=structuredClone(s);R.recalculate(preview,date,at);assert.deepEqual(s.assessmentBases[date],prior);assert.equal(R.assess(preview,date).time.kind,'below');assert.equal(R.assess(preview,date).words[0].kind,'below');assert.equal(preview.assessmentBases[date].source,'recalculated');assert.deepEqual(preview.records,records);assert.throws(()=>R.recalculate(s,'2026-10-20'));
 });
 test('legacy migration never pretends to know original criteria and preservation precedes reference changes',()=>{
- const old=fixture();delete old.assessmentBases;delete old.plan.courseSchedule;old.version=4;const original=structuredClone(old),view=M.migrateState(old,'2026-10-19');assert.deepEqual(old,original);assert.equal(R.assess(view,date).basis.saved,false);assert.equal(R.assess(view,date).basis.source,'current');
+ const old=fixture();delete old.assessmentBases;delete old.plan.courseSchedule;old.version=4;delete old.evaluation;const original=structuredClone(old),view=M.migrateState(old,'2026-10-19');assert.deepEqual(old,original);assert.equal(R.assess(view,date).basis.saved,false);assert.equal(R.assess(view,date).basis.source,'current');
  const changed=structuredClone(view);changed.plan.targets[date].math={min:200,max:300};R.preserve(view,changed,at);assert.equal(R.assess(changed,date).time.kind,'within');assert.equal(changed.assessmentBases[date].source,'existing');assert.equal(changed.assessmentBases[date].capturedAt,at);assert.equal(changed.plan.targets[date].math.min,200);assert.deepEqual(changed.records,old.records);
 });
 test('repeated saves preserve basis timestamps and statuses zero null remain explicit',()=>{
@@ -24,7 +24,7 @@ test('repeated saves preserve basis timestamps and statuses zero null remain exp
 test('basis validation rejects unknown rules extra fields fake timestamps missing records invalid subjects and bounds',()=>{
  const s=fixture();assert.equal(M.validateState(s),true);const mutate=[b=>b.rule=2,b=>b.source='current',b=>b.extra=true,b=>b.capturedAt='2026-02-30T02:00:00.000Z',b=>b.inside='true',b=>b.time[0].reference={min:2,max:1},b=>b.time[0].id='__proto__',b=>b.words[0].goal=0.5,b=>b.time.push(structuredClone(b.time[0]))];
  for(const change of mutate){const bad=structuredClone(s);change(bad.assessmentBases[date]);assert.throws(()=>M.validateState(bad));}
- const dangling=structuredClone(s);delete dangling.records[date];assert.throws(()=>M.validateState(dangling));const old=structuredClone(s);old.version=4;assert.throws(()=>M.validateState(old));
+ const dangling=structuredClone(s);delete dangling.records[date];assert.throws(()=>M.validateState(dangling));const old=structuredClone(s);old.version=4;delete old.evaluation;assert.throws(()=>M.validateState(old));
 });
 test('filters use assessment categories independently of recorded state and combine dates keywords and arrangements',()=>{
  const s=fixture();for(const [day,mode,minutes,words] of [['2026-10-20','减量',0,0],['2026-10-21','休息',200,100],['2026-10-22','正常参考',200,null]]){const r=M.record(s,day);r.status=mode;r.note='历史搜索';r.subjects.math.minutes=minutes;r.subjects['course-review'].minutes=0;r.subjects.vocab.newWords=words;M.saveRecord(s,day,r);}

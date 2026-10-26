@@ -1,0 +1,45 @@
+{
+  "scope": "Owned Android36 emulator, synthetic full-basis data, 3 samples per direct native metric; not vivo timings. Final UI save waits for confirmed success. Earlier two-frame UI timings are not used for speedup ratios.",
+  "metrics": [
+    {
+      "days": 70,
+      "metric": "nativeReadAndDecode",
+      "beforeMedianMs": 205.80000000074506,
+      "afterMedianMs": 104
+    },
+    {
+      "days": 70,
+      "metric": "nativeReadEncodeAndSave",
+      "beforeMedianMs": 688.2999999988824,
+      "afterMedianMs": 306
+    },
+    {
+      "days": 70,
+      "metric": "nativeWritePreparedPayload",
+      "beforeMedianMs": 459.09999999962747,
+      "afterMedianMs": 212.7999999988824
+    },
+    {
+      "days": 730,
+      "metric": "nativeReadAndDecode",
+      "beforeMedianMs": 1888.800000000745,
+      "afterMedianMs": 738.4000000003725
+    },
+    {
+      "days": 730,
+      "metric": "nativeReadEncodeAndSave",
+      "beforeMedianMs": 6506.5999999996275,
+      "afterMedianMs": 2818.4000000003725
+    },
+    {
+      "days": 730,
+      "metric": "nativeWritePreparedPayload",
+      "beforeMedianMs": 4583.5,
+      "afterMedianMs": 2009.9000000003725
+    }
+  ],
+  "confirmedUiSaveMs": {
+    "70": 589.0999999996275,
+    "730": 6044.5999999996275
+  }
+}

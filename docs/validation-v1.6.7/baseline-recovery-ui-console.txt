@@ -1,0 +1,14 @@
+PASS actual native state contains the pre-existing saved word batch
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 46.8 MB/s (142271 bytes in 0.003s)
+PASS course checklist saves with an existing wordLog and retains its checked state and note
+PASS checklist save preserves schema9, all observations and assessment criteria
+PASS repeat checklist save does not create another formal revision
+PASS actual native write failure retains course input and shows retry
+PASS Retry commits the retained course input
+PASS cold restart retains saved course completion and note
+PASS install a subject which will be absent from the restored plan
+PASS replace formal state with a valid plan lacking the old subject
+PASS history remains accessible after restore removes a previously filtered subject
+PASS session filter resets to all subjects after data restore
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":12,"restored":true,"error":null}

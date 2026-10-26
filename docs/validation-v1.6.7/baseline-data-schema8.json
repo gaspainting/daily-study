@@ -1,0 +1,7256 @@
+{
+  "version": 8,
+  "_revision": 1,
+  "plan": {
+    "title": "基线样本（合成数据）",
+    "startDate": "2026-08-18",
+    "endDate": "2026-10-26",
+    "startWeek": 7,
+    "subjects": [
+      {
+        "id": "course-review",
+        "name": "课程复习",
+        "kind": "custom",
+        "defaults": [
+          {
+            "min": 20,
+            "max": 40
+          },
+          {
+            "min": 20,
+            "max": 40
+          },
+          {
+            "min": 20,
+            "max": 40
+          },
+          {
+            "min": 20,
+            "max": 40
+          },
+          {
+            "min": 20,
+            "max": 40
+          },
+          {
+            "min": 60,
+            "max": 120
+          },
+          {
+            "min": 60,
+            "max": 120
+          }
+        ],
+        "activePeriods": [
+          {
+            "from": "2026-08-18",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "math",
+        "name": "高数",
+        "kind": "math",
+        "defaults": [
+          {
+            "min": 40,
+            "max": 80
+          },
+          {
+            "min": 40,
+            "max": 80
+          },
+          {
+            "min": 40,
+            "max": 80
+          },
+          {
+            "min": 40,
+            "max": 80
+          },
+          {
+            "min": 40,
+            "max": 80
+          },
+          {
+            "min": 180,
+            "max": 240
+          },
+          {
+            "min": 120,
+            "max": 180
+          }
+        ],
+        "activePeriods": [
+          {
+            "from": "2026-08-18",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "vocab",
+        "name": "单词",
+        "kind": "vocab",
+        "defaults": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20
+        ],
+        "activePeriods": [
+          {
+            "from": "2026-08-18",
+            "to": null
+          }
+        ]
+      },
+      {
+        "id": "practice",
+        "name": "练习",
+        "kind": "custom",
+        "measure": "quantity",
+        "unit": "题",
+        "defaults": [
+          20,
+          20,
+          20,
+          20,
+          20,
+          30,
+          30
+        ],
+        "activePeriods": [
+          {
+            "from": "2026-08-18",
+            "to": null
+          }
+        ]
+      }
+    ],
+    "targets": {
+      "2026-08-18": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-19": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-20": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-21": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-22": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-08-23": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-08-24": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-25": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-26": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-27": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-28": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-08-29": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-08-30": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-08-31": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-01": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-02": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-03": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-04": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-05": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-06": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-07": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-08": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-09": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-10": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-11": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-12": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-13": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-14": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-15": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-16": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-17": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-18": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-19": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-20": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-21": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-22": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-23": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-24": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-25": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-26": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-27": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-09-28": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-29": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-09-30": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-01": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-02": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-03": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-04": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-05": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-06": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-07": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-08": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-09": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-10": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-11": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-12": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-13": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-14": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-15": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-16": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-17": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-18": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-19": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-20": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-21": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-22": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-23": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      },
+      "2026-10-24": {
+        "math": {
+          "min": 180,
+          "max": 240
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-25": {
+        "math": {
+          "min": 120,
+          "max": 180
+        },
+        "course-review": {
+          "min": 60,
+          "max": 120
+        }
+      },
+      "2026-10-26": {
+        "math": {
+          "min": 40,
+          "max": 80
+        },
+        "course-review": {
+          "min": 20,
+          "max": 40
+        }
+      }
+    },
+    "weekGoals": {},
+    "weekHints": {},
+    "courseSchedule": {
+      "versions": [
+        {
+          "from": "1900-01-01",
+          "anchor": "2026-10-12",
+          "startWeek": 7,
+          "courses": [
+            {
+              "day": 0,
+              "name": "光电子学",
+              "firstWeek": 1,
+              "lastWeek": 10,
+              "id": "course_1",
+              "slot": "3—4节",
+              "parity": "all"
+            },
+            {
+              "day": 0,
+              "name": "物理光学",
+              "firstWeek": 1,
+              "lastWeek": 18,
+              "id": "course_2",
+              "slot": "6—7节",
+              "parity": "all"
+            },
+            {
+              "day": 0,
+              "name": "大学生就业指导",
+              "firstWeek": 5,
+              "lastWeek": 8,
+              "id": "course_3",
+              "slot": "8—9节",
+              "parity": "all"
+            },
+            {
+              "day": 1,
+              "name": "激光原理",
+              "firstWeek": 1,
+              "lastWeek": 18,
+              "id": "course_4",
+              "slot": "3—4节",
+              "parity": "all"
+            },
+            {
+              "day": 1,
+              "name": "微型计算机原理与接口技术",
+              "firstWeek": 1,
+              "lastWeek": 18,
+              "id": "course_5",
+              "slot": "6—7节",
+              "parity": "all"
+            },
+            {
+              "day": 1,
+              "name": "毛概",
+              "firstWeek": 1,
+              "lastWeek": 10,
+              "id": "course_6",
+              "slot": "8—9节",
+              "parity": "all"
+            },
+            {
+              "day": 1,
+              "name": "习概",
+              "firstWeek": 11,
+              "lastWeek": 18,
+              "id": "course_7",
+              "slot": "8—9节",
+              "parity": "all"
+            },
+            {
+              "day": 2,
+              "name": "光电子学",
+              "firstWeek": 1,
+              "lastWeek": 10,
+              "id": "course_8",
+              "slot": "1—2节",
+              "parity": "all"
+            },
+            {
+              "day": 3,
+              "name": "激光原理",
+              "firstWeek": 1,
+              "lastWeek": 17,
+              "parity": "odd",
+              "id": "course_9",
+              "slot": "3—4节"
+            },
+            {
+              "day": 3,
+              "name": "光电子器件",
+              "firstWeek": 1,
+              "lastWeek": 18,
+              "id": "course_10",
+              "slot": "6—7节",
+              "parity": "all"
+            },
+            {
+              "day": 3,
+              "name": "微型计算机原理与接口技术",
+              "firstWeek": 2,
+              "lastWeek": 18,
+              "id": "course_11",
+              "slot": "8—9节",
+              "parity": "all"
+            },
+            {
+              "day": 4,
+              "name": "物理光学",
+              "firstWeek": 1,
+              "lastWeek": 17,
+              "parity": "odd",
+              "id": "course_12",
+              "slot": "1—2节"
+            },
+            {
+              "day": 4,
+              "name": "毛概",
+              "firstWeek": 4,
+              "lastWeek": 10,
+              "id": "course_13",
+              "slot": "6—7节",
+              "parity": "all"
+            },
+            {
+              "day": 4,
+              "name": "习概",
+              "firstWeek": 11,
+              "lastWeek": 18,
+              "id": "course_14",
+              "slot": "6—7节",
+              "parity": "all"
+            },
+            {
+              "day": 4,
+              "name": "光电子学",
+              "firstWeek": 1,
+              "lastWeek": 10,
+              "id": "course_15",
+              "slot": "8—9节",
+              "parity": "all"
+            },
+            {
+              "day": 4,
+              "name": "毛概",
+              "firstWeek": 1,
+              "lastWeek": 3,
+              "parity": "odd",
+              "id": "course_16",
+              "slot": "6—7节"
+            }
+          ]
+        }
+      ],
+      "changes": []
+    },
+    "weekTasks": {},
+    "manualWeekGoals": true,
+    "wordTargets": {},
+    "quantityTargets": {},
+    "quantityUnits": {
+      "2026-08-19": {
+        "practice": "页"
+      },
+      "2026-08-20": {
+        "practice": "页"
+      },
+      "2026-08-21": {
+        "practice": "页"
+      },
+      "2026-08-22": {
+        "practice": "页"
+      },
+      "2026-08-23": {
+        "practice": "页"
+      },
+      "2026-08-24": {
+        "practice": "页"
+      },
+      "2026-08-25": {
+        "practice": "页"
+      },
+      "2026-08-26": {
+        "practice": "页"
+      },
+      "2026-08-27": {
+        "practice": "页"
+      },
+      "2026-08-28": {
+        "practice": "页"
+      },
+      "2026-08-30": {
+        "practice": "页"
+      },
+      "2026-08-31": {
+        "practice": "页"
+      },
+      "2026-09-01": {
+        "practice": "页"
+      },
+      "2026-09-02": {
+        "practice": "页"
+      },
+      "2026-09-03": {
+        "practice": "页"
+      },
+      "2026-09-04": {
+        "practice": "页"
+      },
+      "2026-09-05": {
+        "practice": "页"
+      },
+      "2026-09-06": {
+        "practice": "页"
+      },
+      "2026-09-07": {
+        "practice": "页"
+      },
+      "2026-09-08": {
+        "practice": "页"
+      },
+      "2026-09-10": {
+        "practice": "页"
+      },
+      "2026-09-11": {
+        "practice": "页"
+      },
+      "2026-09-12": {
+        "practice": "页"
+      },
+      "2026-09-13": {
+        "practice": "页"
+      },
+      "2026-09-14": {
+        "practice": "页"
+      },
+      "2026-09-15": {
+        "practice": "页"
+      },
+      "2026-09-16": {
+        "practice": "页"
+      },
+      "2026-09-17": {
+        "practice": "页"
+      },
+      "2026-09-18": {
+        "practice": "页"
+      },
+      "2026-09-19": {
+        "practice": "页"
+      },
+      "2026-09-21": {
+        "practice": "页"
+      },
+      "2026-09-22": {
+        "practice": "题"
+      },
+      "2026-09-23": {
+        "practice": "题"
+      },
+      "2026-09-24": {
+        "practice": "题"
+      },
+      "2026-09-25": {
+        "practice": "题"
+      },
+      "2026-09-26": {
+        "practice": "题"
+      },
+      "2026-09-27": {
+        "practice": "题"
+      },
+      "2026-09-28": {
+        "practice": "题"
+      },
+      "2026-09-29": {
+        "practice": "题"
+      },
+      "2026-09-30": {
+        "practice": "题"
+      },
+      "2026-10-02": {
+        "practice": "题"
+      },
+      "2026-10-03": {
+        "practice": "题"
+      },
+      "2026-10-04": {
+        "practice": "题"
+      },
+      "2026-10-05": {
+        "practice": "题"
+      },
+      "2026-10-06": {
+        "practice": "题"
+      },
+      "2026-10-07": {
+        "practice": "题"
+      },
+      "2026-10-08": {
+        "practice": "题"
+      },
+      "2026-10-09": {
+        "practice": "题"
+      },
+      "2026-10-10": {
+        "practice": "题"
+      },
+      "2026-10-11": {
+        "practice": "题"
+      },
+      "2026-10-13": {
+        "practice": "题"
+      },
+      "2026-10-14": {
+        "practice": "题"
+      },
+      "2026-10-15": {
+        "practice": "题"
+      },
+      "2026-10-16": {
+        "practice": "题"
+      },
+      "2026-10-17": {
+        "practice": "题"
+      },
+      "2026-10-18": {
+        "practice": "题"
+      },
+      "2026-10-19": {
+        "practice": "题"
+      },
+      "2026-10-20": {
+        "practice": "题"
+      },
+      "2026-10-21": {
+        "practice": "题"
+      },
+      "2026-10-22": {
+        "practice": "题"
+      },
+      "2026-10-24": {
+        "practice": "题"
+      },
+      "2026-10-25": {
+        "practice": "题"
+      },
+      "2026-10-26": {
+        "practice": "题"
+      }
+    },
+    "manualReferences": {},
+    "manualReferenceDefaults": []
+  },
+  "records": {
+    "2026-08-19": {
+      "subjects": {
+        "course-review": {
+          "minutes": 21,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 41,
+          "content": "教材第2页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 41,
+          "reviewWords": 1,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 1"
+    },
+    "2026-08-20": {
+      "subjects": {
+        "course-review": {
+          "minutes": 22,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 42,
+          "content": "教材第3页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 42,
+          "reviewWords": 2,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 2"
+    },
+    "2026-08-21": {
+      "subjects": {
+        "course-review": {
+          "minutes": 23,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 43,
+          "content": "教材第4页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 43,
+          "reviewWords": 3,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "学习随记 3"
+    },
+    "2026-08-22": {
+      "subjects": {
+        "course-review": {
+          "minutes": 24,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 44,
+          "content": "教材第5页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 44,
+          "reviewWords": 4,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 24,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 4"
+    },
+    "2026-08-23": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 45,
+          "content": "教材第6页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 5,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 25,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 5"
+    },
+    "2026-08-24": {
+      "subjects": {
+        "course-review": {
+          "minutes": 26,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第7页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 46,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": null,
+      "note": "学习随记 6"
+    },
+    "2026-08-25": {
+      "subjects": {
+        "course-review": {
+          "minutes": 27,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第8页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 47,
+          "reviewWords": 7,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 27,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 7"
+    },
+    "2026-08-26": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 48,
+          "content": "教材第9页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 48,
+          "reviewWords": 8,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 28,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 8"
+    },
+    "2026-08-27": {
+      "subjects": {
+        "course-review": {
+          "minutes": 29,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 49,
+          "content": "教材第10页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": 9,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 29,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": "学习随记 9"
+    },
+    "2026-08-28": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 50,
+          "content": "教材第11页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 10,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 10"
+    },
+    "2026-08-30": {
+      "subjects": {
+        "course-review": {
+          "minutes": 32,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第13页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 52,
+          "reviewWords": null,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": null,
+      "note": "学习随记 12"
+    },
+    "2026-08-31": {
+      "subjects": {
+        "course-review": {
+          "minutes": 33,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 53,
+          "content": "教材第14页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 53,
+          "reviewWords": 13,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "查找目标：学习随记"
+    },
+    "2026-09-01": {
+      "subjects": {
+        "course-review": {
+          "minutes": 34,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第15页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 54,
+          "reviewWords": 14,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 14"
+    },
+    "2026-09-02": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 55,
+          "content": "教材第16页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 15,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 24,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "学习随记 15"
+    },
+    "2026-09-03": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 56,
+          "content": "教材第17页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 40,
+          "reviewWords": 16,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 25,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 16"
+    },
+    "2026-09-04": {
+      "subjects": {
+        "course-review": {
+          "minutes": 37,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 57,
+          "content": "教材第18页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 41,
+          "reviewWords": 17,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 26,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 17"
+    },
+    "2026-09-05": {
+      "subjects": {
+        "course-review": {
+          "minutes": 38,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第19页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": null,
+      "note": "学习随记 18"
+    },
+    "2026-09-06": {
+      "subjects": {
+        "course-review": {
+          "minutes": 39,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 59,
+          "content": "教材第20页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 43,
+          "reviewWords": 19,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 28,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 19"
+    },
+    "2026-09-07": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 60,
+          "content": "教材第21页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 20,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 20"
+    },
+    "2026-09-08": {
+      "subjects": {
+        "course-review": {
+          "minutes": 41,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第22页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 45,
+          "reviewWords": 21,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 30,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": "学习随记 21"
+    },
+    "2026-09-10": {
+      "subjects": {
+        "course-review": {
+          "minutes": 43,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 63,
+          "content": "教材第24页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 47,
+          "reviewWords": 23,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 23"
+    },
+    "2026-09-11": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第25页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 48,
+          "reviewWords": null,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": null,
+      "note": "学习随记 24"
+    },
+    "2026-09-12": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 65,
+          "content": "教材第26页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 25,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 25"
+    },
+    "2026-09-13": {
+      "subjects": {
+        "course-review": {
+          "minutes": 46,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 66,
+          "content": "教材第27页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 50,
+          "reviewWords": 26,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 24,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "查找目标：学习随记"
+    },
+    "2026-09-14": {
+      "subjects": {
+        "course-review": {
+          "minutes": 47,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 67,
+          "content": "教材第28页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": 27,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 25,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "学习随记 27"
+    },
+    "2026-09-15": {
+      "subjects": {
+        "course-review": {
+          "minutes": 48,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第29页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 52,
+          "reviewWords": 28,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 26,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 28"
+    },
+    "2026-09-16": {
+      "subjects": {
+        "course-review": {
+          "minutes": 49,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 69,
+          "content": "教材第30页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 53,
+          "reviewWords": 29,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 27,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 29"
+    },
+    "2026-09-17": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第31页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": null,
+      "note": "学习随记 30"
+    },
+    "2026-09-18": {
+      "subjects": {
+        "course-review": {
+          "minutes": 20,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 71,
+          "content": "教材第32页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 55,
+          "reviewWords": 31,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 29,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 31"
+    },
+    "2026-09-19": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 72,
+          "content": "教材第33页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 40,
+          "reviewWords": 32,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 30,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 32"
+    },
+    "2026-09-21": {
+      "subjects": {
+        "course-review": {
+          "minutes": 23,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 74,
+          "content": "教材第35页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 42,
+          "reviewWords": 34,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "页"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 34"
+    },
+    "2026-09-22": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第36页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 35,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 35"
+    },
+    "2026-09-23": {
+      "subjects": {
+        "course-review": {
+          "minutes": 25,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第37页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": null,
+      "note": "学习随记 36"
+    },
+    "2026-09-24": {
+      "subjects": {
+        "course-review": {
+          "minutes": 26,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 77,
+          "content": "教材第38页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 45,
+          "reviewWords": 37,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 24,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 37"
+    },
+    "2026-09-25": {
+      "subjects": {
+        "course-review": {
+          "minutes": 27,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 78,
+          "content": "教材第39页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 46,
+          "reviewWords": 38,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 25,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 38"
+    },
+    "2026-09-26": {
+      "subjects": {
+        "course-review": {
+          "minutes": 28,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 79,
+          "content": "教材第40页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 47,
+          "reviewWords": 39,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 26,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "查找目标：学习随记"
+    },
+    "2026-09-27": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 80,
+          "content": "教材第41页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 40,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 40"
+    },
+    "2026-09-28": {
+      "subjects": {
+        "course-review": {
+          "minutes": 30,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 40,
+          "content": "教材第42页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 49,
+          "reviewWords": 41,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 28,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 41"
+    },
+    "2026-09-29": {
+      "subjects": {
+        "course-review": {
+          "minutes": 31,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第43页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 50,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": null,
+      "note": "学习随记 42"
+    },
+    "2026-09-30": {
+      "subjects": {
+        "course-review": {
+          "minutes": 32,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 42,
+          "content": "教材第44页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 51,
+          "reviewWords": 43,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 30,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 43"
+    },
+    "2026-10-02": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 44,
+          "content": "教材第46页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": 45,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": "学习随记 45"
+    },
+    "2026-10-03": {
+      "subjects": {
+        "course-review": {
+          "minutes": 35,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 45,
+          "content": "教材第47页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 54,
+          "reviewWords": 46,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 46"
+    },
+    "2026-10-04": {
+      "subjects": {
+        "course-review": {
+          "minutes": 36,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 46,
+          "content": "教材第48页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 55,
+          "reviewWords": 47,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 47"
+    },
+    "2026-10-05": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第49页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 40,
+          "reviewWords": null,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": null,
+      "note": "学习随记 48"
+    },
+    "2026-10-06": {
+      "subjects": {
+        "course-review": {
+          "minutes": 38,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第50页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 41,
+          "reviewWords": 49,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 25,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 49"
+    },
+    "2026-10-07": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 49,
+          "content": "教材第51页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 50,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 50"
+    },
+    "2026-10-08": {
+      "subjects": {
+        "course-review": {
+          "minutes": 40,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 50,
+          "content": "教材第52页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 43,
+          "reviewWords": 51,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 27,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "学习随记 51"
+    },
+    "2026-10-09": {
+      "subjects": {
+        "course-review": {
+          "minutes": 41,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 51,
+          "content": "教材第53页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 44,
+          "reviewWords": 52,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 28,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "查找目标：学习随记"
+    },
+    "2026-10-10": {
+      "subjects": {
+        "course-review": {
+          "minutes": 42,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 52,
+          "content": "教材第54页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 45,
+          "reviewWords": 53,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 29,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 53"
+    },
+    "2026-10-11": {
+      "subjects": {
+        "course-review": {
+          "minutes": 43,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第55页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 0,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": null,
+      "note": "学习随记 54"
+    },
+    "2026-10-13": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第57页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 48,
+          "reviewWords": 56,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 56"
+    },
+    "2026-10-14": {
+      "subjects": {
+        "course-review": {
+          "minutes": 46,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 56,
+          "content": "教材第58页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 49,
+          "reviewWords": 57,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": "学习随记 57"
+    },
+    "2026-10-15": {
+      "subjects": {
+        "course-review": {
+          "minutes": 47,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 57,
+          "content": "教材第59页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 50,
+          "reviewWords": 58,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 58"
+    },
+    "2026-10-16": {
+      "subjects": {
+        "course-review": {
+          "minutes": 48,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 58,
+          "content": "教材第60页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 51,
+          "reviewWords": 59,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 24,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 59"
+    },
+    "2026-10-17": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 0,
+          "content": "教材第61页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": null,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": null,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": null,
+      "note": "学习随记 60"
+    },
+    "2026-10-18": {
+      "subjects": {
+        "course-review": {
+          "minutes": 50,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 60,
+          "content": "教材第62页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 53,
+          "reviewWords": 61,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 26,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "学习随记 61"
+    },
+    "2026-10-19": {
+      "subjects": {
+        "course-review": {
+          "minutes": 20,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 61,
+          "content": "教材第63页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 54,
+          "reviewWords": 62,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 27,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "仅回顾",
+      "restKept": true,
+      "note": "学习随记 62"
+    },
+    "2026-10-20": {
+      "subjects": {
+        "course-review": {
+          "minutes": 21,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": null,
+          "content": "教材第64页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": 63,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 28,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": null,
+      "note": "学习随记 63"
+    },
+    "2026-10-21": {
+      "subjects": {
+        "course-review": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 63,
+          "content": "教材第65页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 40,
+          "reviewWords": 64,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 29,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 64"
+    },
+    "2026-10-22": {
+      "subjects": {
+        "course-review": {
+          "minutes": 0,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 64,
+          "content": "教材第66页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 0,
+          "reviewWords": 65,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 30,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": false,
+      "note": "查找目标：学习随记"
+    },
+    "2026-10-24": {
+      "subjects": {
+        "course-review": {
+          "minutes": 25,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 66,
+          "content": "教材第68页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 43,
+          "reviewWords": 67,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 21,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "休息",
+      "restKept": false,
+      "note": "学习随记 67"
+    },
+    "2026-10-25": {
+      "subjects": {
+        "course-review": {
+          "minutes": 26,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 67,
+          "content": "教材第69页\n函数与练习",
+          "problem": "需要回顾的例题",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 44,
+          "reviewWords": 68,
+          "forgotWords": "sample; review"
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 22,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "正常参考",
+      "restKept": true,
+      "note": "学习随记 68"
+    },
+    "2026-10-26": {
+      "subjects": {
+        "course-review": {
+          "minutes": 27,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "math": {
+          "minutes": 68,
+          "content": "教材第70页\n函数与练习",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": ""
+        },
+        "vocab": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": 45,
+          "reviewWords": 69,
+          "forgotWords": ""
+        },
+        "practice": {
+          "minutes": null,
+          "content": "",
+          "problem": "",
+          "newWords": null,
+          "reviewWords": null,
+          "forgotWords": "",
+          "quantity": 23,
+          "quantityUnit": "题"
+        }
+      },
+      "status": "减量",
+      "restKept": null,
+      "note": "学习随记 69"
+    }
+  },
+  "reviews": {},
+  "sessions": [
+    {
+      "id": "baseline-1-0",
+      "date": "2026-08-19",
+      "subjectId": "math",
+      "seconds": 2401,
+      "endedAt": "2026-08-19T11:00:00Z"
+    },
+    {
+      "id": "baseline-1-1",
+      "date": "2026-08-19",
+      "subjectId": "course-review",
+      "seconds": 1201,
+      "endedAt": "2026-08-19T12:00:00Z"
+    },
+    {
+      "id": "baseline-2-0",
+      "date": "2026-08-20",
+      "subjectId": "math",
+      "seconds": 2402,
+      "endedAt": "2026-08-20T11:00:00Z"
+    },
+    {
+      "id": "baseline-2-1",
+      "date": "2026-08-20",
+      "subjectId": "course-review",
+      "seconds": 1202,
+      "endedAt": "2026-08-20T12:00:00Z"
+    },
+    {
+      "id": "baseline-3-0",
+      "date": "2026-08-21",
+      "subjectId": "math",
+      "seconds": 2403,
+      "endedAt": "2026-08-21T11:00:00Z"
+    },
+    {
+      "id": "baseline-3-1",
+      "date": "2026-08-21",
+      "subjectId": "course-review",
+      "seconds": 1203,
+      "endedAt": "2026-08-21T12:00:00Z"
+    },
+    {
+      "id": "baseline-4-0",
+      "date": "2026-08-22",
+      "subjectId": "math",
+      "seconds": 2404,
+      "endedAt": "2026-08-22T11:00:00Z"
+    },
+    {
+      "id": "baseline-4-1",
+      "date": "2026-08-22",
+      "subjectId": "course-review",
+      "seconds": 1204,
+      "endedAt": "2026-08-22T12:00:00Z"
+    },
+    {
+      "id": "baseline-5-0",
+      "date": "2026-08-23",
+      "subjectId": "math",
+      "seconds": 2405,
+      "endedAt": "2026-08-23T11:00:00Z"
+    },
+    {
+      "id": "baseline-5-1",
+      "date": "2026-08-23",
+      "subjectId": "course-review",
+      "seconds": 1205,
+      "endedAt": "2026-08-23T12:00:00Z"
+    },
+    {
+      "id": "baseline-6-0",
+      "date": "2026-08-24",
+      "subjectId": "math",
+      "seconds": 2406,
+      "endedAt": "2026-08-24T11:00:00Z"
+    },
+    {
+      "id": "baseline-6-1",
+      "date": "2026-08-24",
+      "subjectId": "course-review",
+      "seconds": 1206,
+      "endedAt": "2026-08-24T12:00:00Z"
+    },
+    {
+      "id": "baseline-7-0",
+      "date": "2026-08-25",
+      "subjectId": "math",
+      "seconds": 2407,
+      "endedAt": "2026-08-25T11:00:00Z"
+    },
+    {
+      "id": "baseline-7-1",
+      "date": "2026-08-25",
+      "subjectId": "course-review",
+      "seconds": 1207,
+      "endedAt": "2026-08-25T12:00:00Z"
+    },
+    {
+      "id": "baseline-8-0",
+      "date": "2026-08-26",
+      "subjectId": "math",
+      "seconds": 2408,
+      "endedAt": "2026-08-26T11:00:00Z"
+    },
+    {
+      "id": "baseline-8-1",
+      "date": "2026-08-26",
+      "subjectId": "course-review",
+      "seconds": 1208,
+      "endedAt": "2026-08-26T12:00:00Z"
+    },
+    {
+      "id": "baseline-9-0",
+      "date": "2026-08-27",
+      "subjectId": "math",
+      "seconds": 2409,
+      "endedAt": "2026-08-27T11:00:00Z"
+    },
+    {
+      "id": "baseline-9-1",
+      "date": "2026-08-27",
+      "subjectId": "course-review",
+      "seconds": 1209,
+      "endedAt": "2026-08-27T12:00:00Z"
+    },
+    {
+      "id": "baseline-10-0",
+      "date": "2026-08-28",
+      "subjectId": "math",
+      "seconds": 2410,
+      "endedAt": "2026-08-28T11:00:00Z"
+    },
+    {
+      "id": "baseline-10-1",
+      "date": "2026-08-28",
+      "subjectId": "course-review",
+      "seconds": 1210,
+      "endedAt": "2026-08-28T12:00:00Z"
+    },
+    {
+      "id": "baseline-12-0",
+      "date": "2026-08-30",
+      "subjectId": "math",
+      "seconds": 2412,
+      "endedAt": "2026-08-30T11:00:00Z"
+    },
+    {
+      "id": "baseline-12-1",
+      "date": "2026-08-30",
+      "subjectId": "course-review",
+      "seconds": 1212,
+      "endedAt": "2026-08-30T12:00:00Z"
+    },
+    {
+      "id": "baseline-13-0",
+      "date": "2026-08-31",
+      "subjectId": "math",
+      "seconds": 2413,
+      "endedAt": "2026-08-31T11:00:00Z"
+    },
+    {
+      "id": "baseline-13-1",
+      "date": "2026-08-31",
+      "subjectId": "course-review",
+      "seconds": 1213,
+      "endedAt": "2026-08-31T12:00:00Z"
+    },
+    {
+      "id": "baseline-14-0",
+      "date": "2026-09-01",
+      "subjectId": "math",
+      "seconds": 2414,
+      "endedAt": "2026-09-01T11:00:00Z"
+    },
+    {
+      "id": "baseline-14-1",
+      "date": "2026-09-01",
+      "subjectId": "course-review",
+      "seconds": 1214,
+      "endedAt": "2026-09-01T12:00:00Z"
+    },
+    {
+      "id": "baseline-15-0",
+      "date": "2026-09-02",
+      "subjectId": "math",
+      "seconds": 2415,
+      "endedAt": "2026-09-02T11:00:00Z"
+    },
+    {
+      "id": "baseline-15-1",
+      "date": "2026-09-02",
+      "subjectId": "course-review",
+      "seconds": 1215,
+      "endedAt": "2026-09-02T12:00:00Z"
+    },
+    {
+      "id": "baseline-16-0",
+      "date": "2026-09-03",
+      "subjectId": "math",
+      "seconds": 2416,
+      "endedAt": "2026-09-03T11:00:00Z"
+    },
+    {
+      "id": "baseline-16-1",
+      "date": "2026-09-03",
+      "subjectId": "course-review",
+      "seconds": 1216,
+      "endedAt": "2026-09-03T12:00:00Z"
+    },
+    {
+      "id": "baseline-17-0",
+      "date": "2026-09-04",
+      "subjectId": "math",
+      "seconds": 2417,
+      "endedAt": "2026-09-04T11:00:00Z"
+    },
+    {
+      "id": "baseline-17-1",
+      "date": "2026-09-04",
+      "subjectId": "course-review",
+      "seconds": 1217,
+      "endedAt": "2026-09-04T12:00:00Z"
+    },
+    {
+      "id": "baseline-18-0",
+      "date": "2026-09-05",
+      "subjectId": "math",
+      "seconds": 2418,
+      "endedAt": "2026-09-05T11:00:00Z"
+    },
+    {
+      "id": "baseline-18-1",
+      "date": "2026-09-05",
+      "subjectId": "course-review",
+      "seconds": 1218,
+      "endedAt": "2026-09-05T12:00:00Z"
+    },
+    {
+      "id": "baseline-19-0",
+      "date": "2026-09-06",
+      "subjectId": "math",
+      "seconds": 2419,
+      "endedAt": "2026-09-06T11:00:00Z"
+    },
+    {
+      "id": "baseline-19-1",
+      "date": "2026-09-06",
+      "subjectId": "course-review",
+      "seconds": 1219,
+      "endedAt": "2026-09-06T12:00:00Z"
+    },
+    {
+      "id": "baseline-20-0",
+      "date": "2026-09-07",
+      "subjectId": "math",
+      "seconds": 2420,
+      "endedAt": "2026-09-07T11:00:00Z"
+    },
+    {
+      "id": "baseline-20-1",
+      "date": "2026-09-07",
+      "subjectId": "course-review",
+      "seconds": 1220,
+      "endedAt": "2026-09-07T12:00:00Z"
+    },
+    {
+      "id": "baseline-21-0",
+      "date": "2026-09-08",
+      "subjectId": "math",
+      "seconds": 2421,
+      "endedAt": "2026-09-08T11:00:00Z"
+    },
+    {
+      "id": "baseline-21-1",
+      "date": "2026-09-08",
+      "subjectId": "course-review",
+      "seconds": 1221,
+      "endedAt": "2026-09-08T12:00:00Z"
+    },
+    {
+      "id": "baseline-23-0",
+      "date": "2026-09-10",
+      "subjectId": "math",
+      "seconds": 2423,
+      "endedAt": "2026-09-10T11:00:00Z"
+    },
+    {
+      "id": "baseline-23-1",
+      "date": "2026-09-10",
+      "subjectId": "course-review",
+      "seconds": 1223,
+      "endedAt": "2026-09-10T12:00:00Z"
+    },
+    {
+      "id": "baseline-24-0",
+      "date": "2026-09-11",
+      "subjectId": "math",
+      "seconds": 2424,
+      "endedAt": "2026-09-11T11:00:00Z"
+    },
+    {
+      "id": "baseline-24-1",
+      "date": "2026-09-11",
+      "subjectId": "course-review",
+      "seconds": 1224,
+      "endedAt": "2026-09-11T12:00:00Z"
+    },
+    {
+      "id": "baseline-25-0",
+      "date": "2026-09-12",
+      "subjectId": "math",
+      "seconds": 2425,
+      "endedAt": "2026-09-12T11:00:00Z"
+    },
+    {
+      "id": "baseline-25-1",
+      "date": "2026-09-12",
+      "subjectId": "course-review",
+      "seconds": 1225,
+      "endedAt": "2026-09-12T12:00:00Z"
+    },
+    {
+      "id": "baseline-26-0",
+      "date": "2026-09-13",
+      "subjectId": "math",
+      "seconds": 2426,
+      "endedAt": "2026-09-13T11:00:00Z"
+    },
+    {
+      "id": "baseline-26-1",
+      "date": "2026-09-13",
+      "subjectId": "course-review",
+      "seconds": 1226,
+      "endedAt": "2026-09-13T12:00:00Z"
+    },
+    {
+      "id": "baseline-27-0",
+      "date": "2026-09-14",
+      "subjectId": "math",
+      "seconds": 2427,
+      "endedAt": "2026-09-14T11:00:00Z"
+    },
+    {
+      "id": "baseline-27-1",
+      "date": "2026-09-14",
+      "subjectId": "course-review",
+      "seconds": 1227,
+      "endedAt": "2026-09-14T12:00:00Z"
+    },
+    {
+      "id": "baseline-28-0",
+      "date": "2026-09-15",
+      "subjectId": "math",
+      "seconds": 2428,
+      "endedAt": "2026-09-15T11:00:00Z"
+    },
+    {
+      "id": "baseline-28-1",
+      "date": "2026-09-15",
+      "subjectId": "course-review",
+      "seconds": 1228,
+      "endedAt": "2026-09-15T12:00:00Z"
+    },
+    {
+      "id": "baseline-29-0",
+      "date": "2026-09-16",
+      "subjectId": "math",
+      "seconds": 2429,
+      "endedAt": "2026-09-16T11:00:00Z"
+    },
+    {
+      "id": "baseline-29-1",
+      "date": "2026-09-16",
+      "subjectId": "course-review",
+      "seconds": 1229,
+      "endedAt": "2026-09-16T12:00:00Z"
+    },
+    {
+      "id": "baseline-30-0",
+      "date": "2026-09-17",
+      "subjectId": "math",
+      "seconds": 2430,
+      "endedAt": "2026-09-17T11:00:00Z"
+    },
+    {
+      "id": "baseline-30-1",
+      "date": "2026-09-17",
+      "subjectId": "course-review",
+      "seconds": 1230,
+      "endedAt": "2026-09-17T12:00:00Z"
+    },
+    {
+      "id": "baseline-31-0",
+      "date": "2026-09-18",
+      "subjectId": "math",
+      "seconds": 2431,
+      "endedAt": "2026-09-18T11:00:00Z"
+    },
+    {
+      "id": "baseline-31-1",
+      "date": "2026-09-18",
+      "subjectId": "course-review",
+      "seconds": 1231,
+      "endedAt": "2026-09-18T12:00:00Z"
+    },
+    {
+      "id": "baseline-32-0",
+      "date": "2026-09-19",
+      "subjectId": "math",
+      "seconds": 2432,
+      "endedAt": "2026-09-19T11:00:00Z"
+    },
+    {
+      "id": "baseline-32-1",
+      "date": "2026-09-19",
+      "subjectId": "course-review",
+      "seconds": 1232,
+      "endedAt": "2026-09-19T12:00:00Z"
+    },
+    {
+      "id": "baseline-34-0",
+      "date": "2026-09-21",
+      "subjectId": "math",
+      "seconds": 2434,
+      "endedAt": "2026-09-21T11:00:00Z"
+    },
+    {
+      "id": "baseline-34-1",
+      "date": "2026-09-21",
+      "subjectId": "course-review",
+      "seconds": 1234,
+      "endedAt": "2026-09-21T12:00:00Z"
+    },
+    {
+      "id": "baseline-35-0",
+      "date": "2026-09-22",
+      "subjectId": "math",
+      "seconds": 2435,
+      "endedAt": "2026-09-22T11:00:00Z"
+    },
+    {
+      "id": "baseline-35-1",
+      "date": "2026-09-22",
+      "subjectId": "course-review",
+      "seconds": 1235,
+      "endedAt": "2026-09-22T12:00:00Z"
+    },
+    {
+      "id": "baseline-36-0",
+      "date": "2026-09-23",
+      "subjectId": "math",
+      "seconds": 2436,
+      "endedAt": "2026-09-23T11:00:00Z"
+    },
+    {
+      "id": "baseline-36-1",
+      "date": "2026-09-23",
+      "subjectId": "course-review",
+      "seconds": 1236,
+      "endedAt": "2026-09-23T12:00:00Z"
+    },
+    {
+      "id": "baseline-37-0",
+      "date": "2026-09-24",
+      "subjectId": "math",
+      "seconds": 2437,
+      "endedAt": "2026-09-24T11:00:00Z"
+    },
+    {
+      "id": "baseline-37-1",
+      "date": "2026-09-24",
+      "subjectId": "course-review",
+      "seconds": 1237,
+      "endedAt": "2026-09-24T12:00:00Z"
+    },
+    {
+      "id": "baseline-38-0",
+      "date": "2026-09-25",
+      "subjectId": "math",
+      "seconds": 2438,
+      "endedAt": "2026-09-25T11:00:00Z"
+    },
+    {
+      "id": "baseline-38-1",
+      "date": "2026-09-25",
+      "subjectId": "course-review",
+      "seconds": 1238,
+      "endedAt": "2026-09-25T12:00:00Z"
+    },
+    {
+      "id": "baseline-39-0",
+      "date": "2026-09-26",
+      "subjectId": "math",
+      "seconds": 2439,
+      "endedAt": "2026-09-26T11:00:00Z"
+    },
+    {
+      "id": "baseline-39-1",
+      "date": "2026-09-26",
+      "subjectId": "course-review",
+      "seconds": 1239,
+      "endedAt": "2026-09-26T12:00:00Z"
+    },
+    {
+      "id": "baseline-40-0",
+      "date": "2026-09-27",
+      "subjectId": "math",
+      "seconds": 2440,
+      "endedAt": "2026-09-27T11:00:00Z"
+    },
+    {
+      "id": "baseline-40-1",
+      "date": "2026-09-27",
+      "subjectId": "course-review",
+      "seconds": 1240,
+      "endedAt": "2026-09-27T12:00:00Z"
+    },
+    {
+      "id": "baseline-41-0",
+      "date": "2026-09-28",
+      "subjectId": "math",
+      "seconds": 2441,
+      "endedAt": "2026-09-28T11:00:00Z"
+    },
+    {
+      "id": "baseline-41-1",
+      "date": "2026-09-28",
+      "subjectId": "course-review",
+      "seconds": 1241,
+      "endedAt": "2026-09-28T12:00:00Z"
+    },
+    {
+      "id": "baseline-42-0",
+      "date": "2026-09-29",
+      "subjectId": "math",
+      "seconds": 2442,
+      "endedAt": "2026-09-29T11:00:00Z"
+    },
+    {
+      "id": "baseline-42-1",
+      "date": "2026-09-29",
+      "subjectId": "course-review",
+      "seconds": 1242,
+      "endedAt": "2026-09-29T12:00:00Z"
+    },
+    {
+      "id": "baseline-43-0",
+      "date": "2026-09-30",
+      "subjectId": "math",
+      "seconds": 2443,
+      "endedAt": "2026-09-30T11:00:00Z"
+    },
+    {
+      "id": "baseline-43-1",
+      "date": "2026-09-30",
+      "subjectId": "course-review",
+      "seconds": 1243,
+      "endedAt": "2026-09-30T12:00:00Z"
+    },
+    {
+      "id": "baseline-45-0",
+      "date": "2026-10-02",
+      "subjectId": "math",
+      "seconds": 2445,
+      "endedAt": "2026-10-02T11:00:00Z"
+    },
+    {
+      "id": "baseline-45-1",
+      "date": "2026-10-02",
+      "subjectId": "course-review",
+      "seconds": 1245,
+      "endedAt": "2026-10-02T12:00:00Z"
+    },
+    {
+      "id": "baseline-46-0",
+      "date": "2026-10-03",
+      "subjectId": "math",
+      "seconds": 2446,
+      "endedAt": "2026-10-03T11:00:00Z"
+    },
+    {
+      "id": "baseline-46-1",
+      "date": "2026-10-03",
+      "subjectId": "course-review",
+      "seconds": 1246,
+      "endedAt": "2026-10-03T12:00:00Z"
+    },
+    {
+      "id": "baseline-47-0",
+      "date": "2026-10-04",
+      "subjectId": "math",
+      "seconds": 2447,
+      "endedAt": "2026-10-04T11:00:00Z"
+    },
+    {
+      "id": "baseline-47-1",
+      "date": "2026-10-04",
+      "subjectId": "course-review",
+      "seconds": 1247,
+      "endedAt": "2026-10-04T12:00:00Z"
+    },
+    {
+      "id": "baseline-48-0",
+      "date": "2026-10-05",
+      "subjectId": "math",
+      "seconds": 2448,
+      "endedAt": "2026-10-05T11:00:00Z"
+    },
+    {
+      "id": "baseline-48-1",
+      "date": "2026-10-05",
+      "subjectId": "course-review",
+      "seconds": 1248,
+      "endedAt": "2026-10-05T12:00:00Z"
+    },
+    {
+      "id": "baseline-49-0",
+      "date": "2026-10-06",
+      "subjectId": "math",
+      "seconds": 2449,
+      "endedAt": "2026-10-06T11:00:00Z"
+    },
+    {
+      "id": "baseline-49-1",
+      "date": "2026-10-06",
+      "subjectId": "course-review",
+      "seconds": 1249,
+      "endedAt": "2026-10-06T12:00:00Z"
+    },
+    {
+      "id": "baseline-50-0",
+      "date": "2026-10-07",
+      "subjectId": "math",
+      "seconds": 2450,
+      "endedAt": "2026-10-07T11:00:00Z"
+    },
+    {
+      "id": "baseline-50-1",
+      "date": "2026-10-07",
+      "subjectId": "course-review",
+      "seconds": 1250,
+      "endedAt": "2026-10-07T12:00:00Z"
+    },
+    {
+      "id": "baseline-51-0",
+      "date": "2026-10-08",
+      "subjectId": "math",
+      "seconds": 2451,
+      "endedAt": "2026-10-08T11:00:00Z"
+    },
+    {
+      "id": "baseline-51-1",
+      "date": "2026-10-08",
+      "subjectId": "course-review",
+      "seconds": 1251,
+      "endedAt": "2026-10-08T12:00:00Z"
+    },
+    {
+      "id": "baseline-52-0",
+      "date": "2026-10-09",
+      "subjectId": "math",
+      "seconds": 2452,
+      "endedAt": "2026-10-09T11:00:00Z"
+    },
+    {
+      "id": "baseline-52-1",
+      "date": "2026-10-09",
+      "subjectId": "course-review",
+      "seconds": 1252,
+      "endedAt": "2026-10-09T12:00:00Z"
+    },
+    {
+      "id": "baseline-53-0",
+      "date": "2026-10-10",
+      "subjectId": "math",
+      "seconds": 2453,
+      "endedAt": "2026-10-10T11:00:00Z"
+    },
+    {
+      "id": "baseline-53-1",
+      "date": "2026-10-10",
+      "subjectId": "course-review",
+      "seconds": 1253,
+      "endedAt": "2026-10-10T12:00:00Z"
+    },
+    {
+      "id": "baseline-54-0",
+      "date": "2026-10-11",
+      "subjectId": "math",
+      "seconds": 2454,
+      "endedAt": "2026-10-11T11:00:00Z"
+    },
+    {
+      "id": "baseline-54-1",
+      "date": "2026-10-11",
+      "subjectId": "course-review",
+      "seconds": 1254,
+      "endedAt": "2026-10-11T12:00:00Z"
+    },
+    {
+      "id": "baseline-56-0",
+      "date": "2026-10-13",
+      "subjectId": "math",
+      "seconds": 2456,
+      "endedAt": "2026-10-13T11:00:00Z"
+    },
+    {
+      "id": "baseline-56-1",
+      "date": "2026-10-13",
+      "subjectId": "course-review",
+      "seconds": 1256,
+      "endedAt": "2026-10-13T12:00:00Z"
+    },
+    {
+      "id": "baseline-57-0",
+      "date": "2026-10-14",
+      "subjectId": "math",
+      "seconds": 2457,
+      "endedAt": "2026-10-14T11:00:00Z"
+    },
+    {
+      "id": "baseline-57-1",
+      "date": "2026-10-14",
+      "subjectId": "course-review",
+      "seconds": 1257,
+      "endedAt": "2026-10-14T12:00:00Z"
+    },
+    {
+      "id": "baseline-58-0",
+      "date": "2026-10-15",
+      "subjectId": "math",
+      "seconds": 2458,
+      "endedAt": "2026-10-15T11:00:00Z"
+    },
+    {
+      "id": "baseline-58-1",
+      "date": "2026-10-15",
+      "subjectId": "course-review",
+      "seconds": 1258,
+      "endedAt": "2026-10-15T12:00:00Z"
+    },
+    {
+      "id": "baseline-59-0",
+      "date": "2026-10-16",
+      "subjectId": "math",
+      "seconds": 2459,
+      "endedAt": "2026-10-16T11:00:00Z"
+    },
+    {
+      "id": "baseline-59-1",
+      "date": "2026-10-16",
+      "subjectId": "course-review",
+      "seconds": 1259,
+      "endedAt": "2026-10-16T12:00:00Z"
+    },
+    {
+      "id": "baseline-60-0",
+      "date": "2026-10-17",
+      "subjectId": "math",
+      "seconds": 2400,
+      "endedAt": "2026-10-17T11:00:00Z"
+    },
+    {
+      "id": "baseline-60-1",
+      "date": "2026-10-17",
+      "subjectId": "course-review",
+      "seconds": 1200,
+      "endedAt": "2026-10-17T12:00:00Z"
+    },
+    {
+      "id": "baseline-61-0",
+      "date": "2026-10-18",
+      "subjectId": "math",
+      "seconds": 2401,
+      "endedAt": "2026-10-18T11:00:00Z"
+    },
+    {
+      "id": "baseline-61-1",
+      "date": "2026-10-18",
+      "subjectId": "course-review",
+      "seconds": 1201,
+      "endedAt": "2026-10-18T12:00:00Z"
+    },
+    {
+      "id": "baseline-62-0",
+      "date": "2026-10-19",
+      "subjectId": "math",
+      "seconds": 2402,
+      "endedAt": "2026-10-19T11:00:00Z"
+    },
+    {
+      "id": "baseline-62-1",
+      "date": "2026-10-19",
+      "subjectId": "course-review",
+      "seconds": 1202,
+      "endedAt": "2026-10-19T12:00:00Z"
+    },
+    {
+      "id": "baseline-63-0",
+      "date": "2026-10-20",
+      "subjectId": "math",
+      "seconds": 2403,
+      "endedAt": "2026-10-20T11:00:00Z"
+    },
+    {
+      "id": "baseline-63-1",
+      "date": "2026-10-20",
+      "subjectId": "course-review",
+      "seconds": 1203,
+      "endedAt": "2026-10-20T12:00:00Z"
+    },
+    {
+      "id": "baseline-64-0",
+      "date": "2026-10-21",
+      "subjectId": "math",
+      "seconds": 2404,
+      "endedAt": "2026-10-21T11:00:00Z"
+    },
+    {
+      "id": "baseline-64-1",
+      "date": "2026-10-21",
+      "subjectId": "course-review",
+      "seconds": 1204,
+      "endedAt": "2026-10-21T12:00:00Z"
+    },
+    {
+      "id": "baseline-65-0",
+      "date": "2026-10-22",
+      "subjectId": "math",
+      "seconds": 2405,
+      "endedAt": "2026-10-22T11:00:00Z"
+    },
+    {
+      "id": "baseline-65-1",
+      "date": "2026-10-22",
+      "subjectId": "course-review",
+      "seconds": 1205,
+      "endedAt": "2026-10-22T12:00:00Z"
+    },
+    {
+      "id": "baseline-67-0",
+      "date": "2026-10-24",
+      "subjectId": "math",
+      "seconds": 2407,
+      "endedAt": "2026-10-24T11:00:00Z"
+    },
+    {
+      "id": "baseline-67-1",
+      "date": "2026-10-24",
+      "subjectId": "course-review",
+      "seconds": 1207,
+      "endedAt": "2026-10-24T12:00:00Z"
+    },
+    {
+      "id": "baseline-68-0",
+      "date": "2026-10-25",
+      "subjectId": "math",
+      "seconds": 2408,
+      "endedAt": "2026-10-25T11:00:00Z"
+    },
+    {
+      "id": "baseline-68-1",
+      "date": "2026-10-25",
+      "subjectId": "course-review",
+      "seconds": 1208,
+      "endedAt": "2026-10-25T12:00:00Z"
+    },
+    {
+      "id": "baseline-69-0",
+      "date": "2026-10-26",
+      "subjectId": "math",
+      "seconds": 2409,
+      "endedAt": "2026-10-26T11:00:00Z"
+    },
+    {
+      "id": "baseline-69-1",
+      "date": "2026-10-26",
+      "subjectId": "course-review",
+      "seconds": 1209,
+      "endedAt": "2026-10-26T12:00:00Z"
+    }
+  ],
+  "settings": {
+    "reminders": {
+      "enabled": false,
+      "weekdayTime": "19:15",
+      "weekendTime": "10:00"
+    }
+  },
+  "assessmentBases": {
+    "2026-08-19": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-19T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-20": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-20T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-21": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-21T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-22": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-22T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-08-23": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-23T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-08-24": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-24T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-25": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-25T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-26": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-26T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-27": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-27T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-28": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-28T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-08-30": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-30T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-08-31": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-08-31T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-01": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-01T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-02": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-02T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-03": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-03T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-04": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-04T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-05": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-05T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-06": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-06T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-07": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-07T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-08": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-08T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-10": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-10T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-11": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-11T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-12": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-12T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-13": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-13T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-14": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-14T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-15": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-15T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-16": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-16T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-17": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-17T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-18": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-18T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-19": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-19T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-21": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-21T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "页",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-22": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-22T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-23": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-23T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-24": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-24T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-25": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-25T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-26": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-26T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-27": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-27T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-09-28": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-28T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-29": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-29T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-09-30": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-09-30T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-02": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-02T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-03": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-03T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-04": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-04T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-05": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-05T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-06": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-06T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-07": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-07T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-08": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-08T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-09": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-09T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-10": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-10T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-11": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-11T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-13": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-13T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-14": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-14T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-15": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-15T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-16": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-16T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-17": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-17T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-18": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-18T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-19": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-19T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-20": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-20T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-21": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-21T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-22": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-22T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    },
+    "2026-10-24": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-24T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 180,
+            "max": 240
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-25": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-25T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 60,
+            "max": 120
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 120,
+            "max": 180
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 30
+        }
+      ]
+    },
+    "2026-10-26": {
+      "rule": 1,
+      "source": "record",
+      "capturedAt": "2026-10-26T12:00:00.000Z",
+      "inside": true,
+      "time": [
+        {
+          "id": "course-review",
+          "name": "课程复习",
+          "kind": "custom",
+          "reference": {
+            "min": 20,
+            "max": 40
+          }
+        },
+        {
+          "id": "math",
+          "name": "高数",
+          "kind": "math",
+          "reference": {
+            "min": 40,
+            "max": 80
+          }
+        }
+      ],
+      "words": [
+        {
+          "id": "vocab",
+          "name": "单词",
+          "goal": 50
+        }
+      ],
+      "quantities": [
+        {
+          "id": "practice",
+          "name": "练习",
+          "unit": "题",
+          "goal": 20
+        }
+      ]
+    }
+  },
+  "courseReviews": {}
+}

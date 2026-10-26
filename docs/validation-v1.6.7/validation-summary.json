@@ -1,0 +1,64 @@
+{
+  "version": "1.6.7",
+  "versionCode": 24,
+  "schema": 9,
+  "modelTests": 250,
+  "sharedJavaScriptJavaCases": 29,
+  "android36NativeChecks": 707,
+  "android35NativeChecks": 705,
+  "automaticUI": {
+    "checks": 22,
+    "report": "automatic-ui-results.json",
+    "originalFilesRestored": 28
+  },
+  "courseRecoveryUI": {
+    "checks": 12,
+    "report": "baseline-recovery-ui-results.json",
+    "originalFilesRestored": 28
+  },
+  "manualUI": {
+    "checks": 29,
+    "report": "manual-ui-results.json",
+    "originalFilesRestored": 28
+  },
+  "formalUpgrade": {
+    "checks": 13,
+    "report": "automatic-formal-upgrade-results.json",
+    "originalFilesRestored": 28
+  },
+  "performance": {
+    "checks": 6,
+    "report": "performance-ui-wrapper-results.json",
+    "originalFilesRestored": 28
+  },
+  "api35": {
+    "checks": 4,
+    "report": "api35/api35-native-wrapper-results.json",
+    "originalFilesRestored": 11
+  },
+  "releaseToolingAssertions": 39,
+  "formalApk": {
+    "version": "1.6.7",
+    "versionCode": 24,
+    "apkBytes": 6675469,
+    "apkSha256": "830c03c3c6c6a5d8cc424e4e8505c48d3560a21479b7f5fb3a309883d1e7d29a",
+    "exactWorkspaceAssets": 35,
+    "testAssetsAndInstrumentationAbsent": true
+  },
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "sourceDocumentsMatchLatestUserFiles": true,
+  "scope": "Synthetic fixtures on owned Android35/36 emulators; full snapshot checks cover files/ and shared_prefs/. Formal install, migration failure and recovery use actual signed APKs. Model clock examples are not physical clock-change tests.",
+  "unverified": [
+    "vivo X100s hands-on operation for this build",
+    "TalkBack speech and gesture operation",
+    "Android8-14 actual runtime",
+    "7-14 day continuous observation"
+  ],
+  "remaining": [
+    {
+      "topic": "large history latency",
+      "evidence": "730-day full-basis synthetic workload: confirmed UI save about6s on emulator; native prepared write median about2s",
+      "next": "v1.7.0 storage and bridge optimization"
+    }
+  ]
+}

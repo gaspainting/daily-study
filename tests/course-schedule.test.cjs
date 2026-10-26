@@ -41,7 +41,7 @@ test('late upgrade begins today and never changes previously elapsed references'
  assert.equal(subject(n,'course-review').activePeriods[0].from,'2026-10-20');assert.equal(M.target(n,'2026-10-20','math'),50);
 });
 test('automatic update preserves a custom math reference, word goals and quick steps',()=>{
- const s=up();s.plan.subjects=s.plan.subjects.filter(x=>x.id!=='course-review');for(const t of Object.values(s.plan.targets))delete t['course-review'];
+ const s=up();delete s.evaluation;s.version=8;s.plan.subjects=s.plan.subjects.filter(x=>x.id!=='course-review');for(const t of Object.values(s.plan.targets))delete t['course-review'];
  subject(s,'math').defaults=[40,25,60,25,40,90,60];s.plan.targets['2026-10-15'].math=17;
  subject(s,'vocab').wordGoal=80;subject(s,'vocab').wordSteps=[1,5,10];s.plan.wordTargets={'2026-10-15':{vocab:33}};
  const n=up(s);assert.deepEqual(n.plan.targets['2026-10-15'].math,{min:17,max:17});assert.equal(M.wordTarget(n,'2026-10-15','vocab'),33);

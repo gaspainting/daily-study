@@ -1,0 +1,10 @@
+.automatic-day-result{display:block;font-size:1.25rem;line-height:1.5;margin:.4rem 0 1rem}
+.automatic-assessment .assessment-row small{font-weight:400;color:var(--muted,#666);white-space:nowrap}
+.automatic-required-fields{border:0;padding:0;margin:1rem 0}
+.auto-required-option{display:flex;align-items:center;gap:.7rem;min-height:48px;line-height:1.5}
+.auto-required-option input{width:1.2rem;height:1.2rem;flex-shrink:0}
+.automatic-statistics .overview{align-items:start}.automatic-statistics .metric-value{font-size:1.8rem;overflow-wrap:anywhere}
+
+.automatic-assessment .assessment-row{gap:.5rem;align-items:baseline}
+.automatic-assessment .assessment-row>*{min-width:0;overflow-wrap:anywhere}
+.automatic-assessment .assessment-row>strong{text-align:right}

@@ -22,7 +22,7 @@
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
   const M = () => window.StudyModel;
   const R = () => window.StudyReference;
-  const iso = date => M().today(date || new Date());
+  const iso = date => date?M().today(date):state?.evaluation?window.StudyEvaluation.context(state.evaluation.timezone).today:M().today(new Date());
   const localDate = date => new Date(date + 'T12:00:00');
   const shift = (date, count) => { const d = localDate(date); d.setDate(d.getDate() + count); return iso(d); };
   const within = date => date >= state.plan.startDate && date <= state.plan.endDate;
@@ -64,7 +64,8 @@
     const result = call('saveState', JSON.stringify(latest));
     if (!result || !result.ok) throw new Error('保存没有完成，请重试。');
     if (result.revision !== undefined) latest._revision = result.revision;
-    state = readState();
+    state = result.state||readState();
+    M().validateState(state);
     completeDraft();
     nativeRefreshPending = false;
     return state;
@@ -103,6 +104,7 @@
       else if (form.id === 'week-move-form') saved = moveWeek(form);
       else if (form.dataset.subjectEdit) saved = saveSubject(form);
       else if (form.id === 'allocation-form') saved = saveAllocation(form);
+      else if (form.id === 'evaluation-schedule-form') saved = saveEvaluationSchedule(form);
       else if (form.id === 'reminder-form') saved = saveReminder(form);
       else if (form.id === 'backup-reminder-form') { call('setBackupReminder', form.elements.namedItem('backup-enabled').checked, Number(form.elements.namedItem('backup-days').value)); completeDraft(); dirty.delete('backup-reminder'); render(); saved = true; }
       else if (['week-form', 'reference-form', 'new-subject-form', 'new-plan-form'].includes(form.id)) saved = saveSheet(form);
@@ -308,6 +310,7 @@
     return '<div class="subject-entry word-entry"><div class="subject-heading"><h3><span class="subject-index">'+String(index+1).padStart(2,'0')+'</span>'+escape(subject.name)+'</h3>'+(goal!==null&&M().subjectActive(subject,selectedDate)?'<button type="button" class="reference-pill reference-edit" data-action="edit-reference" data-date="'+selectedDate+'" data-subject="'+escape(id)+'" aria-label="修改'+escape(subject.name)+'新学目标">新学目标 '+goal+' 个</button>':'<span class="reference-pill">'+(!M().subjectActive(subject,selectedDate)?'已归档':'计划范围外')+'</span>')+'</div><div class="field-inline">'+field('新学（个）','newWords-'+id,r.newWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+field('复习（个）','reviewWords-'+id,r.reviewWords,{type:'number',min:0,max:100000,step:1,placeholder:'未记录'})+'</div>'+quick('newWords','新学')+quick('reviewWords','复习')+'<span class="visually-hidden" role="status" aria-live="polite" data-word-feedback></span>'+window.StudyWordLogUI.view(subject,r,escape)+'<details class="details-toggle"'+(r.content||r.forgotWords?' open':'')+'><summary>内容与易忘词</summary>'+field('学习内容','content-'+id,r.content,{maxLength:3000})+field('易忘词','forgotWords-'+id,r.forgotWords,{textarea:true,maxLength:3000})+'</details>'+(r.minutes!=null?'<details class="details-toggle"><summary>时长记录</summary>'+field('历史时长（分钟）','minutes-'+id,r.minutes,{type:'number',min:0,max:1440,step:'any',placeholder:'未记录'})+'</details>':'')+'</div>';
   }
   function assessmentView(date){
+    if(state.evaluation&&window.StudyEvaluation.covers(state,date))return window.StudyEvaluationUI.card(state,date);
     const result=R().assess(state,date),t=result.time;
     const detail=['below','within','above'].includes(t.kind)?statusLabel(t.status)+' · '+t.scope+' '+R().decimal(t.actual)+' / '+R().text({min:t.min,max:t.max})+' 分钟':t.kind==='partial'?statusLabel(t.status)+' · '+t.missing+' 科时长未记录':'';
     let html='<section class="daily-assessment" aria-label="今日评估"><div class="section-heading"><h2>今日评估</h2><button class="text-button" type="button" data-action="assessment-rules">评估规则</button></div><p class="assessment-pending" role="status" hidden>待保存</p><div class="assessment-results"><div class="assessment-row"><span>时长</span><strong data-time-assessment="'+t.kind+'">'+escape(t.label)+'</strong></div>'+(detail?'<p class="assessment-detail">'+escape(detail)+'</p>':'');
@@ -318,9 +321,10 @@
     return html+'</div></section>';
   }
   function assessmentSummary(days){return window.StudyTracking.renderAssessments(state,days,{today:iso(),icon:icon});}
-  function basisLabel(source){return ({record:'保存时参考',existing:'首次留存参考',recalculated:'重评时参考',current:'当前参考（未留存）'})[source];}
+  function basisLabel(source){return ({fixed:'原计划依据',record:'保存时参考',existing:'首次留存参考',recalculated:'重评时参考',current:'当前参考（未留存）'})[source];}
   function assessmentResultLine(result){const t=result.time;return '<p>'+t.scope+'：'+escape(t.label)+(t.actual===null?'':' · '+R().decimal(t.actual)+(['below','within','above'].includes(t.kind)?' / '+R().text({min:t.min,max:t.max}):'')+' 分钟')+'</p>'+result.words.map(w=>'<p>'+escape(w.name)+'新学：'+escape(w.label)+(w.newWords===null?'':' · '+w.newWords+(w.goal===null?'':' / '+w.goal)+' 个')+'</p>').join('')+(result.quantities||[]).map(q=>'<p>'+escape(q.name)+'：'+escape(q.label)+(q.quantity===null?'':' · '+q.quantity+' '+escape(q.actualUnit||q.unit)+(q.goal===null?'':' / '+q.goal+' '+escape(q.unit)))+'</p>').join('');}
   function assessmentBasis(date){
+    if(state.evaluation&&window.StudyEvaluation.covers(state,date)){openSheet('评估依据',window.StudyEvaluationUI.basis(readState(),date),true);return;}
     const latest=readState(),b=R().basis(latest,date),r=R().assess(latest,date);
     let html='<p>'+fullDate(date)+'</p><p>'+escape(basisLabel(b.source))+(b.capturedAt?' · '+escape(new Date(b.capturedAt).toLocaleString('zh-CN')):'')+'</p><dl class="assessment-basis">'+b.time.map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+R().text(s.reference)+' 分钟</dd></div>').join('')+b.words.map(s=>'<div><dt>'+escape(s.name)+'新学</dt><dd>'+s.goal+' 个</dd></div>').join('')+(b.quantities||[]).map(s=>'<div><dt>'+escape(s.name)+'</dt><dd>'+s.goal+' '+escape(s.unit)+'</dd></div>').join('')+'</dl><p>今日安排：'+(r.time.status?statusLabel(r.time.status):'未选择')+'</p>'+assessmentResultLine(r);
     if(latest.records[date])html+='<button type="button" class="secondary-wide" data-action="assessment-preview" data-date="'+date+'">按当前目标重评</button>';
@@ -362,7 +366,7 @@
     if (selectedDate !== today) html += '<button class="text-button" data-action="go-today">回到今天 · ' + briefDate(today) + '</button>';
     html += '<div class="week-strip" aria-label="本周日期">' + weekDays.map(d => '<button type="button" class="day-cell' + (d === selectedDate ? ' current' : '') + (d === today ? ' today' : '') + '" data-action="choose-day" data-date="' + d + '"' + (d === selectedDate ? ' aria-current="date"' : '') + '><span>周' + weekdays[localDate(d).getDay()] + '</span><strong>' + Number(d.slice(8)) + '</strong>' + (meaningful(state.records[d]) ? '<i class="record-dot" aria-label="已留记录"></i>' : '') + '</button>').join('') + '</div>';
     if (!within(selectedDate)) html += '<div class="outside-notice">' + (selectedDate > state.plan.endDate ? '计划已结束' : '计划尚未开始') + '<br><button data-nav="plan">查看 / 修改计划</button></div>';
-    if (timeSubjects(record,selectedDate).length) html += '<div class="overview with-reference-range"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (total == null ? ' is-empty' : '') + '" id="daily-total">' + minuteLabel(total) + '</strong><span class="metric-unit" id="daily-unit"' + (total == null ? ' hidden' : '') + '>分钟</span><span class="metric-caption" id="daily-count">' + timeCaption(record, selectedDate) + '</span></div><div class="range-metric">'+(within(selectedDate)?'<button type="button" class="text-button range-edit" data-action="edit-reference" data-date="'+selectedDate+'" aria-label="修改总参考区间">':'')+'<span class="metric-label">参考区间'+(within(selectedDate)?icon('next'):'')+'</span><strong class="metric-value range-value">' + R().text(reference) + '</strong><span class="metric-unit">分钟</span>'+(within(selectedDate)?'</button>':'')+'</div></div>';
+    if (timeSubjects(record,selectedDate).length) html += '<div class="overview with-reference-range"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (total == null ? ' is-empty' : '') + '" id="daily-total">' + minuteLabel(total) + '</strong><span class="metric-unit" id="daily-unit"' + (total == null ? ' hidden' : '') + '>分钟</span><span class="metric-caption" id="daily-count">' + timeCaption(record, selectedDate) + '</span></div><div class="range-metric">'+(within(selectedDate)?'<button type="button" class="text-button range-edit" data-action="edit-reference" data-date="'+selectedDate+'" aria-label="修改总参考区间">':'')+'<span class="metric-label">'+(state.evaluation&&window.StudyEvaluation.covers(state,selectedDate)?'执行参考':'参考区间')+(within(selectedDate)?icon('next'):'')+'</span><strong class="metric-value range-value">' + R().text(reference) + '</strong><span class="metric-unit">分钟</span>'+(within(selectedDate)?'</button>':'')+'</div></div>';
     html+=assessmentView(selectedDate);
 
     if (selectedDate === today && within(selectedDate) && M().subjectsForDate(state,selectedDate).some(s=>s.kind!=='vocab'&&!isQuantity(s))) html += '<div class="quick-timers" aria-label="开始今日学习计时">' + M().subjectsForDate(state, selectedDate).filter(s => s.kind !== 'vocab' && !isQuantity(s)).map(subject => '<button type="button" data-action="start-timer" data-subject="' + escape(subject.id) + '"' + (!M().allowed() ? ' disabled' : '') + '>' + icon('play') + escape(subject.name) + '计时</button>').join('') + '</div>' + (!M().allowed() ? '<p class="inline-form-note">' + escape(restReason()) + '</p>' : '');
@@ -402,6 +406,7 @@
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><h1>计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
     html+='<button class="secondary-wide allocation-entry" type="button" data-action="edit-allocation">总体任务分配'+icon('next')+'</button>';
+    if(state.evaluation)html+='<button class="secondary-wide" type="button" data-action="evaluation-schedule">评估日程'+icon('next')+'</button>';
     html+='<button class="secondary-wide" type="button" data-action="course-manager">课程表</button>';
     if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程与区间安排</button>';
     if(window.StudySchedule.weekendDates(state,iso()).length)html+='<button class="text-button" data-action="weekend-schedule">周末安排</button>';
@@ -415,7 +420,7 @@
       const detail=agenda?(agenda.periods?'上午 '+R().text({min:agenda.periods.morning[0],max:agenda.periods.morning[1]})+' · 下午 '+R().text({min:agenda.periods.afternoon[0],max:agenda.periods.afternoon[1]})+' 分钟':agenda.courses.length?agenda.courses.join('、'):'课程回顾与考研高数'):subjects.map(s=>s.name).join('、');
       return '<button class="plan-day plan-entry' + (today ? ' today' : '') + '" data-action="open-history" data-date="' + date + '" aria-label="打开' + fullDate(date) + '记录"><strong class="day-number">' + Number(date.slice(8)) + '</strong><span class="plan-day-meta"><span class="plan-day-date">周' + weekdays[localDate(date).getDay()] + ' · '+reference+'</span><span class="plan-day-subjects">'+escape(detail)+'</span></span><span class="plan-day-state">'+caption+'</span>' + icon('next') + '</button>';
     }).join('') + '</div><button class="secondary-wide" data-action="edit-week">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button><button class="secondary-wide" data-action="edit-reference">修改某一天目标</button><div class="section"><div class="section-heading"><h2>调整计划</h2><span class="section-number">EDIT / PLAN</span></div><details class="plain-details plan-editor"><summary>日期与教学周</summary><form id="range-form" data-dirty="range">' + field('计划名称', 'plan-title', state.plan.title, { required: true, maxLength: 120 }) + '<div class="field-inline">' + field('开始日期', 'range-start', state.plan.startDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + field('结束日期', 'range-end', state.plan.endDate, { type: 'date', min: '1900-01-01', max: '2100-12-31', required: true }) + '</div>' + field('起始教学周', 'start-week', state.plan.startWeek, { type: 'number', min: 1, max: 999, step: '1', required: true }) + '<p class="inline-form-note">最多 730 天</p><button class="small-submit primary" type="submit">保存日期范围</button></form></details><details class="plain-details"><summary>科目与目标</summary>';
-    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : isQuantity(subject) ? '<p class="line-label">计量方式：数量</p>' + field('单位','unit-' + subject.id,subject.unit,{required:true,maxLength:32,placeholder:'例如：题、页、组',help:'今天起未记录的日期使用新单位'}) + '<p class="line-label">新增日期的默认每日目标</p>' + quantityDefaultsFields('defaults-' + subject.id, subject.defaults) : '<p class="line-label">计量方式：时间（分钟）</p><p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
+    html += state.plan.subjects.map(subject => '<form id="subject-' + subject.id + '" class="subject-editor-item" data-dirty="subject-' + subject.id + '" data-subject-edit="' + subject.id + '">' + field('科目名称', 'name-' + subject.id, subject.name, { required: true, maxLength: 40 }) + (subject.kind === 'vocab' ? field('每日新学目标（个）', 'word-goal-' + subject.id, subject.wordGoal ?? 50, {type:'number',min:0,max:100000,step:1,required:true}) + '<fieldset class="word-step-settings"><legend>快捷加数</legend><div class="word-step-fields">' + M().wordSteps(state,subject.id).map((n,i) => field('加数 '+(i+1), 'word-step-'+subject.id+'-'+i, n, {type:'number',min:1,max:100000,step:'1',required:true})).join('') + '</div></fieldset>' : isQuantity(subject) ? '<p class="line-label">计量方式：数量</p>' + field('单位','unit-' + subject.id,subject.unit,{required:true,maxLength:32,placeholder:'例如：题、页、组',help:'次日起未记录的日期使用新单位'}) + '<p class="line-label">新增日期的默认每日目标</p>' + quantityDefaultsFields('defaults-' + subject.id, subject.defaults) : '<p class="line-label">计量方式：时间（分钟）</p><p class="line-label">新增日期的默认参考区间（分钟）</p>' + defaultsFields('defaults-' + subject.id, subject.defaults)) + '<button class="compact-button" type="submit">保存 ' + escape(subject.name) + '</button><div class="subject-actions"><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="-1">上移</button><button type="button" data-action="move-subject" data-subject="' + subject.id + '" data-direction="1">下移</button><button type="button" data-action="' + (M().subjectActive(subject, iso()) ? 'archive-subject' : 'restore-subject') + '" data-subject="' + subject.id + '">' + (M().subjectActive(subject, iso()) ? '归档' : '恢复科目') + '</button></div></form>').join('');
     html += '<button class="secondary-wide" data-action="add-subject">' + icon('plus') + '添加新科目</button></details></div>';
     return html;
   }
@@ -428,7 +433,7 @@
     let html = trackingTabs() + '<div class="page-intro"><h1>复盘</h1></div>' + weekNavigation(reviewDate, 'review');
     html += '<section class="review-goals" aria-label="本周目标"><h2>本周目标</h2>' + window.StudyWeekUI.readonly(state.plan, w.key, true) + '<div class="week-links"><button class="text-button" data-action="edit-week" data-scope="review">编辑本周目标</button><button class="text-button" data-action="week-history">历史目标</button></div></section>';
     html += '<div class="overview"><div><span class="metric-label">已记录时长</span><strong class="metric-value' + (actualExists ? '' : ' is-empty') + '">' + (actualExists ? minuteLabel(total) : '未记录') + '</strong>' + (actualExists ? '<span class="metric-unit">分钟</span>' : '') + '</div><div><span class="metric-label">时长记录天数</span><strong class="metric-value">' + stats.recordedDays + '<small class="metric-unit"> / ' + stats.totalDays + ' 天</small></strong><span class="metric-caption">数量记录 ' + (stats.quantityRecordedDays || 0) + ' 天 · 随记 ' + (stats.entryDays ?? stats.recordedDays) + ' 天</span></div></div><div class="legend"><span><i></i>已记录</span><span><i class="ref-line"></i>参考</span><span>虚线：未记录</span></div>';
-    html += assessmentSummary(stats.days)+window.StudyTracking.renderWordStats(state,stats.days)+window.StudyTracking.renderQuantityStats(state,stats.days);
+    html += assessmentSummary(Array.from({length:7},(_,i)=>shift(w.key,i)))+window.StudyTracking.renderWordStats(state,stats.days)+window.StudyTracking.renderQuantityStats(state,stats.days);
     html += stats.subjects.filter(s => s.measure!=='quantity'&&(s.kind !== 'vocab' ? s.totalDays || s.actual != null : s.actual != null)).map(subject => {
       const item = state.plan.subjects.find(s => s.id === subject.id);
       const referenceFor = d => M().subjectActive(item,d) ? M().reference(state,d,subject.id) : null;
@@ -467,6 +472,10 @@
     document.getElementById('header-plan-name').textContent = state.plan.title;
     document.getElementById('header-plan').setAttribute('aria-label','切换计划：'+state.plan.title);
     app.innerHTML = (preview ? '<p class="preview-banner">开发预览</p>' : '') + ({ today: todayView, plan: planView, review: reviewView, history: historyView, month: monthView, sessions: sessionsView, inspiration: () => window.InspirationUI.view(), settings: settingsView }[route])();
+    const automaticForm=app.querySelector('#daily-form');
+    if(automaticForm&&state.evaluation&&window.StudyEvaluation.covers(state,selectedDate)){
+      automaticForm.dataset.automaticEvaluation='true';const group=automaticForm.querySelector('.status-fieldset'),control=document.createElement('input');control.type='hidden';control.name='status';control.value=M().record(state,selectedDate).status||'';group.replaceChildren(control);group.hidden=true;
+    }
     window.StudyLayout.mount(app,{route,state,planId:activePlanId,date:selectedDate,isDailyDirty:()=>dirty.has('daily'),minuteLabel});
     app.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
     app.querySelectorAll('form[data-week-mode]').forEach(window.StudyWeekUI.sync);
@@ -516,7 +525,7 @@
       }
       const minutes = form.elements.namedItem('minutes-' + id) ? optionalNumber(form, 'minutes-' + id) : (baseline.minutes ?? null);
       if (minutes !== (baseline.minutes ?? null) && r.minutes !== (baseline.minutes ?? null) && r.minutes !== minutes && !window.confirm('「' + subject.name + '」已有新的时长记录。用表单中的时长替换？')) throw new Error('时长未替换，输入已保留');
-      if (minutes !== (baseline.minutes ?? null)) r.minutes = minutes;
+      if (minutes !== (baseline.minutes ?? null)) {r.minutes = minutes;if(latest.version>=9){record.timeCorrections=record.timeCorrections||{};delete record.timeCorrections[id];const seconds=window.StudyEvaluation.timerTotals(latest,selectedDate)[id]||0;if(seconds>0&&(minutes===null||minutes+1/60<seconds/60)){if(!window.confirm('「'+subject.name+'」已有 '+minuteLabel(seconds/60)+' 分钟计时。将正式时长修正为'+(minutes===null?'未记录':minuteLabel(minutes)+' 分钟')+'？'))throw new Error('时长修正未确认');record.timeCorrections[id]={minutes,timerSeconds:seconds,at:new Date().toISOString()};}if(!Object.keys(record.timeCorrections).length)delete record.timeCorrections;}}
       const content = form.elements.namedItem('content-' + id).value;
       if (content !== (baseline.content || '')) r.content = content;
       if (subject.kind === 'vocab') {
@@ -578,7 +587,7 @@
     const subject = latest.plan.subjects.find(s => s.id === id);
     const quantity = isQuantity(subject), measure = quantity ? 'quantity' : 'minutes';
     M().updateSubject(latest, id, form.elements.namedItem('name-' + id).value.trim(), subject.kind === 'vocab' ? subject.defaults : quantity ? readQuantityDefaults(form) : readDefaults(form), measure, quantity ? form.elements.namedItem('unit-' + id).value.trim() : undefined);
-    if (subject.kind === 'vocab') M().setWordGoal(latest, id, Number(form.elements.namedItem('word-goal-' + id).value), iso());
+    if (subject.kind === 'vocab') M().setWordGoal(latest, id, Number(form.elements.namedItem('word-goal-' + id).value), latest.evaluation?shift(iso(),1):iso());
     if (subject.kind === 'vocab') M().setWordSteps(latest, id, [0,1,2].map(i => Number(form.elements.namedItem('word-step-' + id + '-' + i).value)));
     persist(latest);
     dirty.delete('subject-' + id);
@@ -693,7 +702,7 @@
   }
   function referenceFields(date) {
     const count=M().subjectsForDate(state,date).filter(s=>s.kind!=='vocab'&&s.measure!=='quantity').length,canKeep=!count||R().basis(state,date).time.some(s=>R().range(s.reference).max>0);
-    return (count?rangeFields('总参考区间','reference-total',R().total(state,date),count*1440):'')+M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):s.measure==='quantity'?field(s.name+' · 每日目标（'+M().quantityUnit(state,date,s.id)+'）','quantity-'+s.id,M().quantityTarget(state,date,s.id),{id:'quantity-target-'+s.id,type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('')+(state.records[date]?selectField('评估依据','reference-assessment','recalculate',[['recalculate','按新目标评估']].concat(canKeep?[['keep','保留原依据']]:[])):'');
+    return (count?rangeFields('总参考区间','reference-total',R().total(state,date),count*1440):'')+M().subjectsForDate(state,date).map(s => s.kind==='vocab'?field(s.name+' · 新学目标（个）','target-'+s.id,M().wordTarget(state,date,s.id),{type:'number',min:0,max:100000,step:1,required:true}):s.measure==='quantity'?field(s.name+' · 每日目标（'+M().quantityUnit(state,date,s.id)+'）','quantity-'+s.id,M().quantityTarget(state,date,s.id),{id:'quantity-target-'+s.id,type:'number',min:0,max:100000,step:1,required:true}):rangeFields(s.name,'target-'+s.id,M().reference(state,date,s.id))).join('')+(state.evaluation&&window.StudyEvaluation.covers(state,date)?(date<=window.StudyEvaluation.context(state.evaluation.timezone).today?'<p class="inline-form-note">调整执行目标；原计划评估保留，可在评估依据中查看对照。</p>':''):(state.records[date]?selectField('评估依据','reference-assessment','recalculate',[['recalculate','按新目标评估']].concat(canKeep?[['keep','保留原依据']]:[])):''));
   }
   function editReference(requestedDate,subjectId) {
     state=readState();
@@ -704,10 +713,18 @@
   }
   function editAllocation(){
     state=readState();if(state.plan.endDate<iso())throw new Error('计划已结束，请先在计划设置中调整日期');
-    window.StudyAllocationUI.init({field,rangeFields,quantityDefaultsFields,selectField,escape,today:iso});
+    window.StudyAllocationUI.init({field,rangeFields,quantityDefaultsFields,selectField,escape,today:()=>state.evaluation?window.StudyEvaluation.shift(window.StudyEvaluation.context(state.evaluation.timezone).today,1):iso()});
     openSheet('总体任务分配',window.StudyAllocationUI.view(state),true);
     const form=document.getElementById('allocation-form');form.dataset.plan=activePlanId;form.dataset.revision=state._revision||0;
     window.StudyAllocationUI.sync(form,state);
+  }
+  function saveEvaluationSchedule(form){
+    const latest=readState(),command=window.StudyEvaluationUI.command(form,latest);
+    if(command.planId!==activePlanId||command.expectedRevision!==(latest._revision||0))throw new Error('记录已更新，请重新打开日程');
+    const candidate=window.StudyEvaluation.scheduleChange(latest,command,window.StudyEvaluation.context(latest.evaluation.timezone));M().validateState(candidate);
+    const changed=Object.keys(candidate.evaluation.bases).filter(d=>d>=command.from&&JSON.stringify(candidate.evaluation.bases[d].items)!==JSON.stringify(latest.evaluation.bases[d]?.items));
+    if(!window.confirm('保存评估日程？\n'+command.from+' 起，'+changed.length+' 个未来日期的目标要求将更新。'))return false;
+    const result=call('saveEvaluationSchedule',JSON.stringify(command));if(!result.ok)throw new Error('日程未能保存，请重试');completeDraft();dirty.delete('sheet');state=readState();closeSheet(true);render();tell('日程已保存');return true;
   }
   function saveAllocation(form){
     const latest=readState();
@@ -872,6 +889,8 @@
       if (action === 'close-sheet') { closeSheet(); return; }
       if (action === 'timer-picker') { timerPicker(); return; }
       if (action === 'edit-allocation') { editAllocation(); return; }
+      if(action==='evaluation-schedule'){const ctx=window.StudyEvaluation.context(state.evaluation.timezone);if(window.StudyEvaluation.shift(ctx.today,1)>state.plan.endDate)throw new Error('计划内没有可安排的未来日期');openSheet('评估日程',window.StudyEvaluationUI.editor(state));window.StudyEvaluationUI.sync(document.getElementById('evaluation-schedule-form'));return;}
+      if(action==='auto-continue'){const r=window.StudyEvaluation.assess(state,selectedDate),item=r&&r.items.find(i=>i.required&&i.achieved!==true),id=item?.sources[0]?.subjectId||visibleSubjects(selectedDate)[0]?.id;if(id)window.StudyLayout.showSubject(id);return;}
       if (action === 'allocation-weekdays') { window.StudyAllocationUI.weekdays(button.closest('form'),state); return; }
       if (action === 'start-timer') { const started=startTimer(button.dataset.subject);if(started&&dialog.classList.contains('timer-picker-sheet'))closeSheet(true);return; }
       if (action.startsWith('timer-')) { timerAction(action.slice(6)); return; }
@@ -925,6 +944,7 @@
       if(action==='assessment-preview')assessmentPreview(button.dataset.date);
       if(action==='assessment-apply')applyAssessment(button);
       if(action==='assessment-history'){historyFilters={from:button.dataset.from,to:button.dataset.to,assessmentDimension:button.dataset.dimension,assessmentKind:button.dataset.kind||''};navigate('history');}
+      if(action==='assessment-rules'&&state.evaluation&&window.StudyEvaluation.covers(state,selectedDate)){openSheet('评估规则',window.StudyEvaluationUI.rules(),true);return;}
       if (action === 'assessment-rules') openSheet('评估规则','<dl class="rest-hours"><dt>照常</dt><dd>当日学习总参考区间</dd><dt>减量</dt><dd>总参考区间的 50%</dd><dt>仅回顾</dt><dd>只计算课程复习，使用课程复习区间</dd><dt>休息</dt><dd>休息日</dd></dl><p>低于下限：未完成；区间内（含上下限）：完成；超过上限：超额完成。</p><p>时长未记齐：待补全。单词新学按目标数单独评估，复习另记。</p>',true);
       if (action === 'add-subject') addSubject();
       if (action === 'export-backup') backupAction('exportBackup');
@@ -1003,6 +1023,7 @@
     dirty.delete('sheet');feedback.delete('sheet');syncFeedback(form);window.StudyDrafts.attach(form);
   }));
   document.addEventListener('change', event => {
+    if(event.target.closest('#evaluation-schedule-form'))window.StudyEvaluationUI.sync(event.target.form,event.target.id==='evaluation-type');
     if (event.target.id === 'new-subject-measure') {
       const quantity = event.target.value === 'quantity', label = document.getElementById('new-subject-default-label'), box = document.getElementById('new-subject-defaults');
       if (label) label.textContent = quantity ? '周一至周日的默认每日目标' : '周一至周日的默认参考区间（分钟）';
@@ -1064,6 +1085,7 @@
   };
   window.onBackupRestored = function () {
     dirty.clear(); feedback.clear(); nativeRefreshPending = false;
+    historyFilters = {}; sessionFilters = {};
     window.InspirationUI.restored();
     window.InspirationUI.init(bridge, () => { if (booted && route === 'inspiration') render(); }, tell, false);
     if (dialog.open) dialog.close();
@@ -1093,6 +1115,7 @@
     }
     const load = () => JSON.parse(localStorage.getItem(key));
     const save = s => { localStorage.setItem(key, JSON.stringify(s)); };
+    save(M().migrateState(load()));
     const timerLoad = () => JSON.parse(localStorage.getItem(timerKey) || '{"active":false}');
     const timerSave = t => localStorage.setItem(timerKey, JSON.stringify(t));
     const allowedNow = () => { const d = new Date(), minutes = d.getHours() * 60 + d.getMinutes(); return d.getDay() === 0 || d.getDay() === 6 ? minutes >= 570 && minutes < 1140 : minutes < 1230; };
@@ -1120,7 +1143,8 @@
       setBackupReminder: () => JSON.stringify({error:'请在安卓 APP 中设置备份提醒'}),
       createPlan: () => JSON.stringify({error:'请在安卓 APP 中创建计划'}),
       exportReport: () => JSON.stringify({error:'请在安卓 APP 中导出报表'}),
-      saveState: json => { const s = JSON.parse(json); M().validateState(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); R().preserve(current,s);s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision }); },
+      saveEvaluationSchedule: raw => {const command=JSON.parse(raw),current=load();if(command.expectedRevision!==(current._revision||0))return JSON.stringify({error:'记录已更新，请重新打开日程'});const next=window.StudyEvaluation.scheduleChange(current,command,window.StudyEvaluation.context(current.evaluation.timezone));next._revision=(current._revision||0)+1;M().validateState(next);save(next);return JSON.stringify({ok:true,revision:next._revision});},
+      saveState: json => { const s = JSON.parse(json); M().validateState(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); R().preserve(current,s);window.StudyEvaluation.reconcile(current,s,window.StudyEvaluation.context(current.evaluation.timezone));s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision }); },
       getTimer: () => JSON.stringify(snapshot()),
       startTimer: (id, name, date) => { if (snapshot().active) return JSON.stringify({ error: '已有活动计时，请先结束或丢弃。' }); if (date !== iso()) return JSON.stringify({ error: '只能为今天计时。' }); if (!allowedNow()) return JSON.stringify({ error: '现在为休息时段' }); const t = { active: true, subjectId: id, subjectName: name, date, running: true, elapsedMs: 0, startedAt: Date.now(), message: '' }; timerSave(t); return JSON.stringify(t); },
       timerAction: action => {
@@ -1165,6 +1189,7 @@
       if (!window.StudyModel) throw new Error('记录模块未加载，请重新打开 APP。');
       bridge = window.Native || await createPreviewBridge();
       state = readState();
+      window.StudyEvaluationUI.init({planId:()=>activePlanId});
       window.StudyWordLogUI.init({escape,field,selectField,openSheet,closeSheet,clearUndo:clearFormWordUndo,baseline:subject=>initialDaily?.subjects[subject]});
       window.StudyWeekUI.init(() => state.plan);
       activePlanId = call('getPlans').activeId;

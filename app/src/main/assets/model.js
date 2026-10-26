@@ -6,6 +6,7 @@
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule, weeks) {
   'use strict';
 
+  var evaluation = typeof globalThis!=='undefined'&&globalThis.StudyEvaluation || (typeof require==='function'?require('./evaluation.js'):null);
   var DAY = 86400000;
   var ranges = typeof globalThis!=='undefined'&&globalThis.StudyReference || (typeof require==='function'?require('./reference.js'):null);
   var wordLog = typeof globalThis!=='undefined'&&globalThis.StudyWordLog || (typeof require==='function'?require('./word-log.js'):null);
@@ -160,7 +161,8 @@
     });
   }
   function recordValid(value, ids, path, subjectMap, version) {
-    keys(value, ['subjects', 'status', 'restKept', 'note'], ['sessions'], path);
+    keys(value, ['subjects', 'status', 'restKept', 'note'], version>=9?['sessions','timeCorrections']:['sessions'], path);
+    if(value.timeCorrections){object(value.timeCorrections,path+'.timeCorrections');Object.entries(value.timeCorrections).forEach(function([id,c]){if(!ids[id])fail('计时修正科目不存在');keys(c,['minutes','timerSeconds','at'],[],'timeCorrection');optionalNumber(c.minutes,1440,'修正时长',false);number(c.timerSeconds,8640000000,'计时修正依据',false);string(c.at,32,'计时修正时间',true);if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(c.at)||!Number.isFinite(Date.parse(c.at)))fail('计时修正时间无效');});}
     object(value.subjects, path + '.subjects');
     Object.keys(value.subjects).forEach(function (id) {
       if (!ids[id]) fail(path + '科目不存在：' + id);
@@ -190,8 +192,8 @@
     if (typeof value !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) fail(path + '须为HH:mm');
   }
   function validateState(state) {
-    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'], ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
-    if (![1, 2, 3, 4, 5, 6, 7, 8].includes(state.version)) fail('不支持此备份版本');
+    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'].concat(state.version>=9?['evaluation']:[]), ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
+    if (![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
     keys(plan, ['title', 'startDate', 'endDate', 'startWeek', 'subjects', 'targets', 'weekGoals', 'weekHints'], state.version >= 2 ? ['wordTargets', 'manualWeekGoals'].concat(state.version >= 3 ? ['weekTasks'].concat(state.version>=6?['courseSchedule','quantityTargets'].concat(state.version>=8?['manualReferences','manualReferenceDefaults','quantityUnits']:[]):[]) : []) : [], 'plan');
@@ -293,6 +295,8 @@
     if (weekdayMinutes >= 1230) fail('工作日提醒须早于20:30');
     if (weekendMinutes < 570 || weekendMinutes >= 1140) fail('周末提醒须在09:30至19:00之前');
     if (has(state, 'sessions')) sessionsValid(state.sessions, ids, 'sessions');
+    if(state.version>=9)evaluation.validate(state);
+      if(state.version>=9&&state.evaluation.transitionLegacy){var legacy=Object.assign({},state,{version:8,records:{[state.evaluation.transitionDate]:state.evaluation.transitionLegacy.record},assessmentBases:state.evaluation.transitionLegacy.basis?{[state.evaluation.transitionDate]:state.evaluation.transitionLegacy.basis}:{}});delete legacy.evaluation;validateState(legacy);}
     return true;
   }
   var LEGACY_WEEKS = {"weekGoals":{"2026-10-12":"函数与极限符号、已忘基础定位。","2026-10-19":"极限运算与初等函数基础。","2026-10-26":"常见极限与连续性。","2026-11-02":"导数定义与基本求导。","2026-11-09":"求导法则、复合函数。","2026-11-16":"高阶导数与微分（选做隐函数）。","2026-11-23":"中值定理直观与条件。","2026-11-30":"单调性、极值与最值。","2026-12-07":"函数、极限、导数的综合回顾。","2026-12-14":"小检查和寒假起点；积分仅可选接触。"},"weekHints":{"2026-10-12":"周四3—4节、周五1—2节有单周课；周一就业指导、光电子学仍在。","2026-10-19":"本周不排周四3—4节、周五1—2节的单周课；就业指导、光电子学仍在。空课用于替换自习或休息。","2026-10-26":"就业指导已结束；光电子学仍在；周四3—4节、周五1—2节有单周课。","2026-11-02":"就业指导已结束；光电子学仍在；本周不排两处单周课。","2026-11-09":"光电子学固定课已结束；周四3—4节、周五1—2节有单周课；给习概实践、实验和作业留余量。","2026-11-16":"光电子学固定课已结束；本周不排两处单周课；空课优先兼顾作业、实验和休息。","2026-11-23":"光电子学固定课已结束；周四3—4节、周五1—2节有单周课；继续预留实践和作业时间。","2026-11-30":"光电子学固定课已结束；本周不排两处单周课；空课不自动转为额外考研任务。","2026-12-07":"周四3—4节、周五1—2节有单周课；如临近期末课程任务增加，可以减量。","2026-12-14":"本周不排两处单周课；完成短时检查并确定寒假起点，允许继续停在导数。"}};
@@ -331,7 +335,7 @@
   function migrateState(state, now) {
     validateState(state);
     var result = clone(state);
-    result.version = 8;
+    result.version = 9;
     courses.initialize(result);
     result.plan.weekTasks = result.plan.weekTasks || {};
     clearPresetWeeks(result.plan);
@@ -343,8 +347,9 @@
         if (field && !has(review.subjects, item.id)) review.subjects[item.id] = review[field];
       });
     });
-    if (schedule) { now = now === undefined ? today() : now; dateStamp(now); schedule.upgrade(result, now); schedule.autoReferences(result, now); ranges.upgrade(result,now); }
+    if (schedule&&state.version<9) { now = now === undefined ? today() : now; dateStamp(now); schedule.upgrade(result, now); schedule.autoReferences(result, now); ranges.upgrade(result,now); }
     fillQuantityTargets(result);
+    if(!result.evaluation){var ctx=evaluation.context();var activation=[now||ctx.today,'2026-10-26'].sort().pop();if(activation!==ctx.today||now!==undefined)ctx={today:activation,at:activation+'T12:00:00.000Z',timezone:ctx.timezone};evaluation.initialize(result,ctx);}
     validateState(result);
     return result;
   }
@@ -474,7 +479,7 @@
       if (hasData) fail('已有记录的科目不能切换计量方式');
     }
     if(isQuantity(item)&&measure==='quantity'&&item.unit!==String(unit).trim()){
-      ranges.preserve(state,state);var units=state.plan.quantityUnits||(state.plan.quantityUnits={}),cutoff=today();
+      ranges.preserve(state,state);var units=state.plan.quantityUnits||(state.plan.quantityUnits={}),cutoff=state.evaluation?evaluation.shift(evaluation.context(state.evaluation.timezone).today,1):today();
       dates(state.plan.startDate,state.plan.endDate).forEach(function(date){var oldUnit=ranges.quantityUnit(state,date,item),keep=date<cutoff||has(state.records,date);units[date]=units[date]||{};units[date][id]=keep?oldUnit:String(unit).trim();});
       state.version=Math.max(state.version,8);
     }
@@ -558,12 +563,12 @@
   function historySearch(state, filters) {
     validateState(state); var query = normalizedFilters(filters);
     query.assessmentDimension=filters&&filters.assessmentDimension||'time';query.assessmentKind=filters&&filters.assessmentKind||'';
-    if(!['time','words','quantity'].includes(query.assessmentDimension)||!['','all','below','within','above','rest','empty','partial','pending'].includes(query.assessmentKind))fail('评估筛选无效');
+    if(!['time','words','quantity','overall'].includes(query.assessmentDimension)||!['','all','below','within','above','rest','empty','partial','pending'].includes(query.assessmentKind))fail('评估筛选无效');
     if (query.subjectId && query.subjectId !== 'all') subject(state, query.subjectId);
     var scopedQuantity=query.subjectId&&query.subjectId!=='all'&&isQuantity(subject(state,query.subjectId));
     var rows = [];
     var searchDates=Object.keys(state.records);
-    if(query.assessmentKind==='empty')searchDates=Array.from(new Set(searchDates.concat(dates(state.plan.startDate,state.plan.endDate))));
+    if(query.assessmentKind==='empty'||query.assessmentDimension==='overall'&&query.assessmentKind)searchDates=Array.from(new Set(searchDates.concat(dates(state.plan.startDate,state.plan.endDate),Object.keys(state.evaluation&&state.evaluation.bases||{}))));
     searchDates.forEach(function (date) {
       if (query.from && date < query.from || query.to && date > query.to) return;
       var value = state.records[date]||record(state,date);

@@ -17,7 +17,7 @@ test('unit changes freeze historical goal units and preserve actual units when e
  const {s,q}=fixture();write(s,q,day,12);const actual=structuredClone(s.records);
  M.updateSubject(s,q.id,q.name,[10,10,10,10,10,10,10],'quantity','组');
  assert.deepEqual(s.records,actual);assert.equal(M.quantityUnit(s,day,q.id),'题');assert.equal(M.quantityUnit(s,'2026-10-20',q.id),'题');assert.equal(M.record(s,day).subjects[q.id].quantityUnit,'题');
- const now=M.today();if(now<=s.plan.endDate)assert.equal(M.quantityUnit(s,now,q.id),'组');
+ const E=require('../app/src/main/assets/evaluation.js'),now=E.context(s.evaluation.timezone).today,next=E.shift(now,1);if(now<=s.plan.endDate)assert.equal(M.quantityUnit(s,now,q.id),'题');if(next<=s.plan.endDate)assert.equal(M.quantityUnit(s,next,q.id),'组');
  assert.equal(M.validateState(s),true);assert.deepEqual(M.migrateState(JSON.parse(JSON.stringify(s))),s);
 });
 test('week and month statistics group different units without adding twelve questions to three sets',()=>{

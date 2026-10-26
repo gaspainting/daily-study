@@ -52,7 +52,7 @@
   function putVersion(state,v,today){
     date(today);if(v.from<today||v.from<state.plan.startDate||v.from>state.plan.endDate)fail('生效日期须在今天起的计划范围内');
     const out=clone(state);initialize(out);const s=out.plan.courseSchedule;if(s.versions.some(x=>x.from>v.from))fail('已有更晚生效的课表，请先编辑该课表');
-    s.versions=s.versions.filter(x=>x.from<v.from);s.versions.push(clone(v));out.version=6;validate(out);
+    s.versions=s.versions.filter(x=>x.from<v.from);s.versions.push(clone(v));out.version=Math.max(out.version,6);validate(out);
     // A future timetable must not silently invalidate a confirmed course move.
     for(const change of s.changes)if(change.fromDate>=v.from&&!base(out,change.fromDate).some(c=>c.id===change.courseId))fail('这份课表会取消已有调课的原课程，请先撤销对应调课');
     return out;
@@ -60,13 +60,13 @@
   function putChange(state,change,today){
     date(today);if(change.fromDate<today||change.fromDate<state.plan.startDate||change.fromDate>state.plan.endDate||change.toDate!==null&&(change.toDate<today||change.toDate<state.plan.startDate||change.toDate>state.plan.endDate))fail('调课日期须在今天起的计划范围内');
     if(!base(state,change.fromDate).some(c=>c.id===change.courseId))fail('原日期没有这门课程');
-    const out=clone(state);initialize(out);out.plan.courseSchedule.changes.push(clone(change));out.version=6;validate(out);return out;
+    const out=clone(state);initialize(out);out.plan.courseSchedule.changes.push(clone(change));out.version=Math.max(out.version,6);validate(out);return out;
   }
   function removeChange(state,id,today){const out=clone(state),s=schedule(out),c=s.changes.find(x=>x.id===id);if(!c)fail('未找到调课');if(c.fromDate<today||c.toDate!==null&&c.toDate<today)fail('已发生的调课保留在历史中');s.changes=s.changes.filter(x=>x.id!==id);out.plan.courseSchedule=s;validate(out);return out;}
   function saveReviews(state,d,rows,baseline){
     const out=clone(state),current=out.courseReviews?.[d]||[],prior=new Map((baseline||[]).map(r=>[r.key,r])),result=new Map(current.map(r=>[r.key,clone(r)]));
     for(const row of rows){const old=prior.get(row.key),now=result.get(row.key);if(!old)fail('复习清单已变化，请重新打开');const next=now?clone(now):clone(old);for(const f of ['done','note','task']){if(JSON.stringify(row[f])===JSON.stringify(old[f]))continue;if(now&&JSON.stringify(now[f])!==JSON.stringify(old[f])&&JSON.stringify(now[f])!==JSON.stringify(row[f]))fail('课程复习已更新，请重新打开后重试');next[f]=clone(row[f]);}if(next.task){const task=out.plan.weekTasks?.[next.task.week]?.find(t=>t.id===next.task.id);if(!task||task.title!==next.task.title){if(JSON.stringify(next.task)!==JSON.stringify(now?.task))fail('关联周任务已变化，请重新选择');}}result.set(row.key,next);}
-    out.courseReviews=out.courseReviews||{};out.courseReviews[d]=[...result.values()];out.version=6;validate(out);return out;
+    out.courseReviews=out.courseReviews||{};out.courseReviews[d]=[...result.values()];out.version=Math.max(out.version,6);validate(out);return out;
   }
   function summary(state,d){const rows=state.courseReviews?.[d]||[];return rows.length?rows.filter(r=>r.done).length+'/'+rows.length+' 门已复习':'';}
   return {validate,initialize,initial,version,base,occurrences,checklist,putVersion,putChange,removeChange,saveReviews,summary,weekday,shift};

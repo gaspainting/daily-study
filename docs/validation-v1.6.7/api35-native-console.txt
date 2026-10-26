@@ -1,0 +1,5 @@
+PASS complete native SmokeTests finish with instrumentation code -1 and no failed result
+PASS actual Android pdf interval assessment sample is exported for review
+PASS actual Android csv interval assessment sample is exported for review
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":4,"restored":true,"error":null}

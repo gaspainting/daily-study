@@ -1,0 +1,15 @@
+PASS actual native state contains the pre-existing saved word batch
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 24.5 MB/s (124264 bytes in 0.005s)
+AssertionError [ERR_ASSERTION]: course checklist saves with an existing wordLog and retains its checked state and note
+    at check (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:20:35)
+    at D:\南京邮电大学\learning\study-checkin-android\tests\baseline-recovery-ui.cjs:15:26
+    at async main (D:\南京邮电大学\learning\study-checkin-android\tests\course-agenda-fix-ui.cjs:304:20) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":2,"restored":true,"error":"course checklist saves with an existing wordLog and retains its checked state and note"}

@@ -9,7 +9,7 @@ const adb=process.env.ANDROID_SDK_ROOT?path.join(process.env.ANDROID_SDK_ROOT,'p
 const serial=process.env.ANDROID_SERIAL||'emulator-5572';
 const formal=process.env.COURSE_FORMAL_UPGRADE==='1',privateBase='/data/user/0/'+pkg;
 const version=/android:versionName="([^"]+)"/.exec(fs.readFileSync(path.join(root,'app/src/main/AndroidManifest.xml'),'utf8'))[1];
-const report=path.join(root,'docs','validation-v'+version),shots=path.join(root,'docs','screenshots','v'+version);
+const report=path.join(root,'docs','validation-v'+version,process.env.COURSE_SUBDIR||''),shots=path.join(root,'docs','screenshots','v'+version,process.env.COURSE_SUBDIR||'');
 const checks=[],metrics=[],runtimeExceptions=[],saved=new Map(),savedDirs=new Map();
 const historicalDates=M.dates('2026-10-12','2026-10-15');
 let customCases,c,failure,restored=false,snapshotComplete=false,oldFont;
@@ -243,7 +243,7 @@ function nativeCases(){
   try{
     output=cp.execFileSync(adb,['-s',serial,'shell','am','instrument','-w','-r',pkg+'/'+pkg+'.SmokeTests'],{encoding:'utf8',maxBuffer:8*1024*1024});
   }catch(error){output=String(error.stdout||'')+String(error.stderr||'');throw error;}
-  finally{fs.writeFileSync(path.join(report,'native-test-results.txt'),output);}
+  finally{fs.writeFileSync(path.join(report,process.env.COURSE_NATIVE_LOG||'native-test-results.txt'),output);}
   check(/(?:^|\n)INSTRUMENTATION_CODE:\s*-1\s*(?:\r?\n|$)/.test(output)&&!/\bFAILED\b|INSTRUMENTATION_FAILED|(?:^|\n)\s*FAIL:/m.test(output),'complete native SmokeTests finish with instrumentation code -1 and no failed result');
   for(const extension of ['pdf','csv']){
     const file='cache/reference-validation.'+extension,b=read(file);fs.writeFileSync(path.join(report,'reference-validation.'+extension),b);shell('rm -- '+quote(file));
@@ -298,7 +298,7 @@ async function formalCases(){
 }
 async function main(){
   try{
-    assert.equal(serial,'emulator-5572','fixture writes are restricted to the owned emulator');assert.equal(android('shell','getprop','ro.kernel.qemu'),'1','target must be an emulator');
+    if(process.env.COURSE_OWNED_API35==='1'){assert.equal(serial,'emulator-5574');assert.equal(android('shell','getprop','ro.build.version.sdk'),'35');assert.ok(android('emu','avd','name').startsWith('StudyCheckinApi35Baseline'));}else assert.equal(serial,'emulator-5572','fixture writes are restricted to the owned emulator');assert.equal(android('shell','getprop','ro.kernel.qemu'),'1','target must be an emulator');
     fs.mkdirSync(report,{recursive:true});fs.mkdirSync(shots,{recursive:true});oldFont=android('shell','settings','get','system','font_scale');await snapshot();
     android('shell','settings','put','system','font_scale','1.0');
     if(customCases)await customCases({M,S,check,fixtureInstall,state,native,day,click,input,shot,android,shell,read,write,delay,root,report,shots,baseFixture,evaluate:expression=>c.evaluate(expression),protocol:(method,params)=>c.call(method,params),nativeCases,boot});else if(formal)await formalCases();else if(process.env.COURSE_LAYOUT==='1'){

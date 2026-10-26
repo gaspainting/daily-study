@@ -23,7 +23,7 @@ final class WeeklyGoalsTests {
         try{
             JSONObject legacy=new JSONObject(DataStore.readText(c.getAssets().open("seed.json")));legacy.getJSONObject("plan").getJSONObject("weekGoals").put("2026-10-12","自填教材\n不拆成任务");
             String old=legacy.toString();JSONObject state=DataStore.migrateState(legacy);
-            check(passes,legacy.toString().equals(old)&&state.getInt("version")==8,"weekly migration clones legacy input and selects current schema");
+            check(passes,legacy.toString().equals(old)&&state.getInt("version")==9,"weekly migration clones legacy input and selects current schema");
             check(passes,state.getJSONObject("plan").getJSONObject("weekGoals").getString("2026-10-12").equals("自填教材\n不拆成任务")&&state.getJSONObject("plan").getJSONObject("weekTasks").length()==0,"legacy free text is retained without inferred tasks");
             JSONObject plan=state.getJSONObject("plan");plan.getJSONObject("weekTasks").put("2026-10-12",new JSONArray().put(task("one")));
             String records=state.getJSONObject("records").toString(),sessions=state.optJSONArray("sessions").toString();DataStore.save(c,state);
@@ -53,7 +53,7 @@ final class WeeklyGoalsTests {
             try(BackupManager.Imported imported=BackupManager.read(c,new ByteArrayInputStream(zip.toByteArray()))){DataStore.save(c,DataStore.migrateState(legacy));BackupManager.restore(c,imported);}
             check(passes,WeeklyGoals.tasks(DataStore.load(c).getJSONObject("plan"),"2026-10-12").length()==1,"confirmed ZIP restoration restores weekly tasks");
             try(BackupManager.Imported imported=BackupManager.read(c,new ByteArrayInputStream(old.getBytes(StandardCharsets.UTF_8)))){BackupManager.restore(c,imported);}
-            check(passes,DataStore.load(c).getInt("version")==8&&DataStore.load(c).getJSONObject("plan").getJSONObject("weekGoals").getString("2026-10-12").equals("自填教材\n不拆成任务"),"legacy JSON restore retains own goals and migrates without artificial tasks");
+            check(passes,DataStore.load(c).getInt("version")==9&&DataStore.load(c).getJSONObject("plan").getJSONObject("weekGoals").getString("2026-10-12").equals("自填教材\n不拆成任务"),"legacy JSON restore retains own goals and migrates without artificial tasks");
             JSONObject report=new JSONObject(archived.toString());File pdf=new File(original.getCacheDir(),"weekly-goals-validation.pdf");
             try(FileOutputStream output=new FileOutputStream(pdf)){ReportExport.write(c,report,output,"pdf","2026-10-12","2026-10-18","all");}
             check(passes,pdf.length()>1000,"weekly target PDF export completes with actual task state and original text");
