@@ -2656,8 +2656,8 @@
     },
     {
       "path": "docs/V1.6.4.md",
-      "bytes": 5106,
-      "sha256": "4c5bbd40f4fb546b3ee21df7dfbd8a4e93202eaec5dd4106d21f64f2239b3a9a"
+      "bytes": 5293,
+      "sha256": "cbdda62b394eedca0a77a73f56d0237201201530d2390366ab1cc4d318caeec8"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -4708,6 +4708,11 @@
       "path": "docs/validation-v1.6.4/plan-large-bounds.json",
       "bytes": 73,
       "sha256": "3c55f807774869820a2a966bc13d22e3eef3dc5ae3ed08d5b16ed8d02d4ee74c"
+    },
+    {
+      "path": "docs/validation-v1.6.4/public-release-results.json",
+      "bytes": 1302,
+      "sha256": "cca2695f9716124deb5eebd72428f0eaca7631724c2b5c45a82b803af7e6796b"
     },
     {
       "path": "docs/validation-v1.6.4/quantity-accessibility.json",
