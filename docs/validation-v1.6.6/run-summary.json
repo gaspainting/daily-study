@@ -1,0 +1,39 @@
+{
+  "version": "1.6.6",
+  "versionCode": 23,
+  "modelChecks": 193,
+  "nativeRegressionChecks": 626,
+  "nativeUpdateChecks": 54,
+  "publicNativeManifestChecks": 3,
+  "nativeNetworkRoute": "Actual GitHub HTTPS through the test host proxy; pre-publication public version 1.6.5/code22",
+  "uiReports": [
+    {
+      "scope": "启动与返回前台",
+      "passed": 52,
+      "file": "startup-update-ui-results.json"
+    },
+    {
+      "scope": "使用手册",
+      "passed": 29,
+      "file": "manual-ui-results.json"
+    },
+    {
+      "scope": "正式覆盖升级",
+      "passed": 20,
+      "file": "formal-upgrade-results.json"
+    },
+    {
+      "scope": "已有更新界面",
+      "passed": 32,
+      "file": "update-ui-results.json"
+    }
+  ],
+  "releaseToolingChecks": 39,
+  "apkSha256": "b5c7e746a99988f13124704ea3fb4001924cc9f713b3c4732e13c001fc260677",
+  "apkBytes": 6638405,
+  "unverified": [
+    "vivo X100s automatic discovery",
+    "TalkBack speech and gestures",
+    "Android 8 through 15 runtime"
+  ]
+}

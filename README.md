@@ -2,9 +2,9 @@
 
 面向 Android 的学习手记：安排课程复习与考研学习，记录时间、单词和每周目标。
 
-[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.5.md)
+[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.6.md)
 
-当前版本 **v1.6.5**，支持 Android 8.0 及以上。
+当前版本 **v1.6.6**，支持 Android 8.0 及以上。
 
 白底列表、细线分组和蓝色操作。今日同页查看各科记录与参考值，点科目集中编辑；设置直接列出提醒、备份、小组件与使用手册。
 
@@ -31,7 +31,7 @@
 
 从[发行页](https://github.com/gaspainting/daily-study/releases/latest)下载 APK 安装。覆盖安装保留应用数据；卸载会删除应用数据。
 
-重新启动 App 时自动检查更新，发现新版后显示版本说明和下载入口。选择“稍后”后，可从页头继续更新。从后台返回不重复提示。
+重新启动 App 时自动检查更新，发现新版后显示版本说明和下载入口。选择“稍后”后，可从页头继续更新。后台返回按至少5分钟间隔补查，有新版时显示页头入口。
 
 v1.5.1 及更早版本需先通过「设置 → 关于 → 检查更新」安装本版。下载完成后点击安装，按 Android 提示授权并确认。
 
@@ -55,6 +55,7 @@ node --test tests/*.test.cjs
 $env:ANDROID_SERIAL = 'emulator-5572'
 adb -s emulator-5572 shell am instrument -w -r cn.edu.njupt.studycheckin/cn.edu.njupt.studycheckin.SmokeTests
 node tests/startup-update-ui.cjs
+node tests/update-native-regression.cjs
 node tests/update-regression-ui.cjs
 node tests/manual-ui.cjs
 node tests/word-log-ui.cjs
@@ -64,7 +65,7 @@ node tests/allocation-ui.cjs
 node tests/quantity-stability-ui.cjs
 ```
 
-设备交互测试逐个执行。构建和执行结果见[v1.6.5 验证报告](docs/V1.6.5.md)，发布命令见[发行通道](docs/APP-UPDATES.md)。
+设备交互测试逐个执行。构建和执行结果见[v1.6.6 验证报告](docs/V1.6.6.md)，发布命令见[发行通道](docs/APP-UPDATES.md)。
 
 **项目资料**
 

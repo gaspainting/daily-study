@@ -10,6 +10,7 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
  const real=await native('getUpdateState');
  check(['checking','current','available','ready','error'].includes(real.phase),'cold boot initiates a real native update check without entering About');
  check((await native('checkStartupUpdate')).started===false,'native cold-start claim cannot be consumed twice');
+ check((await native('checkForegroundUpdate')).started===false,'the actual cold Activity does not issue a duplicate foreground check');
  await native('cancelUpdate');
  const c=await connect();
  const source=fs.readFileSync(path.join(h.root,'app/src/main/assets/app.js'),'utf8').split(/\r?\n/);
@@ -22,12 +23,13 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
   const paused=c.events.slice(from).find(e=>e.method==='Debugger.paused');
   const script=`(()=>{
    const n=window.Native,info=JSON.parse(n.getAppInfo()),o=${JSON.stringify(options)};
-   const x=window.__startupUpdate={native:n,checks:0,downloads:0,installs:0,reads:0,accepted:o.accepted!==false,
+   const x=window.__startupUpdate={native:n,checks:0,foregroundChecks:0,downloads:0,installs:0,reads:0,accepted:o.accepted!==false,
     state:{phase:'checking',currentCode:info.versionCode,currentVersion:info.versionName,bytes:0,total:0,canInstall:true,candidate:null,error:''}};
    const methods={
     getStartup:()=>{const s=JSON.parse(n.getInspiration('startup',0,1));return JSON.stringify(s.items?.length?{show:true,entry:s.items[0]}:{show:true,waiting:true});},
     nextStartup:()=>JSON.stringify({waiting:true}),
     checkStartupUpdate:()=>{x.checks++;return JSON.stringify({started:x.accepted});},
+    checkForegroundUpdate:()=>{x.foregroundChecks++;const started=!!o.foregroundAccepted&&['idle','current','error'].includes(x.state.phase);if(started)x.state.phase='checking';return JSON.stringify({started});},
     getUpdateState:()=>{x.reads++;if(o.readFailure)throw Error('fixture read failure');return JSON.stringify(x.state);},
     checkUpdate:()=>{x.state.phase='checking';return JSON.stringify({ok:true});},
     downloadUpdate:()=>{x.downloads++;x.state.phase='downloading';return JSON.stringify({ok:true});},
@@ -107,10 +109,24 @@ require('./course-agenda-fix-ui.cjs')(async h=>{
   check((await view()).open,'startup polling observes completion even when a previous Activity owned the callback');
   await evaluate('handleNativeBack()');await result({phase:'available',candidate});check(!(await view()).open,'Android back dismisses the startup prompt without reopening');
   await reload();await result({phase:'available',candidate:{...candidate,versionCode:1}});check(!(await view()).open&&!(await view()).badge,'same or older builds are never offered by the startup UI');
+  await reload({foregroundAccepted:true});await result({phase:'current',candidate:null});await evaluate('InspirationUI.dismiss()');const foregroundBefore=await evaluate('__startupUpdate.foregroundChecks');await evaluate('onNativeResume()');
+  check(await evaluate('__startupUpdate.foregroundChecks')===foregroundBefore+1&&!(await view()).open,'foreground resume asks for a throttled check without opening a prompt');
+  await result({phase:'available',candidate});check((await view()).badge&&!(await view()).open,'a version discovered on foreground return appears in the header without a modal');await shot('foreground-update-entry');
+  await reload({foregroundAccepted:true});await result({phase:'current',candidate:null});await evaluate('InspirationUI.dismiss();onNativeResume()');await result({phase:'available',candidate},false);await until(async()=>(await view()).badge,'foreground result without native callback');
+  check((await view()).badge&&!(await view()).open,'foreground polling recovers a lost completion callback without interrupting the page');
+  await reload({foregroundAccepted:true});await result({phase:'current',candidate:null});await evaluate('InspirationUI.dismiss();onNativeResume()');await result({phase:'error',candidate,error:'连接中断'},false);await until(async()=>(await view()).badge,'foreground error without callback');await click('#update-entry');
+  check((await view()).panel.includes('连接中断')&&!(await view()).panel.includes('已是最新版本'),'a foreground error retains the known candidate and reports failure instead of current');
+  await reload();await evaluate('InspirationUI.dismiss();onStartupUpdateBackground();onNativeResume()');await result({phase:'available',candidate},false);await until(async()=>(await view()).badge,'already-running check completion');
+  check((await view()).badge&&!(await view()).open,'resume observes a request owned by an earlier Activity even when no new check started');
+  await reload({foregroundAccepted:true});await result({phase:'current',candidate:null});await evaluate('InspirationUI.dismiss()');await click('[data-layout-subject-button=math]');const mathBefore=await evaluate('document.querySelector("#minutes-math").value');await input('#minutes-math','13');await evaluate('onNativeResume()');await result({phase:'available',candidate});
+  check(await evaluate('document.querySelector("#minutes-math").value==="13"&&document.querySelector("#daily-record-editor").open')&&!(await view()).open&&(await view()).badge,'foreground discovery retains the open editor and unsaved input');
+  await input('#minutes-math',mathBefore);await native('deleteDraft',await evaluate('document.querySelector("#daily-form").dataset.draftKey'));await reload();
   assert.deepEqual(await state(),before);check(true,'all startup update choices preserve formal learning records');
   const subject=before.plan.subjects.find(s=>s.kind!=='vocab');const today=await evaluate('StudyModel.today()');
   const started=await native('startTimer',subject.id,subject.name,today);assert.ok(!started.error,started.error);
-  await native('timerAction','pause');await reload();await result({phase:'ready',candidate,canInstall:true});
+  await native('timerAction','pause');await reload({foregroundAccepted:true});await result({phase:'current',candidate:null});await evaluate('InspirationUI.dismiss()');const foregroundTimer=await native('getTimer');await evaluate('onNativeResume()');await result({phase:'available',candidate});assert.deepEqual(await native('getTimer'),foregroundTimer);
+  check(!(await view()).open&&(await view()).badge,'foreground discovery leaves the paused timer unchanged and does not open a prompt');
+  await reload();await result({phase:'ready',candidate,canInstall:true});
   const timerBefore=await native('getTimer');await click('[data-action=update-install]');
   check((await view()).title==='当前计时尚未保存'&&await evaluate('__startupUpdate.installs===0'),'active paused timer blocks startup installation with concrete choices');
   await click('[data-action=update-return]');check((await view()).title==='应用更新'&&(await view()).panel.includes('下载完成'),'timer cancel returns to the startup updater rather than About');

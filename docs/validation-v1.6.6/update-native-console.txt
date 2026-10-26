@@ -1,0 +1,5 @@
+PASS native update validation cooldown manual bypass cancellation and timer checks pass
+PASS real native HTTPS reads and validates the latest public manifest through the test host proxy
+PASS all original emulator proxy settings restored
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":4,"restored":true,"error":null}

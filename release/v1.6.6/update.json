@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 23,
+  "versionName": "1.6.6",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.6.6/daily-study-v1.6.6.apk",
+  "apkBytes": 6638405,
+  "apkSha256": "b5c7e746a99988f13124704ea3fb4001924cc9f713b3c4732e13c001fc260677",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v1.6.6\r\n\r\n- 返回前台时补查新版本，距上次检查至少5分钟；发现新版在页头显示更新入口。\r\n- 保留冷启动更新页，后台返回及计时切换不弹窗打断。\r\n- 检查未完成时继续观察结果，恢复页面后也能接收此前请求的完成状态。\r\n- 已发现或已下载的更新继续保留；手动检查可随时发起。\r\n",
+  "releaseDate": "2026-10-26"
+}

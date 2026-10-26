@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     private volatile boolean hasPaused=false;
     private volatile boolean startupPending=false;
     private boolean startupUpdateEligible;
+    private volatile boolean foregroundUpdateEligible;
     private final AtomicBoolean updateInstallBusy=new AtomicBoolean();
     private static volatile String pendingDaily=null,drawMessage="",drawDate="";
     private static final Object DRAW_LOCK=new Object();
@@ -62,6 +63,7 @@ public class MainActivity extends Activity {
         super.onCreate(bundle);
         startupConsumed=bundle!=null;
         startupUpdateEligible=bundle==null;
+        foregroundUpdateEligible=bundle!=null;
         try{recoverStorage();}catch(Exception ignored){}
         InspirationPoster.cleanOldExports(this);
         FrameLayout root=new FrameLayout(this);root.setBackgroundColor(Color.WHITE);
@@ -104,7 +106,7 @@ public class MainActivity extends Activity {
         if(recoveryError==null)try{ReminderScheduler.schedule(this);}catch(Exception e){show(e.getMessage());}
     }
     @Override protected void onResume(){super.onResume();updateInstallBusy.set(false);resumePage();if(recoveryError==null)try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);BackupStatus.schedule(this);}catch(Exception ignored){}}
-    @Override protected void onPause(){synchronized(this){startupUpdateEligible=false;}startupConsumed=true;startupPending=false;hasPaused=true;if(webView!=null)webView.evaluateJavascript("window.InspirationUI && window.InspirationUI.background();window.onStartupUpdateBackground && window.onStartupUpdateBackground()",null);super.onPause();}
+    @Override protected void onPause(){synchronized(this){startupUpdateEligible=false;}startupConsumed=true;startupPending=false;hasPaused=true;foregroundUpdateEligible=true;if(webView!=null)webView.evaluateJavascript("window.InspirationUI && window.InspirationUI.background();window.onStartupUpdateBackground && window.onStartupUpdateBackground()",null);super.onPause();}
     @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);resumePage();}
     private void resumePage(){if(pageReady&&webView!=null)webView.evaluateJavascript((hasPaused?"window.InspirationUI && window.InspirationUI.background();":"")+"window.onNativeResume && window.onNativeResume()",null);}
     @Override public void onBackPressed(){handleBack();}
@@ -183,6 +185,10 @@ public class MainActivity extends Activity {
             catch(Exception e){return error(e);}
         }
         @JavascriptInterface public String checkUpdate(){try{UpdateManager.check(getApplicationContext(),MainActivity.this::updateChanged);return success().toString();}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String checkForegroundUpdate(){
+            if(!foregroundUpdateEligible)return "{\"started\":false}";
+            try{return new JSONObject().put("started",UpdateManager.checkForeground(getApplicationContext(),MainActivity.this::updateChanged)).toString();}catch(Exception e){return error(e);}
+        }
         @JavascriptInterface public String downloadUpdate(){try{UpdateManager.download(getApplicationContext(),MainActivity.this::updateChanged);return success().toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String cancelUpdate(){try{UpdateManager.cancel(getApplicationContext());updateChanged();return success().toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String installUpdate(){

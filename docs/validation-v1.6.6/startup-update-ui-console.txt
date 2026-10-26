@@ -1,0 +1,58 @@
+PASS cold boot initiates a real native update check without entering About
+PASS native cold-start claim cannot be consumed twice
+PASS the actual cold Activity does not issue a duplicate foreground check
+PASS one launch check does not automatically download an APK
+PASS checking runs alongside the existing startup image
+PASS newer candidate opens an update prompt directly during startup
+PASS update prompt replaces the image splash and releases its inert state
+PASS startup version and notes render safely as text
+PASS download and later are discoverable startup actions
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 50.0 MB/s (172035 bytes in 0.003s)
+PASS later dismisses the prompt and keeps a page-header entry
+PASS repeated native callbacks do not repeat a dismissed startup prompt
+PASS ordinary resume does not recheck or reprompt
+PASS explicit startup download uses the existing updater action and real progress state
+PASS startup progress follows reported bytes
+PASS cancellation remains retryable without claiming download success
+PASS download failure retains an actionable retry in the startup prompt
+PASS installation permission is requested through an explicit action
+PASS requesting installation does not claim installation success
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 40.0 MB/s (178403 bytes in 0.004s)
+PASS startup prompt and header fit 320px with enlarged text
+PASS startup update actions have names in the real accessibility tree
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 54.3 MB/s (163822 bytes in 0.003s)
+PASS current version produces no update interruption
+PASS offline check failure produces no blocking prompt or error toast
+PASS offline startup can enter the app immediately
+PASS native refusal on an already-consumed or restored Activity suppresses automatic prompts
+PASS unexpected update-state read failure does not stop app startup
+PASS late startup update does not cover an open clean subject editor
+PASS a deferred update remains in the header after subject editing closes
+PASS late startup update does not cover an open settings editor
+PASS canceling the pending check in About also cancels its automatic prompt
+PASS a slow startup response does not interrupt or overwrite unsaved input
+PASS installation remains blocked until current page edits are saved
+PASS closing the update prompt retains unsaved input
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 32.3 MB/s (98799 bytes in 0.003s)
+PASS a late response does not replace an existing dialog
+PASS returning from actual Android background does not present a late startup prompt
+PASS startup polling observes completion even when a previous Activity owned the callback
+PASS Android back dismisses the startup prompt without reopening
+PASS same or older builds are never offered by the startup UI
+PASS foreground resume asks for a throttled check without opening a prompt
+PASS a version discovered on foreground return appears in the header without a modal
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 46.7 MB/s (184690 bytes in 0.004s)
+PASS foreground polling recovers a lost completion callback without interrupting the page
+PASS a foreground error retains the known candidate and reports failure instead of current
+PASS resume observes a request owned by an earlier Activity even when no new check started
+PASS foreground discovery retains the open editor and unsaved input
+PASS all startup update choices preserve formal learning records
+PASS foreground discovery leaves the paused timer unchanged and does not open a prompt
+PASS active paused timer blocks startup installation with concrete choices
+PASS timer cancel returns to the startup updater rather than About
+PASS canceling installation preserves the paused timer
+PASS save and continue actually finishes the timer before requesting installation
+PASS timer save creates exactly one session
+PASS repeated install action does not duplicate a saved session
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":52,"restored":true,"error":null}

@@ -16,7 +16,7 @@
   let nativeRefreshPending = false, toastTimeout, booted = false;
   let currentDraftKey = null, activePlanId = 'main', historyFilters = {}, sessionFilters = {}, month = '';
   let preview = !window.Native;
-  let startupUpdatePending = false, startupUpdatePoll, updateOrigin = 'about';
+  let startupUpdatePending = false, startupUpdatePoll, foregroundUpdatePoll, updateOrigin = 'about';
   const clone = value => JSON.parse(JSON.stringify(value));
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
@@ -197,6 +197,7 @@
   window.onStartupUpdateBackground = () => {
     startupUpdatePending = false;
     clearInterval(startupUpdatePoll);
+    clearInterval(foregroundUpdatePoll);
   };
   function startupUpdateChanged() {
     let update;
@@ -218,6 +219,15 @@
     } catch (_) { window.onStartupUpdateBackground(); }
   }
   window.onAppUpdateChanged = () => { if (bridge) startupUpdateChanged(); };
+  function checkForegroundUpdate(){
+    if(preview||document.hidden||startupUpdatePending||typeof bridge.checkForegroundUpdate!=='function')return;
+    clearInterval(foregroundUpdatePoll);
+    const observe=()=>{
+      if(document.hidden){clearInterval(foregroundUpdatePoll);return;}
+      try{const update=decode(bridge.getUpdateState());updatePanel(update);if(!['checking','downloading'].includes(update.phase))clearInterval(foregroundUpdatePoll);}catch(_){clearInterval(foregroundUpdatePoll);}
+    };
+    try{call('checkForegroundUpdate');const update=decode(bridge.getUpdateState());updatePanel(update);if(['checking','downloading'].includes(update.phase))foregroundUpdatePoll=setInterval(observe,600);}catch(_){}
+  }
   function leaveEdits() {
     if (saving.size) return false;
     if (!dirty.size) { feedback.clear(); return true; }
@@ -1045,6 +1055,7 @@
       if (currentPlan !== activePlanId) { window.StudyDrafts.flush(); dirty.clear(); feedback.clear(); activePlanId = currentPlan; }
       updatePermissionStatus();
       updatePanel();
+      checkForegroundUpdate();
       if (dirty.size) { nativeRefreshPending = true; state = readState(); refreshStoredSummary(); updateTimer(); return; }
       state = readState();
       planDate = clampPlanDate(planDate); reviewDate = clampPlanDate(reviewDate);

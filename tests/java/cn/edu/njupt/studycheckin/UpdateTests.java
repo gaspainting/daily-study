@@ -79,6 +79,16 @@ final class UpdateTests {
         UpdateManager.check(context,null);UpdateManager.cancel(context);String cancelled=UpdateManager.state(context).getString("phase");
         check(passes,!cancelled.equals("checking")&&!cancelled.equals("downloading"),"update cancel exits busy state without reporting installed");
         SystemClock.sleep(250);check(passes,UpdateManager.state(context).getString("phase").equals(cancelled),"cancelled check cannot publish stale async completion");
+        long interval=UpdateManager.FOREGROUND_CHECK_INTERVAL_MS;
+        check(passes,UpdateManager.foregroundDue(100,-1,"idle"),"foreground update permits a first restored-process check");
+        check(passes,!UpdateManager.foregroundDue(interval,1,"current"),"foreground update waits for the full interval");
+        check(passes,UpdateManager.foregroundDue(interval+1,1,"current"),"foreground update becomes due exactly at the interval boundary");
+        check(passes,UpdateManager.foregroundDue(interval+1,1,"error"),"foreground return can retry a previous failed check");
+        check(passes,UpdateManager.foregroundDue(1,100,"current"),"a reset monotonic clock cannot suppress checking indefinitely");
+        for(String busy:new String[]{"checking","downloading","available","ready"})check(passes,!UpdateManager.foregroundDue(interval*2,1,busy),"foreground update retains pending state "+busy);
+        check(passes,!UpdateManager.checkForeground(context,null),"rapid foreground return does not restart a recently cancelled check");
+        UpdateManager.check(context,null);check(passes,"checking".equals(UpdateManager.state(context).getString("phase")),"manual check bypasses the foreground cooldown");
+        check(passes,!UpdateManager.checkForeground(context,null),"foreground check does not duplicate an active manual check");UpdateManager.cancel(context);
         check(passes,DataStore.load(context).toString().equals(original),"update validation cancellation and install refusal preserve learning records");
     }
 }

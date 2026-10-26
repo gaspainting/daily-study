@@ -1,0 +1,35 @@
+PASS settings includes a visible labelled manual entry
+PASS manual opens in the existing in-app sheet
+PASS all twelve current feature chapters are discoverable from the table of contents
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 36.8 MB/s (143391 bytes in 0.004s)
+PASS table of contents opens and focuses records chapter
+PASS table of contents opens and focuses timer chapter
+PASS table of contents opens and focuses words chapter
+PASS table of contents opens and focuses weeks chapter
+PASS table of contents opens and focuses courses chapter
+PASS table of contents opens and focuses assessment chapter
+PASS table of contents opens and focuses history chapter
+PASS table of contents opens and focuses plans chapter
+PASS table of contents opens and focuses inspiration chapter
+PASS table of contents opens and focuses reminders chapter
+PASS table of contents opens and focuses backup chapter
+PASS table of contents opens and focuses update chapter
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 57.1 MB/s (375090 bytes in 0.006s)
+PASS directory control returns to the top and restores focus
+PASS backup chapter retains the actual overwrite consequence
+PASS opening and reading all chapters does not change any saved learning state
+PASS Android back handler closes the manual before leaving settings
+PASS opening closing and background return retain unsaved settings input
+PASS reading help does not submit reminder settings
+PASS actual WebView is offline for the reading check
+PASS the complete course chapter remains available offline
+PASS manual directory fits 320px at 200 percent Android font
+PASS manual navigation keeps visible labels and touch targets
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 32.4 MB/s (179606 bytes in 0.005s)
+PASS long course instructions wrap without horizontal overflow at large text
+PASS chapter heading remains fully below the fixed reader controls
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 35.0 MB/s (220194 bytes in 0.006s)
+/sdcard/course-agenda-fix-ui.png: 1 file pulled, 0 skipped. 32.6 MB/s (231647 bytes in 0.007s)
+PASS offline reading large text and process restart leave formal learning records unchanged
+PASS all original app files and preferences restored byte for byte; fixture-only files removed
+{"passed":29,"restored":true,"error":null}

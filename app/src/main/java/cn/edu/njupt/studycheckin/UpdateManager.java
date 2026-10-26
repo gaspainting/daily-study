@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,6 +36,8 @@ public final class UpdateManager {
     private static String phase="idle",error="";
     private static JSONObject candidate;
     private static long bytes,total,generation;
+    static final long FOREGROUND_CHECK_INTERVAL_MS=5L*60*1000;
+    private static long lastCheckAt=-1;
     private static HttpURLConnection connection;
     private UpdateManager(){}
 
@@ -49,8 +52,18 @@ public final class UpdateManager {
     }
 
     public static void check(Context context,Runnable onChanged){
+        beginCheck(context,onChanged,false);
+    }
+    public static boolean checkForeground(Context context,Runnable onChanged){
+        return beginCheck(context,onChanged,true);
+    }
+    static boolean foregroundDue(long now,long previous,String state){
+        if(!"idle".equals(state)&&!"current".equals(state)&&!"error".equals(state))return false;
+        return previous<0||now<previous||now-previous>=FOREGROUND_CHECK_INTERVAL_MS;
+    }
+    private static boolean beginCheck(Context context,Runnable onChanged,boolean foreground){
         Context app=context.getApplicationContext();final long token;
-        synchronized(LOCK){if(busy())return;token=++generation;phase="checking";error="";bytes=0;total=0;}
+        synchronized(LOCK){long now=SystemClock.elapsedRealtime();if(busy()||foreground&&!foregroundDue(now,lastCheckAt,phase))return false;lastCheckAt=now;token=++generation;phase="checking";error="";bytes=0;total=0;}
         changed(onChanged);
         IO.execute(()->{
             try{
@@ -66,6 +79,7 @@ public final class UpdateManager {
             }catch(Cancelled ignored){}catch(Exception e){failed(token,e,"检查失败，请检查网络后重试");}
             changed(onChanged);
         });
+        return true;
     }
 
     public static void download(Context context,Runnable onChanged){
