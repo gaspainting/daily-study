@@ -2865,6 +2865,11 @@
       "sha256": "2fadad4ea99c8ca8041fefc58a703130baee488f12e11092fcd1d90b0e05d23e"
     },
     {
+      "path": "docs/screenshots/v1.6.6/public-native-startup.png",
+      "bytes": 237024,
+      "sha256": "ef9a1d614fa654eb4a2fcdeae1a1103a2ab7fae8e1bf79c68574f9cd8804d902"
+    },
+    {
       "path": "docs/screenshots/v1.6.6/startup-update-available.png",
       "bytes": 172035,
       "sha256": "8ae4eda6bf76465f6087497a78cfca42dbd745ed971a3b5baa30fa62b5bdb855"
@@ -3031,8 +3036,8 @@
     },
     {
       "path": "docs/V1.6.6.md",
-      "bytes": 3551,
-      "sha256": "03d538f15c5265fda09f334bd713094665b4d888facc60f5f428f7ca38183803"
+      "bytes": 4359,
+      "sha256": "c9bed2031f387dda33519c9497c70a69e10a4bfc138f730e0e451719ead47789"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -5411,8 +5416,8 @@
     },
     {
       "path": "docs/validation-v1.6.6/final-device-results.json",
-      "bytes": 203,
-      "sha256": "5b693acb783fa8c2b86c7ceb165f6aa0cd987496a7ab09460e405e22185d69e6"
+      "bytes": 202,
+      "sha256": "b46ffecda2e632f10449a9008a425b55bd955acbac6df4e5f8315e1ccb22f706"
     },
     {
       "path": "docs/validation-v1.6.6/formal-upgrade-console.txt",
@@ -5455,6 +5460,26 @@
       "sha256": "cedf4707d33e3152e2ef61623b8075998ae6348ad216b3a0d72faf0d81c0c9b8"
     },
     {
+      "path": "docs/validation-v1.6.6/public-release-results.json",
+      "bytes": 1301,
+      "sha256": "37e620edfb3d396a27bf7b5520b35db5d4de5f5e0cadf735f1462559bd6f572c"
+    },
+    {
+      "path": "docs/validation-v1.6.6/public-startup-console.txt",
+      "bytes": 571,
+      "sha256": "1e6f49323f194bebd409c0c05da801647e5a43a68d8059dfe10c46f8579280a7"
+    },
+    {
+      "path": "docs/validation-v1.6.6/public-startup-native-nodes.json",
+      "bytes": 8152,
+      "sha256": "4a03b6b0108542bd1dc5a53427026a7de83c56763f20356e8d86df3a55c4b260"
+    },
+    {
+      "path": "docs/validation-v1.6.6/public-startup-results.json",
+      "bytes": 6450,
+      "sha256": "95ed0ce2b2106570977b162b39414b711093494bd5573f3c7689af43dc76f87a"
+    },
+    {
       "path": "docs/validation-v1.6.6/reference-validation.csv",
       "bytes": 1884,
       "sha256": "145ab227ed4d2a2872d71c8fafd352ae0019d19181c0dafef5920025db05ddc1"
@@ -5476,8 +5501,8 @@
     },
     {
       "path": "docs/validation-v1.6.6/run-summary.json",
-      "bytes": 1058,
-      "sha256": "70de17e85257cf01d2af09a8b6aa6cd57975bdc57bf554f5ceacbf6ba0bdd28a"
+      "bytes": 1877,
+      "sha256": "4f9c8b42cabd8bac5f43abcd853fa63dc5666ef1f415d0aad8b9bfd065958303"
     },
     {
       "path": "docs/validation-v1.6.6/startup-update-ui-console.txt",

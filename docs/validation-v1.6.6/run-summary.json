@@ -35,5 +35,25 @@
     "vivo X100s automatic discovery",
     "TalkBack speech and gestures",
     "Android 8 through 15 runtime"
-  ]
+  ],
+  "publicNativeStartupChecks": 5,
+  "publicNativeStartupReport": "public-startup-results.json",
+  "publicNativeStartupScope": "Actual signed v1.6.5 detects real published v1.6.6/code23 on cold start through the test host proxy; no bridge, manifest, or response replacement",
+  "publicReleaseReport": "public-release-results.json",
+  "publicReleaseVerified": {
+    "version": "1.6.6",
+    "versionCode": 23,
+    "implementationCommit": "e262e8b2b7a9fe466ff4e8ed8e552470a8eb5005",
+    "stableNamespacesVerified": 2,
+    "downloadedApkExactLocalMatch": true
+  },
+  "finalDeviceVerification": {
+    "version": "1.6.6",
+    "versionCode": 23,
+    "debuggable": false,
+    "allOriginalFilesVerified": 28,
+    "fontScale": "1.0",
+    "emulatorShutdownRequested": true,
+    "physicalDeviceUsed": false
+  }
 }

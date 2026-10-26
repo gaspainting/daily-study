@@ -4,6 +4,6 @@
   "debuggable": false,
   "allOriginalFilesVerified": 28,
   "fontScale": "1.0",
-  "emulatorShutdownRequested": false,
+  "emulatorShutdownRequested": true,
   "physicalDeviceUsed": false
 }
