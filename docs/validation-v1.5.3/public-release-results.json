@@ -12,14 +12,14 @@
       "digest": "sha256:671a1ee92322fed14c67af63498bcf23b922764dd884a4da2427ae1d54d7b9ee"
     },
     {
-      "bytes": 406,
+      "bytes": 398,
       "name": "RELEASE-NOTES.md",
-      "digest": "sha256:f4c40b9d548d2933057541bf3404898d9dad3f1e6165d75e315c7305c1dea423"
+      "digest": "sha256:28dfa28af701b1d7a65373eaa78676f2415a0773a2d6f1e176b9bc62c65722e6"
     },
     {
-      "bytes": 919,
+      "bytes": 910,
       "name": "update.json",
-      "digest": "sha256:027a35fdab2842d4957e3f105373681c0775f62e3ca494d0c8a35f1691f103cf"
+      "digest": "sha256:bc3e6f2b7c5e30903d5a4cb7faa25307802fc978fbc3688f1cab8e4d6364b20c"
     }
   ],
   "stableManifestUrls": [

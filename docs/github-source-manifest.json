@@ -516,8 +516,8 @@
     },
     {
       "path": "docs/APP-UPDATES.md",
-      "bytes": 7430,
-      "sha256": "89346ab1e77263b262feb9e1c0d84fa8bf95075d7c325dc266a0d5c66a6b331e"
+      "bytes": 8370,
+      "sha256": "cbe7f7fb3cb4e2c4a111aef2b8145b4513f96d8265de30c96c52ebea1d1830fb"
     },
     {
       "path": "docs/ARCHITECTURE-v1.7.0.md",
@@ -621,118 +621,118 @@
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.0.md",
-      "bytes": 315,
-      "sha256": "5d73be29fb0dec2bfc865b88b9236f3ef44e591f779a70161dbaa634c7b640f9"
+      "bytes": 283,
+      "sha256": "52929105215df025fd5651ec513b29fd5b6aaec2755fd9e9d1f87fdcd0fa5ac3"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.1.md",
-      "bytes": 651,
-      "sha256": "bcbfe9eab3a66393616e8bf40da67aec5b0e416a7b65af811baaa25002c647c2"
+      "bytes": 495,
+      "sha256": "89b88953c7b8f1c26f884460e3e8df2b2d149522a54453e10020cc6edf963a96"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.2.md",
-      "bytes": 413,
-      "sha256": "36a49cdaeaaecdee3aef89c46cb1d699c957d1fc258beec3bbf9292102f4661e"
+      "bytes": 339,
+      "sha256": "a19d01de1f6047dba68de06351aa11bcb14247fa9a34c6d6c207e49cc82d88eb"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.3.md",
-      "bytes": 428,
-      "sha256": "c224c45b1d1b6ff3ffb8e902fc4e60e28e5ca111d8231fa68d8a007bc8877c20"
+      "bytes": 381,
+      "sha256": "6f5fb8270ffa67fbed20281b991cf2f30ed6de9b13fe35f1cf878cd959ce09fb"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.4.md",
-      "bytes": 575,
-      "sha256": "92bcb2c6cebbf777d7677e035afc1d13c561eb80ed852d9a31fd3445cd019f24"
+      "bytes": 406,
+      "sha256": "f2324f036a54df0c45e6dfaf38c2b751a63a0f9983c3d86ff14c70596984a3b8"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.3.5.md",
-      "bytes": 251,
-      "sha256": "1f088913520cf731b71add1b124bfdfab54cd4f2d6afa58c8d0513089faee8af"
+      "bytes": 242,
+      "sha256": "7647e22b776861212d154249850912f1fe1d2c4db52534cc045b0b1493acd00c"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.4.0.md",
-      "bytes": 492,
-      "sha256": "a82e1b6a73da5a6b5131a81a264aeabdd204d61d2ceea7a235a7a70c594f2c53"
+      "bytes": 460,
+      "sha256": "c2e0dbe694f6aa18cf281285a72faf396a9525e0c73588b61437c6d027b3f0f3"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.4.1.md",
-      "bytes": 456,
-      "sha256": "3241b44f3eddc0b36ccbab1109d1fecd080353c6c4f8e0bc32dae21db026b7a6"
+      "bytes": 436,
+      "sha256": "c584c6034c255ace4348fa0b9916b9fd95d90fb459f3068ad16bc8a74b571be6"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.4.2.md",
-      "bytes": 388,
-      "sha256": "4bbf394cd5eece43e5d52360fed6a4b96c8096aa0dd906224ea8961eb9ceed97"
+      "bytes": 430,
+      "sha256": "696734afa66f61012bc665dfd632e3cc56b9ae7db107bb3b81851a7740133353"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.5.0.md",
-      "bytes": 600,
-      "sha256": "6ce01c9a43bd21566a62464c946f9331a9797ec2f10a39b829b0e62e9c7aa1ab"
+      "bytes": 440,
+      "sha256": "a1792a4803cbba6f4a9ad5a1619eea4800c3f7ee2c6f3aaada4ee5acfa45a279"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.5.1.md",
-      "bytes": 365,
-      "sha256": "4c74be93ff9cf269d0fcaafa98c4b080f0da63add25c0286d06f0ecfc2d6b42f"
+      "bytes": 317,
+      "sha256": "6315130e7bef3b442f7059ebddbd6e6ea07cb59bed1b3d52bf8b5b2af765e196"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.5.2.md",
-      "bytes": 255,
-      "sha256": "61c81b6a28dce91252c012a844f12cc91ea87f57528350ba5e0823b3a7e17902"
+      "bytes": 291,
+      "sha256": "0d6a0147498ea7e7ab39687f6a7e9da813755574b8dc569db280f80944eb2f7d"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.5.3.md",
-      "bytes": 406,
-      "sha256": "f4c40b9d548d2933057541bf3404898d9dad3f1e6165d75e315c7305c1dea423"
+      "bytes": 398,
+      "sha256": "28dfa28af701b1d7a65373eaa78676f2415a0773a2d6f1e176b9bc62c65722e6"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.0.md",
-      "bytes": 539,
-      "sha256": "ebc0795fa250090a4f9814dcef678b4ff5a900a1b5d5beaaae4c77a58619c8fe"
+      "bytes": 463,
+      "sha256": "5ccc900760cda2c07aa1a92d068ae714083cf9606b160c8a926b31efc70226f1"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.1.md",
-      "bytes": 504,
-      "sha256": "5c00ebfa44a54a2602b57739383eb2a71603412617e2bf637cc5cd28ecb873f9"
+      "bytes": 403,
+      "sha256": "264e5b45662fc0e70ca67e045ddf7d02947b24e48a4cd6faa3acefeaaf44d25d"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.2.md",
-      "bytes": 625,
-      "sha256": "f5c11a5a66e872bca67c2c51f61b0cfa7b5959b1e03b5a5ed0bc9a4251b8c2fd"
+      "bytes": 476,
+      "sha256": "2ae8853ab3cd67e6abe1466222cbc150d5109f7572d5c24513b5aca549ef10bd"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.3.md",
-      "bytes": 616,
-      "sha256": "b413e6c092f78664fe0b749affe50b66a05a610c838d787cc5cb608719493b2f"
+      "bytes": 421,
+      "sha256": "63b439782e4013448b6e6fbf6e2bb10d33010e305f9829f1dd8b6846294895fc"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.4.md",
-      "bytes": 613,
-      "sha256": "920fecf87b0faa6a558785c6029e2efdddc6cf83f253c5d12117f2ff67f4a595"
+      "bytes": 491,
+      "sha256": "c65879649c94ec779a37b60e9791aee7cc1d2f80d5c29f6153b7ba9c47645815"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.5.md",
-      "bytes": 597,
-      "sha256": "3e01dd8f5edfb63d3b0097bf5837c56e17279f876abe7fbbb3396d2358554ddc"
+      "bytes": 446,
+      "sha256": "2071d1e01df33c8c1a6f4c7c74ae47696b5b6bab3df45a75243e16762cfc6f44"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.6.md",
-      "bytes": 390,
-      "sha256": "12c6c31cb428017139d1e3c4cac5c3811b4768e78d9dda5534a4d6ada908adfd"
+      "bytes": 364,
+      "sha256": "9c294d5cf7d6fcbae3373ae21568228ffdb9bb8ed4d9310dc9ee10c0e1381e74"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.7.md",
-      "bytes": 822,
-      "sha256": "7f948b07eea6cdc12deec555aff9b9f585fa6745998de3977adb08859f360e8e"
+      "bytes": 548,
+      "sha256": "9e3854ba5493cfcc7b4148207703b7791b10972b30818fb319b0e0a96da9e027"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.6.8.md",
-      "bytes": 298,
-      "sha256": "f5304c8e9a470982ac97aa27d5ee1201b51bc28336bae3834399d23877e8bd2f"
+      "bytes": 359,
+      "sha256": "6c5addbb4d27982620ea8761fca211117dd274e5ab0b9b5bf5e671c96bba3b2f"
     },
     {
       "path": "docs/RELEASE-NOTES-v1.7.0.md",
-      "bytes": 325,
-      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
+      "bytes": 285,
+      "sha256": "7e491dcb624dba405df8b633c64ca7d81b320901ae0c4bbc7b16f59f7ffdd0e4"
     },
     {
       "path": "docs/release-test-results.json",
@@ -4161,8 +4161,8 @@
     },
     {
       "path": "docs/validation-v1.3.4/public-release-results.json",
-      "bytes": 849,
-      "sha256": "1530eb1d6b788f668750370cce2cc7385065957bfefce8fb4a7063ec44c7f155"
+      "bytes": 848,
+      "sha256": "42d226df9dd759a88b71e4ac65497a71c216dda9f1077b91eea15a4a2374f013"
     },
     {
       "path": "docs/validation-v1.3.4/release-prepare-results.txt",
@@ -4292,7 +4292,7 @@
     {
       "path": "docs/validation-v1.3.5/public-release-results.json",
       "bytes": 769,
-      "sha256": "0ffeb121127b7002665cfd504fd5918ced5b7aafe612f48e270699c9bb22a6e6"
+      "sha256": "5bacaf4525b902eb507ee661c14cb7b2a50fd6bd4bbcbaf843187000e8048bd1"
     },
     {
       "path": "docs/validation-v1.3.5/release-prepare-results.txt",
@@ -4351,8 +4351,8 @@
     },
     {
       "path": "docs/validation-v1.4.0/public-release-results.json",
-      "bytes": 653,
-      "sha256": "9b94932420f34203937da4adbf8e5642f2695b06a1eb21c03a74923b20cd451c"
+      "bytes": 655,
+      "sha256": "f785472bb3179f985420103f47a165f89d7e455e02db930955fe332782e6120f"
     },
     {
       "path": "docs/validation-v1.4.0/release-build-results.txt",
@@ -4462,7 +4462,7 @@
     {
       "path": "docs/validation-v1.4.1/public-release-results.json",
       "bytes": 1089,
-      "sha256": "03452a2e27af606392822e3dfc91e0bc3bd8336b866ebd5ea45fddb4b7397658"
+      "sha256": "10013148e96516e45f6eb13cba1094eebb63b636e25c716bebbb627f71a58d7e"
     },
     {
       "path": "docs/validation-v1.4.1/reference-report-results.json",
@@ -4556,8 +4556,8 @@
     },
     {
       "path": "docs/validation-v1.4.2/public-release-results.json",
-      "bytes": 1088,
-      "sha256": "1ddb40a681bf2bcc6874e2e8f4f85a427e23c6229b9c72a61df5d0fd242ee868"
+      "bytes": 1089,
+      "sha256": "4383ec14838f0d607f1b057ccb5f996d7b4a98315d09315b6e3190b86a17b8f0"
     },
     {
       "path": "docs/validation-v1.4.2/reference-validation.csv",
@@ -4661,8 +4661,8 @@
     },
     {
       "path": "docs/validation-v1.5.0/public-release-results.json",
-      "bytes": 1302,
-      "sha256": "61e702ed0fa8ba1fbff4d9a86745c4f54a1b50a7eb7694a656f40dcc01ea80dd"
+      "bytes": 1301,
+      "sha256": "106b88f70a424661a4358f2fc28aa63a7f962f4b15ca7277c64f09dca4a22d4e"
     },
     {
       "path": "docs/validation-v1.5.0/reference-validation.csv",
@@ -4732,7 +4732,7 @@
     {
       "path": "docs/validation-v1.5.1/public-release-results.json",
       "bytes": 1301,
-      "sha256": "bf36d769b5d0fdb03a2d49797b8d6ffb598fa39518084bcc22b9f037d3f425b0"
+      "sha256": "b28fa5dd909d091fd2ae00ca2082ecb6d3f42f74a691a54c7c6d9ec19bab2859"
     },
     {
       "path": "docs/validation-v1.5.1/release-prepare-results.txt",
@@ -4817,7 +4817,7 @@
     {
       "path": "docs/validation-v1.5.2/public-release-results.json",
       "bytes": 1301,
-      "sha256": "92bbe4a8cea12fd3affc751194e781c3ea9769d3c28d5b1c12ed3a11921650ea"
+      "sha256": "a78c98a7e9f471fc80e55da64ead7b61f24d49cc75a3bcabb4a2433ddb71c9b9"
     },
     {
       "path": "docs/validation-v1.5.2/readme-public-results.json",
@@ -4927,7 +4927,7 @@
     {
       "path": "docs/validation-v1.5.3/public-release-results.json",
       "bytes": 1301,
-      "sha256": "3e86f276a23b87e0bc9961b93e5f91d62a83774c52308e449a5764dd1d545641"
+      "sha256": "4675a5215475f2ef681465e1f65a5e429e69d62c1a7b04d54a0626b36de94fb5"
     },
     {
       "path": "docs/validation-v1.5.3/reference-auto-ui-results.json",
@@ -5006,8 +5006,8 @@
     },
     {
       "path": "docs/validation-v1.6.1/public-release-results.json",
-      "bytes": 1302,
-      "sha256": "dc7dce6d0b6ae2052222b1d292a6cd159c7105e072a08448f1c3f69788526e1c"
+      "bytes": 1301,
+      "sha256": "ed23914d1a2c3dfde0d14052cc42c08254a2ffa636d3d0f04bbc440f0a94a87f"
     },
     {
       "path": "docs/validation-v1.6.1/reference-validation.csv",
@@ -5091,8 +5091,8 @@
     },
     {
       "path": "docs/validation-v1.6.2/public-release-results.json",
-      "bytes": 1302,
-      "sha256": "aa7b2d1a7893b8a4ae459586ab43989c0ce3a9b197814abdb38d475501f35958"
+      "bytes": 1301,
+      "sha256": "bf1b6941e9fe487a96d2755806b5fec595119c94983ba2a97a565bc25b55dcb4"
     },
     {
       "path": "docs/validation-v1.6.2/reference-validation.csv",
@@ -5186,8 +5186,8 @@
     },
     {
       "path": "docs/validation-v1.6.3/public-release-results.json",
-      "bytes": 1302,
-      "sha256": "43b1c98b5e0c446dbb896025a6329fa529553ea45402d8b49716fa4b824a020f"
+      "bytes": 1301,
+      "sha256": "9e871eb97037047dbf43f462dfa7d1da35439202f3003121282f359ae1cccaa1"
     },
     {
       "path": "docs/validation-v1.6.3/quantity-accessibility.json",
@@ -5337,7 +5337,7 @@
     {
       "path": "docs/validation-v1.6.4/public-release-results.json",
       "bytes": 1302,
-      "sha256": "cca2695f9716124deb5eebd72428f0eaca7631724c2b5c45a82b803af7e6796b"
+      "sha256": "7f497afcd0a0530d70ebe570671081d1ef2ee3a67eddf78ec98898a6e452d25c"
     },
     {
       "path": "docs/validation-v1.6.4/quantity-accessibility.json",
@@ -5536,8 +5536,8 @@
     },
     {
       "path": "docs/validation-v1.6.5/public-release-results.json",
-      "bytes": 1302,
-      "sha256": "63bb4844ca03fd0319ad913e68a822e37f55b70afce85211bca69112591bc168"
+      "bytes": 1301,
+      "sha256": "3df5e11e91171f15ce5e8c0ea6f5f6740461ad3ddfeb631a5355e5a002ef4116"
     },
     {
       "path": "docs/validation-v1.6.5/quantity-accessibility.json",
@@ -5707,7 +5707,7 @@
     {
       "path": "docs/validation-v1.6.6/public-release-results.json",
       "bytes": 1301,
-      "sha256": "37e620edfb3d396a27bf7b5520b35db5d4de5f5e0cadf735f1462559bd6f572c"
+      "sha256": "525e165bb90c30ecc142e494c8a6861e10796d73b30f181f5d82e73fadfdc34c"
     },
     {
       "path": "docs/validation-v1.6.6/public-startup-console.txt",
@@ -6117,7 +6117,7 @@
     {
       "path": "docs/validation-v1.6.7/public-release-results.json",
       "bytes": 1302,
-      "sha256": "949da5f730c5898bc94634a77b8c7e73228b5cd545b7931dd35420bf721ca8c3"
+      "sha256": "1b2050ba693a53119153fb05b1efad0591f20d7bd1459798c308633baf2a7f79"
     },
     {
       "path": "docs/validation-v1.6.7/public-startup-console.txt",
@@ -6327,7 +6327,7 @@
     {
       "path": "docs/validation-v1.6.8/public-release-results.json",
       "bytes": 1301,
-      "sha256": "b0d33c1176ec86381d058b3f274209490c9fd157e062201ff2b51a5d889cae97"
+      "sha256": "78aeaaea0d7ed917f79d18a6d63dc14e276799d9e5a04062673a52a63968b0d3"
     },
     {
       "path": "docs/validation-v1.6.8/public-startup-console.txt",
@@ -6437,7 +6437,7 @@
     {
       "path": "docs/validation-v1.7.0/public-release-results.json",
       "bytes": 1100,
-      "sha256": "6faa851774cc31449d952267885ae5a1c4b4a4bdce8973848fe2f2be337e2fe7"
+      "sha256": "2b25cab87fb757e329b8990db7532989017ecbbcbe00d6cf960950a9f261f04e"
     },
     {
       "path": "docs/VERIFICATION.md",
@@ -6481,233 +6481,233 @@
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
-      "bytes": 315,
-      "sha256": "5d73be29fb0dec2bfc865b88b9236f3ef44e591f779a70161dbaa634c7b640f9"
+      "bytes": 283,
+      "sha256": "52929105215df025fd5651ec513b29fd5b6aaec2755fd9e9d1f87fdcd0fa5ac3"
     },
     {
       "path": "release/v1.3.0/update.json",
-      "bytes": 859,
-      "sha256": "7e78e68707f3bb7ae11a81196604dc553d93b2f358c8769a1230c0a4a68c47bb"
+      "bytes": 826,
+      "sha256": "24b09d67c7df040996d5d0a453c49526c8d3669d9e1a908f74be2351664b2af9"
     },
     {
       "path": "release/v1.3.1/RELEASE-NOTES.md",
-      "bytes": 651,
-      "sha256": "bcbfe9eab3a66393616e8bf40da67aec5b0e416a7b65af811baaa25002c647c2"
+      "bytes": 495,
+      "sha256": "89b88953c7b8f1c26f884460e3e8df2b2d149522a54453e10020cc6edf963a96"
     },
     {
       "path": "release/v1.3.1/update.json",
-      "bytes": 1208,
-      "sha256": "849542bc07ca2b922caf31eaf77a6c04b46244aa6f3b9c12fd2fde4aabac2de5"
+      "bytes": 1040,
+      "sha256": "2df83848f99054f2b378350c22d831e1f64bdc8a766fbfc2e2e3ed6310ddb112"
     },
     {
       "path": "release/v1.3.2/RELEASE-NOTES.md",
-      "bytes": 413,
-      "sha256": "36a49cdaeaaecdee3aef89c46cb1d699c957d1fc258beec3bbf9292102f4661e"
+      "bytes": 339,
+      "sha256": "a19d01de1f6047dba68de06351aa11bcb14247fa9a34c6d6c207e49cc82d88eb"
     },
     {
       "path": "release/v1.3.2/update.json",
-      "bytes": 962,
-      "sha256": "dbe72c0987a006d1ee1e359cad78b9f48f3ac914d404ea32be3f7529aa4f66ba"
+      "bytes": 882,
+      "sha256": "14bec1a7f7bc635433e366c88b3c34ddd30d4af0759eb67eaee72a50059d4dee"
     },
     {
       "path": "release/v1.3.3/RELEASE-NOTES.md",
-      "bytes": 428,
-      "sha256": "c224c45b1d1b6ff3ffb8e902fc4e60e28e5ca111d8231fa68d8a007bc8877c20"
+      "bytes": 381,
+      "sha256": "6f5fb8270ffa67fbed20281b991cf2f30ed6de9b13fe35f1cf878cd959ce09fb"
     },
     {
       "path": "release/v1.3.3/update.json",
-      "bytes": 973,
-      "sha256": "d96c2fcfd60fdcb9c553aaaa500b85170b9f4f2fbaca863921d80354fa2b4ff1"
+      "bytes": 926,
+      "sha256": "b75c90a62dc8c09bc4e902679dd02a2bfe8385d0f0dbbc7ab5a9f3d617ad4f7d"
     },
     {
       "path": "release/v1.3.4/RELEASE-NOTES.md",
-      "bytes": 575,
-      "sha256": "92bcb2c6cebbf777d7677e035afc1d13c561eb80ed852d9a31fd3445cd019f24"
+      "bytes": 406,
+      "sha256": "f2324f036a54df0c45e6dfaf38c2b751a63a0f9983c3d86ff14c70596984a3b8"
     },
     {
       "path": "release/v1.3.4/update.json",
-      "bytes": 1121,
-      "sha256": "bb9f70fcaf8db5b410bfb2fba211aaf4f6812ae21a45cdcac5352bc5cf3cba74"
+      "bytes": 950,
+      "sha256": "d8817a73c094163a14c37656c07c5f527a3614c4b79359914be2ac108fe1bfa7"
     },
     {
       "path": "release/v1.3.5/RELEASE-NOTES.md",
-      "bytes": 251,
-      "sha256": "1f088913520cf731b71add1b124bfdfab54cd4f2d6afa58c8d0513089faee8af"
+      "bytes": 242,
+      "sha256": "7647e22b776861212d154249850912f1fe1d2c4db52534cc045b0b1493acd00c"
     },
     {
       "path": "release/v1.3.5/update.json",
-      "bytes": 793,
-      "sha256": "6368b618751dc118d2b9723ad20c6bf159fbc102a6cdb8f18a061e29b6d73ffb"
+      "bytes": 785,
+      "sha256": "227fe7adab02c2c9f8d63c2c63f226782afc3a1eab69d56ce2bced56f8eff93b"
     },
     {
       "path": "release/v1.4.0/RELEASE-NOTES.md",
-      "bytes": 492,
-      "sha256": "a82e1b6a73da5a6b5131a81a264aeabdd204d61d2ceea7a235a7a70c594f2c53"
+      "bytes": 460,
+      "sha256": "c2e0dbe694f6aa18cf281285a72faf396a9525e0c73588b61437c6d027b3f0f3"
     },
     {
       "path": "release/v1.4.0/update.json",
-      "bytes": 1045,
-      "sha256": "dbde723a218d7fb0e1f0a93667745309e51c05a6a6a3effe3f94c117d5fc4edc"
+      "bytes": 1006,
+      "sha256": "2179405708cf4e2a9aeaf99b415672d11366df1b4b2164e3f43c6d2e01513669"
     },
     {
       "path": "release/v1.4.1/RELEASE-NOTES.md",
-      "bytes": 456,
-      "sha256": "3241b44f3eddc0b36ccbab1109d1fecd080353c6c4f8e0bc32dae21db026b7a6"
+      "bytes": 436,
+      "sha256": "c584c6034c255ace4348fa0b9916b9fd95d90fb459f3068ad16bc8a74b571be6"
     },
     {
       "path": "release/v1.4.1/update.json",
-      "bytes": 1007,
-      "sha256": "4b0c758e826403bf68e5cd56b6f959c3be17f4464af54bdda142cc5010a881d8"
+      "bytes": 981,
+      "sha256": "6947db1e94604fdc9caf172a7a7bd9d09ae883d2322dc53338f5215e2ec6cf2a"
     },
     {
       "path": "release/v1.4.2/RELEASE-NOTES.md",
-      "bytes": 388,
-      "sha256": "4bbf394cd5eece43e5d52360fed6a4b96c8096aa0dd906224ea8961eb9ceed97"
+      "bytes": 430,
+      "sha256": "696734afa66f61012bc665dfd632e3cc56b9ae7db107bb3b81851a7740133353"
     },
     {
       "path": "release/v1.4.2/update.json",
-      "bytes": 933,
-      "sha256": "c927751260b6f97c10647d681e4b7b542147b70063e1c90d6323d321daf3bce4"
+      "bytes": 975,
+      "sha256": "37d3414a89368a995c5251854ebf6880cb9bd0afe19565dd0ed25f9b016d8454"
     },
     {
       "path": "release/v1.5.0/RELEASE-NOTES.md",
-      "bytes": 600,
-      "sha256": "6ce01c9a43bd21566a62464c946f9331a9797ec2f10a39b829b0e62e9c7aa1ab"
+      "bytes": 440,
+      "sha256": "a1792a4803cbba6f4a9ad5a1619eea4800c3f7ee2c6f3aaada4ee5acfa45a279"
     },
     {
       "path": "release/v1.5.0/update.json",
-      "bytes": 1116,
-      "sha256": "37d6e5f4ee09504edab010d008aa38620d1a9a5a755db0a37d8837ec60f8ed72"
+      "bytes": 953,
+      "sha256": "fa44d657e7d92f3050c3fd2f1f7ce6bf7d298cf627b0ffee8b35e81127716402"
     },
     {
       "path": "release/v1.5.1/RELEASE-NOTES.md",
-      "bytes": 365,
-      "sha256": "4c74be93ff9cf269d0fcaafa98c4b080f0da63add25c0286d06f0ecfc2d6b42f"
+      "bytes": 317,
+      "sha256": "6315130e7bef3b442f7059ebddbd6e6ea07cb59bed1b3d52bf8b5b2af765e196"
     },
     {
       "path": "release/v1.5.1/update.json",
-      "bytes": 878,
-      "sha256": "f1f7f7ca07c88dd854550ab9b33f5bcf61b0b6ead278cc1dc99c62546b62edcf"
+      "bytes": 828,
+      "sha256": "75ec61347376741cf23693e8343af73739f7e93d4c686300414cb578c0444bb0"
     },
     {
       "path": "release/v1.5.2/RELEASE-NOTES.md",
-      "bytes": 255,
-      "sha256": "61c81b6a28dce91252c012a844f12cc91ea87f57528350ba5e0823b3a7e17902"
+      "bytes": 291,
+      "sha256": "0d6a0147498ea7e7ab39687f6a7e9da813755574b8dc569db280f80944eb2f7d"
     },
     {
       "path": "release/v1.5.2/update.json",
-      "bytes": 766,
-      "sha256": "c82c24879df1c84ea93ec63a0a7e1528873bb5d3a8a025e39b2be54eb69ebb9c"
+      "bytes": 802,
+      "sha256": "71cbbf890a01cfea6dc2ddf1e8e31a626f1bb899bf55605e4f12cc615fe87980"
     },
     {
       "path": "release/v1.5.3/RELEASE-NOTES.md",
-      "bytes": 406,
-      "sha256": "f4c40b9d548d2933057541bf3404898d9dad3f1e6165d75e315c7305c1dea423"
+      "bytes": 398,
+      "sha256": "28dfa28af701b1d7a65373eaa78676f2415a0773a2d6f1e176b9bc62c65722e6"
     },
     {
       "path": "release/v1.5.3/update.json",
-      "bytes": 919,
-      "sha256": "027a35fdab2842d4957e3f105373681c0775f62e3ca494d0c8a35f1691f103cf"
+      "bytes": 910,
+      "sha256": "bc3e6f2b7c5e30903d5a4cb7faa25307802fc978fbc3688f1cab8e4d6364b20c"
     },
     {
       "path": "release/v1.6.0/RELEASE-NOTES.md",
-      "bytes": 539,
-      "sha256": "ebc0795fa250090a4f9814dcef678b4ff5a900a1b5d5beaaae4c77a58619c8fe"
+      "bytes": 463,
+      "sha256": "5ccc900760cda2c07aa1a92d068ae714083cf9606b160c8a926b31efc70226f1"
     },
     {
       "path": "release/v1.6.0/update.json",
-      "bytes": 1053,
-      "sha256": "b7dd53f49b3365661174053594f2e7dd462a48615bade88e50a68d0922d6d338"
+      "bytes": 976,
+      "sha256": "921d00131244cb622c4bf069acd42bf4eefd05d3324105640f1c3c3c3176d58c"
     },
     {
       "path": "release/v1.6.1/RELEASE-NOTES.md",
-      "bytes": 504,
-      "sha256": "5c00ebfa44a54a2602b57739383eb2a71603412617e2bf637cc5cd28ecb873f9"
+      "bytes": 403,
+      "sha256": "264e5b45662fc0e70ca67e045ddf7d02947b24e48a4cd6faa3acefeaaf44d25d"
     },
     {
       "path": "release/v1.6.1/update.json",
-      "bytes": 1026,
-      "sha256": "08b4f7bcfc8579077abe9f0d484c9ccbb5383cb7a1459cee752d837c9188c154"
+      "bytes": 916,
+      "sha256": "5ad7c6791b9ef4063d2ad9a94a940871e01550834c51437e714d92bf88ff67ce"
     },
     {
       "path": "release/v1.6.2/RELEASE-NOTES.md",
-      "bytes": 625,
-      "sha256": "f5c11a5a66e872bca67c2c51f61b0cfa7b5959b1e03b5a5ed0bc9a4251b8c2fd"
+      "bytes": 476,
+      "sha256": "2ae8853ab3cd67e6abe1466222cbc150d5109f7572d5c24513b5aca549ef10bd"
     },
     {
       "path": "release/v1.6.2/update.json",
-      "bytes": 1127,
-      "sha256": "0c156874afe292d6cdfc58ed8f85aa2e32fccaf3a88104df38688855d627a8a7"
+      "bytes": 977,
+      "sha256": "5e0951f41d0b1b2fae5c079b6799d4f1da46f1d11f77cd98f01c09192e019ffc"
     },
     {
       "path": "release/v1.6.3/RELEASE-NOTES.md",
-      "bytes": 616,
-      "sha256": "b413e6c092f78664fe0b749affe50b66a05a610c838d787cc5cb608719493b2f"
+      "bytes": 421,
+      "sha256": "63b439782e4013448b6e6fbf6e2bb10d33010e305f9829f1dd8b6846294895fc"
     },
     {
       "path": "release/v1.6.3/update.json",
-      "bytes": 1130,
-      "sha256": "3770a1cc1ff2e48c2e593f717ce748d55febe083a0805e32211696a852737124"
+      "bytes": 934,
+      "sha256": "1b55a128c5f213cf93927ef467ece54a29b4d3bcd9084ff8527f0484c4a73bcc"
     },
     {
       "path": "release/v1.6.4/RELEASE-NOTES.md",
-      "bytes": 613,
-      "sha256": "920fecf87b0faa6a558785c6029e2efdddc6cf83f253c5d12117f2ff67f4a595"
+      "bytes": 491,
+      "sha256": "c65879649c94ec779a37b60e9791aee7cc1d2f80d5c29f6153b7ba9c47645815"
     },
     {
       "path": "release/v1.6.4/update.json",
-      "bytes": 1127,
-      "sha256": "90f743cfe2c8692e82f34a34c4d51563644090c08dd9ce65b488ea0b7d735d21"
+      "bytes": 1004,
+      "sha256": "ea01b886e729c6855a391fbb3922fd83fa6be89ce2dafdb07ea38bda1e80dafd"
     },
     {
       "path": "release/v1.6.5/RELEASE-NOTES.md",
-      "bytes": 597,
-      "sha256": "3e01dd8f5edfb63d3b0097bf5837c56e17279f876abe7fbbb3396d2358554ddc"
+      "bytes": 446,
+      "sha256": "2071d1e01df33c8c1a6f4c7c74ae47696b5b6bab3df45a75243e16762cfc6f44"
     },
     {
       "path": "release/v1.6.5/update.json",
-      "bytes": 1117,
-      "sha256": "6869acd34f4877f067a1d840df3a3092c2891761de2d056bf52d5b4bea9917d0"
+      "bytes": 958,
+      "sha256": "05d01627b4236b22561bccc52b7870d4bc1b24beeae3e3e5f1d7b7361ec29214"
     },
     {
       "path": "release/v1.6.6/RELEASE-NOTES.md",
-      "bytes": 390,
-      "sha256": "12c6c31cb428017139d1e3c4cac5c3811b4768e78d9dda5534a4d6ada908adfd"
+      "bytes": 364,
+      "sha256": "9c294d5cf7d6fcbae3373ae21568228ffdb9bb8ed4d9310dc9ee10c0e1381e74"
     },
     {
       "path": "release/v1.6.6/update.json",
-      "bytes": 908,
-      "sha256": "4c3ef5dd0d8bd2fb64d3a5ae7f6d43dc99c15ed00acfdf7e93b3eefe20e633fc"
+      "bytes": 876,
+      "sha256": "71b6ff0579d69703de14d3b20044396cad214e23a37bb02f51958173a6fa46c1"
     },
     {
       "path": "release/v1.6.7/RELEASE-NOTES.md",
-      "bytes": 822,
-      "sha256": "7f948b07eea6cdc12deec555aff9b9f585fa6745998de3977adb08859f360e8e"
+      "bytes": 548,
+      "sha256": "9e3854ba5493cfcc7b4148207703b7791b10972b30818fb319b0e0a96da9e027"
     },
     {
       "path": "release/v1.6.7/update.json",
-      "bytes": 1336,
-      "sha256": "69f524198c917d64eb0682ef0ef3a5d88713800c57ddefbb8c4fe6e5951f77d2"
+      "bytes": 1061,
+      "sha256": "f38b0ee123bd50dc858c6d25f443d067a9cc11284f0153120ac17ab4f3428ab7"
     },
     {
       "path": "release/v1.6.8/RELEASE-NOTES.md",
-      "bytes": 298,
-      "sha256": "f5304c8e9a470982ac97aa27d5ee1201b51bc28336bae3834399d23877e8bd2f"
+      "bytes": 359,
+      "sha256": "6c5addbb4d27982620ea8761fca211117dd274e5ab0b9b5bf5e671c96bba3b2f"
     },
     {
       "path": "release/v1.6.8/update.json",
-      "bytes": 809,
-      "sha256": "01e74ccfd8eb65a4e7ac98605c4393edace6f8a8ab73cb849f6d989afeb9a0e1"
+      "bytes": 871,
+      "sha256": "e20ec825585d2aba6ecedf56fc4d8e2658819582027419600a3acfcb1ac782f4"
     },
     {
       "path": "release/v1.7.0/RELEASE-NOTES.md",
-      "bytes": 325,
-      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
+      "bytes": 285,
+      "sha256": "7e491dcb624dba405df8b633c64ca7d81b320901ae0c4bbc7b16f59f7ffdd0e4"
     },
     {
       "path": "release/v1.7.0/update.json",
-      "bytes": 870,
-      "sha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f"
+      "bytes": 829,
+      "sha256": "fcaef865e1018fbe3f5f7961ed21c1fcd856c73603149e2a79d5b19cbdc19d34"
     },
     {
       "path": "scripts/generate-course-schedule.py",
@@ -6740,9 +6740,19 @@
       "sha256": "7d93be92d06679e60ee657697f2a11b53a999cff7182f728f5b1eccd8019ba16"
     },
     {
+      "path": "scripts/rewrite-release-notes.cjs",
+      "bytes": 12247,
+      "sha256": "440f4b6b8f059f78ef24df0394eb5e9f29cabdcab44f6626b518e1e07f0b6ef5"
+    },
+    {
       "path": "scripts/source-manifest.py",
       "bytes": 2673,
       "sha256": "20f713c8ec8eb76fa1876aca80f20c6d7613f1f65751021d54ccb3846714d69c"
+    },
+    {
+      "path": "scripts/verify-release-notes.cjs",
+      "bytes": 3610,
+      "sha256": "f9b3a4abeccde3cc8d03534cc4fc0a7e0409600e1ee5c246a03f543fd8273425"
     },
     {
       "path": "tests/accessibility-polish-ui.cjs",

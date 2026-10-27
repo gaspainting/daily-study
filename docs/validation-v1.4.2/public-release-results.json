@@ -14,13 +14,13 @@
     },
     {
       "name": "RELEASE-NOTES.md",
-      "bytes": 388,
-      "digest": "sha256:4bbf394cd5eece43e5d52360fed6a4b96c8096aa0dd906224ea8961eb9ceed97"
+      "bytes": 430,
+      "digest": "sha256:696734afa66f61012bc665dfd632e3cc56b9ae7db107bb3b81851a7740133353"
     },
     {
       "name": "update.json",
-      "bytes": 933,
-      "digest": "sha256:c927751260b6f97c10647d681e4b7b542147b70063e1c90d6323d321daf3bce4"
+      "bytes": 975,
+      "digest": "sha256:37d3414a89368a995c5251854ebf6880cb9bd0afe19565dd0ed25f9b016d8454"
     }
   ],
   "versionCode": 12,

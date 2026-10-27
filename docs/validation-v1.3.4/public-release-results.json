@@ -14,13 +14,13 @@
     },
     {
       "name": "RELEASE-NOTES.md",
-      "bytes": 575,
-      "sha256": "92bcb2c6cebbf777d7677e035afc1d13c561eb80ed852d9a31fd3445cd019f24"
+      "bytes": 406,
+      "sha256": "f2324f036a54df0c45e6dfaf38c2b751a63a0f9983c3d86ff14c70596984a3b8"
     },
     {
       "name": "update.json",
-      "bytes": 1121,
-      "sha256": "bb9f70fcaf8db5b410bfb2fba211aaf4f6812ae21a45cdcac5352bc5cf3cba74"
+      "bytes": 950,
+      "sha256": "d8817a73c094163a14c37656c07c5f527a3614c4b79359914be2ac108fe1bfa7"
     }
   ],
   "actualAndroidDownloadVerified": true,

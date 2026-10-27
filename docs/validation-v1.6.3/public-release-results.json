@@ -12,13 +12,13 @@
       "name": "daily-study-v1.6.3.apk"
     },
     {
-      "digest": "sha256:b413e6c092f78664fe0b749affe50b66a05a610c838d787cc5cb608719493b2f",
-      "bytes": 616,
+      "digest": "sha256:63b439782e4013448b6e6fbf6e2bb10d33010e305f9829f1dd8b6846294895fc",
+      "bytes": 421,
       "name": "RELEASE-NOTES.md"
     },
     {
-      "digest": "sha256:3770a1cc1ff2e48c2e593f717ce748d55febe083a0805e32211696a852737124",
-      "bytes": 1130,
+      "digest": "sha256:1b55a128c5f213cf93927ef467ece54a29b4d3bcd9084ff8527f0484c4a73bcc",
+      "bytes": 934,
       "name": "update.json"
     }
   ],

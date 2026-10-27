@@ -7,7 +7,7 @@
   "prerelease": false,
   "legacyManifestUrl": "https://github.com/gaspainting/daily-study-releases/releases/latest/download/update.json",
   "legacyManifestHttpStatus": 200,
-  "manifestSha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f",
+  "manifestSha256": "fcaef865e1018fbe3f5f7961ed21c1fcd856c73603149e2a79d5b19cbdc19d34",
   "legacyManifestMatchesLatest": true,
   "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.7.0/daily-study-v1.7.0.apk",
   "assets": [
@@ -18,13 +18,13 @@
     },
     {
       "name": "update.json",
-      "bytes": 870,
-      "sha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f"
+      "bytes": 829,
+      "sha256": "fcaef865e1018fbe3f5f7961ed21c1fcd856c73603149e2a79d5b19cbdc19d34"
     },
     {
       "name": "RELEASE-NOTES.md",
-      "bytes": 325,
-      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
+      "bytes": 285,
+      "sha256": "7e491dcb624dba405df8b633c64ca7d81b320901ae0c4bbc7b16f59f7ffdd0e4"
     }
   ]
 }
