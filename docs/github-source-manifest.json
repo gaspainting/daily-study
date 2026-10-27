@@ -6455,6 +6455,11 @@
       "sha256": "8cb9696f6a234e6ea863b66c4719f9818797dee4e718236122715331a1ebd8ae"
     },
     {
+      "path": "docs/每日学习项目当前进度交接-v1.7.0.md",
+      "bytes": 17797,
+      "sha256": "8040c42c78213cb09c5b929b59b6018d8d24b7b6037454e610f356aed779bfba"
+    },
+    {
       "path": "docs/每日激励_需求评估.md",
       "bytes": 13674,
       "sha256": "f42894d115792ffb692e11fa662e960289e53abb659b87cedc63620286280fef"
@@ -6476,8 +6481,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4213,
-      "sha256": "631e9639882101ac8db2f64f244ac0491f2f09fa7a48f716e13be24d052adfea"
+      "bytes": 4299,
+      "sha256": "40ea444aa58580f53a20bd0fe398e26c909e1d1018fdb69f73280009683829d0"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",

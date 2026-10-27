@@ -70,6 +70,7 @@ node tests/quantity-stability-ui.cjs
 **项目资料**
 
 - [开发范围与后续规划](docs/NEXT-DEVELOPMENT.md)
+- [当前进度与会话交接](docs/每日学习项目当前进度交接-v1.7.0.md)
 - [v1.7.0 更新内容](docs/V1.7.0.md)
 - [v1.7.0 架构边界与规则契约](docs/ARCHITECTURE-v1.7.0.md)
 - [仓库结构与历史归档](docs/GITHUB.md)
