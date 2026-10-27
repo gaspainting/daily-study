@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
     private static final Object DRAW_LOCK=new Object();
     private static final ExecutorService IO=Executors.newFixedThreadPool(2);
     private static final AtomicBoolean FETCHING=new AtomicBoolean(),POSTER_BUSY=new AtomicBoolean();
+    private final BridgeDispatcher bridgeDispatcher=new BridgeDispatcher();
     @Override public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         startupConsumed=bundle!=null;
@@ -155,6 +156,26 @@ public class MainActivity extends Activity {
         if(Build.VERSION.SDK_INT>=33&&checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)!=PackageManager.PERMISSION_GRANTED)
             requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS},NOTIFY);
     }
+    private StudyStorage.Port storage(){return StudyStorage.open(this);}
+    private String dispatchBridge(String raw){
+        return bridgeDispatcher.dispatch(raw,new BridgeDispatcher.Handler(){
+            public String activePlanId()throws Exception{return PlanStore.activeId(MainActivity.this);}
+            public JSONObject currentState()throws Exception{return storage().readStable();}
+            public JSONObject execute(BridgeContract.Request request)throws Exception{
+                synchronized(DataStore.LOCK){storageReady();storage().requireReady();
+                    if(!request.planId.equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开");
+                    if("state.save".equals(request.operation)){
+                        if(request.payload.optLong("_revision",-1)!=request.expectedRevision)throw new Exception("请求修订号与记录不一致");
+                        storage().saveState(request.payload);
+                    }else{
+                        JSONObject command=new JSONObject(request.payload.toString()).put("planId",request.planId).put("expectedRevision",request.expectedRevision);
+                        storage().saveEvaluationSchedule(command);
+                    }
+                    refreshPlatforms(false);return storage().readStable();
+                }
+            }
+        });
+    }
     @Override public void onRequestPermissionsResult(int request,String[] permissions,int[] grants){super.onRequestPermissionsResult(request,permissions,grants);if(request==NOTIFY){ReminderScheduler.schedule(this);resumePage();}}
     public final class Bridge {
         @JavascriptInterface public String getLaunchRoute(){try{String route=getIntent().getStringExtra("route");getIntent().removeExtra("route");return new JSONObject().put("route","settings".equals(route)?"settings":"").toString();}catch(Exception e){return error(e);}}
@@ -228,16 +249,16 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String cleanInspirationPending(){try{storageReady();if(FETCHING.get())throw new Exception("请等本次素材准备结束后再清理");int n=InspirationStore.cleanPending(MainActivity.this);inspirationChanged();return success().put("removed",n).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveInspirationImage(String id){return makePoster(id,false);}
         @JavascriptInterface public String shareInspiration(String id){return makePoster(id,true);}
-        @JavascriptInterface public String getState(){try{synchronized(DataStore.LOCK){storageReady();return DataStore.readForUi(MainActivity.this).toString();}}catch(Exception e){return error(e);}}
-        @JavascriptInterface public String saveEvaluationSchedule(String raw){try{synchronized(DataStore.LOCK){storageReady();DataStore.ensureEvaluationState(MainActivity.this);JSONObject command=new JSONObject(raw);if(!command.getString("planId").equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开日程");long revision=DataStore.saveEvaluationSchedule(MainActivity.this,command);refreshPlatforms();return success().put("revision",revision).toString();}}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String dispatch(String raw){return dispatchBridge(raw);}
+        @JavascriptInterface public String getState(){try{synchronized(DataStore.LOCK){storageReady();return storage().readForUi().toString();}}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String saveEvaluationSchedule(String raw){try{synchronized(DataStore.LOCK){storageReady();storage().requireReady();JSONObject command=new JSONObject(raw);if(!command.getString("planId").equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开日程");long revision=storage().saveEvaluationSchedule(command);refreshPlatforms();return success().put("revision",revision).toString();}}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveState(String raw){
             try {
                 storageReady();
                 if(raw==null||raw.getBytes(StandardCharsets.UTF_8).length>DataStore.MAX_BYTES)throw new Exception("记录文件过大");
                 JSONObject s=new JSONObject(raw);
                 synchronized(DataStore.LOCK){
-                    storageReady();DataStore.requireNoPendingRecovery(MainActivity.this);
-                    DataStore.saveFromBridge(MainActivity.this,s);
+                    storageReady();storage().requireReady();storage().saveState(s);
                 }
                 refreshPlatforms(false);return success().put("revision",s.getLong("_revision")).put("state",s).toString();
             }catch(Exception e){return error(e);}

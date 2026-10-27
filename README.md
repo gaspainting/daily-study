@@ -2,9 +2,9 @@
 
 面向 Android 的学习手记：安排课程复习与考研学习，记录时间、单词和每周目标。
 
-[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.6.8.md)
+[下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.7.0.md)
 
-当前版本 **v1.6.8**，支持 Android 8.0 及以上。
+当前版本 **v1.7.0**，支持 Android 8.0 及以上。
 
 白底列表、细线分组和蓝色操作。今日同页查看各科记录与参考值，点科目集中编辑；设置直接列出提醒、备份、小组件与使用手册。
 
@@ -70,6 +70,8 @@ node tests/quantity-stability-ui.cjs
 **项目资料**
 
 - [开发范围与后续规划](docs/NEXT-DEVELOPMENT.md)
+- [v1.7.0 更新内容](docs/V1.7.0.md)
+- [v1.7.0 架构边界与规则契约](docs/ARCHITECTURE-v1.7.0.md)
 - [仓库结构与历史归档](docs/GITHUB.md)
 - [课程与参考区间安排](docs/课程优先安排-v1.4.1.md)
 - [70 日参考表](docs/source/seed-reference.md)

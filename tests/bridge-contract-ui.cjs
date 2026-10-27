@@ -1,0 +1,23 @@
+'use strict';
+const E=require('../app/src/main/assets/evaluation.js');
+process.env.COURSE_REPORT_NAME='bridge-contract-ui-results.json';
+require('./course-agenda-fix-ui.cjs')(async h=>{
+ await h.boot();const {check,native,state,day,evaluate}=h,initial=await state(),date=E.context(initial.evaluation.timezone).today;
+ await day(date);
+ await h.input('#daily-note','v1.7 UI bridge save');await evaluate('document.querySelector("#daily-form").requestSubmit()');await h.delay(250);
+ const formSaved=await state();check(formSaved.records[date].note==='v1.7 UI bridge save'&&formSaved._revision===initial._revision+1,'daily form persists through the versioned bridge');
+ check(await evaluate('document.querySelector("#daily-form .save-feedback").textContent==="已保存"'),'daily form reports success after native commit');
+ const s=await state(),changed=await evaluate(`(()=>{const s=JSON.parse(Native.getState()),d=${JSON.stringify(date)},r=StudyModel.record(s,d);r.note='v1.7 bridge contract';StudyModel.saveRecord(s,d,r);return s;})()`);
+ const payload=changed;payload._revision=s._revision;
+ const request={contractVersion:1,requestId:'ui-save-'+Date.now().toString(36),operation:'state.save',planId:(await native('getPlans')).activeId,expectedRevision:s._revision,payload};
+ const first=await native('dispatch',JSON.stringify(request));check(first.accepted&&first.revision===s._revision+1&&first.state.records[date].note==='v1.7 bridge contract','native WebView bridge commits a versioned state command and returns canonical saved state');
+ const replay=await native('dispatch',JSON.stringify(request));check(replay.accepted&&replay.replayed&&replay.revision===first.revision&&(await state())._revision===first.revision,'repeated request id returns its original result without a second write');
+ const altered=structuredClone(request);altered.payload.records[date].note='changed request body';const conflict=await native('dispatch',JSON.stringify(altered));check(!conflict.accepted&&conflict.error.includes('请求内容不一致')&&(await state()).records[date].note==='v1.7 bridge contract','request id reuse with different content is rejected without changing the saved record');
+ const stale=structuredClone(request);stale.requestId+='-stale';stale.payload._revision=request.expectedRevision;const staleResult=await native('dispatch',JSON.stringify(stale));check(!staleResult.accepted&&staleResult.error.includes('记录已更新'),'outdated WebView revision is rejected by native storage');
+ const wrongPlan=structuredClone(request);wrongPlan.requestId+='-plan';wrongPlan.planId='plan_other';const wrongPlanResult=await native('dispatch',JSON.stringify(wrongPlan));check(!wrongPlanResult.accepted&&wrongPlanResult.error.includes('计划已切换'),'command from an inactive plan is rejected');
+ const nextDate=E.shift(date,1),current=await state(),command={planId:request.planId,expectedRevision:current._revision,from:nextDate,scope:'date',date:nextDate,weekday:(new Date(nextDate+'T00:00:00Z').getUTCDay()+6)%7,config:{...E.defaultConfig('review'),reviewMin:30,reviewMax:60,reviewWords:0}};
+ const schedule={contractVersion:1,requestId:request.requestId+'-schedule',operation:'evaluation.schedule.save',planId:request.planId,expectedRevision:current._revision,payload:command};
+ const scheduled=await native('dispatch',JSON.stringify(schedule));check(scheduled.accepted&&scheduled.state.evaluation.bases[nextDate].dayType==='review'&&scheduled.revision===current._revision+1,'schedule command uses the same revisioned bridge and writes its fixed future basis');
+ const scheduleReplay=await native('dispatch',JSON.stringify(schedule));check(scheduleReplay.replayed&&(await state())._revision===scheduled.revision,'repeated schedule command does not create another revision');
+ await h.boot();
+});

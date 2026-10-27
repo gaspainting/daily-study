@@ -5,6 +5,7 @@
   const dialog = document.getElementById('sheet');
   const dirty = new Set();
   const saving = new Set(), feedback = new Map();
+  const pendingBridgeRequests = new Map();
   const wordUndo = new WeakMap();
   let dispatchingWordChange = false;
   const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
@@ -22,6 +23,7 @@
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
   const M = () => window.StudyModel;
   const R = () => window.StudyReference;
+  const D = () => window.StudyDomain;
   const iso = date => date?M().today(date):state?.evaluation?window.StudyEvaluation.context(state.evaluation.timezone).today:M().today(new Date());
   const localDate = date => new Date(date + 'T12:00:00');
   const shift = (date, count) => { const d = localDate(date); d.setDate(d.getDate() + count); return iso(d); };
@@ -56,16 +58,24 @@
     if (result && result.error) throw new Error(result.error);
     return result;
   }
-  function readState() { return M().migrateState(call('getState')); }
+  function readState() { return D().migrate(call('getState')); }
+  function contractSave(operation, payload, expectedRevision) {
+    if (window.StudyBridgeContract && bridge && typeof bridge.dispatch === 'function') {
+      const fingerprint=operation+'|'+activePlanId+'|'+expectedRevision+'|'+JSON.stringify(payload),requestId=pendingBridgeRequests.get(fingerprint)||window.StudyBridgeContract.nextId('save');
+      pendingBridgeRequests.set(fingerprint,requestId);while(pendingBridgeRequests.size>16)pendingBridgeRequests.delete(pendingBridgeRequests.keys().next().value);
+      const result=window.StudyBridgeContract.invoke(bridge,operation,activePlanId,expectedRevision,payload,requestId);pendingBridgeRequests.delete(fingerprint);return result;
+    }
+    return operation === 'state.save' ? call('saveState', JSON.stringify(payload)) : call('saveEvaluationSchedule', JSON.stringify(payload));
+  }
   function completeDraft() { if (currentDraftKey) { try { window.StudyDrafts.removeKey(currentDraftKey); } catch (_) {} } }
   function persist(latest) {
-    M().validateState(latest);
+    D().validate(latest);
     if (JSON.stringify(latest) === JSON.stringify(state)) { completeDraft(); return latest; }
-    const result = call('saveState', JSON.stringify(latest));
-    if (!result || !result.ok) throw new Error('保存没有完成，请重试。');
+    const result = contractSave('state.save', latest, latest._revision || 0);
+    if (!result || (result.accepted !== true && result.ok !== true)) throw new Error('保存没有完成，请重试。');
     if (result.revision !== undefined) latest._revision = result.revision;
     state = result.state||readState();
-    M().validateState(state);
+    D().validate(state);
     completeDraft();
     nativeRefreshPending = false;
     return state;
@@ -123,7 +133,7 @@
   const timeCaption = (record, date) => timeSubjects(record, date).filter(s => record?.subjects?.[s.id]?.minutes != null).length + '/' + timeSubjects(record, date).length + ' 科目有时长记录';
   function refreshStoredSummary() {
     const value = document.getElementById('daily-total'); if (!value || !state) return;
-    const record = M().record(state, selectedDate), total = actualTotal(record);
+    const record = D().record(state, selectedDate), total = actualTotal(record);
     value.textContent = minuteLabel(total); value.classList.toggle('is-empty', total == null);
     document.getElementById('daily-unit').hidden = total == null;
     document.getElementById('daily-count').textContent = timeCaption(record, selectedDate);
@@ -311,7 +321,7 @@
   }
   function assessmentView(date){
     if(state.evaluation&&window.StudyEvaluation.covers(state,date))return window.StudyEvaluationUI.card(state,date);
-    const result=R().assess(state,date),t=result.time;
+    const result=window.StudyDomain?D().assess(state,date):R().assess(state,date),t=result.time;
     const detail=['below','within','above'].includes(t.kind)?statusLabel(t.status)+' · '+t.scope+' '+R().decimal(t.actual)+' / '+R().text({min:t.min,max:t.max})+' 分钟':t.kind==='partial'?statusLabel(t.status)+' · '+t.missing+' 科时长未记录':'';
     let html='<section class="daily-assessment" aria-label="今日评估"><div class="section-heading"><h2>今日评估</h2><button class="text-button" type="button" data-action="assessment-rules">评估规则</button></div><p class="assessment-pending" role="status" hidden>待保存</p><div class="assessment-results"><div class="assessment-row"><span>时长</span><strong data-time-assessment="'+t.kind+'">'+escape(t.label)+'</strong></div>'+(detail?'<p class="assessment-detail">'+escape(detail)+'</p>':'');
     result.words.forEach(w=>{html+='<div class="assessment-row"><span>'+escape(w.name)+'新学</span><strong data-word-assessment="'+w.kind+'">'+escape(w.label)+'</strong></div><p class="assessment-detail">'+(w.newWords===null?'未记录':w.newWords+' 个')+(w.goal===null?'':' / '+w.goal+' 个')+(w.reviewWords===null?'':' · 复习 '+w.reviewWords+' 个')+'</p>';});
@@ -358,7 +368,7 @@
   }
   function todayView() {
     const w = weekOf(selectedDate), date = localDate(selectedDate), today = iso();
-    const record = M().record(state, selectedDate);
+    const record = D().record(state, selectedDate);
     initialDaily = clone(record);
     const total = actualTotal(record), reference = refTotal(selectedDate), subjects = visibleSubjects(selectedDate);
     const weekDays = Array.from({ length: 7 }, (_, i) => shift(w.key, i));
@@ -474,7 +484,7 @@
     app.innerHTML = (preview ? '<p class="preview-banner">开发预览</p>' : '') + ({ today: todayView, plan: planView, review: reviewView, history: historyView, month: monthView, sessions: sessionsView, inspiration: () => window.InspirationUI.view(), settings: settingsView }[route])();
     const automaticForm=app.querySelector('#daily-form');
     if(automaticForm&&state.evaluation&&window.StudyEvaluation.covers(state,selectedDate)){
-      automaticForm.dataset.automaticEvaluation='true';const group=automaticForm.querySelector('.status-fieldset'),control=document.createElement('input');control.type='hidden';control.name='status';control.value=M().record(state,selectedDate).status||'';group.replaceChildren(control);group.hidden=true;
+      automaticForm.dataset.automaticEvaluation='true';const group=automaticForm.querySelector('.status-fieldset'),control=document.createElement('input');control.type='hidden';control.name='status';control.value=D().record(state,selectedDate).status||'';group.replaceChildren(control);group.hidden=true;
     }
     window.StudyLayout.mount(app,{route,state,planId:activePlanId,date:selectedDate,isDailyDirty:()=>dirty.has('daily'),minuteLabel});
     app.querySelectorAll('form[data-dirty]').forEach(syncFeedback);
@@ -512,7 +522,7 @@
     const form = document.getElementById('daily-form');
     if (!form || !form.reportValidity()) return false;
     const latest = readState();
-    const record = M().record(latest, selectedDate);
+    const record = D().record(latest, selectedDate);
     visibleSubjects(selectedDate).forEach(subject => {
       const id = subject.id, baseline = initialDaily.subjects[id] || {};
       const r = record.subjects[id] || (record.subjects[id] = { minutes: null, content: '', problem: '', newWords: null, reviewWords: null, forgotWords: '' });
@@ -548,7 +558,7 @@
     if (restKept !== initialDaily.restKept) record.restKept = restKept;
     const note = form.elements.namedItem('daily-note').value;
     if (note !== initialDaily.note) record.note = note;
-    M().saveRecord(latest, selectedDate, record);
+    D().saveRecord(latest, selectedDate, record);
     persist(latest);
     dirty.delete('daily');
     render();
@@ -721,10 +731,10 @@
   function saveEvaluationSchedule(form){
     const latest=readState(),command=window.StudyEvaluationUI.command(form,latest);
     if(command.planId!==activePlanId||command.expectedRevision!==(latest._revision||0))throw new Error('记录已更新，请重新打开日程');
-    const candidate=window.StudyEvaluation.scheduleChange(latest,command,window.StudyEvaluation.context(latest.evaluation.timezone));M().validateState(candidate);
+    const candidate=window.StudyEvaluation.scheduleChange(latest,command,window.StudyEvaluation.context(latest.evaluation.timezone));D().validate(candidate);
     const changed=Object.keys(candidate.evaluation.bases).filter(d=>d>=command.from&&JSON.stringify(candidate.evaluation.bases[d].items)!==JSON.stringify(latest.evaluation.bases[d]?.items));
     if(!window.confirm('保存评估日程？\n'+command.from+' 起，'+changed.length+' 个未来日期的目标要求将更新。'))return false;
-    const result=call('saveEvaluationSchedule',JSON.stringify(command));if(!result.ok)throw new Error('日程未能保存，请重试');completeDraft();dirty.delete('sheet');state=readState();closeSheet(true);render();tell('日程已保存');return true;
+    const result=contractSave('evaluation.schedule.save',command,latest._revision||0);if(!result||result.accepted===false||result.ok===false)throw new Error('日程未能保存，请重试');completeDraft();dirty.delete('sheet');state=result.state||readState();closeSheet(true);render();tell('日程已保存');return true;
   }
   function saveAllocation(form){
     const latest=readState();
@@ -803,7 +813,7 @@
       const fresh = { version: 8, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' } } };
       if(latest.plan.manualReferenceDefaults)fresh.plan.manualReferenceDefaults=latest.plan.manualReferenceDefaults.filter(id=>fresh.plan.subjects.some(s=>s.id===id));
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => {const value=clone(s.defaults[(localDate(date).getDay()+6)%7]);if(isQuantity(s)){fresh.plan.quantityTargets=fresh.plan.quantityTargets||{};fresh.plan.quantityTargets[date]=fresh.plan.quantityTargets[date]||{};fresh.plan.quantityTargets[date][s.id]=value;}else fresh.plan.targets[date][s.id]=value;}); });
-      M().validateState(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
+      D().validate(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
     }
     if (form.id === 'new-subject-form') {
       const measure=form.elements.namedItem('new-subject-measure').value, unit=form.elements.namedItem('new-subject-unit').value.trim();
@@ -1111,11 +1121,11 @@
     if (!existing) {
       const response = await fetch('seed.json');
       if (!response.ok) throw new Error('无法加载本地预览数据。请通过 HTTP 打开 assets 目录。');
-      const seed = await response.json(); M().validateState(seed); localStorage.setItem(key, JSON.stringify(seed));
+      const seed = await response.json(); D().validate(seed); localStorage.setItem(key, JSON.stringify(seed));
     }
     const load = () => JSON.parse(localStorage.getItem(key));
     const save = s => { localStorage.setItem(key, JSON.stringify(s)); };
-    save(M().migrateState(load()));
+    save(D().migrate(load()));
     const timerLoad = () => JSON.parse(localStorage.getItem(timerKey) || '{"active":false}');
     const timerSave = t => localStorage.setItem(timerKey, JSON.stringify(t));
     const allowedNow = () => { const d = new Date(), minutes = d.getHours() * 60 + d.getMinutes(); return d.getDay() === 0 || d.getDay() === 6 ? minutes >= 570 && minutes < 1140 : minutes < 1230; };
@@ -1133,7 +1143,7 @@
       return t;
     };
     const adapter = {
-      getState: () => JSON.stringify(M().migrateState(load())),
+      getState: () => JSON.stringify(D().migrate(load())),
       getPlans: () => JSON.stringify({activeId:'main',plans:[{id:'main',name:load().plan.title}]}),
       getDraft: k => JSON.stringify({draft:JSON.parse(localStorage.getItem('preview-draft:'+k)||'null')}),
       saveDraft: (k,b,v) => { localStorage.setItem('preview-draft:'+k,JSON.stringify({base:JSON.parse(b),values:JSON.parse(v)}));return JSON.stringify({ok:true}); },
@@ -1143,8 +1153,23 @@
       setBackupReminder: () => JSON.stringify({error:'请在安卓 APP 中设置备份提醒'}),
       createPlan: () => JSON.stringify({error:'请在安卓 APP 中创建计划'}),
       exportReport: () => JSON.stringify({error:'请在安卓 APP 中导出报表'}),
-      saveEvaluationSchedule: raw => {const command=JSON.parse(raw),current=load();if(command.expectedRevision!==(current._revision||0))return JSON.stringify({error:'记录已更新，请重新打开日程'});const next=window.StudyEvaluation.scheduleChange(current,command,window.StudyEvaluation.context(current.evaluation.timezone));next._revision=(current._revision||0)+1;M().validateState(next);save(next);return JSON.stringify({ok:true,revision:next._revision});},
-      saveState: json => { const s = JSON.parse(json); M().validateState(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); R().preserve(current,s);window.StudyEvaluation.reconcile(current,s,window.StudyEvaluation.context(current.evaluation.timezone));s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision }); },
+      saveEvaluationSchedule: raw => {const command=JSON.parse(raw),current=load();if(command.expectedRevision!==(current._revision||0))return JSON.stringify({error:'记录已更新，请重新打开日程'});const next=window.StudyEvaluation.scheduleChange(current,command,window.StudyEvaluation.context(current.evaluation.timezone));next._revision=(current._revision||0)+1;D().validate(next);save(next);return JSON.stringify({ok:true,revision:next._revision,state:next});},
+      saveState: json => { const s = JSON.parse(json); D().validate(s); const current = load(); if ((s._revision || 0) !== (current._revision || 0)) return JSON.stringify({ error: '记录已经更新，请刷新后保存。' }); R().preserve(current,s);window.StudyEvaluation.reconcile(current,s,window.StudyEvaluation.context(current.evaluation.timezone));s._revision = (current._revision || 0) + 1; save(s); return JSON.stringify({ ok: true, revision: s._revision, state:s }); },
+      dispatch: raw => {
+        let request;
+        try {
+          const req=request=window.StudyBridgeContract.parse(raw),fingerprint=window.StudyBridgeContract.fingerprint(req),cache=adapter._bridgeCache[req.requestId];
+          if(cache){if(cache.fingerprint!==fingerprint)return JSON.stringify({contractVersion:1,requestId:req.requestId,operation:req.operation,planId:req.planId,accepted:false,error:'重复请求内容不一致'});return cache.response;}
+          const current=load();if(req.planId!=='main')throw new Error('计划已切换，请重新打开');if(req.expectedRevision!==(current._revision||0))throw new Error('记录已更新，请重新打开');
+          let result;
+          if(req.operation==='state.save')result=JSON.parse(adapter.saveState(JSON.stringify(req.payload)));
+          else {const command=Object.assign({},req.payload,{planId:req.planId,expectedRevision:req.expectedRevision});result=JSON.parse(adapter.saveEvaluationSchedule(JSON.stringify(command)));}
+          if(result.error)throw new Error(result.error);
+          const out={contractVersion:1,requestId:req.requestId,operation:req.operation,planId:req.planId,accepted:true,revision:result.revision,state:result.state||load()};
+          const response=JSON.stringify(out);adapter._bridgeCache[req.requestId]={fingerprint,response};return response;
+        } catch(error){return JSON.stringify({contractVersion:1,requestId:request?.requestId||'bridge-error',operation:request?.operation||'state.save',planId:request?.planId||'main',accepted:false,error:error.message||'桥接操作未完成'});}
+      },
+      _bridgeCache: Object.create(null),
       getTimer: () => JSON.stringify(snapshot()),
       startTimer: (id, name, date) => { if (snapshot().active) return JSON.stringify({ error: '已有活动计时，请先结束或丢弃。' }); if (date !== iso()) return JSON.stringify({ error: '只能为今天计时。' }); if (!allowedNow()) return JSON.stringify({ error: '现在为休息时段' }); const t = { active: true, subjectId: id, subjectName: name, date, running: true, elapsedMs: 0, startedAt: Date.now(), message: '' }; timerSave(t); return JSON.stringify(t); },
       timerAction: action => {
@@ -1153,11 +1178,11 @@
         if (action === 'resume') { if (!allowedNow() || t.date !== iso()) return JSON.stringify({ error: '现在无法继续计时，请保存已有学习时间。' }); t.running = true; t.startedAt = Date.now(); t.message = ''; timerSave(t); }
         if (action === 'discard') { timerSave({ active: false }); return JSON.stringify({ active: false }); }
         if (action === 'finish') {
-          const s = load(), r = M().record(s, t.date), seconds = t.elapsedMs / 1000, minutes = seconds / 60;
+          const s = load(), r = D().record(s, t.date), seconds = t.elapsedMs / 1000, minutes = seconds / 60;
           const subject = r.subjects[t.subjectId]; subject.minutes = (subject.minutes || 0) + minutes;
           if (subject.minutes > 1440) return JSON.stringify({ error: '当天累计实际超过 1440 分钟，请检查手动记录。' });
           if (r.status == null) r.status = '正常参考';
-          M().saveRecord(s, t.date, r); s.sessions = s.sessions || []; s.sessions.push({ id: 'preview-' + Date.now(), date: t.date, subjectId: t.subjectId, seconds, endedAt: new Date().toISOString() }); s._revision = (s._revision || 0) + 1; save(s); timerSave({ active: false });
+          D().saveRecord(s, t.date, r); s.sessions = s.sessions || []; s.sessions.push({ id: 'preview-' + Date.now(), date: t.date, subjectId: t.subjectId, seconds, endedAt: new Date().toISOString() }); s._revision = (s._revision || 0) + 1; save(s); timerSave({ active: false });
           return JSON.stringify({ finished: true, date: t.date, subjectId: t.subjectId, seconds, minutes });
         }
         return JSON.stringify(snapshot());
@@ -1175,7 +1200,7 @@
     document.getElementById('preview-import').addEventListener('change', async event => {
       try {
         const file = event.target.files[0]; if (!file) return;
-        const imported = JSON.parse(await file.text()); const s = imported.state || imported; M().validateState(s);
+        const imported = JSON.parse(await file.text()); const s = imported.state || imported; D().validate(s);
         if (!window.confirm('确认用这个备份替换当前浏览器预览记录？建议先导出当前记录。')) return;
         s._revision = (load()._revision || 0) + 1; save(s); timerSave({ active: false }); window.onBackupRestored();
       } catch (error) { tell('备份没有恢复：' + error.message); } finally { event.target.value = ''; }

@@ -1,0 +1,734 @@
+INSTRUMENTATION_RESULT: stream=PASS 731 checks
+seed covers exactly70 days
+initial actual records are empty
+week7 exact reference totals
+week8 exact reference totals
+week9 exact reference totals
+week10 exact reference totals
+week11 exact reference totals
+week12 exact reference totals
+week13 exact reference totals
+week14 exact reference totals
+week15 exact reference totals
+week16 exact reference totals
+weekday20:29 allowed
+weekday20:30 excluded
+weekend09:29 excluded
+weekend09:30 allowed
+weekend19:00 excluded
+blank and explicit0 survive storage
+backup roundtrip preserves rest record
+backup rejects reminder during rest
+backup rejects negative actual minutes
+timer starts on Android16
+pause retains elapsed learning
+paused time excluded
+resume starts next segment
+finish stores actual record
+timer writes actual rather than reference
+finish creates exactly1 session
+repeat finish cannot double count
+historical date timer rejected
+cutoff auto pause clips segment precisely
+reminders default disabled
+widget refresh and disabled reminder scheduling do not crash
+enabled reminder posts native notification
+same day reminder delivered once
+no downloaded image means no draw and no consumed chance
+text dedup normalizes spacing/case/punctuation
+daily image and text both avoid startup history
+new daily illustration differs from startup
+same calendar date reuses fixed daily card
+repeated daily draw does not consume new content
+daily cards never rewrite existing study state
+concurrent daily draws commit exactly once
+next date gets a different text
+favorite appears in separate history
+re-pairing same image cannot bypass separate dedup
+cache cleanup preserves histories/favorites
+untranslated foreign card is rejected before draw
+card media paths cannot escape private image directory
+downloaded image checks actual format and decoding
+truncated image rejected before becoming a candidate
+original foreign card 56 has Chinese meaning
+original foreign card 57 has Chinese meaning
+original foreign card 58 has Chinese meaning
+original foreign card 59 has Chinese meaning
+original foreign card 60 has Chinese meaning
+original foreign card 61 has Chinese meaning
+original foreign card 62 has Chinese meaning
+original foreign card 63 has Chinese meaning
+original foreign card 64 has Chinese meaning
+original foreign card 65 has Chinese meaning
+original foreign card 66 has Chinese meaning
+original foreign card 67 has Chinese meaning
+original foreign card 68 has Chinese meaning
+original foreign card 69 has Chinese meaning
+original foreign card 70 has Chinese meaning
+original foreign card 71 has Chinese meaning
+original foreign card 72 has Chinese meaning
+original foreign card 73 has Chinese meaning
+original foreign card 74 has Chinese meaning
+original foreign card 75 has Chinese meaning
+original foreign card 76 has Chinese meaning
+original foreign card 77 has Chinese meaning
+original foreign card 78 has Chinese meaning
+original foreign card 79 has Chinese meaning
+original foreign card 80 has Chinese meaning
+offline library covers multiple foreign languages
+complete backup is an actual ZIP with media
+complete ZIP is recognized
+ZIP restore preserves card/history/favorite/dedup metadata
+ZIP restore retains actual history image
+ZIP restore preserves original learning fields
+legacy v1 JSON remains importable
+legacy JSON import leaves card library and favorites intact
+ZIP traversal rejected without writing user records
+corrupted ZIP image digest rejected
+interrupted two-file restore rolls back from recovery journal
+long text poster splits into multiple readable images
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+poster page dimensions fit bounded memory
+long posters share all pages with temporary read grants
+share provider opens only generated poster
+share provider refuses private study file
+share provider rejects writes
+offline mode does not request remote materials
+widget both unknown has no zero or inferred daily outcome
+widget zero plus unknown remains partial record
+widget exposes explicit zero and unknown separately
+rest status does not fill or alter actual values
+widget two explicit zeros count as two records
+widget shows real fraction and maps enum only for display
+widget display label leaves stored enum unchanged
+poster text distinguishes quote and picture authors
+poster and share text retain license and translation
+poster has no generic originality or cache explanation
+missing author is not fabricated from source category
+AI assistance is assigned to words without claiming picture authorship
+widget success callback without real widget ID is rejected
+widget success callback wrong action is rejected
+weekend end boundary remains eighteen fifty nine versus nineteen
+weekend rule is not widened across Monday
+timer refusal explains the actual weekend boundary
+timer refusal explains the actual weekday boundary
+missing draft remains absent without creating default values
+draft preserves explicit zero and unrecorded raw input separately
+draft rest selection does not infer missing field values
+draft preserves whitespace multiline content and checkbox value
+draft stores unchanged base for conflict detection
+draft includes actual key and persistence timestamp
+restart reloads persisted draft independent of mutable input and returned objects
+daily dates and each form context have isolated drafts
+delete is idempotent and only removes its selected context
+draft rejects unsafe identifier ../study-state.json
+draft rejects unsafe identifier 
+draft rejects unsafe identifier __proto__
+draft rejects unsafe identifier constructor
+draft rejects unsafe identifier prototype
+draft rejects unsafe identifier daily/2026-10-14
+draft rejects unsafe identifier kkkkkkkkkkkkkkkkkkkk
+draft rejects unsafe identifier 日期
+draft rejects non raw primitive field 0
+draft rejects non raw primitive field 1
+draft rejects non raw primitive field 2
+draft rejects non raw primitive field 3
+draft rejects polluted base field identifier
+draft rejects oversized string before replacement
+draft rejects more than 250 fields
+draft measures UTF8 entry limit rather than character count alone
+invalid save attempts leave previously stored draft unchanged
+draft reports actual filesystem save failure
+failed atomic write preserves existing draft
+draft save can retry after real filesystem failure
+clear removes all contexts
+draft maximum refuses new entries without evicting old drafts
+existing draft stays editable at entry limit
+draft refuses reading an oversized file before parsing
+oversized draft file is not overwritten by autosave
+draft read and autosave overflow leave the original file unchanged
+corrupt draft file is not silently overwritten by autosave
+draft save delete clear and failures never change saved learning records
+migration returns schema 9 without modifying legacy input
+migration preserves outside-plan records null zero rest enum and note
+migration preserves saved timer session identity seconds and endedAt
+migration copies legacy review aliases to stable subject IDs
+migration retains review alias fields and optional rest values
+schema 9 migration is idempotent
+load upgrades legacy view without changing revision
+read-only load leaves legacy file bytes unchanged
+actual save persists current schema and increments revision once
+legacy restore migrates schema while retaining revision concurrency
+absent activity periods preserve always-active legacy semantics
+archive keeps active historical dates
+archive and restore preserve half-open inactive gap
+reactivation includes its first date
+activity periods persist through atomic storage
+current review text is not overwritten by legacy alias during migration
+review validation rejects unknown subject IDs
+activity period validation rejects malformed range 0
+activity period validation rejects malformed range 1
+activity period validation rejects malformed range 2
+empty periods mean archived for every date
+future unsupported schema remains rejected
+invalid migrated restore fails before atomic overwrite
+failed restore preserves saved record file bytes
+widget denominator retains archived explicit zero and active unknown subject
+widget omits inactive empty subject while retaining archived actual zero
+widget does not present a reference for archived subject today
+widget omits archived empty subject after actual field is cleared
+native quantity assessment grades an over-target record
+widget shows quantity actual and unit
+native timer rejects archived subject start without creating a timer
+native timer can start active subject after archived rejection
+native timer resume rejects archived subject and preserves paused elapsed time
+existing archived subject timer can finish and save its original session
+archived timer finish retains actual minutes and session identity
+CSV has UTF8 BOM for Chinese Excel text
+CSV has separate reference and observed headers with daily rows and subject totals
+CSV distinguishes unrecorded and explicit zero in a partial rest day
+CSV rest label leaves unknown rest and time values unknown
+CSV quoted comma multiline and quote roundtrip without corruption
+CSV neutralizes formula content after leading whitespace
+CSV counts duplicated legacy and root session ID once using stored net seconds
+CSV rows retain actual plan title to distinguish independent plan reports
+CSV totals distinguish no observations from an observed zero
+CSV export does not change input state or infer actual minutes
+CSV selected subject does not emit unrelated subjects
+CSV outside plan has no invented reference or actual zero
+CSV retains archived historical actual and skips inactive empty dates
+CSV keeps day level notes and rest when all subjects are inactive without inventing time
+report rejects invalid date range 0
+report rejects invalid date range 1
+report rejects invalid date range 2
+report rejects invalid date range 3
+report rejects unsupported format before writing
+report rejects nonexistent subject
+PDF real renderer opens multiple wrapped Chinese pages
+PDF final page is a valid A4 page
+PDF final page contains rendered text rather than an empty overflow page
+backup status initially has no completion date and reminder is off
+backup reminder rejects unsupported interval without changing status
+invalid backup interval leaves reminder disabled
+report propagates actual output failure
+failed or readable report exports do not mark a full backup complete
+full backup completion stores an actual persisted timestamp
+backup reminder accepts and persists selected interval
+disabled backup reminder cancels scheduled metadata
+backup reminder weekly slot respects weekend rest boundaries
+late backup reminder does not deliver during rest and schedules a future allowed slot
+report and backup status operations leave saved learning data unchanged
+missing plan catalog exposes original plan without rewriting records
+create stores a clean independent plan without switching or modifying active records
+switch to new plan shows empty observations and reviews
+plan switch preserves null explicit zero and rest selection
+plan switch preserves notes timer net seconds and weekly reviews
+old review fields migrate into per subject reviews across plan switch
+switching to already active plan avoids a duplicate data write
+plan listing takes current title from actual active records
+switch rejects nonexistent plan
+new plan cannot silently duplicate previous actual records
+invalid plan actions leave catalog and learning data intact
+plan backup rejects duplicate identifiers
+plan backup rejects mismatched active study snapshot before restore
+plan backup rejects missing inactive records
+paused unsaved timer blocks plan switch
+unsaved timer blocks plan creation
+interrupted switch rolls both active state and catalog back from journal
+real catalog write failure reports a failed plan switch
+failed switch preserves original study and catalog bytes
+failed plan switch can recover after filesystem write access returns
+complete backup version two contains every named plan
+import identifies complete all plan backup scope
+canceling a validated all plan restore does not change records or images
+legacy JSON retains current plan only restore scope
+legacy JSON replaces active records and leaves inactive plans intact
+inactive plan history survives a legacy JSON import
+version one ZIP remains accepted with single active plan scope
+old ZIP restore keeps other plans and current plan identifier
+version two ZIP restores catalog active identifier and original observations
+all plan ZIP restores global daily card metadata and exact media bytes
+conflicting all plan backup rejected during reading before overwrite
+invalid all plan restore leaves current records and catalog unchanged
+all plan restore propagates actual catalog write failure
+failed all plan restore recovers study catalog and daily card files together
+restore failure leaves validated imported study snapshot unchanged for retry
+validated all plan restore can retry successfully after real filesystem failure
+plan count limit rejects a ninth plan
+plan limit does not evict existing saved plans
+isolated multi plan tests never replace user's saved learning records
+empty inspiration search has no fabricated results
+history returns true total and preserves latest-first page order
+history pagination runs after full stored-event selection
+search reaches older history outside first page
+quote search covers full text and normalizes case width and query whitespace
+foreign quote search includes Chinese gloss
+image caption and real author metadata are searchable
+theme filter uses exact stored theme
+language filter uses exact stored language
+keyword theme and language combine rather than replace each other
+no match remains empty without loosening filters
+favorites show each card once using its latest displayed event
+favorite search retains collection membership while filtering
+startup filter preserves startup-only scope
+filter options come from displayed metadata and exclude pending cards
+page bounds clamp without inventing results
+search never replaces or clears fixed current-day card
+search rejects unknown card scope
+search rejects oversized query
+filtering facets and pagination do not write card events favorites or study records
+fresh seed has no prescribed weekly goal or textbook hint
+weekly migration clones input instead of overwriting source
+migration removes built in material and retains user written weekly goal
+manual week marker preserves a deliberately reentered goal
+new word goal defaults to fifty without converting legacy minutes
+per day zero word goal and daily default stay distinct
+widget counts vocabulary zero separately from unknown timed subject
+widget shows new learning target and unknown review without invented zero
+widget distinguishes new review and retained legacy time
+CSV exposes count goal and new versus review fields
+report retains legacy time and never turns reviews into new words
+JSON backup read preserves count goal zero and review quantity
+reject invalid word goal -1
+reject invalid word goal 0.5
+reject invalid word goal 50
+reject invalid word goal 100001
+reject invalid word goal null
+reject word target on timed subject
+native start rejects new vocabulary timer without creating a session
+timed subject still starts normally
+word log JS/Java parity: blank base
+word log JS/Java parity: explicit zero base
+word log JS/Java parity: three separate sessions
+word log JS/Java parity: legacy base plus session
+word log JS/Java parity: manual total adjustment
+word log JS/Java parity: clear to blank
+word log JS/Java parity: set explicit zero
+word log JS/Java parity: manual increment
+word log JS/Java parity: maximum
+word log JS/Java parity: zero add
+word log JS/Java parity: negative add
+word log JS/Java parity: fraction
+word log JS/Java parity: numeric string
+word log JS/Java parity: null add
+word log JS/Java parity: quick set
+word log JS/Java parity: unknown source
+word log JS/Java parity: unknown operation
+word log JS/Java parity: unknown kind
+word log JS/Java parity: invalid day
+word log JS/Java parity: invalid time
+word log JS/Java parity: unknown key
+word log JS/Java parity: invalid edited time
+word log JS/Java parity: invalid id
+word log JS/Java parity: duplicate id
+word log JS/Java parity: overflow
+atomic state save retains all word batches and current schema
+repeat native save retains word IDs and counts without appending
+mismatched imported word totals rejected without changing saved records
+native assessment and widget use totals once rather than recounting batches
+CSV includes word event quantities timestamps and sources
+PDF renders saved word batches
+complete ZIP round trip retains word IDs and totals
+confirmed complete backup restoration retains word batches
+legacy backup migration does not invent word batches
+bundled report font loads through Android AssetManager
+bundled font retains its readable redistribution license
+weekly migration matches preset texts only within the corresponding field
+native vocabulary shortcuts preserve exact configuration
+native rejects invalid shortcut array []
+native rejects invalid shortcut array [1,2]
+native rejects invalid shortcut array [0,5,10]
+native rejects invalid shortcut array [1,1,10]
+native rejects invalid shortcut array [1.5,5,10]
+native rejects invalid shortcut array ["1",5,10]
+native rejects invalid shortcut array [1,5,100001]
+native rejects word shortcuts on a timed subject
+atomic study save verifies persisted shortcut bytes
+unchanged draft saves preserve timestamp and file bytes
+changed draft values still persist
+legacy maximum length record text does not block quantity drafts
+valid ZIP with one byte stream reads is recognized and retains shortcuts
+short read legacy JSON still imports without inventing actual records
+pending recovery blocks stable background record reads
+pending recovery also blocks background timer operations
+recovery gate keeps original learning data unchanged
+course budget and original provenance 2026-10-12
+course budget and original provenance 2026-10-13
+course budget and original provenance 2026-10-14
+course budget and original provenance 2026-10-15
+course budget and original provenance 2026-10-16
+course budget and original provenance 2026-10-17
+course budget and original provenance 2026-10-18
+course budget and original provenance 2026-10-19
+course budget and original provenance 2026-10-20
+course budget and original provenance 2026-10-21
+course budget and original provenance 2026-10-22
+course budget and original provenance 2026-10-23
+course budget and original provenance 2026-10-24
+course budget and original provenance 2026-10-25
+course budget and original provenance 2026-10-26
+course budget and original provenance 2026-10-27
+course budget and original provenance 2026-10-28
+course budget and original provenance 2026-10-29
+course budget and original provenance 2026-10-30
+course budget and original provenance 2026-10-31
+course budget and original provenance 2026-11-01
+course budget and original provenance 2026-11-02
+course budget and original provenance 2026-11-03
+course budget and original provenance 2026-11-04
+course budget and original provenance 2026-11-05
+course budget and original provenance 2026-11-06
+course budget and original provenance 2026-11-07
+course budget and original provenance 2026-11-08
+course budget and original provenance 2026-11-09
+course budget and original provenance 2026-11-10
+course budget and original provenance 2026-11-11
+course budget and original provenance 2026-11-12
+course budget and original provenance 2026-11-13
+course budget and original provenance 2026-11-14
+course budget and original provenance 2026-11-15
+course budget and original provenance 2026-11-16
+course budget and original provenance 2026-11-17
+course budget and original provenance 2026-11-18
+course budget and original provenance 2026-11-19
+course budget and original provenance 2026-11-20
+course budget and original provenance 2026-11-21
+course budget and original provenance 2026-11-22
+course budget and original provenance 2026-11-23
+course budget and original provenance 2026-11-24
+course budget and original provenance 2026-11-25
+course budget and original provenance 2026-11-26
+course budget and original provenance 2026-11-27
+course budget and original provenance 2026-11-28
+course budget and original provenance 2026-11-29
+course budget and original provenance 2026-11-30
+course budget and original provenance 2026-12-01
+course budget and original provenance 2026-12-02
+course budget and original provenance 2026-12-03
+course budget and original provenance 2026-12-04
+course budget and original provenance 2026-12-05
+course budget and original provenance 2026-12-06
+course budget and original provenance 2026-12-07
+course budget and original provenance 2026-12-08
+course budget and original provenance 2026-12-09
+course budget and original provenance 2026-12-10
+course budget and original provenance 2026-12-11
+course budget and original provenance 2026-12-12
+course budget and original provenance 2026-12-13
+course budget and original provenance 2026-12-14
+course budget and original provenance 2026-12-15
+course budget and original provenance 2026-12-16
+course budget and original provenance 2026-12-17
+course budget and original provenance 2026-12-18
+course budget and original provenance 2026-12-19
+course budget and original provenance 2026-12-20
+native odd/even teaching week allocation
+native course end weeks and politics transition
+native adds course first from effective day only
+native automatic allocation retains custom reference records and goal
+native course migration is idempotent
+native explicit allocation respects its start date
+native late migration retains historical fallback and references
+native archived course is not resurrected
+native leaves custom plans unchanged until explicit application
+native leaves ended plans unchanged
+widget exposes course zero and unknown calculus and vocabulary independently
+widget partial course zero is not interpreted as all-day zero
+weekly migration clones legacy input and selects current schema
+legacy free text is retained without inferred tasks
+weekly checked task survives actual atomic file roundtrip
+task storage does not create study observations or timer sessions
+changing plan dates and labels retains original target date group
+creating another plan rejects already completed task history
+archiving associated subject retains task attribution
+native weekly schema rejects invalid task variant 0
+native weekly schema rejects invalid task variant 1
+native weekly schema rejects invalid task variant 2
+native weekly schema rejects invalid task variant 3
+native weekly schema rejects invalid task variant 4
+native weekly schema rejects invalid task variant 5
+native weekly schema rejects invalid task variant 6
+native weekly schema rejects invalid task variant 7
+invalid task restore rejects before replacing saved state
+failed task restore preserves all original state bytes
+fifty long draft tasks survive scoped draft size allowance
+complete ZIP validates and carries weekly tasks
+inspecting and cancelling task backup leaves saved records unchanged
+confirmed ZIP restoration restores weekly tasks
+legacy JSON restore retains own goals and migrates without artificial tasks
+weekly target PDF export completes with actual task state and original text
+native interval assessment normal-at-lower
+native assessment does not mutate normal-at-lower
+widget interval reference normal-at-lower
+CSV keeps interval references and confirmed assessment
+PDF exports interval references and assessment
+native interval assessment normal-at-upper
+native assessment does not mutate normal-at-upper
+widget interval reference normal-at-upper
+native interval assessment normal-below
+native assessment does not mutate normal-below
+widget interval reference normal-below
+native interval assessment normal-above
+native assessment does not mutate normal-above
+widget interval reference normal-above
+native interval assessment explicit-zero
+native assessment does not mutate explicit-zero
+widget interval reference explicit-zero
+native interval assessment zero-plus-unknown
+native assessment does not mutate zero-plus-unknown
+widget interval reference zero-plus-unknown
+native interval assessment all-time-unknown
+native assessment does not mutate all-time-unknown
+widget interval reference all-time-unknown
+native interval assessment reduced-at-lower
+native assessment does not mutate reduced-at-lower
+widget interval reference reduced-at-lower
+native interval assessment reduced-at-upper
+native assessment does not mutate reduced-at-upper
+widget interval reference reduced-at-upper
+native interval assessment reduced-below
+native assessment does not mutate reduced-below
+widget interval reference reduced-below
+native interval assessment reduced-above
+native assessment does not mutate reduced-above
+widget interval reference reduced-above
+native interval assessment review-at-lower
+native assessment does not mutate review-at-lower
+widget interval reference review-at-lower
+native interval assessment review-at-upper-ignores-math
+native assessment does not mutate review-at-upper-ignores-math
+widget interval reference review-at-upper-ignores-math
+native interval assessment review-below
+native assessment does not mutate review-below
+widget interval reference review-below
+native interval assessment review-above
+native assessment does not mutate review-above
+widget interval reference review-above
+native interval assessment review-course-unknown
+native assessment does not mutate review-course-unknown
+widget interval reference review-course-unknown
+native interval assessment rest-empty-time
+native assessment does not mutate rest-empty-time
+widget interval reference rest-empty-time
+native interval assessment rest-zero
+native assessment does not mutate rest-zero
+widget interval reference rest-zero
+native interval assessment rest-some-study
+native assessment does not mutate rest-some-study
+widget interval reference rest-some-study
+native interval assessment unselected-arrangement
+native assessment does not mutate unselected-arrangement
+widget interval reference unselected-arrangement
+native interval assessment old-scalar-point-interval
+native assessment does not mutate old-scalar-point-interval
+widget interval reference old-scalar-point-interval
+native interval assessment review-no-course
+native assessment does not mutate review-no-course
+widget interval reference review-no-course
+native interval assessment no-positive-target
+native assessment does not mutate no-positive-target
+widget interval reference no-positive-target
+native interval assessment outside-plan
+native assessment does not mutate outside-plan
+widget interval reference outside-plan
+native rejects reversed reference interval
+native legacy schemas reject unsupported interval references
+native automatically generates weekday subject ranges
+native custom scalar retains its exact point target
+native explicit interval remains unchanged
+native weekend reference generation preserves confirmed budgets
+native automatic references never write learning observations
+native legacy positive targets assess as point intervals
+native current legacy basis repairs to generated interval
+native repair retains frozen word criteria and every observation
+native automatic reference repair is idempotent
+native existing valid criteria survive changed current intervals
+native automatic repair leaves elapsed saved bases unchanged
+native current zero basis repairs when positive current ranges exist
+native repairs v1.6.1 equal-endpoint weekday presets
+native repairs both old weekend course and math budgets
+native reference repair preserves past references and actual records
+native repairs weekday-shaped intervals accidentally assigned to Saturday
+native explicit point references remain exact and display once
+native retains nonpreset custom point and interval references
+native zero reference displays once without changing its value
+native v1.6.2 reference repair is idempotent
+native rejects invalid manual reference provenance ["vocab"]
+native rejects invalid manual reference provenance ["missing"]
+native rejects invalid manual reference provenance ["math","math"]
+native rejects invalid manual reference provenance [42]
+native repairs current saved preset criteria to the real weekend interval
+native criteria repair retains saved word targets and actual observations
+native reference repair does not recalculate past assessments
+native preserves date-specific quantity target units
+native quantity grading uses the historical target and actual unit
+native never grades mismatched quantity units
+native odd quantity goal halves without rounding the displayed criterion
+native rejects quantity-unit provenance for math
+native rejects quantity-unit provenance for vocab
+native rejects quantity-unit provenance for missing
+native rejects blank quantity target units
+CSV quantity values have generic headers and an explicit target unit
+CSV preserves each daily quantity and historical unit
+CSV includes quantity assessment and its frozen goal unit
+CSV totals separate questions and sets instead of summing them
+CSV quantity rows distinguish explicit zero from unknown
+PDF generates with unit-separated quantity summaries
+complete ZIP retains historical target units
+complete quantity backup restoration retains all actual values and units
+old schema7 backups preserve quantity records and use saved unit criteria
+legacy restore does not invent original assessment criteria
+native save freezes prior time interval and vocabulary goal before target changes
+first retention is labelled existing and preserves actual observations
+widget distinguishes retained assessment from changed current reference
+repeated native save keeps retained criteria timestamp and fields
+new native record captures its own criteria while zero and rest remain explicit
+native explicit recalculation uses current interval and word goal independently
+native rejects malformed assessment basis case 0
+native rejects malformed assessment basis case 1
+native rejects malformed assessment basis case 2
+native rejects malformed assessment basis case 3
+native rejects malformed assessment basis case 4
+native rejects malformed assessment basis case 5
+native rejects malformed assessment basis case 6
+native rejects malformed assessment basis case 7
+CSV exports retained effective interval source and separate assessed vocabulary goal
+PDF exports retained assessment criteria
+schema5 backup roundtrip retains criteria exactly
+complete ZIP carries retained schema5 criteria
+cancelling criteria backup preview changes no stored field
+invalid assessment backup is rejected without changing original records
+confirmed complete backup restoration retains frozen criteria
+current schema adds verified original timetable without rewriting legacy input
+course migration does not mutate caller state
+native course lookup respects teaching-week parity and course end weeks
+new independent plans do not inherit the university timetable
+effective timetable revision preserves earlier course names
+native one-day move removes only source occurrence and adds the destination
+new plan API refuses inherited course review history
+native atomic restore roundtrips timetable moves notes and historical task link
+course checklist never manufactures actual minutes or completes weekly tasks
+complete ZIP retains per-course review snapshots and task links
+CSV includes course review notes and truthful task attribution
+PDF report renders per-course review section
+native rejects corrupt course fixture 0
+native rejects corrupt course fixture 1
+native rejects corrupt course fixture 2
+native rejects corrupt course fixture 3
+native rejects corrupt course fixture 4
+native rejects corrupt course fixture 5
+native rejects corrupt course fixture 6
+native rejects corrupt course fixture 7
+native rejects corrupt course fixture 8
+native rejects corrupt course fixture 9
+native rejects corrupt course fixture 10
+old JSON restore gains course editing without invented review history
+automatic 60—120 minutes / 0 / timeLevel
+automatic 60—120 minutes / 0 / kind
+automatic 60—120 minutes / 0 / complete
+automatic 60—120 minutes / 59 / timeLevel
+automatic 60—120 minutes / 59 / kind
+automatic 60—120 minutes / 59 / complete
+automatic 60—120 minutes / 60 / timeLevel
+automatic 60—120 minutes / 60 / kind
+automatic 60—120 minutes / 60 / complete
+automatic 60—120 minutes / 79 / timeLevel
+automatic 60—120 minutes / 79 / kind
+automatic 60—120 minutes / 79 / complete
+automatic 60—120 minutes / 80 / timeLevel
+automatic 60—120 minutes / 80 / kind
+automatic 60—120 minutes / 80 / complete
+automatic 60—120 minutes / 90 / timeLevel
+automatic 60—120 minutes / 90 / kind
+automatic 60—120 minutes / 90 / complete
+automatic 60—120 minutes / 99 / timeLevel
+automatic 60—120 minutes / 99 / kind
+automatic 60—120 minutes / 99 / complete
+automatic 60—120 minutes / 100 / timeLevel
+automatic 60—120 minutes / 100 / kind
+automatic 60—120 minutes / 100 / complete
+automatic 60—120 minutes / 120 / timeLevel
+automatic 60—120 minutes / 120 / kind
+automatic 60—120 minutes / 120 / complete
+automatic 60—120 minutes / 121 / timeLevel
+automatic 60—120 minutes / 121 / kind
+automatic 60—120 minutes / 121 / complete
+automatic fixed interval endpoint / timeLevel
+automatic fixed interval endpoint / kind
+automatic zero reference is not rest or an achievement / timeLevel
+automatic zero reference is not rest or an achievement / kind
+automatic zero reference is not rest or an achievement / achieved
+automatic all missing / kind
+automatic all missing / complete
+automatic known zero plus missing words / kind
+automatic known zero plus missing words / complete
+automatic time success cannot compensate word shortfall / kind
+automatic time success cannot compensate word shortfall / complete
+automatic unit mismatch / kind
+automatic unit mismatch / complete
+automatic integer quantity not rounded up / kind
+automatic integer quantity not rounded up / complete
+automatic ordinary day only review keeps normal requirements / kind
+automatic ordinary day only review keeps normal requirements / activity
+automatic missing new words does not establish only review / kind
+automatic missing new words does not establish only review / activity
+automatic planned review reaches both goals plus extra new words / kind
+automatic planned review reaches both goals plus extra new words / label
+automatic planned review reaches both goals plus extra new words / activity
+automatic planned review time below fixed lower bound / kind
+automatic planned review missing time / kind
+automatic planned rest with extra learning / kind
+automatic planned rest with extra learning / achieved
+automatic old rest selector cannot exempt an ordinary day / kind
+automatic old reduced selector cannot halve requirements / kind
+automatic review-only extra record with all required inputs blank / kind
+automatic review-only extra record with all required inputs blank / recordState
+automatic review-only extra record with all required inputs blank / activity
+automatic all required zero is incomplete rather than partial success / kind
+automatic all required zero is incomplete rather than partial success / label
+automatic all required zero is incomplete rather than partial success / complete
+automatic inferred review cannot replace required review time with extra new learning / dayType
+automatic inferred review cannot replace required review time with extra new learning / kind
+automatic inferred review cannot replace required review time with extra new learning / timeLevel
+automatic zero cannot achieve a positive target below the comparison resolution / kind
+automatic zero cannot achieve a positive target below the comparison resolution / achieved
+automatic zero cannot achieve a positive target below the comparison resolution / timeLevel
+automatic native same-day target reduction retains the fixed basis
+automatic native D6 C4 P3 uses all ended obligations and coverage
+automatic native current and future days stay outside the completed-day denominator
+automatic native earlier future edits retain later explicit dates
+automatic native deduplicates sources and surfaces contradictory manual totals
+automatic native explicit time correction resolves the known source contradiction
+automatic native rejects rest identity with required goals before restore
+automatic native JSON restore preserves fixed bases and schedule ledger exactly
+automatic native complete ZIP roundtrip retains schema9 automatic criteria
+automatic native CSV carries overall goals, fixed basis and complete denominator statistics
+automatic native PDF opens in the real Android renderer with new summary and goal fields
+native parses shared state-save request
+native returns versioned state-save result
+native parses shared schedule-save request
+native returns versioned schedule-save result
+native success response requires canonical state
+native replays a duplicate request despite JSON key order
+native rejects changed content for a reused request id
+native rejects a request for an inactive plan
+native rejects an outdated revision
+native normalizes shared reference bounded-time
+native normalizes shared reference legacy-point
+native normalizes shared reference zero-time
+native captures shared minute references as normalized ranges
+native captures shared vocabulary target
+native captures shared quantity target and unit
+native groups shared word, minute, and quantity measures by rule type
+native assessment preserves shared blank state
+native assessment preserves shared explicit-zero state
+native assessment preserves shared partial-value state
+native course schedule matches shared sample 2026-10-15
+native course schedule matches shared sample 2026-10-17
+native course schedule matches shared sample 2026-10-18
+native migration fixture preserves historical records and source input
+native shared word-detail fixture is available
+
+INSTRUMENTATION_CODE: -1

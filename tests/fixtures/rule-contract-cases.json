@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "referenceCases": [
+    {"name": "bounded-time", "value": {"min": 30, "max": 60}, "min": 30, "max": 60, "midpoint": 45, "text": "30—60"},
+    {"name": "legacy-point", "value": 45, "min": 45, "max": 45, "midpoint": 45, "text": "45"},
+    {"name": "zero-time", "value": {"min": 0, "max": 0}, "min": 0, "max": 0, "midpoint": 0, "text": "0"}
+  ],
+  "unitCases": [
+    {"id": "vocab", "kind": "vocab", "measure": "words", "unit": "个", "field": "newWords"},
+    {"id": "math", "kind": "math", "measure": "time", "unit": "分钟", "field": "minutes"},
+    {"id": "question-review", "kind": "custom", "measure": "quantity", "unit": "题", "field": "quantity"}
+  ],
+  "recordCases": [
+    {"name": "blank", "value": null, "kind": "empty", "actual": null, "missing": 2},
+    {"name": "explicit-zero", "value": 0, "kind": "partial", "actual": 0, "missing": 1},
+    {"name": "partial-value", "value": 12.5, "kind": "partial", "actual": 12.5, "missing": 1}
+  ],
+  "bridgeCases": [
+    {"name": "state-save", "operation": "state.save", "planId": "main", "expectedRevision": 7, "payload": {"_revision": 7}},
+    {"name": "schedule-save", "operation": "evaluation.schedule.save", "planId": "main", "expectedRevision": 7, "payload": {"from": "2026-10-28", "scope": "date", "date": "2026-10-28"}}
+  ],
+  "captureCase": {
+    "date": "2026-10-27",
+    "subjects": [
+      {"id": "math", "name": "高数", "kind": "math", "defaults": [0, 0, 0, 0, 0, 0, 0]},
+      {"id": "course-review", "name": "课程复习", "kind": "custom", "defaults": [0, 0, 0, 0, 0, 0, 0]},
+      {"id": "vocab", "name": "单词", "kind": "vocab", "wordGoal": 50, "defaults": [0, 0, 0, 0, 0, 0, 0]},
+      {"id": "question-review", "name": "错题回顾", "kind": "custom", "measure": "quantity", "unit": "题", "defaults": [0, 0, 0, 0, 0, 0, 0]}
+    ],
+    "targets": {"math": {"min": 30, "max": 60}, "course-review": 25},
+    "wordTargets": {"vocab": 40},
+    "quantityTargets": {"question-review": 8},
+    "expected": {
+      "time": [
+        {"id": "math", "kind": "math", "min": 30, "max": 60},
+        {"id": "course-review", "kind": "custom", "min": 25, "max": 25}
+      ],
+      "words": [{"id": "vocab", "goal": 40}],
+      "quantities": [{"id": "question-review", "goal": 8, "unit": "题"}]
+    }
+  },
+  "courseCases": [
+    {"date": "2026-10-15", "weekday": 3, "courses": ["激光原理", "光电子器件", "微型计算机原理与接口技术"], "reviewMin": 30, "reviewMax": 50, "mathMin": 30, "mathMax": 70},
+    {"date": "2026-10-17", "weekday": 5, "courses": [], "reviewMin": 60, "reviewMax": 120, "mathMin": 180, "mathMax": 240},
+    {"date": "2026-10-18", "weekday": 6, "courses": [], "reviewMin": 60, "reviewMax": 120, "mathMin": 120, "mathMax": 180}
+  ],
+  "migrationCases": [{"fixture": "reference-legacy-v161.json", "expectedSchema": 9}],
+  "wordLogFixture": "word-log-cases.json"
+}

@@ -1,8 +1,8 @@
 {
   "date": "2026-10-27",
   "repository": "gaspainting/daily-study",
-  "version": "1.6.8",
-  "versionCode": 25,
+  "version": "1.7.0",
+  "versionCode": 26,
   "files": [
     {
       "path": ".gitattributes",
@@ -17,7 +17,7 @@
     {
       "path": "app/src/main/AndroidManifest.xml",
       "bytes": 3388,
-      "sha256": "7d3f04e29946f0186d9936d481287a3fe02d6ac89ed255634503e8936abafe7a"
+      "sha256": "fa746b6e6c3bdc7189b464e8bdefe475ed60e92c4c25249b01c796dccfc89015"
     },
     {
       "path": "app/src/main/assets/allocation-ui.js",
@@ -31,8 +31,13 @@
     },
     {
       "path": "app/src/main/assets/app.js",
-      "bytes": 133182,
-      "sha256": "f04d70053e5e4d0f4ba2f02f7f8c94544612c52750e9aedda76d9b6d02170e65"
+      "bytes": 135904,
+      "sha256": "4ca6560035efef28744e7054f490633222306f9a3a235593d661c7dd0675335a"
+    },
+    {
+      "path": "app/src/main/assets/bridge-contract.js",
+      "bytes": 4519,
+      "sha256": "48e6b2746fb43bcc1d3d97e1702301505dde3e14bd779c3e4e54c22845111793"
     },
     {
       "path": "app/src/main/assets/course-schedule-data.js",
@@ -53,6 +58,11 @@
       "path": "app/src/main/assets/courses.js",
       "bytes": 9286,
       "sha256": "40790a34a9d8b9712a4a0dab03a6c33d6668b1f38d54e0f73758eb1893a1816c"
+    },
+    {
+      "path": "app/src/main/assets/domain-contract.js",
+      "bytes": 1769,
+      "sha256": "49ffe8aecc48ffa1fa2d59894c576d7a20e2c0a81e640ef5fe1172d6a604bc0d"
     },
     {
       "path": "app/src/main/assets/drafts.js",
@@ -76,8 +86,8 @@
     },
     {
       "path": "app/src/main/assets/index.html",
-      "bytes": 6337,
-      "sha256": "64b600619249440b2dacbe7a10d304051522e4f125fd6342e5e66c245b8aa670"
+      "bytes": 6439,
+      "sha256": "6382b6dcb31c51910f3c837a30edb742d9a96f61791a82db67dbc7538fc6ab71"
     },
     {
       "path": "app/src/main/assets/inspiration-filter.css",
@@ -215,6 +225,16 @@
       "sha256": "9aaa613b6265cb2f2be9a26972701d0b95abe2fb2f4c8b59465afd594e4b5386"
     },
     {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/BridgeContract.java",
+      "bytes": 5254,
+      "sha256": "a93eb4059a18d983b4995fd1b9a7163141bc1d9069a0029371bab2406b8883c5"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/BridgeDispatcher.java",
+      "bytes": 2426,
+      "sha256": "8b5da43cc9e0b82d106cf412ab4ee80db3bda59e13d4be6ba8d27fd639be69ff"
+    },
+    {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/CardShareProvider.java",
       "bytes": 2079,
       "sha256": "f130bb243f2e42eab98cdf6fc47056d494e224643fa3cf9be76fb6a4e693aa4d"
@@ -276,8 +296,8 @@
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/MainActivity.java",
-      "bytes": 36831,
-      "sha256": "6976d6399c13aa92dc10a1526ec96796523b627be4459acbf6c02cd9eb2dcf86"
+      "bytes": 38280,
+      "sha256": "ae2e8ff8628f3994e51daafe191c2f840f8bbe152237ad24de8eee53286ae54a"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/PlanStore.java",
@@ -303,6 +323,11 @@
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/ReportExport.java",
       "bytes": 34870,
       "sha256": "2b3883d0213e13e83d760b60e3adf03f515b86afd63e5ac4113abd331aaa5ebc"
+    },
+    {
+      "path": "app/src/main/java/cn/edu/njupt/studycheckin/StudyStorage.java",
+      "bytes": 1408,
+      "sha256": "9ccfdb999d1ada7b76f8f2b1e25c40f9e289c2fba8ab90236f2e140c927ed673"
     },
     {
       "path": "app/src/main/java/cn/edu/njupt/studycheckin/StudyWidget.java",
@@ -376,8 +401,8 @@
     },
     {
       "path": "build.ps1",
-      "bytes": 7042,
-      "sha256": "9ff89e563d723224e113df03013835df100206f73f102f7f4e55308d4ccf325f"
+      "bytes": 7228,
+      "sha256": "8e2c3f9fd229db6ca6675e73a7820ed3f7ac444c32c0883875d0bb6a3f85eb5d"
     },
     {
       "path": "design/visual-refresh/gallery.css",
@@ -495,6 +520,11 @@
       "sha256": "89346ab1e77263b262feb9e1c0d84fa8bf95075d7c325dc266a0d5c66a6b331e"
     },
     {
+      "path": "docs/ARCHITECTURE-v1.7.0.md",
+      "bytes": 4707,
+      "sha256": "2b0b0fb6addf5a9a0ecc30ee75fbe67e0c174be916d7c5c3d8869d510ed8a24d"
+    },
+    {
       "path": "docs/assessment-reference-audit.md",
       "bytes": 1149,
       "sha256": "ea77350dc50b16b31c6e8a87d00a14a438367e5b953617bca86f37e0bb9894cb"
@@ -572,7 +602,7 @@
     {
       "path": "docs/GITHUB.md",
       "bytes": 6110,
-      "sha256": "c75d44c378641c6f33285c0022b64f260a20a150663e99a5a4ccd310518fac01"
+      "sha256": "7c231b526a7cafe19256a094e54ff42e2fb6516965a2edcc5bc8e615385895b4"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -581,8 +611,8 @@
     },
     {
       "path": "docs/NEXT-DEVELOPMENT.md",
-      "bytes": 875,
-      "sha256": "bb7f28eb3fde42bd48ddfe57663d686872379ddac68071a9a0d21979d396547b"
+      "bytes": 985,
+      "sha256": "729f6a0ba078c12af5300ea3209954d37b2215b38a8b93ad4b37ff68f6ea6258"
     },
     {
       "path": "docs/NEXT-STAGE-PLAN.md",
@@ -698,6 +728,11 @@
       "path": "docs/RELEASE-NOTES-v1.6.8.md",
       "bytes": 298,
       "sha256": "f5304c8e9a470982ac97aa27d5ee1201b51bc28336bae3834399d23877e8bd2f"
+    },
+    {
+      "path": "docs/RELEASE-NOTES-v1.7.0.md",
+      "bytes": 325,
+      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
     },
     {
       "path": "docs/release-test-results.json",
@@ -3243,6 +3278,11 @@
       "path": "docs/V1.6.8.md",
       "bytes": 2993,
       "sha256": "66343b3eb47e93270eb58899472874d9251d69f0a8ec5fa339d08bfe4cb3bea8"
+    },
+    {
+      "path": "docs/V1.7.0.md",
+      "bytes": 1945,
+      "sha256": "8be88f216cba584578cc63218c0c1784533cc3420b5edd29f99aad8bcd12eb62"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -6325,9 +6365,74 @@
       "sha256": "d7c5a1bdfa804ec388ac14355645a81040002e9700bf24c4cb9954b011d0f2d5"
     },
     {
+      "path": "docs/validation-v1.6.8/v1.7.0-architecture/bridge-contract-ui-results.json",
+      "bytes": 6758,
+      "sha256": "be1af83505c0e2b097dc85cfce8178a9a720f239ad0bdeb95337924974367ff1"
+    },
+    {
+      "path": "docs/validation-v1.6.8/v1.7.0-architecture/native-test-results.txt",
+      "bytes": 38807,
+      "sha256": "1d80ace183c2be7c671e59bbaf2c55a4483e9e5bb63206c12ea3c1663b9f782c"
+    },
+    {
+      "path": "docs/validation-v1.6.8/v1.7.0-architecture/native-wrapper-results.json",
+      "bytes": 6354,
+      "sha256": "6ae2e66a095b843d4105f9efcd3f9eb200aef69ef3d8c3b4e405f39af79b6ac9"
+    },
+    {
+      "path": "docs/validation-v1.6.8/v1.7.0-architecture/reference-validation.csv",
+      "bytes": 2508,
+      "sha256": "758a85a1b1de2f77f6e8cebf4b275dbecae6baad99e442b21d204bc74e3e8c79"
+    },
+    {
+      "path": "docs/validation-v1.6.8/v1.7.0-architecture/reference-validation.pdf",
+      "bytes": 90937,
+      "sha256": "b7486c92508049f487e7d1d526faf0063f8497e65a7930bb03f9f931d82ac364"
+    },
+    {
       "path": "docs/validation-v1.6.8/validation-summary.json",
       "bytes": 2208,
       "sha256": "f77201e367de4ddd698379f403ddc0377e0a1a0ffaa07d0d64a6bbcc71ed5146"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/automatic-assessment-sample.csv",
+      "bytes": 8928,
+      "sha256": "1768a66f55420d11a80be4a41dd27310bf52011357dd734d94000e8bbac98825"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/automatic-assessment-sample.pdf",
+      "bytes": 145120,
+      "sha256": "60f943a990949267abfe491b6702ab258cdd012bf940adaebb7991dd69408e42"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/automatic-java-results.json",
+      "bytes": 61115,
+      "sha256": "b94c452f1a6ef3a54993d548c4bf5f4cbea5f4dd6f88030edfea74a6e75839c5"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/automatic-native-wrapper-results.json",
+      "bytes": 6449,
+      "sha256": "7a39d7e7fed7b36b48fa1bf9d50a47d361cc355e170a455583776ed93b3c1888"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/bridge-contract-ui-results.json",
+      "bytes": 6758,
+      "sha256": "a9fd44786e2003b8bae28011ba729a76938000b93c6820963ba8ac1ec5f4b661"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/native-test-results.txt",
+      "bytes": 38807,
+      "sha256": "1d80ace183c2be7c671e59bbaf2c55a4483e9e5bb63206c12ea3c1663b9f782c"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/reference-validation.csv",
+      "bytes": 2508,
+      "sha256": "758a85a1b1de2f77f6e8cebf4b275dbecae6baad99e442b21d204bc74e3e8c79"
+    },
+    {
+      "path": "docs/validation-v1.7.0/architecture/reference-validation.pdf",
+      "bytes": 90937,
+      "sha256": "b7486c92508049f487e7d1d526faf0063f8497e65a7930bb03f9f931d82ac364"
     },
     {
       "path": "docs/VERIFICATION.md",
@@ -6366,8 +6471,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4103,
-      "sha256": "d5c18e396f1276c75ee363f2151078c821421010c56c78935e19895e0446dc1b"
+      "bytes": 4213,
+      "sha256": "631e9639882101ac8db2f64f244ac0491f2f09fa7a48f716e13be24d052adfea"
     },
     {
       "path": "release/v1.3.0/RELEASE-NOTES.md",
@@ -6590,6 +6695,16 @@
       "sha256": "01e74ccfd8eb65a4e7ac98605c4393edace6f8a8ab73cb849f6d989afeb9a0e1"
     },
     {
+      "path": "release/v1.7.0/RELEASE-NOTES.md",
+      "bytes": 325,
+      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
+    },
+    {
+      "path": "release/v1.7.0/update.json",
+      "bytes": 870,
+      "sha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f"
+    },
+    {
       "path": "scripts/generate-course-schedule.py",
       "bytes": 3391,
       "sha256": "de7c806c23f02990add18d23d653ce1944091a3064d737e196f6938def313ab6"
@@ -6730,6 +6845,16 @@
       "sha256": "fdf214082430eb61499ec6fcd72c6dae102c8778df83f9555c792aa5017d97fa"
     },
     {
+      "path": "tests/bridge-contract-ui.cjs",
+      "bytes": 3805,
+      "sha256": "1675a306dee743d3eaaff5242c74764c8f3286de5ea1cd8e4c74ad5d0b5f7328"
+    },
+    {
+      "path": "tests/bridge-contract.test.cjs",
+      "bytes": 5739,
+      "sha256": "3d456bb58661816cd5069c65485436c867d503e7670ef8f540b903f096c3bb74"
+    },
+    {
       "path": "tests/cdp-client.cjs",
       "bytes": 2808,
       "sha256": "7030bcba0cb9f1553d76089deb0e537f8e6e022c3b23c64fc48954b8dd7599c5"
@@ -6770,6 +6895,11 @@
       "sha256": "b43e1022e0ade121c23e82ef30ccd64519ea78f3f19eb92c4257901b72d07b42"
     },
     {
+      "path": "tests/domain-contract.test.cjs",
+      "bytes": 2662,
+      "sha256": "53a14e5b11367e77ac3c187af7e20aaeb855fdcde251856784d62ec06c3dbb85"
+    },
+    {
       "path": "tests/features-v131-ui.cjs",
       "bytes": 20717,
       "sha256": "61dbff28370f1a3b8ac1034ec2c93e4d2a0700034191ebee38b808b6c14e0e20"
@@ -6798,6 +6928,11 @@
       "path": "tests/fixtures/reference-model-v1.3.2.cjs",
       "bytes": 31750,
       "sha256": "47678fa1b755c0fc387b6d99f40bc94a3b684a4605609021985819d6b34543f5"
+    },
+    {
+      "path": "tests/fixtures/rule-contract-cases.json",
+      "bytes": 2887,
+      "sha256": "528679fa4e80223eb15552541e0196e8229aaa516a14a19ee450280e79ac3043"
     },
     {
       "path": "tests/fixtures/word-log-cases.json",
@@ -6838,6 +6973,11 @@
       "path": "tests/java/cn/edu/njupt/studycheckin/AutoReferenceTests.java",
       "bytes": 4692,
       "sha256": "f6a5280111a1fa7e25ea328f425351cc922e364acc928eeccf531a43b75e674b"
+    },
+    {
+      "path": "tests/java/cn/edu/njupt/studycheckin/BridgeContractTests.java",
+      "bytes": 13092,
+      "sha256": "b0c9320fadc9a56eed91497e76f4aad77d531012889cf0cd7fb80175d68fcaa3"
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/CourseScheduleTests.java",
@@ -6901,8 +7041,8 @@
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/SmokeTests.java",
-      "bytes": 9346,
-      "sha256": "7bcfc3e7a782db5f9395138ec827d90785c43fefa3a972f68e3425ce16fc814c"
+      "bytes": 9394,
+      "sha256": "f45e1713d6f34065ecef53914c54d955f5ff8cadc6c18729a13b8c5186272f0d"
     },
     {
       "path": "tests/java/cn/edu/njupt/studycheckin/TestSubjects.java",

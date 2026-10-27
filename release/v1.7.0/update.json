@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  26,
+    "versionName":  "1.7.0",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v1.7.0/daily-study-v1.7.0.apk",
+    "apkBytes":  6679708,
+    "apkSha256":  "0d21f4e1bd5cee547e66878c6fdb88edf3e9ad84e26fa9ad7b1c3782217b3807",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v1.7.0\n\n- 整理页面、领域规则、原生桥接与存储端口边界。\n- 新增带版本、计划和修订校验的桥接契约，支持安全重试并拦截过期写入。\n- 增加 Java 与 JavaScript 共用的规则样例回归。\n- 学习数据格式（schema 9）和自动评估口径保持不变。\n",
+    "releaseDate":  "2026-10-27"
+}
