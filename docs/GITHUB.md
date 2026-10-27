@@ -82,3 +82,7 @@ v1.3.5修复计划列表布局，源码与本轮截图、测量结果位于main�
 **v1.6.0（2026年10月22日）**
 
 versionCode17。实现提交 `9eef433`。新增可自定义单位的数量科目，数量目标与分钟区间分开保存和评估；历史单位、统计、小组件、备份及CSV/PDF报表同步支持。原有分钟、单词记录与旧备份继续兼容，详见[V1.6.0](V1.6.0.md)。[正式发行资源](https://github.com/gaspainting/daily-study/releases/tag/v1.6.0)包含APK、update.json和RELEASE-NOTES.md；公开清单、兼容下载地址和摘要见`docs/validation-v1.6.0`。最终源码与验证资料归档在[source-v1.6.0](https://github.com/gaspainting/daily-study/tree/source-v1.6.0)标签。
+
+**v1.7.0（2026年10月27日）**
+
+[正式发行版本](https://github.com/gaspainting/daily-study/releases/tag/v1.7.0)，versionCode26。架构边界与桥接契约验证见[V1.7.0](V1.7.0.md)；APK、更新清单与发行说明均已公开下载并通过SHA-256核对，旧客户端兼容清单地址返回一致内容。源码提交 `1d10452` 与发行标签对应，最终源码和公网核对记录见[source-v1.7.0](https://github.com/gaspainting/daily-study/tree/source-v1.7.0)及`validation-v1.7.0`。

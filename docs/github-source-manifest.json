@@ -601,8 +601,8 @@
     },
     {
       "path": "docs/GITHUB.md",
-      "bytes": 6110,
-      "sha256": "7c231b526a7cafe19256a094e54ff42e2fb6516965a2edcc5bc8e615385895b4"
+      "bytes": 6625,
+      "sha256": "d213422d9e40992d6453582cabc00a0f17297650a94c5cba22b58309f18533aa"
     },
     {
       "path": "docs/inspiration-ui-test-results.json",
@@ -3281,8 +3281,8 @@
     },
     {
       "path": "docs/V1.7.0.md",
-      "bytes": 1945,
-      "sha256": "8be88f216cba584578cc63218c0c1784533cc3420b5edd29f99aad8bcd12eb62"
+      "bytes": 2419,
+      "sha256": "554cbfaa59425550c3c2efa489852181405d9f23cad4b8c993b3b151c92fb70e"
     },
     {
       "path": "docs/validation-github-2026-10-14/release-tooling-results.txt",
@@ -6433,6 +6433,11 @@
       "path": "docs/validation-v1.7.0/architecture/reference-validation.pdf",
       "bytes": 90937,
       "sha256": "b7486c92508049f487e7d1d526faf0063f8497e65a7930bb03f9f931d82ac364"
+    },
+    {
+      "path": "docs/validation-v1.7.0/public-release-results.json",
+      "bytes": 1100,
+      "sha256": "6faa851774cc31449d952267885ae5a1c4b4a4bdce8973848fe2f2be337e2fe7"
     },
     {
       "path": "docs/VERIFICATION.md",

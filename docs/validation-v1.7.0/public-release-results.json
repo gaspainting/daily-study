@@ -1,0 +1,30 @@
+{
+  "version": "1.7.0",
+  "versionCode": 26,
+  "releaseUrl": "https://github.com/gaspainting/daily-study/releases/tag/v1.7.0",
+  "releaseTagCommit": "1d1045286e8e371096baa4dc975acd839a2712d1",
+  "draft": false,
+  "prerelease": false,
+  "legacyManifestUrl": "https://github.com/gaspainting/daily-study-releases/releases/latest/download/update.json",
+  "legacyManifestHttpStatus": 200,
+  "manifestSha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f",
+  "legacyManifestMatchesLatest": true,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v1.7.0/daily-study-v1.7.0.apk",
+  "assets": [
+    {
+      "name": "daily-study-v1.7.0.apk",
+      "bytes": 6679708,
+      "sha256": "0d21f4e1bd5cee547e66878c6fdb88edf3e9ad84e26fa9ad7b1c3782217b3807"
+    },
+    {
+      "name": "update.json",
+      "bytes": 870,
+      "sha256": "8537594395ffd0c44b33ab5100ddb35a3433e4b1fe9a7311ec7a298662441d7f"
+    },
+    {
+      "name": "RELEASE-NOTES.md",
+      "bytes": 325,
+      "sha256": "316f970560033bfe6247c612bc6b02782c9a4a454511937c7abf95744e23bbe1"
+    }
+  ]
+}
