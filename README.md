@@ -4,7 +4,7 @@
 
 [下载最新版](https://github.com/gaspainting/daily-study/releases/latest) · [使用说明](docs/使用说明.md) · [本次更新](docs/RELEASE-NOTES-v1.7.0.md)
 
-当前版本 **v1.7.0**，支持 Android 8.0 及以上。
+当前主线开发版本 **v2.0.0-beta.1**；稳定更新通道仍为 v1.7.0，支持 Android 8.0 及以上。
 
 白底列表、细线分组和蓝色操作。今日同页查看各科记录与参考值，点科目集中编辑；设置直接列出提醒、备份、小组件与使用手册。
 

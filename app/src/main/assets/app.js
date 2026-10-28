@@ -18,6 +18,8 @@
   let currentDraftKey = null, activePlanId = 'main', historyFilters = {}, sessionFilters = {}, month = '';
   let preview = !window.Native;
   let startupUpdatePending = false, startupUpdatePoll, foregroundUpdatePoll, updateOrigin = 'about';
+  const THEME_KEY = 'study-checkin-theme-v2';
+  const THEME_VALUES = new Set(['system', 'light', 'dark']);
   const clone = value => JSON.parse(JSON.stringify(value));
   const escape = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const icon = name => '<svg aria-hidden="true"><use href="#i-' + name + '"/></svg>';
@@ -41,6 +43,21 @@
   const visibleSubjects = date => {const required=new Set((state.evaluation?.bases[date]?.items||[]).filter(i=>i.required).flatMap(i=>i.sources.filter(s=>s.requiredInput).map(s=>s.subjectId)));return state.plan.subjects.filter(s => M().subjectActive(s,date)||required.has(s.id)||meaningful({subjects:{[s.id]:state.records[date]?.subjects?.[s.id]||{}}}));};
   const refTotal = date => within(date)?R().total(state,date):null;
   const clampPlanDate = date => date < state.plan.startDate ? state.plan.startDate : date > state.plan.endDate ? state.plan.endDate : date;
+
+  function themePreference() {
+    try {
+      const value = localStorage.getItem(THEME_KEY);
+      return THEME_VALUES.has(value) ? value : 'system';
+    } catch (_) { return 'system'; }
+  }
+  function applyThemePreference(value) {
+    const preference = THEME_VALUES.has(value) ? value : 'system';
+    try { localStorage.setItem(THEME_KEY, preference); } catch (_) {}
+    document.documentElement.dataset.theme = preference;
+    document.documentElement.style.colorScheme = preference === 'dark' ? 'dark' : preference === 'light' ? 'light' : '';
+    return preference;
+  }
+  applyThemePreference(themePreference());
 
   function tell(message) {
     clearTimeout(toastTimeout);
@@ -460,8 +477,8 @@
   }
 
   function settingsView() {
-    const reminders = state.settings.reminders, backup = call('getBackupStatus');
-    return '<div class="page-intro"><div class="eyebrow">SETTINGS / 设置</div><h1>设置</h1></div><button class="setting-action manual-entry" type="button" data-action="user-manual"><span>使用手册</span>'+icon('next')+'</button><form id="reminder-form" data-dirty="reminders"><div class="section-heading"><h2>学习提醒</h2><span class="section-number">01 / REMIND</span></div><div class="settings-row"><h3>开启提醒</h3><label class="switch" aria-label="开启学习提醒"><input id="reminders-enabled" name="enabled" type="checkbox"' + (reminders.enabled ? ' checked' : '') + '><span></span></label></div><div class="field-inline">' + field('工作日', 'weekday-time', reminders.weekdayTime, { type: 'time', required: true, help: '20:30 前' }) + field('周末', 'weekend-time', reminders.weekendTime, { type: 'time', required: true, help: '09:30 — 18:59' }) + '</div><div id="notification-status" class="permission-status" role="status" aria-live="polite" hidden></div><button class="small-submit primary" type="submit">保存提醒设置</button><button class="text-button" type="button" data-action="reminder-help">未收到提醒？</button></form><div class="section"><div class="section-heading"><h2>备份与恢复</h2><span class="section-number">02 / DATA</span></div><p class="backup-date">上次备份：' + (backup.lastExportAt ? escape(new Date(backup.lastExportAt).toLocaleString('zh-CN')) : '未导出') + '</p><button class="setting-action" data-action="export-backup"><span>' + icon('download') + '导出备份</span>' + icon('next') + '</button><button class="setting-action" data-action="import-backup"><span>' + icon('upload') + '从备份恢复</span>' + icon('next') + '</button><form id="backup-reminder-form" data-dirty="backup-reminder"><div class="settings-row"><label for="backup-enabled">备份提醒</label><label class="switch" aria-label="备份提醒"><input id="backup-enabled" name="backup-enabled" type="checkbox"' + (backup.reminderEnabled ? ' checked' : '') + '><span></span></label></div>' + selectField('间隔', 'backup-days', String(backup.reminderDays), [['7', '7 天'], ['14', '14 天'], ['30', '30 天']]) + (backup.reminderEnabled && !backup.notificationsAllowed ? '<div class="permission-status"><span>备份提醒通知未开启</span><button type="button" class="text-button" data-action="backup-notification-settings">打开通知设置</button></div>' : '') + '<button class="small-submit primary" type="submit">保存备份提醒</button></form><button class="setting-action" data-action="export-report"><span>导出学习报表</span>' + icon('next') + '</button><button class="text-button" data-action="clear-drafts">清除全部草稿</button></div><div class="section"><div class="section-heading"><h2>桌面小组件</h2><span class="section-number">03 / WIDGET</span></div><button class="secondary-wide" data-action="pin-widget">' + icon('widget') + '添加到桌面</button><button class="text-button" data-action="widget-help">添加帮助</button></div><div class="section settings-links"><button class="setting-action" data-action="rest-hours"><span>休息时段</span>' + icon('next') + '</button><button class="setting-action" data-action="about"><span>关于</span>' + icon('next') + '</button></div>';
+    const reminders = state.settings.reminders, backup = call('getBackupStatus'), theme = themePreference();
+    return '<div class="page-intro"><div class="eyebrow">SETTINGS / 设置</div><h1>设置</h1></div><button class="setting-action manual-entry" type="button" data-action="user-manual"><span>使用手册</span>'+icon('next')+'</button><form id="reminder-form" data-dirty="reminders"><div class="section-heading"><h2>学习提醒</h2><span class="section-number">01 / REMIND</span></div><div class="settings-row"><h3>开启提醒</h3><label class="switch" aria-label="开启学习提醒"><input id="reminders-enabled" name="enabled" type="checkbox"' + (reminders.enabled ? ' checked' : '') + '><span></span></label></div><div class="field-inline">' + field('工作日', 'weekday-time', reminders.weekdayTime, { type: 'time', required: true, help: '20:30 前' }) + field('周末', 'weekend-time', reminders.weekendTime, { type: 'time', required: true, help: '09:30 — 18:59' }) + '</div><div id="notification-status" class="permission-status" role="status" aria-live="polite" hidden></div><button class="small-submit primary" type="submit">保存提醒设置</button><button class="text-button" type="button" data-action="reminder-help">未收到提醒？</button></form><div class="section"><div class="section-heading"><h2>备份与恢复</h2><span class="section-number">02 / DATA</span></div><p class="backup-date">上次备份：' + (backup.lastExportAt ? escape(new Date(backup.lastExportAt).toLocaleString('zh-CN')) : '未导出') + '</p><button class="setting-action" data-action="export-backup"><span>' + icon('download') + '导出备份</span>' + icon('next') + '</button><button class="setting-action" data-action="import-backup"><span>' + icon('upload') + '从备份恢复</span>' + icon('next') + '</button><form id="backup-reminder-form" data-dirty="backup-reminder"><div class="settings-row"><label for="backup-enabled">备份提醒</label><label class="switch" aria-label="备份提醒"><input id="backup-enabled" name="backup-enabled" type="checkbox"' + (backup.reminderEnabled ? ' checked' : '') + '><span></span></label></div>' + selectField('间隔', 'backup-days', String(backup.reminderDays), [['7', '7 天'], ['14', '14 天'], ['30', '30 天']]) + (backup.reminderEnabled && !backup.notificationsAllowed ? '<div class="permission-status"><span>备份提醒通知未开启</span><button type="button" class="text-button" data-action="backup-notification-settings">打开通知设置</button></div>' : '') + '<button class="small-submit primary" type="submit">保存备份提醒</button></form><button class="setting-action" data-action="export-report"><span>导出学习报表</span>' + icon('next') + '</button><button class="text-button" data-action="clear-drafts">清除全部草稿</button></div><div class="section"><div class="section-heading"><h2>桌面小组件</h2><span class="section-number">03 / WIDGET</span></div><button class="secondary-wide" data-action="pin-widget">' + icon('widget') + '添加到桌面</button><button class="text-button" data-action="widget-help">添加帮助</button></div><div class="section" data-theme-section><div class="section-heading"><h2>外观</h2><span class="section-number">04 / APPEARANCE</span></div><div class="theme-setting-row"><label for="theme-preference">主题</label><select id="theme-preference" data-theme-preference aria-label="主题"><option value="system"' + (theme === 'system' ? ' selected' : '') + '>跟随系统</option><option value="light"' + (theme === 'light' ? ' selected' : '') + '>浅色</option><option value="dark"' + (theme === 'dark' ? ' selected' : '') + '>深色</option></select></div></div><div class="section settings-links"><button class="setting-action" data-action="rest-hours"><span>休息时段</span>' + icon('next') + '</button><button class="setting-action" data-action="about"><span>关于</span>' + icon('next') + '</button></div>';
   }
 
   function render() {
@@ -1033,6 +1050,11 @@
     dirty.delete('sheet');feedback.delete('sheet');syncFeedback(form);window.StudyDrafts.attach(form);
   }));
   document.addEventListener('change', event => {
+    if (event.target.matches('[data-theme-preference]')) {
+      applyThemePreference(event.target.value);
+      tell(event.target.value === 'dark' ? '已切换为深色主题' : event.target.value === 'light' ? '已切换为浅色主题' : '已跟随系统主题');
+      return;
+    }
     if(event.target.closest('#evaluation-schedule-form'))window.StudyEvaluationUI.sync(event.target.form,event.target.id==='evaluation-type');
     if (event.target.id === 'new-subject-measure') {
       const quantity = event.target.value === 'quantity', label = document.getElementById('new-subject-default-label'), box = document.getElementById('new-subject-defaults');

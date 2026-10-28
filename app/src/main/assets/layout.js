@@ -123,14 +123,14 @@
     const host=node('div','layout-modules');element.append(host);group(host,context.planId+':review',[{id:'overview',label:'总览',nodes:overview},{id:'statistics',label:'科目统计',nodes:stats},{id:'note',label:'本周随记',nodes:[note,output]}],{id:'review-module',label:'复盘模块'});
   }
   function settings(element) {
-    const reminder=element.querySelector('#reminder-form'),backup=element.querySelector('[data-action="export-backup"]')?.closest('.section'),widget=element.querySelector('[data-action="pin-widget"]')?.closest('.section');if(!reminder||!backup)return;
+    const reminder=element.querySelector('#reminder-form'),backup=element.querySelector('[data-action="export-backup"]')?.closest('.section'),widget=element.querySelector('[data-action="pin-widget"]')?.closest('.section'),themeSection=element.querySelector('[data-theme-section]'),theme=themeSection?.querySelector('.theme-setting-row');if(!reminder||!backup)return;
     const manual=element.querySelector('[data-action="user-manual"]'),rest=element.querySelector('[data-action="rest-hours"]'),about=element.querySelector('[data-action="about"]');
-    [reminder,backup,widget].filter(Boolean).forEach(e=>e.querySelector('.section-heading')?.remove());
+    [reminder,backup,widget,themeSection].filter(Boolean).forEach(e=>e.querySelector?.('.section-heading')?.remove());
     const items=[{id:'reminders',label:'学习提醒',nodes:[reminder]},{id:'backup',label:'备份与导出',nodes:[backup]}];if(widget)items.push({id:'widget',label:'桌面小组件',nodes:[widget]});
     const host=node('div','layout-settings-list');element.append(host);const api=editor(element,'settings-editor',items);
-    const addGroup=(label,rows)=>{host.append(node('h2','layout-list-heading',label));rows.forEach(item=>{let button;if(item.element){button=item.element;button.className='layout-setting-row';}else{button=node('button','layout-setting-row');button.type='button';button.append(node('span','',item.label));if(item.trailing)button.append(node('small','',item.trailing));button.dataset.layoutSettings=item.id;button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','settings-editor');button.onclick=()=>api.activate(item.id);}if(!button.querySelector('svg:last-child'))button.append(icon('next'));host.append(button);});};
+    const addGroup=(label,rows)=>{host.append(node('h2','layout-list-heading',label));rows.forEach(item=>{let button;if(item.element){button=item.element;button.classList.add('layout-setting-row');}else{button=node('button','layout-setting-row');button.type='button';button.append(node('span','',item.label));if(item.trailing)button.append(node('small','',item.trailing));button.dataset.layoutSettings=item.id;button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','settings-editor');button.onclick=()=>api.activate(item.id);button.append(icon('next'));}host.append(button);});};
     addGroup('学习',[{id:'reminders',label:'学习提醒',trailing:context.state.settings.reminders.enabled?'已开启':'关闭'},...(rest?[{element:rest}]:[])]);
-    addGroup('数据',[{id:'backup',label:'备份与导出'}]);addGroup('应用',[...(widget?[{id:'widget',label:'桌面小组件'}]:[]),...(manual?[{element:manual}]:[]),...(about?[{element:about}]:[])]);
+    addGroup('数据',[{id:'backup',label:'备份与导出'}]);addGroup('应用',[...(widget?[{id:'widget',label:'桌面小组件'}]:[]),...(theme?[{element:theme}]:[]),...(manual?[{element:manual}]:[]),...(about?[{element:about}]:[])]);
     element.querySelectorAll(':scope>.section').forEach(e=>{if(!e.children.length)e.remove();});
   }
   function sizes() {
