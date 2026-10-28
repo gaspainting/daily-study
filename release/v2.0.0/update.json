@@ -1,0 +1,13 @@
+{
+  "formatVersion": 1,
+  "packageName": "cn.edu.njupt.studycheckin",
+  "versionCode": 27,
+  "versionName": "2.0.0",
+  "minSdk": 26,
+  "apkUrl": "https://github.com/gaspainting/daily-study-releases/releases/download/v2.0.0/daily-study-v2.0.0.apk",
+  "apkBytes": 6687965,
+  "apkSha256": "8e9f225377836be769c996d8eeb84aa5370c9d34a072294311b8ba30bf4c50eb",
+  "signerSha256": "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+  "releaseNotes": "# 每日学习 v2.0.0（beta.1）\n\n本版本将阶段 3 的第一批视觉预览加入 App 更新渠道，供 beta 测试使用。\n\n- 今日、计划、复盘、日签、设置统一使用新的页面层级、卡片、列表和底部导航。\n- 今日页的日期、参考、记录、评估、计时和保存状态更容易区分。\n- 设置中可以选择跟随系统、浅色或深色主题。\n- 计划和复盘页统一了周导航、模块标签、统计和编辑入口。\n- 保留原有手动保存、草稿恢复、自动评估、备份和历史数据。\n\n这是 beta.1 测试版本，后续 beta 版本会继续通过同一更新渠道发布。",
+  "releaseDate": "2026-10-28"
+}

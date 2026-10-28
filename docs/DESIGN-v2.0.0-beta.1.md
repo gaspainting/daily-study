@@ -2,7 +2,7 @@
 
 整理日期：2026年10月27日
 
-本轮开始阶段 3 的第一批视觉实现。当前工作包作为 v2.0.0-beta.1 预览交付，APK 使用 versionCode 27；GitHub stable/latest 与手机正式更新通道继续保持 v1.7.0，待 beta.2 和完整验收后再决定正式发行。
+本轮开始阶段 3 的第一批视觉实现。当前工作包作为 v2.0.0-beta.1 预览交付，APK 使用 versionCode 27；v2.0.0-beta.1 已加入 stable/latest 更新入口，后续 beta 版本继续沿用该渠道。
 
 ## 已交付
 
