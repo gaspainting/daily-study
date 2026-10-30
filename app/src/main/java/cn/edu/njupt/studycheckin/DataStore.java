@@ -196,7 +196,13 @@ public final class DataStore {
             nullableBool(r.opt("halfDayRest"),"半天休息");
             if(r.has("subjects")) {JSONObject text=r.getJSONObject("subjects");Iterator<String> subjectIds=text.keys();while(subjectIds.hasNext()){String id=subjectIds.next();require(ids.contains(id),"复盘科目不存在");string(text,id,8000);}}
         }
-        keys(state.getJSONObject("settings"),new String[]{"reminders"},new String[]{},"settings");
+        keys(state.getJSONObject("settings"),new String[]{"reminders"},new String[]{"restHours"},"settings");
+        if(state.getJSONObject("settings").has("restHours")) {
+            JSONObject rest=state.getJSONObject("settings").getJSONObject("restHours");
+            keys(rest,new String[]{"weekdayEnd","weekendStart","weekendEnd"},new String[]{},"restHours");
+            int weekdayEnd=clockMinutes(string(rest,"weekdayEnd",5)), weekendStart=clockMinutes(string(rest,"weekendStart",5)), weekendEnd=clockMinutes(string(rest,"weekendEnd",5));
+            require(weekdayEnd>0,"工作日结束时间须晚于00:00"); require(weekendStart<weekendEnd,"周末开始时间须早于结束时间");
+        }
         JSONObject reminder=state.getJSONObject("settings").getJSONObject("reminders");
         keys(reminder,new String[]{"enabled","weekdayTime","weekendTime"},new String[]{},"reminders");
         require(reminder.opt("enabled") instanceof Boolean,"提醒开关无效");
@@ -204,7 +210,7 @@ public final class DataStore {
             String t=string(reminder,key,5);require(t.matches("([01]\\d|2[0-3]):[0-5]\\d"),"提醒时间格式无效");
             int hour=Integer.parseInt(t.substring(0,2)),min=Integer.parseInt(t.substring(3));
             LocalDate d=LocalDate.of(2026,10,key.equals("weekdayTime")?12:17);
-            require(AppRules.allowedTime(d,hour,min),"提醒时间超出允许学习时段");
+            require(AppRules.allowedTime(state,d,hour,min),"提醒时间超出允许学习时段");
         }
         if(state.has("sessions")) {
             sessions(state.getJSONArray("sessions"),ids);
@@ -230,6 +236,7 @@ public final class DataStore {
         validate(state);
         int originalVersion=state.getInt("version");if(originalVersion==9)return;
         state.put("version",9);Courses.initialize(state);clearPresetWeeks(state.getJSONObject("plan"));
+        JSONObject settings=state.getJSONObject("settings");if(!settings.has("restHours"))settings.put("restHours",new JSONObject().put("weekdayEnd",AppRules.DEFAULT_WEEKDAY_END).put("weekendStart",AppRules.DEFAULT_WEEKEND_START).put("weekendEnd",AppRules.DEFAULT_WEEKEND_END));
         boolean hasQuantity=false;JSONArray qSubjects=state.getJSONObject("plan").getJSONArray("subjects");for(int i=0;i<qSubjects.length();i++)if("quantity".equals(qSubjects.getJSONObject(i).optString("measure")))hasQuantity=true;if(hasQuantity&&!state.getJSONObject("plan").has("quantityTargets"))state.getJSONObject("plan").put("quantityTargets",new JSONObject());
         if(!state.getJSONObject("plan").has("weekTasks"))state.getJSONObject("plan").put("weekTasks",new JSONObject());
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");JSONObject reviews=state.getJSONObject("reviews");Iterator<String> dates=reviews.keys();
@@ -247,5 +254,9 @@ public final class DataStore {
     private static void sessions(JSONArray sessions,Set<String> ids)throws Exception {
         require(sessions.length()<=100000,"计时记录数量过大");Set<String> seen=new HashSet<>();
         for(int i=0;i<sessions.length();i++) {JSONObject s=sessions.getJSONObject(i);keys(s,new String[]{"id","date","subjectId","seconds","endedAt"},new String[]{},"session");require(seen.add(string(s,"id",128)),"计时记录重复");date(string(s,"date",10));require(ids.contains(string(s,"subjectId",64)),"计时科目不存在");number(s.opt("seconds"),86400,false,false,"计时秒数");Instant.parse(string(s,"endedAt",64));}
+    }
+    private static int clockMinutes(String value)throws Exception {
+        require(value.matches("([01]\\d|2[0-3]):[0-5]\\d"),"时间格式无效");
+        return Integer.parseInt(value.substring(0,2))*60+Integer.parseInt(value.substring(3,5));
     }
 }

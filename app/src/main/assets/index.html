@@ -40,7 +40,7 @@
   <script src="domain-contract.js" defer></script>
   <script src="app.js" defer></script>
 </head>
-<body>
+<body class="booting">
   <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <symbol id="i-today" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M8 3v4m8-4v4M4 11h16m-11 5 2 2 4-4"/></symbol>
     <symbol id="i-plan" viewBox="0 0 24 24"><path d="M4 4h7a3 3 0 0 1 3 3v14a4 4 0 0 0-3-1H4zM14 7a3 3 0 0 1 3-3h3v16h-3a4 4 0 0 0-3 1"/></symbol>
@@ -69,7 +69,7 @@
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 15.3A8.5 8.5 0 0 1 8.7 4 8.5 8.5 0 1 0 20 15.3Z"/></symbol>
     <symbol id="i-system" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/></symbol>
   </svg>
-  <div class="app-shell">
+  <div class="app-shell" aria-hidden="true">
     <header class="masthead"><div class="masthead-leading"><button type="button" class="brand-lockup" data-nav="today" aria-label="打开今日"><span class="brand-mark">日</span><span class="brand-copy"><strong>每日学习</strong><small>记录今天，也看见下一步</small></span></button><button type="button" class="header-plan" id="header-plan" data-action="plan-picker" aria-label="切换计划"><span class="header-plan-label">当前计划</span><span id="header-plan-name">每日学习</span><svg aria-hidden="true"><use href="#i-down"/></svg></button></div><div class="header-actions"><span id="header-tag" class="header-tag" hidden></span><button type="button" id="update-entry" class="text-button" data-action="update-open" hidden>有新版本</button></div></header>
     <main id="app" tabindex="-1"><div class="loading"><span class="brand-mark">日</span><p>正在打开学习手记…</p></div></main>
     <nav class="bottom-nav" aria-label="主要页面">

@@ -33,7 +33,7 @@ public final class ReminderScheduler {
             for(int i=0;i<731&&!day.isAfter(end);i++,day=day.plusDays(1)){
                 LocalTime time=LocalTime.parse(r.getString(day.getDayOfWeek().getValue()>=6?"weekendTime":"weekdayTime"));
                 ZonedDateTime slot=day.atTime(time).atZone(now.getZone());
-                if(slot.isAfter(now)&&!delivered.equals(day.toString())&&AppRules.allowedTime(day,time.getHour(),time.getMinute())){
+                if(slot.isAfter(now)&&!delivered.equals(day.toString())&&AppRules.allowedTime(state,day,time.getHour(),time.getMinute())){
                     intent.putExtra("date",day.toString()).putExtra("scheduledAt",slot.toInstant().toEpochMilli());
                     PendingIntent next=PendingIntent.getBroadcast(c,301,intent,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
                     manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,slot.toInstant().toEpochMilli(),next);return;

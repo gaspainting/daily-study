@@ -19,7 +19,7 @@ public final class ReminderReceiver extends BroadcastReceiver {
                 boolean duplicate=day.equals(c.getSharedPreferences("reminder_delivery",Context.MODE_PRIVATE).getString("date",""));
                 if(s.getJSONObject("settings").getJSONObject("reminders").getBoolean("enabled")&&ReminderScheduler.notificationsAllowed(c)&&!duplicate
                     &&day.equals(intent.getStringExtra("date"))&&day.compareTo(p.getString("startDate"))>=0&&day.compareTo(p.getString("endDate"))<=0
-                    &&scheduled>0&&now>=scheduled&&now-scheduled<=3600000&&AppRules.allowed(LocalDateTime.now())){
+                    &&scheduled>0&&now>=scheduled&&now-scheduled<=3600000&&AppRules.allowed(s,LocalDateTime.now())){
                     NotificationManager manager=c.getSystemService(NotificationManager.class);manager.createNotificationChannel(new NotificationChannel("study_reminders","学习提醒",NotificationManager.IMPORTANCE_DEFAULT));
                     PendingIntent open=PendingIntent.getActivity(c,302,new Intent(c,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
                     Notification n=new Notification.Builder(c,"study_reminders").setSmallIcon(R.drawable.ic_notification).setContentTitle("学习提醒")

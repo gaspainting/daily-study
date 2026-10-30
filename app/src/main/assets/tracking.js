@@ -45,13 +45,20 @@
     }).join('') : '<div class="empty">暂无匹配记录</div>';
     return html + '</div>';
   }
+  function renderMixedChart(options) {
+    var days = options.days || [], values = options.values || [], references = options.references || [], labels = options.labels || days.map(function (d) { return Number(d.slice(8)) + '日'; }), maximum = Math.max(1, ...values.concat(references).filter(function (v) { return typeof v === 'number' && Number.isFinite(v); })), n = Math.max(1, days.length - 1);
+    var points = references.map(function (value, index) { return typeof value === 'number' && Number.isFinite(value) ? (index / n * 100).toFixed(2) + ' ' + (100 - value / maximum * 100).toFixed(2) : null; }).filter(Boolean).join(' ');
+    var bars = values.map(function (value, index) { var height = typeof value === 'number' && Number.isFinite(value) ? Math.max(0, value / maximum * 100) : 0; return '<div class="mixed-column" title="' + escape(days[index] + ' · ' + (typeof value === 'number' && Number.isFinite(value) ? options.valueLabel(value, index) : '未记录')) + '"><span class="mixed-bar' + (value == null ? ' missing' : value === 0 ? ' zero' : '') + '" style="--mixed-height:' + height.toFixed(2) + '%"></span></div>'; }).join('');
+    var description = options.description || days.map(function (day, index) { return day + '，' + (values[index] == null ? '未记录' : options.valueLabel(values[index], index)) + '，' + (references[index] == null ? '无参考' : '参考 ' + options.referenceLabel(references[index], index)); }).join('；');
+    return '<div class="mixed-chart" role="img" aria-label="' + escape(options.ariaLabel + '：' + description) + '"><div class="mixed-plot"><div class="mixed-grid" aria-hidden="true"><i></i><i></i><i></i></div><div class="mixed-bars" style="grid-template-columns:repeat(' + Math.max(1, days.length) + ',minmax(0,1fr))">' + bars + '</div><svg class="mixed-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="' + escape(points) + '"></polyline>' + references.map(function (value, index) { return typeof value === 'number' && Number.isFinite(value) ? '<circle cx="' + (index / n * 100).toFixed(2) + '" cy="' + (100 - value / maximum * 100).toFixed(2) + '" r="1.2"></circle>' : ''; }).join('') + '</svg></div><div class="chart-labels" style="grid-template-columns:repeat(' + Math.max(1, days.length) + ',minmax(0,1fr))">' + labels.map(function (label) { return '<span>' + escape(label) + '</span>'; }).join('') + '</div><p class="chart-caption">柱：实际记录 · 折线：参考或目标 · 虚线柱：未记录</p></div>';
+  }
   function renderQuantityStats(state,days){
     return state.plan.subjects.filter(model().isQuantity).map(function(item){return model().quantityStats(state,days,item).map(function(group){
       var unit=group.unit,active=d=>d>=state.plan.startDate&&d<=state.plan.endDate&&model().subjectActive(item,d),goal=d=>active(d)&&model().quantityUnit(state,d,item.id)===unit?model().quantityTarget(state,d,item.id):null;
       var actual=d=>{var e=state.records[d]?.subjects?.[item.id];return e&&e.quantityUnit===unit?e.quantity:null;};
       var description=days.map(d=>d+'，'+(actual(d)===null?'未记录':actual(d)+' '+unit)+'，目标 '+(goal(d)===null?'—':goal(d)+' '+unit)).join('；');
       var html='<section class="quantity-summary" aria-label="'+escape(item.name+' · '+unit)+'"><div class="chart-subject-head"><h3>'+escape(item.name)+' · '+escape(unit)+'</h3><span class="chart-value">'+(group.actual===null?'未记录':group.actual+' '+escape(unit))+' <small>/ 目标 '+group.reference+' '+escape(unit)+'</small></span></div>';
-      if(days.length<=7){var maximum=Math.max(1,...days.map(d=>Math.max(actual(d)||0,goal(d)||0)));html+='<div class="bar-chart" role="img" aria-label="'+escape(description)+'">'+days.map(d=>{const count=actual(d),target=goal(d);return '<div class="chart-day" title="'+escape(d+' · '+(count===null?'未记录':count+' '+unit))+'">'+(target===null?'':'<i class="bar reference" data-height="'+target/maximum*100+'"></i>')+'<i class="bar'+(count===null?' missing':count===0?' zero':'')+'" data-height="'+(count||0)/maximum*100+'"></i></div>';}).join('')+'</div><div class="chart-labels">'+days.map(d=>'<span>'+Number(d.slice(8))+'日</span>').join('')+'</div>';}
+      if(days.length<=7)html+=renderMixedChart({days:days,values:days.map(actual),references:days.map(goal),ariaLabel:item.name+' · '+unit,valueLabel:function(v){return v+' '+unit;},referenceLabel:function(v){return v+' '+unit;},description:description});
       return html+'<p class="chart-caption">'+group.recordedDays+'/'+group.totalDays+' 天已记录</p></section>';
     }).join('');}).join('');
   }
@@ -60,9 +67,8 @@
       var html='<div class="word-summary"><h3>'+escape(s.name)+'</h3><div class="word-summary-grid"><div><span>新学</span><strong>'+(s.newWords===null?'未记录':s.newWords+' 个')+'</strong></div><div><span>目标</span><strong>'+(s.target===null?'—':s.target+' 个')+'</strong></div><div><span>复习</span><strong>'+(s.reviewWords===null?'未记录':s.reviewWords+' 个')+'</strong></div></div><p class="chart-caption">新学 '+s.newRecordedDays+'/'+s.totalDays+' 天已记录 · 复习 '+s.reviewRecordedDays+'/'+s.totalDays+' 天已记录</p>';
       if(days.length<=7){
         const subject=state.plan.subjects.find(x=>x.id===s.id),goalFor=d=>d>=state.plan.startDate&&d<=state.plan.endDate&&model().subjectActive(subject,d)?model().wordTarget(state,d,s.id):null;
-        const maximum=Math.max(1,...days.map(d=>Math.max(goalFor(d)||0,state.records[d]?.subjects?.[s.id]?.newWords||0)));
         const description=days.map(d=>d+' 新学 '+(state.records[d]?.subjects?.[s.id]?.newWords??'未记录')+'，目标 '+(goalFor(d)===null?'—':goalFor(d)+' 个')).join('；');
-        html+='<div class="bar-chart" role="img" aria-label="'+escape(s.name+'：'+description)+'">'+days.map(d=>{const value=state.records[d]?.subjects?.[s.id]?.newWords??null,goal=goalFor(d)||0;return '<div class="chart-day"><i class="bar reference" data-height="'+goal/maximum*100+'"></i><i class="bar'+(value===null?' missing':value===0?' zero':'')+'" data-height="'+(value||0)/maximum*100+'"></i></div>';}).join('')+'</div><div class="chart-labels">'+days.map(d=>'<span>'+Number(d.slice(8))+'日</span>').join('')+'</div>';
+        html+=renderMixedChart({days:days,values:days.map(function(d){return state.records[d]?.subjects?.[s.id]?.newWords??null;}),references:days.map(goalFor),ariaLabel:s.name+' · 新学',valueLabel:function(v){return v+' 个';},referenceLabel:function(v){return v+' 个';},description:description});
       }
       return html+'</div>';
     }).join('');
@@ -98,5 +104,5 @@
     }).join('') : '<div class="empty">暂无计时记录</div>';
     return html + '</div>';
   }
-  return Object.freeze({ summaryText: summaryText, renderQuantityStats:renderQuantityStats, renderWordStats: renderWordStats, renderAssessments: renderAssessments, renderHistory: renderHistory, renderMonth: renderMonth, renderSessions: renderSessions, duration: duration });
+  return Object.freeze({ summaryText: summaryText, renderMixedChart: renderMixedChart, renderQuantityStats:renderQuantityStats, renderWordStats: renderWordStats, renderAssessments: renderAssessments, renderHistory: renderHistory, renderMonth: renderMonth, renderSessions: renderSessions, duration: duration });
 });

@@ -32,10 +32,11 @@ public final class TimerStore {
     private static JSONObject checked(Context c) throws Exception {
         JSONObject t=read(c); if(t==null)return null;
         if(t.optBoolean("running")) {
+            JSONObject state=DataStore.load(c);
             boolean reboot=t.optInt("bootCount",-1)!=boot(c)||SystemClock.elapsedRealtime()<t.optLong("segmentStartElapsed");
             if(reboot) {
                 t.put("running",false).put("message","手机已重启，计时保持暂停；请核对实际时间");write(c,t);
-            } else if(System.currentTimeMillis()>=t.optLong("segmentDeadlineWall")||!AppRules.allowed(LocalDateTime.now())) {
+            } else if(System.currentTimeMillis()>=t.optLong("segmentDeadlineWall")||!AppRules.allowed(state,LocalDateTime.now())) {
                 t.put("accumulatedMs",t.optLong("accumulatedMs")+segment(t));
                 t.put("running",false).put("message","已到休息时段，计时已暂停");write(c,t);
             } else if(SystemClock.elapsedRealtime()-t.optLong("segmentStartElapsed")>=60000) {
@@ -61,16 +62,16 @@ public final class TimerStore {
             if(checked(c)!=null)throw new Exception("请先结束或取消当前计时");
             JSONObject state=DataStore.load(c),p=state.getJSONObject("plan");
             if(!Evaluation.clock(state).today.equals(day))throw new Exception("计时用于今天；其他日期请手动补记");
-            if(!AppRules.allowed(LocalDateTime.now()))throw new Exception(AppRules.restReason(LocalDateTime.now()));
+            if(!AppRules.allowed(state,LocalDateTime.now()))throw new Exception(AppRules.restReason(state,LocalDateTime.now()));
             if(day.compareTo(p.getString("startDate"))<0||day.compareTo(p.getString("endDate"))>0)throw new Exception("今天不在计划范围内，请先调整计划日期");
             JSONObject subject=activeTimerSubject(state,id,LocalDate.parse(day));if("vocab".equals(subject.getString("kind")))throw new Exception("单词按词数记录");String actualName=subject.getString("name");
             JSONObject t=new JSONObject().put("id",UUID.randomUUID().toString()).put("subjectId",id).put("subjectName",actualName).put("date",day)
-                .put("accumulatedMs",0).put("message","");begin(c,t);write(c,t);return view(t);
+                .put("accumulatedMs",0).put("message","");begin(c,state,t);write(c,t);return view(t);
         }catch(Exception e){return error(e);}}
     }
-    private static void begin(Context c,JSONObject t)throws Exception {
+    private static void begin(Context c,JSONObject state,JSONObject t)throws Exception {
         t.put("running",true).put("bootCount",boot(c)).put("segmentStartElapsed",SystemClock.elapsedRealtime())
-            .put("segmentStartWall",System.currentTimeMillis()).put("segmentDeadlineWall",AppRules.cutoffMillis(ZonedDateTime.now())).put("message","");
+            .put("segmentStartWall",System.currentTimeMillis()).put("segmentDeadlineWall",AppRules.cutoffMillis(state,ZonedDateTime.now())).put("message","");
     }
     private static JSONObject activeTimerSubject(JSONObject state,String id,LocalDate date)throws Exception {
         JSONArray subjects=state.getJSONObject("plan").getJSONArray("subjects");
@@ -87,9 +88,9 @@ public final class TimerStore {
             if("resume".equals(action)) {
                 JSONObject state=DataStore.load(c);String today=Evaluation.clock(state).today;
                 if(!t.getString("date").equals(today))throw new Exception("这是之前日期的计时，请结束保存后开始今天的计时");
-                if(!AppRules.allowed(LocalDateTime.now()))throw new Exception(AppRules.restReason(LocalDateTime.now())+"，计时保持暂停");
+                if(!AppRules.allowed(state,LocalDateTime.now()))throw new Exception(AppRules.restReason(state,LocalDateTime.now())+"，计时保持暂停");
                 activeTimerSubject(state,t.getString("subjectId"),LocalDate.parse(today));
-                if(!t.optBoolean("running")){begin(c,t);write(c,t);}return view(t);
+                if(!t.optBoolean("running")){begin(c,state,t);write(c,t);}return view(t);
             }
             if("discard".equals(action)){write(c,null);return view(null);}
             if(!"finish".equals(action))throw new Exception("计时操作无效");

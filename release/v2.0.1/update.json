@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  28,
+    "versionName":  "2.0.1",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v2.0.1/daily-study-v2.0.1.apk",
+    "apkBytes":  6692063,
+    "apkSha256":  "2969080c246900d941f7fa83cee910a8a14d19c1e92b0129f3c6944b954eeb72",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v2.0.1（beta.2）\n\n本版本修正 v2.0.0 beta 的启动与复盘体验，并补齐休息时段设置。\n\n- 启动图文在主界面释放前完成状态确认，避免先短暂进入首页再出现启动内容。\n- 复盘科目统计改为组合图：柱表示实际记录，折线表示每日参考或目标；未记录、显式 0 和参考区间仍分别保留。\n- 设置页加入可编辑的休息时段：工作日结束时间、周末开始时间和周末结束时间。计时、提醒调度和浏览器预览使用同一份边界；手动补记不受影响。\n- v2 视觉结构调整为页面标题卡、分组表面、模块标签、浮动五项导航和统一统计卡片，覆盖今日、复盘和设置页。\n\n验证：265 项 Node 回归通过；测试构建与 release 构建通过 Android v2/v3 签名校验；已在本地浏览器预览核对今日、复盘统计和设置页面。当前没有连接 Android 真机或可用模拟器，真机键盘、TalkBack、系统权限和覆盖安装仍需设备验证。",
+    "releaseDate":  "2026-10-31"
+}

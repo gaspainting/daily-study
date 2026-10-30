@@ -191,6 +191,18 @@
   function clock(value, path) {
     if (typeof value !== 'string' || !/^([01]\d|2[0-3]):[0-5]\d$/.test(value)) fail(path + '须为HH:mm');
   }
+  var DEFAULT_REST_HOURS = Object.freeze({ weekdayEnd: '20:30', weekendStart: '09:30', weekendEnd: '19:00' });
+  function restHours(state) {
+    var value = state && state.settings && state.settings.restHours;
+    return value ? value : DEFAULT_REST_HOURS;
+  }
+  function clockMinutes(value) { return Number(value.slice(0, 2)) * 60 + Number(value.slice(3)); }
+  function validateRestHours(value) {
+    keys(value, ['weekdayEnd', 'weekendStart', 'weekendEnd'], [], 'restHours');
+    clock(value.weekdayEnd, '工作日结束时间'); clock(value.weekendStart, '周末开始时间'); clock(value.weekendEnd, '周末结束时间');
+    if (clockMinutes(value.weekdayEnd) === 0) fail('工作日结束时间须晚于00:00');
+    if (clockMinutes(value.weekendStart) >= clockMinutes(value.weekendEnd)) fail('周末开始时间须早于结束时间');
+  }
   function validateState(state) {
     keys(state, ['version', 'plan', 'records', 'reviews', 'settings'].concat(state.version>=9?['evaluation']:[]), ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
     if (![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(state.version)) fail('不支持此备份版本');
@@ -284,7 +296,8 @@
         Object.keys(review.subjects).forEach(function (id) { if (!ids[id]) fail('复盘科目不存在：' + id); string(review.subjects[id], 8000, 'review.subjects.' + id, false); });
       }
     });
-    keys(state.settings, ['reminders'], [], 'settings');
+    keys(state.settings, ['reminders'], ['restHours'], 'settings');
+    if (has(state.settings, 'restHours')) validateRestHours(state.settings.restHours);
     var reminders = state.settings.reminders;
     keys(reminders, ['enabled', 'weekdayTime', 'weekendTime'], [], 'reminders');
     if (typeof reminders.enabled !== 'boolean') fail('提醒开关须为布尔值');
@@ -292,8 +305,9 @@
     clock(reminders.weekendTime, '周末提醒');
     var weekdayMinutes = Number(reminders.weekdayTime.slice(0, 2)) * 60 + Number(reminders.weekdayTime.slice(3));
     var weekendMinutes = Number(reminders.weekendTime.slice(0, 2)) * 60 + Number(reminders.weekendTime.slice(3));
-    if (weekdayMinutes >= 1230) fail('工作日提醒须早于20:30');
-    if (weekendMinutes < 570 || weekendMinutes >= 1140) fail('周末提醒须在09:30至19:00之前');
+    var rest = restHours(state), weekdayEnd = clockMinutes(rest.weekdayEnd), weekendStart = clockMinutes(rest.weekendStart), weekendEnd = clockMinutes(rest.weekendEnd);
+    if (weekdayMinutes >= weekdayEnd) fail('工作日提醒须早于' + rest.weekdayEnd);
+    if (weekendMinutes < weekendStart || weekendMinutes >= weekendEnd) fail('周末提醒须在' + rest.weekendStart + '至' + rest.weekendEnd + '之前');
     if (has(state, 'sessions')) sessionsValid(state.sessions, ids, 'sessions');
     if(state.version>=9)evaluation.validate(state);
       if(state.version>=9&&state.evaluation.transitionLegacy){var legacy=Object.assign({},state,{version:8,records:{[state.evaluation.transitionDate]:state.evaluation.transitionLegacy.record},assessmentBases:state.evaluation.transitionLegacy.basis?{[state.evaluation.transitionDate]:state.evaluation.transitionLegacy.basis}:{}});delete legacy.evaluation;validateState(legacy);}
@@ -622,11 +636,22 @@
     Object.keys(state.records).sort().forEach(function (date) { append(state.records[date].sessions); });
     return sessions.sort(function (a, b) { return b.time - a.time || b.value.id.localeCompare(a.value.id); }).map(function (item) { return clone(item.value); });
   }
-  function allowed(date) {
+  function allowed(date, state) {
     date = date === undefined ? new Date() : date;
     if (!(date instanceof Date) || !Number.isFinite(date.getTime())) fail('时间无效');
     var day = date.getDay(), minutes = date.getHours() * 60 + date.getMinutes();
-    return day === 0 || day === 6 ? minutes >= 570 && minutes < 1140 : minutes < 1230;
+    var rest = restHours(state), weekdayEnd = clockMinutes(rest.weekdayEnd), weekendStart = clockMinutes(rest.weekendStart), weekendEnd = clockMinutes(rest.weekendEnd);
+    return day === 0 || day === 6 ? minutes >= weekendStart && minutes < weekendEnd : minutes < weekdayEnd;
+  }
+  function restReason(date, state) {
+    date = date === undefined ? new Date() : date;
+    var rest = restHours(state), minutes = date.getHours() * 60 + date.getMinutes();
+    return date.getDay() === 0 || date.getDay() === 6 ? (minutes < clockMinutes(rest.weekendStart) ? rest.weekendStart + ' 前为休息时段' : rest.weekendEnd + ' 起为休息时段') : rest.weekdayEnd + ' 起为休息时段';
+  }
+  function cutoff(date, state) {
+    date = date === undefined ? new Date() : date;
+    var rest = restHours(state), value = date.getDay() === 0 || date.getDay() === 6 ? rest.weekendEnd : rest.weekdayEnd;
+    var result = new Date(date); result.setHours(Number(value.slice(0, 2)), Number(value.slice(3)), 0, 0); return result.getTime();
   }
   return Object.freeze({
     today: today, dates: dates, weekKey: weekKey, weekInfo: weekInfo,
@@ -635,6 +660,6 @@
     wordTarget: wordTarget, setWordGoal: setWordGoal, wordStats: wordStats, wordSteps: wordSteps, setWordSteps: setWordSteps,
     weekStats: weekStats, monthStats: monthStats, recordSummary: recordSummary, historySearch: historySearch, sessionSearch: sessionSearch,
     migrateState: migrateState, applyCourseSchedule: applyCourseSchedule, applyWeekendSchedule: applyWeekendSchedule, archiveSubject: archiveSubject, restoreSubject: restoreSubject, moveSubject: moveSubject,
-    validateState: validateState, validate: validateState, allowed: allowed
+    validateState: validateState, validate: validateState, allowed: allowed, restHours: function (state) { return clone(restHours(state)); }, restReason: restReason, cutoff: cutoff
   });
 });
