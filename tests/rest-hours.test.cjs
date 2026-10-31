@@ -42,6 +42,8 @@ test('mixed chart keeps unknown actuals out of the zero bar and exposes the line
   });
   assert.match(html, /class="mixed-chart"/);
   assert.match(html, /<polyline/);
+  assert.match(html, /mixed-bar[^>]+data-height="66\.67"/);
+  assert.match(html, /mixed-bar[^>]+style="height:66\.67%"/);
   assert.match(html, /mixed-bar missing/);
   assert.match(html, /mixed-bar zero/);
 });

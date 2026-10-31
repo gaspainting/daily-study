@@ -419,9 +419,9 @@ main { padding: 18px 22px calc(var(--layout-nav-height) + 34px); min-height: cal
 .mixed-grid, .mixed-bars, .mixed-line { position: absolute; inset: 0; width: 100%; height: 100%; }
 .mixed-grid { display: flex; flex-direction: column; justify-content: space-between; padding: 7px 0 0; pointer-events: none; }
 .mixed-grid i { display: block; border-top: 1px dashed var(--line); opacity: .75; }
-.mixed-bars { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); align-items: end; gap: 8px; padding: 7px 0 0; }
-.mixed-column { height: 100%; display: flex; justify-content: center; align-items: flex-end; min-width: 0; }
-.mixed-bar { display: block; width: min(18px, 60%); height: var(--mixed-height); min-height: 2px; border-radius: 5px 5px 0 0; background: var(--accent); }
+.mixed-bars { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 8px; padding: 7px 0 0; }
+.mixed-column { height: 100%; align-self: stretch; display: flex; justify-content: center; align-items: flex-end; min-width: 0; }
+.mixed-bar { display: block; width: min(18px, 60%); height: 0; min-height: 2px; border-radius: 5px 5px 0 0; background: var(--accent); }
 .mixed-bar.zero { opacity: .35; }
 .mixed-bar.missing { height: 12px; min-height: 12px; background: transparent; border: 1px dashed var(--muted); border-radius: 3px; }
 .mixed-line { overflow: visible; pointer-events: none; }
