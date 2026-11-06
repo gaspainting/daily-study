@@ -97,7 +97,7 @@ public final class BackupStatus {
             JSONObject state = DataStore.readStable(context);
             return ACTION.equals(intent.getAction()) && preferences.getBoolean("enabled", false) && notificationsAllowed(context)
                 && scheduled > 0 && scheduled == preferences.getLong("nextReminderAt", 0) && now >= scheduled && now - scheduled <= 3600000
-                && AppRules.allowed(state, Instant.ofEpochMilli(now).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
+                && AppRules.reminderAllowed(state, Instant.ofEpochMilli(now).atZone(java.time.ZoneId.systemDefault()).toLocalDateTime());
         } catch (Exception ignored) { return false; }
     }
     static boolean delivered(Context context, long scheduledAt, long now) {

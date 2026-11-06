@@ -65,7 +65,7 @@ public final class StudyWidget extends AppWidgetProvider {
             if(value==null)throw new Exception("记录读取失败");
             v.setTextViewText(R.id.widget_subjects,value.getString("subjects"));v.setTextViewText(R.id.widget_status,value.getString("status"));
         }catch(Exception e){v.setTextViewText(R.id.widget_subjects,"记录读取失败");v.setTextViewText(R.id.widget_status,"打开APP重试");}
-        PendingIntent open=PendingIntent.getActivity(c,400+id,new Intent(c,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent open=PendingIntent.getActivity(c,400+id,new Intent(c,MainActivity.class).putExtra("route","today").addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         v.setOnClickPendingIntent(R.id.widget_root,open);v.setOnClickPendingIntent(R.id.widget_open,open);manager.updateAppWidget(id,v);
     }
 }

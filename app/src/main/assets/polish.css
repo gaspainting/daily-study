@@ -177,3 +177,6 @@
 .large-text .word-log-actions{flex-basis:100%}
 
 .word-log-source{display:inline-block;white-space:nowrap}
+
+.quick-entry-button{width:100%;justify-content:flex-start;margin:14px 0 2px;border-color:var(--ink);background:var(--white);font-weight:650}
+.quick-entry-button:active{background:var(--soft)}

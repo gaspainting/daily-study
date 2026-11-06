@@ -217,7 +217,7 @@
         Object.keys(review.subjects).forEach(function (id) { if (!ids[id]) fail('复盘科目不存在：' + id); string(review.subjects[id], 8000, 'review.subjects.' + id, false); });
       }
     });
-    keys(state.settings, ['reminders'], [], 'settings');
+    keys(state.settings, ['reminders'], ['restHours', 'reminderQuietHours', 'startupRoute'], 'settings');
     var reminders = state.settings.reminders;
     keys(reminders, ['enabled', 'weekdayTime', 'weekendTime'], [], 'reminders');
     if (typeof reminders.enabled !== 'boolean') fail('提醒开关须为布尔值');

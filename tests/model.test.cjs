@@ -98,8 +98,8 @@ test('每科已记录天数分别汇总，计时分数分钟不截断', () => {
 
 test('休息边界按本地时间精准检查，补记真实历史不受时间限制', () => {
   const at = (day, hour, minute) => new Date(2026, 9, day, hour, minute, 0);
-  assert.equal(Model.allowed(at(13,20,29)), true);
-  assert.equal(Model.allowed(at(13,20,30)), false);
+  assert.equal(Model.allowed(at(13,21,29)), true);
+  assert.equal(Model.allowed(at(13,21,30)), false);
   assert.equal(Model.allowed(at(13,23,59)), false);
   assert.equal(Model.allowed(at(17,9,29)), false);
   assert.equal(Model.allowed(at(17,9,30)), true);
@@ -178,7 +178,7 @@ test('计时sessions与手动编辑共存，保存不丢失原始sessions', () =
 
 test('提醒配置和备份导入始终遵守休息边界，包括开关关闭时', () => {
   for (const enabled of [false,true]) {
-    for (const [field,value] of [['weekdayTime','20:30'],['weekdayTime','23:59'],['weekendTime','09:29'],['weekendTime','19:00']]) {
+    for (const [field,value] of [['weekdayTime','21:30'],['weekdayTime','23:59'],['weekendTime','09:29'],['weekendTime','19:00']]) {
       const state = fresh();
       state.settings.reminders.enabled = enabled;
       state.settings.reminders[field] = value;
@@ -186,7 +186,7 @@ test('提醒配置和备份导入始终遵守休息边界，包括开关关闭�
     }
     const state = fresh();
     state.settings.reminders.enabled = enabled;
-    state.settings.reminders.weekdayTime = '20:29';
+    state.settings.reminders.weekdayTime = '21:29';
     state.settings.reminders.weekendTime = '09:30';
     assert.equal(Model.validateState(state), true);
     state.settings.reminders.weekendTime = '18:59';

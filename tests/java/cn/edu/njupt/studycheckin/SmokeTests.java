@@ -26,7 +26,8 @@ public class SmokeTests extends Instrumentation {
             int[] expectedMath={340,340,390,390,430,430,430,465,465,465},expectedVocab={140,140,155,155,175,175,175,175,175,175};
             LocalDate first=LocalDate.of(2026,10,12);for(int w=0;w<10;w++){int m=0,v=0;for(int d=0;d<7;d++){JSONObject t=targets.getJSONObject(first.plusDays(w*7+d).toString());m+=t.getInt("math");v+=t.getInt("vocab");}check(m==expectedMath[w]&&v==expectedVocab[w],"week"+(w+7)+" exact reference totals");}
             check(AppRules.allowed(LocalDateTime.of(2026,10,13,20,29)),"weekday20:29 allowed");
-            check(!AppRules.allowed(LocalDateTime.of(2026,10,13,20,30)),"weekday20:30 excluded");
+            check(AppRules.allowed(LocalDateTime.of(2026,10,13,21,29)),"weekday21:29 allowed");
+            check(!AppRules.allowed(LocalDateTime.of(2026,10,13,21,30)),"weekday21:30 excluded");
             check(!AppRules.allowed(LocalDateTime.of(2026,10,17,9,29)),"weekend09:29 excluded");
             check(AppRules.allowed(LocalDateTime.of(2026,10,17,9,30)),"weekend09:30 allowed");
             check(!AppRules.allowed(LocalDateTime.of(2026,10,18,19,0)),"weekend19:00 excluded");

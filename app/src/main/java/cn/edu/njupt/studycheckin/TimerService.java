@@ -41,7 +41,7 @@ public final class TimerService extends Service {
         String next=t.optString("subjectId")+"|"+running+"|"+t.optString("message")+(running?"":("|"+ms));
         if(force||!next.equals(signature)){
             signature=next;
-            PendingIntent open=PendingIntent.getActivity(this,201,new Intent(this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
+            PendingIntent open=PendingIntent.getActivity(this,201,new Intent(this,MainActivity.class).putExtra("route","today").addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP),PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
             String duration=String.format(Locale.ROOT,"%02d:%02d:%02d",ms/3600000,(ms/60000)%60,(ms/1000)%60);
             String message=t.optString("message");if(message.isEmpty())message=running?"正在计时":"已暂停 · "+duration;
             Notification.Builder b=new Notification.Builder(this,CHANNEL).setSmallIcon(R.drawable.ic_notification).setContentTitle(t.optString("subjectName")+" · "+(running?"正在学习":"已暂停"))

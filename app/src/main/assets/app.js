@@ -134,6 +134,9 @@
       else if (form.id === 'evaluation-schedule-form') saved = saveEvaluationSchedule(form);
       else if (form.id === 'reminder-form') saved = saveReminder(form);
       else if (form.id === 'rest-hours-form') saved = saveRestHours(form);
+      else if (form.id === 'reminder-quiet-hours-form') saved = saveReminderQuietHours(form);
+      else if (form.id === 'startup-form') saved = saveStartupPreference(form);
+      else if (form.id === 'quick-record-form') saved = saveQuickRecord(form);
       else if (form.id === 'backup-reminder-form') { call('setBackupReminder', form.elements.namedItem('backup-enabled').checked, Number(form.elements.namedItem('backup-days').value)); completeDraft(); dirty.delete('backup-reminder'); render(); saved = true; }
       else if (['week-form', 'reference-form', 'new-subject-form', 'new-plan-form'].includes(form.id)) saved = saveSheet(form);
       if (saved) { feedback.set(key, { kind: 'saved', message: '已保存' }); syncFeedback(document.getElementById(form.id)); if(form.id==='daily-form'&&closeDailyEditor)window.StudyLayout.closeEditor(); }
@@ -165,9 +168,9 @@
   }
   function restHours() {
     const rest = M().restHours(state);
-    openSheet('休息时段', '<form id="rest-hours-form" data-dirty="rest-hours"><p class="hint">计时和学习提醒使用这里的边界；手动补记不受影响。</p><div class="field-inline">' + field('工作日可计时至', 'rest-weekday-end', rest.weekdayEnd, { type: 'time', required: true, help: '结束时间不计入学习时段' }) + field('周末开始计时', 'rest-weekend-start', rest.weekendStart, { type: 'time', required: true }) + '</div>' + field('周末结束计时', 'rest-weekend-end', rest.weekendEnd, { type: 'time', required: true, help: '结束时间不计入学习时段' }) + '<p class="inline-form-note">周末开始时间必须早于结束时间。修改后，正在计时的任务会按新边界检查。</p><div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存休息时段</button></div></form>', true);
+    openSheet('计时休息时段', '<form id="rest-hours-form" data-dirty="rest-hours"><p class="hint">计时使用这里的边界；手动补记不受影响。</p><div class="field-inline">' + field('工作日可计时至', 'rest-weekday-end', rest.weekdayEnd, { type: 'time', required: true, help: '结束时间不计入学习时段' }) + field('周末开始计时', 'rest-weekend-start', rest.weekendStart, { type: 'time', required: true }) + '</div>' + field('周末结束计时', 'rest-weekend-end', rest.weekendEnd, { type: 'time', required: true, help: '结束时间不计入学习时段' }) + '<p class="inline-form-note">周末开始时间必须早于结束时间。修改后，正在计时的任务会按新边界检查。</p><div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存计时边界</button></div></form>', true);
   }
-  function reminderHelp() { openSheet('未收到提醒？', '<p>确认提醒设置已保存，并检查通知权限。</p><p>系统普通提醒可能受省电策略影响而延后。休息时段不补发，延迟超过一小时的提醒略过。</p><button class="secondary-wide" data-action="notification-settings">打开通知设置</button>', true); }
+  function reminderHelp() { openSheet('未收到提醒？', '<p>确认提醒设置已保存，并检查通知权限。</p><p>系统普通提醒可能受省电策略影响而延后。安静时段不补发，延迟超过一小时的提醒略过。</p><button class="secondary-wide" data-action="notification-settings">打开通知设置</button>', true); }
   function widgetHelp(unsupported) { openSheet('添加帮助', (unsupported ? '<p>当前桌面未接受应用内添加请求。</p>' : '') + '<p>长按桌面空白处，打开小组件列表，选择“每日学习”。</p>', true); }
   function showAbout() {
     updateOrigin = 'about';
@@ -281,6 +284,7 @@
     if (dialog.open) dialog.close();
     dialog.replaceChildren();
     route = destination;
+    try { if (bridge && typeof bridge.setLastRoute === 'function') bridge.setLastRoute(route); } catch (_) {}
     if (date) selectedDate = date;
     if (route === 'plan') planDate = clampPlanDate(planDate || selectedDate);
     if (route === 'review') reviewDate = clampPlanDate(reviewDate || selectedDate);
@@ -301,6 +305,7 @@
     else if (form.id === 'review-form') key = 'review:' + weekOf(reviewDate).key;
     else if (form.dataset.weekMode) key = 'week:' + form.dataset.key;
     else if (form.id === 'reference-form') key = 'reference:' + form.elements.namedItem('reference-date').value;
+    else if (form.id === 'quick-record-form') key = 'quick-record:' + (form.dataset.date || selectedDate);
     else if (form.dataset.subjectEdit) key = 'subject:' + form.dataset.subjectEdit;
     else key = form.id;
     return activePlanId + ':' + key;
@@ -394,6 +399,7 @@
     const total = actualTotal(record), reference = refTotal(selectedDate), subjects = visibleSubjects(selectedDate);
     const weekDays = Array.from({ length: 7 }, (_, i) => shift(w.key, i));
     let html = '<div class="date-line"><h1 class="date-title">' + (selectedDate === today ? '今天' : '记录') + '<small>' + briefDate(selectedDate) + ' · 周' + weekdays[date.getDay()] + '</small></h1><div class="date-tools"><button type="button" class="icon-button" data-action="day-prev" aria-label="前一天">' + icon('prev') + '</button><label class="calendar-control icon-button" aria-label="选择打卡日期">' + icon('today') + '<input id="day-picker" type="date" min="1900-01-01" max="2100-12-31" value="' + selectedDate + '" aria-label="选择打卡日期"></label><button class="icon-button" data-action="day-next" aria-label="后一天">' + icon('next') + '</button></div></div>';
+    if (selectedDate === today && within(selectedDate)) html += '<button class="quick-entry-button" type="button" data-action="quick-record">快速记录</button>';
     if (selectedDate !== today) html += '<button class="text-button" data-action="go-today">回到今天 · ' + briefDate(today) + '</button>';
     html += '<div class="week-strip" aria-label="本周日期">' + weekDays.map(d => '<button type="button" class="day-cell' + (d === selectedDate ? ' current' : '') + (d === today ? ' today' : '') + '" data-action="choose-day" data-date="' + d + '"' + (d === selectedDate ? ' aria-current="date"' : '') + '><span>周' + weekdays[localDate(d).getDay()] + '</span><strong>' + Number(d.slice(8)) + '</strong>' + (meaningful(state.records[d]) ? '<i class="record-dot" aria-label="已留记录"></i>' : '') + '</button>').join('') + '</div>';
     if (!within(selectedDate)) html += '<div class="outside-notice">' + (selectedDate > state.plan.endDate ? '计划已结束' : '计划尚未开始') + '<br><button data-nav="plan">查看 / 修改计划</button></div>';
@@ -478,8 +484,8 @@
 
   function settingsView() {
     const reminders = state.settings.reminders, backup = call('getBackupStatus'), theme = themePreference();
-    const rest = M().restHours(state);
-    return '<div class="page-intro"><div class="eyebrow">SETTINGS / 设置</div><h1>设置</h1></div><button class="setting-action manual-entry" type="button" data-action="user-manual"><span>使用手册</span>'+icon('next')+'</button><form id="reminder-form" data-dirty="reminders"><div class="section-heading"><h2>学习提醒</h2><span class="section-number">01 / REMIND</span></div><div class="settings-row"><h3>开启提醒</h3><label class="switch" aria-label="开启学习提醒"><input id="reminders-enabled" name="enabled" type="checkbox"' + (reminders.enabled ? ' checked' : '') + '><span></span></label></div><div class="field-inline">' + field('工作日', 'weekday-time', reminders.weekdayTime, { type: 'time', required: true, help: rest.weekdayEnd + ' 前' }) + field('周末', 'weekend-time', reminders.weekendTime, { type: 'time', required: true, help: rest.weekendStart + ' — ' + rest.weekendEnd + ' 前' }) + '</div><div id="notification-status" class="permission-status" role="status" aria-live="polite" hidden></div><button class="small-submit primary" type="submit">保存提醒设置</button><button class="text-button" type="button" data-action="reminder-help">未收到提醒？</button></form><div class="section"><div class="section-heading"><h2>休息时段</h2><span class="section-number">02 / HOURS</span></div><form id="rest-hours-form" data-dirty="rest-hours"><p class="hint">计时和学习提醒使用这里的边界；手动补记不受影响。</p><div class="field-inline">' + field('工作日可计时至', 'rest-weekday-end', rest.weekdayEnd, { type: 'time', required: true }) + field('周末开始计时', 'rest-weekend-start', rest.weekendStart, { type: 'time', required: true }) + '</div>' + field('周末结束计时', 'rest-weekend-end', rest.weekendEnd, { type: 'time', required: true }) + '<p class="inline-form-note">结束时间不计入学习时段；周末开始时间必须早于结束时间。</p><button class="small-submit primary" type="submit">保存休息时段</button></form></div><div class="section"><div class="section-heading"><h2>备份与恢复</h2><span class="section-number">03 / DATA</span></div><p class="backup-date">上次备份：' + (backup.lastExportAt ? escape(new Date(backup.lastExportAt).toLocaleString('zh-CN')) : '未导出') + '</p><button class="setting-action" data-action="export-backup"><span>' + icon('download') + '导出备份</span>' + icon('next') + '</button><button class="setting-action" data-action="import-backup"><span>' + icon('upload') + '从备份恢复</span>' + icon('next') + '</button><form id="backup-reminder-form" data-dirty="backup-reminder"><div class="settings-row"><label for="backup-enabled">备份提醒</label><label class="switch" aria-label="备份提醒"><input id="backup-enabled" name="backup-enabled" type="checkbox"' + (backup.reminderEnabled ? ' checked' : '') + '><span></span></label></div>' + selectField('间隔', 'backup-days', String(backup.reminderDays), [['7', '7 天'], ['14', '14 天'], ['30', '30 天']]) + (backup.reminderEnabled && !backup.notificationsAllowed ? '<div class="permission-status"><span>备份提醒通知未开启</span><button type="button" class="text-button" data-action="backup-notification-settings">打开通知设置</button></div>' : '') + '<button class="small-submit primary" type="submit">保存备份提醒</button></form><button class="setting-action" data-action="export-report"><span>导出学习报表</span>' + icon('next') + '</button><button class="text-button" data-action="clear-drafts">清除全部草稿</button></div><div class="section"><div class="section-heading"><h2>桌面小组件</h2><span class="section-number">04 / WIDGET</span></div><button class="secondary-wide" data-action="pin-widget">' + icon('widget') + '添加到桌面</button><button class="text-button" data-action="widget-help">添加帮助</button></div><div class="section" data-theme-section><div class="section-heading"><h2>外观</h2><span class="section-number">05 / APPEARANCE</span></div><div class="theme-setting-row"><label for="theme-preference">主题</label><select id="theme-preference" data-theme-preference aria-label="主题"><option value="system"' + (theme === 'system' ? ' selected' : '') + '>跟随系统</option><option value="light"' + (theme === 'light' ? ' selected' : '') + '>浅色</option><option value="dark"' + (theme === 'dark' ? ' selected' : '') + '>深色</option></select></div></div><div class="section settings-links"><button class="setting-action" data-action="about"><span>关于</span>' + icon('next') + '</button></div>';
+    const rest = M().restHours(state), quiet = M().reminderQuietHours(state);
+    return '<div class="page-intro"><div class="eyebrow">SETTINGS / 设置</div><h1>设置</h1></div><button class="setting-action manual-entry" type="button" data-action="user-manual"><span>使用手册</span>'+icon('next')+'</button><form id="reminder-form" data-dirty="reminders"><div class="section-heading"><h2>学习提醒</h2><span class="section-number">01 / REMIND</span></div><div class="settings-row"><h3>开启提醒</h3><label class="switch" aria-label="开启学习提醒"><input id="reminders-enabled" name="enabled" type="checkbox"' + (reminders.enabled ? ' checked' : '') + '><span></span></label></div><div class="field-inline">' + field('工作日', 'weekday-time', reminders.weekdayTime, { type: 'time', required: true, help: quiet.weekdayEnd + ' 前' }) + field('周末', 'weekend-time', reminders.weekendTime, { type: 'time', required: true, help: quiet.weekendStart + ' — ' + quiet.weekendEnd + ' 前' }) + '</div><div id="notification-status" class="permission-status" role="status" aria-live="polite" hidden></div><button class="small-submit primary" type="submit">保存提醒设置</button><button class="text-button" type="button" data-action="reminder-help">未收到提醒？</button></form><div class="section"><div class="section-heading"><h2>计时休息时段</h2><span class="section-number">02 / TIMER</span></div><form id="rest-hours-form" data-dirty="rest-hours"><p class="hint">计时使用这里的边界；手动补记不受影响。</p><div class="field-inline">' + field('工作日可计时至', 'rest-weekday-end', rest.weekdayEnd, { type: 'time', required: true }) + field('周末开始计时', 'rest-weekend-start', rest.weekendStart, { type: 'time', required: true }) + '</div>' + field('周末结束计时', 'rest-weekend-end', rest.weekendEnd, { type: 'time', required: true }) + '<p class="inline-form-note">结束时间不计入学习时段；周末开始时间必须早于结束时间。</p><button class="small-submit primary" type="submit">保存计时边界</button></form></div><div class="section"><div class="section-heading"><h2>提醒安静时段</h2><span class="section-number">03 / QUIET</span></div><form id="reminder-quiet-hours-form" data-dirty="reminder-quiet-hours"><p class="hint">学习提醒和备份提醒在这段时间内不发送。</p><div class="field-inline">' + field('工作日提醒至', 'quiet-weekday-end', quiet.weekdayEnd, { type: 'time', required: true }) + field('周末开始提醒', 'quiet-weekend-start', quiet.weekendStart, { type: 'time', required: true }) + '</div>' + field('周末结束提醒', 'quiet-weekend-end', quiet.weekendEnd, { type: 'time', required: true }) + '<p class="inline-form-note">提醒时间必须落在可提醒时段内；修改后新安排按此设置检查。</p><button class="small-submit primary" type="submit">保存提醒时段</button></form></div><div class="section" data-startup-section><div class="section-heading"><h2>启动偏好</h2><span class="section-number">04 / START</span></div><form id="startup-form" data-dirty="startup"><p class="hint">选择打开应用后先显示的页面。</p>' + selectField('启动页面', 'startup-route', state.settings.startupRoute === 'last' ? 'last' : 'today', [['today', '今日'], ['last', '上次打开的页面']]) + '<button class="small-submit primary" type="submit">保存启动偏好</button></form></div><div class="section"><div class="section-heading"><h2>备份与恢复</h2><span class="section-number">05 / DATA</span></div><p class="backup-date">上次备份：' + (backup.lastExportAt ? escape(new Date(backup.lastExportAt).toLocaleString('zh-CN')) : '未导出') + '</p><button class="setting-action" data-action="export-backup"><span>' + icon('download') + '导出备份</span>' + icon('next') + '</button><button class="setting-action" data-action="import-backup"><span>' + icon('upload') + '从备份恢复</span>' + icon('next') + '</button><form id="backup-reminder-form" data-dirty="backup-reminder"><div class="settings-row"><label for="backup-enabled">备份提醒</label><label class="switch" aria-label="备份提醒"><input id="backup-enabled" name="backup-enabled" type="checkbox"' + (backup.reminderEnabled ? ' checked' : '') + '><span></span></label></div>' + selectField('间隔', 'backup-days', String(backup.reminderDays), [['7', '7 天'], ['14', '14 天'], ['30', '30 天']]) + (backup.reminderEnabled && !backup.notificationsAllowed ? '<div class="permission-status"><span>备份提醒通知未开启</span><button type="button" class="text-button" data-action="backup-notification-settings">打开通知设置</button></div>' : '') + '<button class="small-submit primary" type="submit">保存备份提醒</button></form><button class="setting-action" data-action="export-report"><span>导出学习报表</span>' + icon('next') + '</button><button class="text-button" data-action="clear-drafts">清除全部草稿</button></div><div class="section"><div class="section-heading"><h2>桌面小组件</h2><span class="section-number">06 / WIDGET</span></div><button class="secondary-wide" data-action="pin-widget">' + icon('widget') + '添加到桌面</button><button class="text-button" data-action="widget-help">添加帮助</button></div><div class="section" data-theme-section><div class="section-heading"><h2>外观</h2><span class="section-number">07 / APPEARANCE</span></div><div class="theme-setting-row"><label for="theme-preference">主题</label><select id="theme-preference" data-theme-preference aria-label="主题"><option value="system"' + (theme === 'system' ? ' selected' : '') + '>跟随系统</option><option value="light"' + (theme === 'light' ? ' selected' : '') + '>浅色</option><option value="dark"' + (theme === 'dark' ? ' selected' : '') + '>深色</option></select></div></div><div class="section settings-links"><button class="setting-action" data-action="about"><span>关于</span>' + icon('next') + '</button></div>';
   }
 
   function render() {
@@ -625,9 +631,10 @@
   function saveReminder(form) {
     if (!form.reportValidity()) return false;
     const weekday = form.elements.namedItem('weekday-time').value, weekend = form.elements.namedItem('weekend-time').value;
-    if (!/^\d{2}:\d{2}$/.test(weekday) || weekday >= '20:30') throw new Error('工作日提醒时间须早于 20:30。');
-    if (!/^\d{2}:\d{2}$/.test(weekend) || weekend < '09:30' || weekend >= '19:00') throw new Error('周末提醒时间须在 09:30 至 18:59。');
     const latest = readState();
+    const quiet = M().reminderQuietHours(latest), toMinutes = value => Number(value.slice(0, 2)) * 60 + Number(value.slice(3));
+    if (!/^\d{2}:\d{2}$/.test(weekday) || toMinutes(weekday) >= toMinutes(quiet.weekdayEnd)) throw new Error('工作日提醒时间须早于 ' + quiet.weekdayEnd + '。');
+    if (!/^\d{2}:\d{2}$/.test(weekend) || toMinutes(weekend) < toMinutes(quiet.weekendStart) || toMinutes(weekend) >= toMinutes(quiet.weekendEnd)) throw new Error('周末提醒时间须在 ' + quiet.weekendStart + ' 至 ' + quiet.weekendEnd + ' 之前。');
     latest.settings.reminders = { enabled: form.elements.namedItem('enabled').checked, weekdayTime: weekday, weekendTime: weekend };
     persist(latest);
     dirty.delete('reminders');
@@ -638,12 +645,78 @@
   function saveRestHours(form) {
     if (!form.reportValidity()) return false;
     const latest = readState();
-    latest.settings.restHours = { weekdayEnd: form.elements.namedItem('rest-weekday-end').value, weekendStart: form.elements.namedItem('rest-weekend-start').value, weekendEnd: form.elements.namedItem('rest-weekend-end').value };
+    latest.settings.restHours = { weekdayEnd: form.elements.namedItem('rest-weekday-end').value, weekendStart: form.elements.namedItem('rest-weekend-start').value, weekendEnd: form.elements.namedItem('rest-weekend-end').value, weekdayEndSource: 'user' };
     D().validate(latest);
     persist(latest);
     dirty.delete('rest-hours');
     closeSheet(true);
     render();
+    return true;
+  }
+
+  function saveReminderQuietHours(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState();
+    latest.settings.reminderQuietHours = { weekdayEnd: form.elements.namedItem('quiet-weekday-end').value, weekendStart: form.elements.namedItem('quiet-weekend-start').value, weekendEnd: form.elements.namedItem('quiet-weekend-end').value, weekdayEndSource: 'user' };
+    D().validate(latest);
+    persist(latest);
+    dirty.delete('reminder-quiet-hours');
+    render();
+    return true;
+  }
+
+  function saveStartupPreference(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState();
+    latest.settings.startupRoute = form.elements.namedItem('startup-route').value;
+    persist(latest);
+    dirty.delete('startup');
+    render();
+    return true;
+  }
+
+  function quickRecordFields(subjectId) {
+    const subject = state.plan.subjects.find(item => item.id === subjectId);
+    if (!subject) return '<p class="hint">没有可记录的科目。</p>';
+    if (subject.kind === 'vocab') return '<div class="field-inline">' + field('本次新学（个）', 'quick-new-words', '', { type: 'number', min: 0, max: 100000, step: 1, inputmode: 'numeric', placeholder: '未记录' }) + field('本次复习（个）', 'quick-review-words', '', { type: 'number', min: 0, max: 100000, step: 1, inputmode: 'numeric', placeholder: '未记录' }) + '</div>' + field('备注（选填）', 'quick-note', '', { maxLength: 3000 });
+    if (isQuantity(subject)) return field('本次数量（' + escape(subject.unit) + '）', 'quick-quantity', '', { type: 'number', min: 0, max: 100000, step: 1, inputmode: 'numeric', required: true, placeholder: '例如：10' }) + field('备注（选填）', 'quick-note', '', { maxLength: 3000 });
+    return field('本次学习分钟', 'quick-minutes', '', { type: 'number', min: 0, max: 1440, step: 'any', inputmode: 'decimal', required: true, placeholder: '例如：25' }) + field('备注（选填）', 'quick-note', '', { maxLength: 3000 });
+  }
+
+  function quickRecord() {
+    state = readState();
+    const subjects = M().subjectsForDate(state, selectedDate);
+    if (!subjects.length) throw new Error('当前日期没有可记录的科目');
+    const options = subjects.map(subject => [subject.id, subject.name + (subject.kind === 'vocab' ? ' · 单词' : isQuantity(subject) ? ' · ' + subject.unit : ' · 分钟')]);
+    const first = subjects[0].id;
+    openSheet('快速记录', '<form id="quick-record-form" data-dirty="quick-record" data-date="' + escape(selectedDate) + '">' + selectField('科目', 'quick-subject', first, options) + '<div id="quick-record-fields">' + quickRecordFields(first) + '</div><p class="inline-form-note">填写本次增加的数量；保存后计入当天正式记录。</p><div class="save-row"><button class="cancel-button" type="button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存快速记录</button></div></form>', true);
+    const form = document.getElementById('quick-record-form');
+    form.dataset.plan = activePlanId;
+    window.StudyDrafts.attach(form);
+  }
+
+  function saveQuickRecord(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState(), date = form.dataset.date || selectedDate;
+    if (form.dataset.plan !== call('getPlans').activeId) throw new Error('计划已切换，请重新打开快速记录');
+    const subject = latest.plan.subjects.find(item => item.id === form.elements.namedItem('quick-subject').value);
+    if (!subject || !M().subjectActive(subject, date)) throw new Error('该科目不在所选日期的计划内');
+    const record = D().record(latest, date), actual = record.subjects[subject.id], add = (current, value) => current == null ? value : current + value;
+    if (subject.kind === 'vocab') {
+      const learned = form.elements.namedItem('quick-new-words').value, reviewed = form.elements.namedItem('quick-review-words').value;
+      if (learned === '' && reviewed === '') throw new Error('请填写新学或复习数量');
+      if (learned !== '') actual.newWords = add(actual.newWords, Number(learned));
+      if (reviewed !== '') actual.reviewWords = add(actual.reviewWords, Number(reviewed));
+    } else if (isQuantity(subject)) actual.quantity = add(actual.quantity, Number(form.elements.namedItem('quick-quantity').value));
+    else actual.minutes = add(actual.minutes, Number(form.elements.namedItem('quick-minutes').value));
+    const note = form.elements.namedItem('quick-note')?.value || '';
+    if (note) actual.content = actual.content ? actual.content + '\n' + note : note;
+    D().saveRecord(latest, date, record);
+    persist(latest);
+    dirty.delete('quick-record');
+    closeSheet(true);
+    render();
+    tell('快速记录已保存');
     return true;
   }
 
@@ -840,7 +913,7 @@
     }
     if (form.id === 'new-plan-form') {
       const subjects = latest.plan.subjects.filter(s => M().subjectActive(s, iso()));
-      const fresh = { version: 8, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' }, restHours: { weekdayEnd: '20:30', weekendStart: '09:30', weekendEnd: '19:00' } } };
+      const fresh = { version: 8, plan: { title: form.elements.namedItem('new-plan-name').value.trim(), startDate: form.elements.namedItem('new-plan-start').value, endDate: form.elements.namedItem('new-plan-end').value, startWeek: 1, subjects: clone(subjects.length ? subjects : latest.plan.subjects.slice(0, 1)).map(s => { delete s.activePeriods; return s; }), targets: {}, weekGoals: {}, weekHints: {}, weekTasks: {}, manualWeekGoals: true }, records: {}, reviews: {}, sessions: [], settings: { reminders: { enabled: false, weekdayTime: '19:15', weekendTime: '10:00' }, restHours: { weekdayEnd: '21:30', weekendStart: '09:30', weekendEnd: '19:00', weekdayEndSource: 'default' }, reminderQuietHours: { weekdayEnd: '21:30', weekendStart: '09:30', weekendEnd: '19:00', weekdayEndSource: 'default' }, startupRoute: 'today' } };
       if(latest.plan.manualReferenceDefaults)fresh.plan.manualReferenceDefaults=latest.plan.manualReferenceDefaults.filter(id=>fresh.plan.subjects.some(s=>s.id===id));
       M().dates(fresh.plan.startDate, fresh.plan.endDate).forEach(date => { fresh.plan.targets[date] = {}; fresh.plan.subjects.forEach(s => {const value=clone(s.defaults[(localDate(date).getDay()+6)%7]);if(isQuantity(s)){fresh.plan.quantityTargets=fresh.plan.quantityTargets||{};fresh.plan.quantityTargets[date]=fresh.plan.quantityTargets[date]||{};fresh.plan.quantityTargets[date][s.id]=value;}else fresh.plan.targets[date][s.id]=value;}); });
       D().validate(fresh); const result = call('createPlan', JSON.stringify(fresh)); completeDraft(); dirty.delete('sheet'); switchPlan(result.id, true); return true;
@@ -973,6 +1046,7 @@
         persist(weekendsOnly?M().applyWeekendSchedule(latest,iso()):M().applyCourseSchedule(latest,iso()));closeSheet();render();tell('安排已更新');
       }
       if (action === 'word-log-reset') window.StudyWordLogUI.restoreSaved(button.dataset.subject);
+      if (action === 'quick-record') quickRecord();
       if (action === 'word-log-add') window.StudyWordLogUI.editor(button.dataset.subject);
       if (action === 'word-log-edit') window.StudyWordLogUI.editor(button.dataset.subject,button.dataset.entry);
       if (action === 'word-log-remove') window.StudyWordLogUI.remove(button.dataset.subject,button.dataset.entry);
@@ -1090,6 +1164,14 @@
       form.dataset.referenceDate = date;form.dataset.revision=state._revision||0;
       dirty.delete('sheet'); feedback.delete('sheet'); syncFeedback(form);
       window.StudyDrafts.attach(form);
+      return;
+    }
+    if (event.target.id === 'quick-subject') {
+      const form = event.target.form;
+      if (form) {
+        form.querySelector('#quick-record-fields').innerHTML = quickRecordFields(event.target.value);
+        dirty.add(form.dataset.dirty); feedback.delete(form.dataset.dirty); syncFeedback(form); window.StudyDrafts.save(form);
+      }
       return;
     }
     if(event.target.id==='allocation-weekday'){window.StudyAllocationUI.sync(event.target.form,state);return;}

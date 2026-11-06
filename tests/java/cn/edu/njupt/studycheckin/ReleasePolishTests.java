@@ -42,7 +42,11 @@ final class ReleasePolishTests {
         check(passes,AppRules.allowed(LocalDateTime.of(2026,10,18,18,59))&&!AppRules.allowed(LocalDateTime.of(2026,10,18,19,0)),"weekend end boundary remains eighteen fifty nine versus nineteen");
         check(passes,AppRules.allowed(LocalDateTime.of(2026,10,19,0,0))&&!AppRules.allowed(LocalDateTime.of(2026,10,18,0,0)),"weekend rule is not widened across Monday");
         check(passes,AppRules.restReason(LocalDateTime.of(2026,10,17,9,29)).contains("09:30")&&AppRules.restReason(LocalDateTime.of(2026,10,17,19,0)).contains("19:00"),"timer refusal explains the actual weekend boundary");
-        check(passes,AppRules.restReason(LocalDateTime.of(2026,10,14,20,30)).contains("20:30"),"timer refusal explains the actual weekday boundary");
+        check(passes,AppRules.restReason(LocalDateTime.of(2026,10,14,21,30)).contains("21:30"),"timer refusal explains the actual weekday boundary");
+        JSONObject independent=new JSONObject(state.toString());
+        independent.getJSONObject("settings").put("restHours",new JSONObject().put("weekdayEnd","22:00").put("weekendStart","08:00").put("weekendEnd","20:00").put("weekdayEndSource","user"));
+        independent.getJSONObject("settings").put("reminderQuietHours",new JSONObject().put("weekdayEnd","20:00").put("weekendStart","10:00").put("weekendEnd","18:00").put("weekdayEndSource","user"));
+        check(passes,AppRules.allowed(independent,LocalDateTime.of(2026,10,14,21,0))&&!AppRules.reminderAllowed(independent,LocalDateTime.of(2026,10,14,21,0)),"timer and reminder boundaries remain independent");
         DataStore.validate(state);
     }
 }

@@ -9,7 +9,8 @@ import org.json.JSONObject;
 /** Scheduling boundaries never prohibit saving an honest manual record. */
 public final class AppRules {
     private AppRules() {}
-    public static final String DEFAULT_WEEKDAY_END = "20:30";
+    public static final String LEGACY_WEEKDAY_END = "20:30";
+    public static final String DEFAULT_WEEKDAY_END = "21:30";
     public static final String DEFAULT_WEEKEND_START = "09:30";
     public static final String DEFAULT_WEEKEND_END = "19:00";
 
@@ -22,6 +23,11 @@ public final class AppRules {
         return allowedTime(now.toLocalDate(), now.getHour(), now.getMinute(), rest.optString("weekdayEnd", DEFAULT_WEEKDAY_END), rest.optString("weekendStart", DEFAULT_WEEKEND_START), rest.optString("weekendEnd", DEFAULT_WEEKEND_END));
     }
 
+    public static boolean reminderAllowed(JSONObject state, LocalDateTime now) {
+        JSONObject quiet = reminderQuietHours(state);
+        return allowedTime(now.toLocalDate(), now.getHour(), now.getMinute(), quiet.optString("weekdayEnd", DEFAULT_WEEKDAY_END), quiet.optString("weekendStart", DEFAULT_WEEKEND_START), quiet.optString("weekendEnd", DEFAULT_WEEKEND_END));
+    }
+
     public static boolean allowedTime(LocalDate day, int hour, int minute) {
         return allowedTime(day, hour, minute, DEFAULT_WEEKDAY_END, DEFAULT_WEEKEND_START, DEFAULT_WEEKEND_END);
     }
@@ -29,6 +35,11 @@ public final class AppRules {
     public static boolean allowedTime(JSONObject state, LocalDate day, int hour, int minute) {
         JSONObject rest = restHours(state);
         return allowedTime(day, hour, minute, rest.optString("weekdayEnd", DEFAULT_WEEKDAY_END), rest.optString("weekendStart", DEFAULT_WEEKEND_START), rest.optString("weekendEnd", DEFAULT_WEEKEND_END));
+    }
+
+    public static boolean reminderAllowedTime(JSONObject state, LocalDate day, int hour, int minute) {
+        JSONObject quiet = reminderQuietHours(state);
+        return allowedTime(day, hour, minute, quiet.optString("weekdayEnd", DEFAULT_WEEKDAY_END), quiet.optString("weekendStart", DEFAULT_WEEKEND_START), quiet.optString("weekendEnd", DEFAULT_WEEKEND_END));
     }
 
     private static boolean allowedTime(LocalDate day, int hour, int minute, String weekdayEnd, String weekendStart, String weekendEnd) {
@@ -72,5 +83,14 @@ public final class AppRules {
         }
         try { return new JSONObject().put("weekdayEnd", DEFAULT_WEEKDAY_END).put("weekendStart", DEFAULT_WEEKEND_START).put("weekendEnd", DEFAULT_WEEKEND_END); }
         catch (Exception ignored) { return new JSONObject(); }
+    }
+
+    private static JSONObject reminderQuietHours(JSONObject state) {
+        if (state != null) {
+            JSONObject settings = state.optJSONObject("settings"), quiet = settings == null ? null : settings.optJSONObject("reminderQuietHours");
+            if (quiet != null) return quiet;
+            return restHours(state);
+        }
+        return restHours(null);
     }
 }
