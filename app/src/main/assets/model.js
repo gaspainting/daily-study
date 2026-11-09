@@ -11,6 +11,7 @@
   var ranges = typeof globalThis!=='undefined'&&globalThis.StudyReference || (typeof require==='function'?require('./reference.js'):null);
   var wordLog = typeof globalThis!=='undefined'&&globalThis.StudyWordLog || (typeof require==='function'?require('./word-log.js'):null);
   var courses = typeof globalThis!=='undefined'&&globalThis.StudyCourses || (typeof require==='function'?require('./courses.js'):null);
+  var actionPlans = typeof globalThis!=='undefined'&&globalThis.StudyReviewActions || (typeof require==='function'?require('./review-actions.js'):null);
   var STATUSES = ['正常参考', '减量', '仅回顾', '休息'];
   var ID = /^[A-Za-z][A-Za-z0-9_-]{0,63}$/;
   var QUANTITY_MAX = 100000;
@@ -284,6 +285,7 @@
     });
     weeks.validate(plan);
     if (has(state, 'reviewQueue') && reviewQueue) reviewQueue.validate(state);
+    if (has(state, 'actionPlans') && actionPlans) actionPlans.validate(state);
     courses.validate(state);
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');

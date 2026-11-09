@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  32,
+    "versionName":  "2.3.0",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v2.3.0/daily-study-v2.3.0.apk",
+    "apkBytes":  6704482,
+    "apkSha256":  "823399c720a0d1948d739f7323a450036c7cd5be79faf2ca8493ee884c5b807a",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v2.3.0\n\n本版加入问题回顾队列：\n\n- 日记录中的问题保存后保留来源日期和科目，并自动去重；\n- 可手动添加问题，设置下次回顾日期；\n- 回顾事件可记录独立回忆、提示后想起或仍不确定，并继续安排下一次日期；\n- 支持暂停、恢复和结束，未结束问题在复盘页集中查看；\n- 队列不改变原记录、分钟、词数、任务和评估结果；\n- 旧 schema 9 备份继续可读，新增字段按严格校验保存。\n\n本次验证包含完整 Node 测试、Java 编译和 APK 构建；真实手机和桌面端同步尚未执行。\n",
+    "releaseDate":  "2026-11-09"
+}

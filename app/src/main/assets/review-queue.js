@@ -60,7 +60,7 @@
     value.items.forEach(function (item, index) {
       if (!plain(item) || Object.keys(item).sort().join(',') !== 'createdAt,events,id,nextDate,prompt,source,status,updatedAt') fail('回顾项目格式无效');
       id(item.id, 'review_', '回顾项目ID'); if (seen.has(item.id)) fail('回顾项目ID重复'); seen.add(item.id);
-      validateSource(item.source, subjects); text(item.prompt, 8000, '回顾问题', true); if (item.nextDate !== null) date(item.nextDate); if (STATUS.indexOf(item.status) < 0) fail('回顾项目状态无效');
+      validateSource(item.source, subjects); text(item.prompt, 8000, '回顾问题', true); if (item.nextDate !== null) date(item.nextDate); if (STATUS.indexOf(item.status) < 0) fail('回顾项目状态无效'); if (item.status !== 'ended' && item.nextDate === null) fail('未结束回顾缺少下次日期');
       iso(item.createdAt, '回顾创建时间'); iso(item.updatedAt, '回顾更新时间');
       if (!Array.isArray(item.events) || item.events.length > 200) fail('回顾事件过多');
       var eventIds = new Set(); item.events.forEach(function (event, eventIndex) { validateEvent(event, eventIndex); if (eventIds.has(event.id)) fail('回顾事件ID重复'); eventIds.add(event.id); });

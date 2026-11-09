@@ -1,0 +1,28 @@
+{
+  "protocolVersion": 1,
+  "ruleVersion": "shiyi-sync-v1",
+  "envelope": {
+    "required": ["protocolVersion", "eventId", "entityType", "entityId", "operation", "baseRevision", "entityRevision", "originDeviceId", "deviceSequence", "clientMutationId", "occurredAtUtc", "timeZone", "schemaVersion", "payload"],
+    "operations": ["upsert", "delete"],
+    "entityTypes": ["plan", "record", "task", "review", "evaluation", "reminder"]
+  },
+  "ordering": {
+    "key": "deviceSequence",
+    "scope": "originDeviceId",
+    "wallClockIsNotOrdering": true,
+    "databaseEpochChange": "reset-device-sequence-and-require-reconciliation"
+  },
+  "delivery": {
+    "outbox": "append-before-ack",
+    "ack": "clear-only-after-explicit-ack",
+    "dedupe": "eventId-and-clientMutationId",
+    "unknownProtocol": "reject-without-applying",
+    "conflict": "return-base-and-current-revision-for-explicit-resolution",
+    "tombstone": "delete-is-an-event-with-entity-revision"
+  },
+  "mobileScope": {
+    "writes": ["record", "task", "review", "reminder"],
+    "desktopWrites": ["plan", "evaluation"],
+    "filesAndAi": "desktop-only"
+  }
+}

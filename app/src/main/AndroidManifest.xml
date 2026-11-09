@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cn.edu.njupt.studycheckin" android:versionCode="32" android:versionName="2.3.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="cn.edu.njupt.studycheckin" android:versionCode="33" android:versionName="2.4.0">
     <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="36" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -10,6 +10,7 @@
     <application android:label="每日学习" android:theme="@style/AppTheme" android:icon="@drawable/ic_launcher" android:allowBackup="false" android:usesCleartextTraffic="false" android:supportsRtl="true">
         <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:configChanges="orientation|screenSize|keyboardHidden" android:windowSoftInputMode="adjustResize">
             <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+            <intent-filter><action android:name="android.intent.action.VIEW" /><category android:name="android.intent.category.DEFAULT" /><category android:name="android.intent.category.BROWSABLE" /><data android:scheme="daily-study" /></intent-filter>
         </activity>
         <provider android:name=".CardShareProvider" android:authorities="cn.edu.njupt.studycheckin.cards" android:exported="false" android:grantUriPermissions="true" />
         <provider android:name=".UpdateApkProvider" android:authorities="cn.edu.njupt.studycheckin.updates" android:exported="false" android:grantUriPermissions="true" />
@@ -26,6 +27,9 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" /><action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
                 <action android:name="cn.edu.njupt.studycheckin.REMINDER" />
             </intent-filter>
+        </receiver>
+        <receiver android:name=".ShiyiReminderReceiver" android:exported="false">
+            <intent-filter><action android:name="cn.edu.njupt.studycheckin.SHIYI_REMINDER" /><action android:name="android.intent.action.BOOT_COMPLETED" /><action android:name="android.intent.action.TIMEZONE_CHANGED" /><action android:name="android.intent.action.MY_PACKAGE_REPLACED" /></intent-filter>
         </receiver>
         <receiver android:name=".StudyWidget" android:exported="true">
             <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>

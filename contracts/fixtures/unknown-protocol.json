@@ -1,0 +1,16 @@
+{
+  "protocolVersion": 99,
+  "eventId": "evt_unknown_protocol",
+  "entityType": "task",
+  "entityId": "task_demo_001",
+  "operation": "upsert",
+  "baseRevision": 0,
+  "entityRevision": 1,
+  "originDeviceId": "33333333-3333-4333-8333-333333333333",
+  "deviceSequence": 1,
+  "clientMutationId": "mutation_unknown_protocol",
+  "occurredAtUtc": "2026-11-09T16:00:00.000Z",
+  "timeZone": "Asia/Shanghai",
+  "schemaVersion": 99,
+  "payload": {}
+}
