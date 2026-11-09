@@ -1,9 +1,9 @@
 (function (root, factory) {
   'use strict';
-  var model = factory(root.StudySchedule || (typeof module === 'object' && module.exports ? require('./schedule.js') : null), root.StudyWeeks || (typeof module === 'object' && module.exports ? require('./weekly-goals.js') : null));
+  var model = factory(root.StudySchedule || (typeof module === 'object' && module.exports ? require('./schedule.js') : null), root.StudyWeeks || (typeof module === 'object' && module.exports ? require('./weekly-goals.js') : null), root.StudyReviewQueue || (typeof module === 'object' && module.exports ? require('./review-queue.js') : null));
   if (typeof module === 'object' && module.exports) module.exports = model;
   root.StudyModel = model;
-})(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule, weeks) {
+})(typeof globalThis !== 'undefined' ? globalThis : this, function (schedule, weeks, reviewQueue) {
   'use strict';
 
   var evaluation = typeof globalThis!=='undefined'&&globalThis.StudyEvaluation || (typeof require==='function'?require('./evaluation.js'):null);
@@ -212,7 +212,7 @@
     if (clockMinutes(value.weekendStart) >= clockMinutes(value.weekendEnd)) fail(prefix + '周末开始时间须早于结束时间');
   }
   function validateState(state) {
-    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'].concat(state.version>=9?['evaluation']:[]), ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]), 'state');
+    keys(state, ['version', 'plan', 'records', 'reviews', 'settings'].concat(state.version>=9?['evaluation']:[]), ['sessions', '_revision'].concat(state.version>=5?['assessmentBases'].concat(state.version>=6?['courseReviews']:[]):[]).concat(['reviewQueue', 'actionPlans']), 'state');
     if (![1, 2, 3, 4, 5, 6, 7, 8, 9].includes(state.version)) fail('不支持此备份版本');
     if (has(state, '_revision')) number(state._revision, Number.MAX_SAFE_INTEGER, '_revision', true);
     var plan = state.plan;
@@ -283,6 +283,7 @@
       Object.keys(plan[field]).forEach(function (date) { dateStamp(date); string(plan[field][date], 8000, field, false); });
     });
     weeks.validate(plan);
+    if (has(state, 'reviewQueue') && reviewQueue) reviewQueue.validate(state);
     courses.validate(state);
     object(state.records, 'records');
     if (Object.keys(state.records).length > 100000) fail('日记录过多');

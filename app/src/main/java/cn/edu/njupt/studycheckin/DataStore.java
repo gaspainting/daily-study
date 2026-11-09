@@ -121,7 +121,7 @@ public final class DataStore {
         while (keys.hasNext()) { String key=keys.next(); date(key); string(obj,key,max); }
     }
     public static void validate(JSONObject state) throws Exception {
-        keys(state,state.optInt("version")>=9?new String[]{"version","plan","records","reviews","settings","evaluation"}:new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases"}:new String[]{"sessions","_revision"},"state");
+        keys(state,state.optInt("version")>=9?new String[]{"version","plan","records","reviews","settings","evaluation"}:new String[]{"version","plan","records","reviews","settings"},state.optInt("version")>=6?new String[]{"sessions","_revision","assessmentBases","courseReviews","reviewQueue","actionPlans"}:state.optInt("version")>=5?new String[]{"sessions","_revision","assessmentBases","reviewQueue","actionPlans"}:new String[]{"sessions","_revision","reviewQueue","actionPlans"},"state");
         require(state != null && state.opt("version") instanceof Number && (state.getDouble("version")==1 || state.getDouble("version")==2 || state.getDouble("version")==3 || state.getDouble("version")==4 || state.getDouble("version")==5 || state.getDouble("version")==6 || state.getDouble("version")==7 || state.getDouble("version")==8 || state.getDouble("version")==9), "备份版本不支持");
         boolean current=state.getInt("version")>=2;
         if(state.has("_revision"))number(state.get("_revision"),9007199254740991d,true,false,"数据版本");
@@ -167,6 +167,7 @@ public final class DataStore {
         if(p.has("wordTargets")){JSONObject words=p.getJSONObject("wordTargets");require(words.length()<=100000,"词数目标日期过多");Iterator<String> wd=words.keys();while(wd.hasNext()){String day=wd.next();date(day);JSONObject goals=words.getJSONObject(day);Iterator<String> wi=goals.keys();while(wi.hasNext()){String id=wi.next();require(vocabIds.contains(id),"词数目标科目无效");number(goals.get(id),100000,true,false,"新学目标");}}}
         texts(p.getJSONObject("weekGoals"),8000); texts(p.getJSONObject("weekHints"),8000);
         WeeklyGoals.validate(p);Courses.validate(state);
+        validateReviewQueue(state, ids);
         JSONObject records=state.getJSONObject("records"); Iterator<String> rd=records.keys();
         while(rd.hasNext()) {
             String day=rd.next();date(day);JSONObject r=records.getJSONObject(day);
@@ -278,5 +279,17 @@ public final class DataStore {
     private static int clockMinutes(String value)throws Exception {
         require(value.matches("([01]\\d|2[0-3]):[0-5]\\d"),"时间格式无效");
         return Integer.parseInt(value.substring(0,2))*60+Integer.parseInt(value.substring(3,5));
+    }
+
+    private static void validateReviewQueue(JSONObject state,Set<String> subjectIds)throws Exception {
+        if(!state.has("reviewQueue"))return;
+        JSONObject queue=state.getJSONObject("reviewQueue");keys(queue,new String[]{"items"},new String[]{},"reviewQueue");JSONArray items=queue.getJSONArray("items");require(items.length()<=10000,"问题回顾队列过大");Set<String> ids=new HashSet<>();
+        for(int i=0;i<items.length();i++){
+            JSONObject item=items.getJSONObject(i);keys(item,new String[]{"id","source","prompt","nextDate","status","createdAt","updatedAt","events"},new String[]{},"reviewItem");
+            String itemId=string(item,"id",96);require(itemId.matches("review_[A-Za-z0-9_-]{3,80}")&&ids.add(itemId),"回顾项目ID无效或重复");
+            JSONObject source=item.getJSONObject("source");keys(source,new String[]{"kind","date","subjectId","recordDate"},new String[]{},"reviewSource");String kind=string(source,"kind",32);require("record_problem".equals(kind)||"manual".equals(kind),"回顾来源类型无效");date(string(source,"date",10));Object sourceSubject=source.get("subjectId");require(sourceSubject==JSONObject.NULL||sourceSubject instanceof String&&subjectIds.contains(sourceSubject),"回顾来源科目无效");Object recordDate=source.get("recordDate");require(recordDate==JSONObject.NULL||recordDate instanceof String,"回顾来源日期无效");if(recordDate instanceof String)date((String)recordDate);require(!"record_problem".equals(kind)||recordDate instanceof String,"记录问题缺少来源日期");
+            require(!string(item,"prompt",8000).trim().isEmpty(),"回顾问题不能为空");Object itemNext=item.get("nextDate");require(itemNext==JSONObject.NULL||itemNext instanceof String,"回顾下次日期无效");if(itemNext instanceof String)date((String)itemNext);String status=string(item,"status",16);require("open".equals(status)||"paused".equals(status)||"ended".equals(status),"回顾项目状态无效");String created=string(item,"createdAt",40),updated=string(item,"updatedAt",40);require(created.matches("\\d{4}-\\d{2}-\\d{2}T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d{1,9})?Z")&&updated.matches("\\d{4}-\\d{2}-\\d{2}T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d{1,9})?Z"),"回顾时间无效");Instant.parse(created);Instant.parse(updated);
+            JSONArray events=item.getJSONArray("events");require(events.length()<=200,"回顾事件过多");Set<String> eventIds=new HashSet<>();for(int j=0;j<events.length();j++){JSONObject event=events.getJSONObject(j);keys(event,new String[]{"id","feedback","nextDate","note","at"},new String[]{},"reviewEvent");String eventId=string(event,"id",96);require(eventId.matches("review_event_[A-Za-z0-9_-]{3,80}")&&eventIds.add(eventId),"回顾事件ID无效或重复");String feedback=string(event,"feedback",16);require("independent".equals(feedback)||"prompted".equals(feedback)||"uncertain".equals(feedback),"回顾反馈无效");Object next=event.get("nextDate");require(next==JSONObject.NULL||next instanceof String,"回顾下次日期无效");if(next instanceof String)date((String)next);string(event,"note",2000);String at=string(event,"at",40);require(at.matches("\\d{4}-\\d{2}-\\d{2}T([01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d{1,9})?Z"),"回顾事件时间无效");Instant.parse(at);}
+        }
     }
 }

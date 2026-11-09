@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  31,
+    "versionName":  "2.2.0",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v2.2.0/daily-study-v2.2.0.apk",
+    "apkBytes":  6700319,
+    "apkSha256":  "48b805f255ce1d474caabfe08f518f872ba5e308c10ea760147f6e47369bcf4c",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v2.2.0\n\n本版加入按日期执行的任务安排：\n\n- 任务可关联科目，并填写安排日期、截止日期和估计分钟；\n- 今日页可保存完成、跳过、恢复和排序；\n- 计划页可查看并调整全部任务；\n- 延期保留同一任务 ID 和调整历史，过去未完成安排显示为待处理；\n- 任务状态不会自动改变学习分钟、词数、课程复习或每日记录；\n- 保留 schema 9、旧周目标和备份兼容性。\n\n本次验证包含完整 Node 测试、Java 编译和 APK 构建。当前未执行真实手机触控与桌面端联调。\n",
+    "releaseDate":  "2026-11-09"
+}

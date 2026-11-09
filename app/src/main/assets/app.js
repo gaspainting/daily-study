@@ -126,6 +126,8 @@
       if (form.id === 'daily-form') saved = saveDaily();
       else if (['timetable-form','course-change-form','course-review-form'].includes(form.id)) saved=saveCourses(form);
       else if (form.id === 'review-form') saved = saveReview(form);
+      else if (form.id === 'review-add-form') saved = saveReviewAdd(form);
+      else if (form.id === 'review-event-form') saved = saveReviewEvent(form);
       else if (form.id === 'range-form') saved = saveRange(form);
       else if (form.dataset.weekMode) saved = saveWeek(form);
       else if (form.id === 'week-move-form') saved = moveWeek(form);
@@ -305,6 +307,8 @@
     if (form.id === 'daily-form') key = 'daily:' + selectedDate;
     else if(form.id==='course-review-form')key='courses:'+form.dataset.date;
     else if (form.id === 'review-form') key = 'review:' + weekOf(reviewDate).key;
+    else if (form.id === 'review-add-form') key = 'review-add';
+    else if (form.id === 'review-event-form') key = 'review-event:' + (form.dataset.reviewId || 'new');
     else if (form.dataset.weekMode) key = 'week:' + form.dataset.key;
     else if (form.id === 'reference-form') key = 'reference:' + form.elements.namedItem('reference-date').value;
     else if (form.id === 'quick-record-form') key = 'quick-record:' + (form.dataset.date || selectedDate);
@@ -467,6 +471,34 @@
     return html;
   }
 
+  function reviewQueueSection() {
+    if (!window.StudyReviewQueue) return '';
+    const day = iso(), items = window.StudyReviewQueue.all(state), due = window.StudyReviewQueue.due(state, day), visible = items.filter(item => item.status !== 'ended').sort((a, b) => (a.nextDate || '').localeCompare(b.nextDate || '')).slice(0, 30);
+    const subjectName = id => id ? (state.plan.subjects.find(subject => subject.id === id)?.name || '已归档科目') : '不关联科目';
+    const card = item => '<li class="review-queue-item"><div class="review-queue-main"><strong>' + escape(item.prompt) + '</strong><small>' + escape(item.source.kind === 'record_problem' ? '来自 ' + item.source.recordDate + ' 的记录' : '手动添加') + ' · ' + escape(subjectName(item.source.subjectId)) + ' · 下次 ' + escape(item.nextDate) + '</small></div><span class="task-state-label">' + (item.status === 'paused' ? '已暂停' : item.nextDate <= day ? '待回顾' : '已安排') + '</span><div class="task-row-actions"><button type="button" class="text-button" data-action="review-event" data-review-id="' + escape(item.id) + '">记录回顾</button>' + (item.status === 'paused' ? '<button type="button" class="text-button" data-action="review-resume" data-review-id="' + escape(item.id) + '">恢复</button>' : '<button type="button" class="text-button" data-action="review-pause" data-review-id="' + escape(item.id) + '">暂停</button>') + '<button type="button" class="text-button" data-action="review-end" data-review-id="' + escape(item.id) + '">结束</button></div></li>';
+    return '<section class="section review-queue-section" aria-label="问题回顾"><div class="section-heading"><h2>问题回顾</h2><span class="section-number">REVIEW QUEUE</span></div><p class="hint">把记录中的问题单独排入回顾；回顾事件不会增加学习分钟或词数。</p><p class="review-queue-summary">待回顾 ' + due.length + ' 项 · 未结束 ' + visible.length + ' 项</p>' + (visible.length ? '<ul class="review-queue-list">' + visible.map(card).join('') + '</ul>' : '<p class="empty-state">还没有待回顾问题。</p>') + '<button type="button" class="secondary-wide" data-action="review-add">手动添加问题</button></section>';
+  }
+  function reviewAddForm() {
+    const options = [['', '不关联科目']].concat(state.plan.subjects.map(subject => [subject.id, subject.name]));
+    return '<form id="review-add-form" data-dirty="review-add">' + field('问题', 'review-add-prompt', '', { textarea: true, required: true, maxLength: 8000, placeholder: '写下下次需要独立检查的问题' }) + selectField('关联科目', 'review-add-subject', '', options) + field('下次回顾日期', 'review-add-date', iso(), { type: 'date', min: state.plan.startDate, max: state.plan.endDate, required: true }) + '<div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存问题</button></div></form>';
+  }
+  function reviewEventForm(item) {
+    return '<form id="review-event-form" data-dirty="review-event" data-review-id="' + escape(item.id) + '"><p class="inline-form-note">' + escape(item.prompt) + '</p>' + selectField('本次反馈', 'review-event-feedback', 'independent', [['independent', '已独立回忆'], ['prompted', '看提示后想起'], ['uncertain', '仍不确定']]) + field('下次回顾日期（留空结束）', 'review-event-date', item.nextDate || '', { type: 'date', min: state.plan.startDate, max: state.plan.endDate }) + field('回顾备注（选填）', 'review-event-note', '', { textarea: true, maxLength: 2000 }) + '<div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存回顾结果</button></div></form>';
+  }
+  function saveReviewAdd(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState(), result = window.StudyReviewQueue.create(latest, { prompt: form.elements.namedItem('review-add-prompt').value, nextDate: form.elements.namedItem('review-add-date').value, source: { kind: 'manual', date: form.elements.namedItem('review-add-date').value, subjectId: form.elements.namedItem('review-add-subject').value || null, recordDate: null } }, new Date().toISOString());
+    persist(latest); dirty.delete('review-add'); closeSheet(true); render(); tell(result.created ? '问题已加入回顾' : '已有相同问题'); return true;
+  }
+  function saveReviewEvent(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState(), next = form.elements.namedItem('review-event-date').value || null;
+    window.StudyReviewQueue.recordEvent(latest, form.dataset.reviewId, { feedback: form.elements.namedItem('review-event-feedback').value, nextDate: next, note: form.elements.namedItem('review-event-note').value }, new Date().toISOString());
+    persist(latest); dirty.delete('review-event'); closeSheet(true); render(); tell(next ? '回顾结果已保存' : '问题已结束'); return true;
+  }
+  function setReviewQueueStatus(id, status) {
+    const latest = readState(); window.StudyReviewQueue[status === 'paused' ? 'pause' : status === 'open' ? 'resume' : 'end'](latest, id, new Date().toISOString()); persist(latest); render();
+  }
   function reviewView() {
     const stats = M().weekStats(state, reviewDate), w = weekOf(reviewDate);
     const review = state.reviews[w.key] || {};
@@ -483,6 +515,7 @@
       const description = days.map(d => fullDate(d) + '，' + minuteLabel(state.records[d]?.subjects?.[subject.id]?.minutes ?? null) + (state.records[d]?.subjects?.[subject.id]?.minutes != null ? '分钟' : '') + '，参考' + R().text(referenceFor(d))+'分钟').join('；');
       return '<div class="chart-subject"><div class="chart-subject-head"><h3>' + escape(subject.name) + (subject.kind === 'vocab' ? ' · 历史时长' : '') + '</h3><span class="chart-value">' + minuteLabel(subject.actual) + (subject.actual != null ? ' 分钟' : '') + ' <small>/ 参考 ' + R().text(subject.referenceRange||subject.reference) + ' 分钟</small></span></div>' + window.StudyTracking.renderMixedChart({days:days,values:days.map(date => state.records[date]?.subjects?.[subject.id]?.minutes ?? null),references:days.map(date => { const ref=referenceFor(date); if(ref===null)return null; const r=R().range(ref); return (r.min+r.max)/2; }),labels:days.map(date => '周'+weekdays[localDate(date).getDay()]),ariaLabel:subject.name,valueLabel:v => minuteLabel(v)+' 分钟',referenceLabel:v => minuteLabel(v)+' 分钟',description:description}) + '<p class="chart-caption">' + subject.recordedDays + '/' + subject.totalDays + ' 天已记录 · 折线为每日参考区间中点</p></div>';
     }).join('');
+    html += reviewQueueSection();
     html += '<form id="review-form" data-dirty="review"><div class="section"><div class="section-heading"><h2>本周随记</h2><span class="section-number">WEEK / NOTE</span></div>' + field('学习强度', 'review-load', review.load, { textarea: true, maxLength: 5000 }) + state.plan.subjects.filter(s => stats.subjects.find(x => x.id === s.id)?.totalDays || review.subjects?.[s.id]).map(s => field(s.name + (s.kind === 'vocab' ? '复习' : '回顾'), s.id === 'math' ? 'review-mathProblem' : s.id === 'vocab' ? 'review-vocabReview' : 'review-subject-' + s.id, review.subjects?.[s.id] ?? (s.id === 'math' ? review.mathProblem : s.id === 'vocab' ? review.vocabReview : ''), { textarea: true, maxLength: 5000 })).join('') + selectField('下周安排（选填）', 'review-adjustment', review.adjustment || '', [['', '暂不决定'], ['维持', '维持'], ['减量', '减量'], ['仅回顾', '仅回顾'], ['休息', '休息'], ['其他', '其他']]) + field('随记', 'review-reason', review.reason, { textarea: true, maxLength: 5000 }) + selectField('半天休息记录（选填）', 'review-halfDayRest', review.halfDayRest == null ? '' : String(review.halfDayRest), [['', '未记录'], ['true', '已保留'], ['false', '未保留']]) + '<div class="save-row"><button class="primary" type="submit">' + icon('check') + '保存本周复盘</button></div></div></form>';
     return html + '<button class="secondary-wide" data-action="export-report">导出周报</button>';
   }
@@ -588,6 +621,10 @@
     const note = form.elements.namedItem('daily-note').value;
     if (note !== initialDaily.note) record.note = note;
     D().saveRecord(latest, selectedDate, record);
+    if (window.StudyReviewQueue) visibleSubjects(selectedDate).forEach(subject => {
+      const problem = String(record.subjects[subject.id]?.problem || '').trim();
+      if (problem) window.StudyReviewQueue.addFromRecord(latest, selectedDate, subject.id, problem, new Date().toISOString());
+    });
     persist(latest);
     dirty.delete('daily');
     render();
@@ -1114,6 +1151,11 @@
       if (action === 'task-reopen') updateTaskDraftStatus(button.dataset.taskId, 'planned');
       if (action === 'task-up') moveTaskDraft(button.dataset.taskId, -1);
       if (action === 'task-down') moveTaskDraft(button.dataset.taskId, 1);
+      if (action === 'review-add') openSheet('添加问题回顾', reviewAddForm(), true);
+      if (action === 'review-event') { state = readState(); openSheet('记录回顾结果', reviewEventForm(window.StudyReviewQueue.find(state, button.dataset.reviewId)), true); }
+      if (action === 'review-pause') setReviewQueueStatus(button.dataset.reviewId, 'paused');
+      if (action === 'review-resume') setReviewQueueStatus(button.dataset.reviewId, 'open');
+      if (action === 'review-end') setReviewQueueStatus(button.dataset.reviewId, 'ended');
       if (action === 'word-log-add') window.StudyWordLogUI.editor(button.dataset.subject);
       if (action === 'word-log-edit') window.StudyWordLogUI.editor(button.dataset.subject,button.dataset.entry);
       if (action === 'word-log-remove') window.StudyWordLogUI.remove(button.dataset.subject,button.dataset.entry);
