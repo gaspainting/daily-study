@@ -1,0 +1,13 @@
+{
+    "formatVersion":  1,
+    "packageName":  "cn.edu.njupt.studycheckin",
+    "versionCode":  33,
+    "versionName":  "2.4.0",
+    "minSdk":  26,
+    "apkUrl":  "https://github.com/gaspainting/daily-study-releases/releases/download/v2.4.0/daily-study-v2.4.0.apk",
+    "apkBytes":  6716912,
+    "apkSha256":  "f389e7bf62c460d7765e356be70e06652e5fe11f0ea52f672cdc8e5715f05c78",
+    "signerSha256":  "fa74d9cbf26f6d34709400a576b93442b8295bdb607e7f80753669133244c3b5",
+    "releaseNotes":  "# 每日学习 v2.4.0\n\n本版完成 v2.4.0 主线并加入拾遗联动的 Gate 0 前置准备：\n\n- 复盘页生成下周行动草案，确认后才延期任务或安排问题回顾；\n- 目标检查、忽略和确认状态保留在行动历史中；\n- 拾遗连接设置显示配对、等待桌面端和待同步状态；\n- 加入 Android Keystore 设备身份、原子同步状态、版本化同步信封与 golden fixtures；\n- 加入 `daily-study://` 深链和本地确认提醒调度准备；\n- 保持本机优先，不伪造同步成功，不引入云服务器或任意文件接口。\n\n完整验收边界见 `docs/V2.4.0.md` 与 `docs/SHIYI-GATE0.md`。真实手机和拾遗桌面端尚未联调。\n",
+    "releaseDate":  "2026-11-10"
+}
