@@ -137,6 +137,8 @@
       else if (form.id === 'reminder-quiet-hours-form') saved = saveReminderQuietHours(form);
       else if (form.id === 'startup-form') saved = saveStartupPreference(form);
       else if (form.id === 'quick-record-form') saved = saveQuickRecord(form);
+      else if (form.id === 'task-today-form') saved = saveTodayTasks(form);
+      else if (form.id === 'task-form') saved = saveTask(form);
       else if (form.id === 'backup-reminder-form') { call('setBackupReminder', form.elements.namedItem('backup-enabled').checked, Number(form.elements.namedItem('backup-days').value)); completeDraft(); dirty.delete('backup-reminder'); render(); saved = true; }
       else if (['week-form', 'reference-form', 'new-subject-form', 'new-plan-form'].includes(form.id)) saved = saveSheet(form);
       if (saved) { feedback.set(key, { kind: 'saved', message: '已保存' }); syncFeedback(document.getElementById(form.id)); if(form.id==='daily-form'&&closeDailyEditor)window.StudyLayout.closeEditor(); }
@@ -306,6 +308,8 @@
     else if (form.dataset.weekMode) key = 'week:' + form.dataset.key;
     else if (form.id === 'reference-form') key = 'reference:' + form.elements.namedItem('reference-date').value;
     else if (form.id === 'quick-record-form') key = 'quick-record:' + (form.dataset.date || selectedDate);
+    else if (form.id === 'task-today-form') key = 'task-today:' + (form.dataset.date || selectedDate);
+    else if (form.id === 'task-form') key = 'task-editor:' + (form.dataset.taskId || 'new');
     else if (form.dataset.subjectEdit) key = 'subject:' + form.dataset.subjectEdit;
     else key = form.id;
     return activePlanId + ':' + key;
@@ -409,6 +413,7 @@
     if (selectedDate === today && within(selectedDate) && M().subjectsForDate(state,selectedDate).some(s=>s.kind!=='vocab'&&!isQuantity(s))) html += '<div class="quick-timers" aria-label="开始今日学习计时">' + M().subjectsForDate(state, selectedDate).filter(s => s.kind !== 'vocab' && !isQuantity(s)).map(subject => '<button type="button" data-action="start-timer" data-subject="' + escape(subject.id) + '"' + (!M().allowed(new Date(),state) ? ' disabled' : '') + '>' + icon('play') + escape(subject.name) + '计时</button>').join('') + '</div>' + (!M().allowed(new Date(),state) ? '<p class="inline-form-note">' + escape(restReason()) + '</p>' : '');
     html += '<div id="timer-panel" class="timer-panel" hidden></div>';
     html += courseAgenda(selectedDate);
+    if (within(selectedDate)) html += taskTodayView(selectedDate);
     if (within(selectedDate)) html += '<div class="section"><div class="section-heading"><h2>本周目标</h2><span class="section-number">01 / PLAN</span></div>' + window.StudyWeekUI.controls(state.plan, w.key, 'today') + '<div class="week-links"><button class="text-button" type="button" data-action="edit-week" data-scope="today">编辑本周目标</button><button class="text-button" type="button" data-action="week-history">历史目标</button></div></div>';
     html += '<form id="daily-form" data-dirty="daily"><div class="section"><div class="section-heading"><h2>今日记录</h2><span class="section-number">02 / RECORD</span></div>';
     html += subjects.map((subject, index) => {
@@ -442,7 +447,7 @@
     const w = weekOf(planDate), dates = M().dates(w.start || w.key, w.end).filter(within);
     const allDays = M().dates(state.plan.startDate, state.plan.endDate);
     let html = '<div class="page-intro"><h1>计划</h1><p>' + fullDate(state.plan.startDate) + ' — ' + fullDate(state.plan.endDate) + ' · ' + allDays.length + ' 天</p></div>' + weekNavigation(planDate, 'plan');
-    html+='<button class="secondary-wide allocation-entry" type="button" data-action="edit-allocation">总体任务分配'+icon('next')+'</button>';
+    html+='<button class="secondary-wide allocation-entry" type="button" data-action="edit-allocation">总体任务分配'+icon('next')+'</button><button class="secondary-wide" type="button" data-action="task-manager" data-date="'+escape(planDate)+'">任务安排'+icon('next')+'</button>';
     if(state.evaluation)html+='<button class="secondary-wide" type="button" data-action="evaluation-schedule">评估日程'+icon('next')+'</button>';
     html+='<button class="secondary-wide" type="button" data-action="course-manager">课程表</button>';
     if(window.StudySchedule.canApply(state,iso()))html+='<button class="text-button" data-action="course-schedule">课程与区间安排</button>';
@@ -770,6 +775,61 @@
     const affected=weekendsOnly?'替换这 '+dates.length+' 个周末日期的课程复习和高数参考区间，包括自定值，并更新新增周末日期的默认区间。':'替换上述日期内课程复习和高数的自定参考量，并更新新增日期的默认区间。';
     openSheet(weekendsOnly?'周末安排':'课程与区间安排','<p>'+fullDate(from)+' — '+fullDate(to)+'</p><dl class="schedule-budget">'+(weekendsOnly?'':'<div><dt>工作日</dt><dd>'+R().text(b.weekday)+' 分钟</dd></div>')+'<div><dt>周六参考</dt><dd>'+R().text(b.saturday)+' 分钟</dd></div><div><dt>周日参考</dt><dd>'+R().text(b.sunday)+' 分钟</dd></div></dl><p>周末上午：课程复习 1—2 小时。</p><p>周末下午：高数，周六 3—4 小时、周日 2—3 小时。</p><p>'+affected+'</p><div class="save-row"><button class="cancel-button" data-action="close-sheet">取消</button><button class="primary" data-action="apply-course-schedule" data-mode="'+(weekendsOnly?'weekends':'all')+'" data-plan="'+escape(activePlanId)+'" data-from="'+from+'" data-to="'+to+'" data-revision="'+(latest._revision||0)+'">应用安排</button></div>');
   }
+
+  function taskSubjectName(id) { return id ? (state.plan.subjects.find(subject => subject.id === id)?.name || '已归档科目') : '不关联科目'; }
+  function taskStatusLabel(task) { return task.status === 'done' || task.done ? '已完成' : task.status === 'skipped' ? '本次跳过' : '待完成'; }
+  function taskDateLabel(value) { return value === iso() ? '今天' : fullDate(value); }
+  function taskTodayView(date) {
+    if (!window.StudyTasks) return '';
+    const tasks = window.StudyTasks.forDate(state.plan, date), pending = window.StudyTasks.pending(state.plan, date);
+    const values = tasks.map(task => ({ id: task.id, status: task.status || (task.done ? 'done' : 'planned') }));
+    const rows = tasks.map(task => '<li class="daily-task-row" data-task-row="' + escape(task.id) + '"><label class="task-check"><input type="checkbox" data-task-toggle="' + escape(task.id) + '"' + (task.status === 'done' || task.done ? ' checked' : '') + (task.status === 'skipped' ? ' disabled' : '') + ' aria-label="' + escape(task.title + '，完成') + '"><span class="task-text"><strong>' + escape(task.title) + '</strong><small>' + escape(taskSubjectName(task.subjectId)) + (task.estimateMinutes == null ? '' : ' · 估时 ' + task.estimateMinutes + ' 分钟') + (task.dueDate ? ' · 截止 ' + taskDateLabel(task.dueDate) : '') + '</small></span></label><span class="task-state-label">' + taskStatusLabel(task) + '</span><div class="task-row-actions"><button type="button" class="text-button" data-action="task-up" data-task-id="' + escape(task.id) + '" aria-label="上移任务">上移</button><button type="button" class="text-button" data-action="task-down" data-task-id="' + escape(task.id) + '" aria-label="下移任务">下移</button>' + (task.status === 'skipped' ? '<button type="button" class="text-button" data-action="task-reopen" data-task-id="' + escape(task.id) + '">恢复</button>' : '<button type="button" class="text-button" data-action="task-skip" data-task-id="' + escape(task.id) + '">跳过</button>') + '<button type="button" class="text-button" data-action="task-edit" data-task-id="' + escape(task.id) + '">调整</button></div></li>').join('');
+    const backlog = pending.length ? '<p class="hint task-backlog-note">有 ' + pending.length + ' 项过去安排待处理：' + pending.slice(0, 3).map(task => escape(task.title)).join('、') + (pending.length > 3 ? '…' : '') + '</p>' : '';
+    return '<section class="section daily-task-section" aria-label="今日任务"><div class="section-heading"><h2>今日任务</h2><span class="section-number">02 / TASKS</span></div>' + (tasks.length ? '<form id="task-today-form" data-dirty="task-today" data-date="' + escape(date) + '"><input type="hidden" name="task-state" value="' + escape(JSON.stringify(values)) + '"><ul class="daily-task-list">' + rows + '</ul>' + backlog + '<div class="save-row"><button class="primary" type="submit">保存任务状态</button></div></form>' : '<p class="empty-state">今天还没有安排任务。</p>' + backlog) + '<button class="secondary-wide" type="button" data-action="task-manager" data-date="' + escape(date) + '">安排或调整任务</button></section>';
+  }
+  function taskForm(task) {
+    task = task || { id: '', title: '', subjectId: null, scheduledDate: selectedDate, dueDate: null, estimateMinutes: null, status: 'planned' };
+    const options = [['', '不关联科目']].concat(state.plan.subjects.map(subject => [subject.id, subject.name]));
+    return '<form id="task-form" data-dirty="task-editor" data-task-id="' + escape(task.id || 'new') + '">' + field('任务名称', 'task-title', task.title, { required: true, maxLength: 500, textarea: true }) + selectField('关联科目', 'task-subject', task.subjectId || '', options) + '<div class="field-inline">' + field('安排日期', 'task-date', task.scheduledDate || selectedDate, { type: 'date', min: state.plan.startDate, max: state.plan.endDate, required: true }) + field('截止日期（选填）', 'task-due', task.dueDate || '', { type: 'date', min: state.plan.startDate, max: state.plan.endDate }) + '</div>' + field('估计分钟（选填）', 'task-estimate', task.estimateMinutes == null ? '' : task.estimateMinutes, { type: 'number', min: 0, max: 1440, step: 1, inputmode: 'numeric' }) + (task.id ? '<p class="inline-form-note">当前状态：' + taskStatusLabel(task) + '。修改日期会保留调整历史。</p>' : '<p class="inline-form-note">任务与学习记录分开保存；完成、跳过和延期不会补写学习量。</p>') + '<div class="save-row"><button type="button" class="cancel-button" data-action="close-sheet">取消</button><button class="primary" type="submit">保存任务</button></div></form>';
+  }
+  function taskManager(date) {
+    date = date || selectedDate; state = readState();
+    const tasks = window.StudyTasks.all(state.plan).map(entry => entry.task).filter(task => task.scheduledDate >= state.plan.startDate && task.scheduledDate <= state.plan.endDate).sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate));
+    const list = tasks.length ? '<ul class="task-manager-list">' + tasks.map(task => '<li><div><strong>' + escape(task.title) + '</strong><small>' + taskDateLabel(task.scheduledDate) + (task.dueDate ? ' · 截止 ' + taskDateLabel(task.dueDate) : '') + ' · ' + escape(taskStatusLabel(task)) + '</small></div><button type="button" class="text-button" data-action="task-edit" data-task-id="' + escape(task.id) + '">调整</button></li>').join('') + '</ul>' : '<p class="empty-state">还没有任务。</p>';
+    openSheet('任务安排', '<p class="hint">任务日期、截止日期和状态单独保存；课程、计时和词数不会被任务勾选自动改写。</p>' + list + '<button class="secondary-wide" type="button" data-action="task-add" data-date="' + escape(date) + '">添加任务</button>', true);
+  }
+  function editTask(id, date) {
+    state = readState(); const task = id ? window.StudyTasks.find(state.plan, id).task : null;
+    openSheet(id ? '调整任务' : '添加任务', taskForm(task || { id: '', title: '', subjectId: null, scheduledDate: date || selectedDate, dueDate: null, estimateMinutes: null, status: 'planned' }), true);
+  }
+  function taskDraftValues(form) { return JSON.parse(form.elements.namedItem('task-state').value || '[]'); }
+  function setTaskDraftValues(form, values) { form.elements.namedItem('task-state').value = JSON.stringify(values); form.elements.namedItem('task-state').dispatchEvent(new Event('input', { bubbles: true })); }
+  function saveTodayTasks(form) {
+    const latest = readState(), date = form.dataset.date || selectedDate, values = taskDraftValues(form), current = window.StudyTasks.forDate(latest.plan, date), byId = new Map(values.map(item => [item.id, item]));
+    if (values.length === current.length) window.StudyTasks.reorder(latest.plan, date, values.map(item => item.id));
+    current.forEach(task => { const next = byId.get(task.id), status = next?.status || (task.done ? 'done' : 'planned'); if (status !== (task.status || (task.done ? 'done' : 'planned'))) window.StudyTasks.setStatus(latest.plan, task.id, status, new Date().toISOString(), status === 'skipped' ? '用户跳过本次安排' : ''); });
+    D().validate(latest); persist(latest); dirty.delete('task-today'); render(); return true;
+  }
+  function saveTask(form) {
+    if (!form.reportValidity()) return false;
+    const latest = readState(), id = form.dataset.taskId, input = { title: form.elements.namedItem('task-title').value, subjectId: form.elements.namedItem('task-subject').value || null, scheduledDate: form.elements.namedItem('task-date').value, dueDate: form.elements.namedItem('task-due').value || null, estimateMinutes: form.elements.namedItem('task-estimate').value || null };
+    if (id && id !== 'new') window.StudyTasks.update(latest.plan, id, input, new Date().toISOString()); else window.StudyTasks.create(latest.plan, input, new Date().toISOString());
+    D().validate(latest); persist(latest); dirty.delete('task-editor'); closeSheet(true); render(); tell('任务已保存'); return true;
+  }
+  function updateTaskDraftStatus(id, status) {
+    const form = document.getElementById('task-today-form'); if (!form) return;
+    const values = taskDraftValues(form), item = values.find(value => value.id === id); if (!item) return;
+    item.status = status; const checkbox = Array.from(form.querySelectorAll('[data-task-toggle]')).find(input => input.dataset.taskToggle === id); if (checkbox) checkbox.checked = status === 'done';
+    const row = Array.from(form.querySelectorAll('[data-task-row]')).find(element => element.dataset.taskRow === id); if (row) row.querySelector('.task-state-label').textContent = status === 'done' ? '已完成' : status === 'skipped' ? '本次跳过' : '待完成';
+    setTaskDraftValues(form, values); dirty.add('task-today'); feedback.delete('task-today'); syncFeedback(form);
+  }
+  function moveTaskDraft(id, direction) {
+    const form = document.getElementById('task-today-form'); if (!form) return;
+    const values = taskDraftValues(form), index = values.findIndex(value => value.id === id), destination = index + direction;
+    if (index < 0 || destination < 0 || destination >= values.length) return;
+    const value = values.splice(index, 1)[0]; values.splice(destination, 0, value); setTaskDraftValues(form, values);
+    const list = form.querySelector('.daily-task-list'); if (list) { const row = Array.from(form.querySelectorAll('[data-task-row]')).find(element => element.dataset.taskRow === id); if (row) { list.removeChild(row); list.insertBefore(row, list.children[destination] || null); } }
+  }
   function editWeek(date = planDate) {
     const w = weekOf(date);
     editWeekKey(w.key);
@@ -1047,6 +1107,13 @@
       }
       if (action === 'word-log-reset') window.StudyWordLogUI.restoreSaved(button.dataset.subject);
       if (action === 'quick-record') quickRecord();
+      if (action === 'task-manager') taskManager(button.dataset.date || selectedDate);
+      if (action === 'task-add') editTask('', button.dataset.date || selectedDate);
+      if (action === 'task-edit') editTask(button.dataset.taskId);
+      if (action === 'task-skip') updateTaskDraftStatus(button.dataset.taskId, 'skipped');
+      if (action === 'task-reopen') updateTaskDraftStatus(button.dataset.taskId, 'planned');
+      if (action === 'task-up') moveTaskDraft(button.dataset.taskId, -1);
+      if (action === 'task-down') moveTaskDraft(button.dataset.taskId, 1);
       if (action === 'word-log-add') window.StudyWordLogUI.editor(button.dataset.subject);
       if (action === 'word-log-edit') window.StudyWordLogUI.editor(button.dataset.subject,button.dataset.entry);
       if (action === 'word-log-remove') window.StudyWordLogUI.remove(button.dataset.subject,button.dataset.entry);
@@ -1137,6 +1204,10 @@
     dirty.delete('sheet');feedback.delete('sheet');syncFeedback(form);window.StudyDrafts.attach(form);
   }));
   document.addEventListener('change', event => {
+    if (event.target.matches('[data-task-toggle]')) {
+      const form = event.target.closest('#task-today-form'); if (form) updateTaskDraftStatus(event.target.dataset.taskToggle, event.target.checked ? 'done' : 'planned');
+      return;
+    }
     if (event.target.matches('[data-theme-preference]')) {
       applyThemePreference(event.target.value);
       tell(event.target.value === 'dark' ? '已切换为深色主题' : event.target.value === 'light' ? '已切换为浅色主题' : '已跟随系统主题');

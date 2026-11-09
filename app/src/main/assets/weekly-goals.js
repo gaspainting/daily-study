@@ -22,17 +22,33 @@
     if (!/^\d{4}-\d{2}-\d{2}T([01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,9})?Z$/.test(value)) return false;
     try { date(value.slice(0,10)); return Number.isFinite(Date.parse(value)); } catch (_) { return false; }
   }
+  function stamp(value) { if (!validStamp(value)) fail('任务时间无效'); }
   function taskList(tasks, subjects, draft) {
     if (!Array.isArray(tasks) || tasks.length > LIMIT) fail('每周最多50项任务');
     var seen = new Set();
     tasks.forEach(function (task) {
-      if (!plain(task) || Object.keys(task).sort().join(',') !== 'done,id,subjectId,title,updatedAt') fail('任务格式无效');
+      var allowed = ['done', 'id', 'subjectId', 'title', 'updatedAt', 'scheduledDate', 'dueDate', 'estimateMinutes', 'status', 'history'];
+      if (!plain(task) || Object.keys(task).some(function (key) { return allowed.indexOf(key) < 0; }) || ['done', 'id', 'subjectId', 'title', 'updatedAt'].some(function (key) { return !own(task, key); })) fail('任务格式无效');
       if (typeof task.id !== 'string' || !/^task_[A-Za-z0-9_-]{1,59}$/.test(task.id) || seen.has(task.id)) fail('任务ID无效或重复');
       seen.add(task.id);
       if (typeof task.title !== 'string' || task.title.length > 500 || !draft && !task.title.trim()) fail('任务名称须为1至500字');
       if (task.subjectId !== null && (typeof task.subjectId !== 'string' || !subjects.has(task.subjectId))) fail('任务关联科目不存在');
       if (typeof task.done !== 'boolean') fail('任务完成状态无效');
       if (typeof task.updatedAt !== 'string' || task.updatedAt.length > 40 || !(draft && task.updatedAt === '') && !validStamp(task.updatedAt)) fail('任务记录时间无效');
+      if (own(task, 'scheduledDate')) { date(task.scheduledDate); }
+      if (own(task, 'dueDate')) { if (task.dueDate !== null) { date(task.dueDate); if (task.scheduledDate && task.dueDate < task.scheduledDate) fail('任务截止日期早于安排日期'); } }
+      if (own(task, 'estimateMinutes') && task.estimateMinutes !== null && (!Number.isFinite(task.estimateMinutes) || task.estimateMinutes < 0 || task.estimateMinutes > 1440)) fail('任务估时无效');
+      if (own(task, 'status') && ['planned', 'done', 'skipped'].indexOf(task.status) < 0) fail('任务状态无效');
+      if (own(task, 'history')) {
+        if (!Array.isArray(task.history) || task.history.length > 200) fail('任务历史无效');
+        task.history.forEach(function (event) {
+          if (!plain(event) || Object.keys(event).sort().join(',') !== 'action,at,fromDate,id,reason,toDate') fail('任务历史格式无效');
+          if (typeof event.id !== 'string' || !/^task_event_[A-Za-z0-9_-]{3,80}$/.test(event.id)) fail('任务历史ID无效');
+          if (['created', 'edited', 'rescheduled', 'completed', 'reopened', 'skipped'].indexOf(event.action) < 0) fail('任务历史动作无效');
+          stamp(event.at); if (event.fromDate !== null) date(event.fromDate); if (event.toDate !== null) date(event.toDate);
+          if (typeof event.reason !== 'string' || event.reason.length > 1000) fail('任务历史原因无效');
+        });
+      }
     });
     return tasks;
   }
