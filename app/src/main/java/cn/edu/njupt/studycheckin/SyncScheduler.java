@@ -14,6 +14,7 @@ public final class SyncScheduler {
     public static void schedule(Context context) {
         JobScheduler jobs = context.getSystemService(JobScheduler.class);
         if (jobs == null) return;
+        if (jobs.getPendingJob(JOB_ID) != null) return;
         JobInfo info = new JobInfo.Builder(JOB_ID, new ComponentName(context, HostedSyncJobService.class))
             .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setPersisted(true).setPeriodic(PERIOD_MILLIS)
             .setBackoffCriteria(30L * 60L * 1000L, JobInfo.BACKOFF_POLICY_EXPONENTIAL).build();
