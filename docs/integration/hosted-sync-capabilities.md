@@ -1,6 +1,6 @@
 # 拾遗托管同步能力表（Android 端草案）
 
-状态：`client-draft-pending-backend-freeze`。本文对应 `contracts/hosted-sync-v1.json`，用于与 Mac Tauri/SQLite 和 Supabase 后端对齐；它不表示生产接口已经部署。
+状态：`client-draft-pending-backend-freeze`。本文对应 `contracts/hosted-sync-v1.json`，用于与拾遗 Windows Tauri/SQLite 和 Supabase 后端对齐；它不表示生产接口已经部署。
 
 ## Android 已承诺的边界
 
@@ -14,8 +14,8 @@
 
 ## 待后端冻结的接口
 
-v0.3 规划的 `/api/v1/*` 路径在 Android 端仅作为逻辑依赖记录。正式联调前必须由后端提供：OpenAPI/JSON Schema、Auth claims、RLS 规则、错误码与重试分类、服务端 revision/cursor/tombstone 行为、分页上限、冲突响应和 fixtures。没有这些输入，客户端不把任何本地模拟响应标记为云端确认。
+策划案规划的 `/api/v1/*` 路径在 Android 端仅作为逻辑依赖记录。正式联调前必须由后端提供：OpenAPI/JSON Schema、Auth claims、RLS 规则、错误码与重试分类、服务端 revision/cursor/tombstone 行为、分页上限、冲突响应和 fixtures。没有这些输入，客户端不把任何本地模拟响应标记为云端确认。
 
 ## 验收状态
 
-当前可在 Windows 验证：契约字段拒绝未知命令、稳定 ID、重复操作键、基于服务端修订号的冲突判定、下行拒绝留痕、提醒版本回执字段、周期任务边界和本地状态持久化。当前不能验证：Supabase 账号隔离、真实 HTTPS、跨网络传输、ACK 丢失后的服务端幂等、Mac 关机恢复、推送加速、真实通知显示和旧 APK 覆盖升级。上述项目属于 G0-12 的联合验收，不用单元测试替代。
+当前可在 Windows 验证：契约字段拒绝未知命令、稳定 ID、重复操作键、基于服务端修订号的冲突判定、下行拒绝留痕、提醒版本回执字段、周期任务边界和本地状态持久化。当前不能验证：Supabase 账号隔离、真实 HTTPS、跨网络传输、ACK 丢失后的服务端幂等、拾遗进程停止恢复、推送加速、真实通知显示和旧 APK 覆盖升级。上述项目属于 G0-12 的联合验收，不用单元测试替代。

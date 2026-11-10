@@ -39,7 +39,7 @@ v1.5.1 及更早版本需先通过「设置 → 关于 → 检查更新」安装
 
 **开发与测试**
 
-Java Activity + WebView，界面使用 HTML、CSS 和 JavaScript。构建依赖 JDK 21、Android SDK 36 和 Build Tools 36.0.0，通过 JAVA_HOME 与 ANDROID_SDK_ROOT 指定路径。模型测试使用 Node.js，资料生成脚本使用 Python 3。构建脚本同时支持 Windows 和 macOS 的 PowerShell 7；Mac 接手步骤见[工作区迁移说明](docs/integration/mac-workspace-migration.md)。
+Java Activity + WebView，界面使用 HTML、CSS 和 JavaScript。构建依赖 JDK 21、Android SDK 36 和 Build Tools 36.0.0，通过 JAVA_HOME 与 ANDROID_SDK_ROOT 指定路径。模型测试使用 Node.js，资料生成脚本使用 Python 3。Windows 是 Android 与拾遗的集中开发和主要联调环境；构建脚本保留 PowerShell 7 跨平台能力，macOS runner 只用于拾遗后期构建与验收，边界见[集中开发说明](docs/integration/mac-workspace-migration.md)。
 
 ```powershell
 & .\build.ps1
@@ -78,6 +78,8 @@ node tests/quantity-stability-ui.cjs
 - [v2.4.0 验证记录](docs/V2.4.0.md)
 - [拾遗联动 Gate 0 前置接入](docs/SHIYI-GATE0.md)
 - [v2.4.0 托管同步 R0 审计](docs/integration/v240-audit.md)
+- [v2.4.0 实际工程基线](docs/integration/app-baseline-v240.md)
+- [托管同步重构执行计划](docs/integration/hosted-sync-implementation-plan.md)
 - [Android 实际能力与数据字典（托管同步草案）](contracts/app-capabilities.md)
 - [Mac/Supabase 联调交接清单](docs/integration/mac-backend-handoff.md)
 - [macOS 工作区迁移与协同开发说明](docs/integration/mac-workspace-migration.md)

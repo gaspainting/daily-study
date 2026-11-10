@@ -1,6 +1,6 @@
-# Android → Mac/Supabase 联调交接
+# Android → 拾遗 Windows/Supabase 联调交接
 
-状态：`draft-pending-backend-freeze`。这是给 Mac Tauri/SQLite 与 Supabase 后端的输入清单，不是后端已经完成的证明。
+状态：`draft-pending-backend-freeze`。这是给拾遗 Windows Tauri/SQLite 与 Supabase 后端的输入清单，不是后端已经完成的证明。
 
 ## Android 当前可供对齐的文件
 
@@ -11,7 +11,7 @@
 - `contracts/fixtures/hosted-unsupported-command.json`：未知命令必须拒绝。
 - `contracts/fixtures/hosted-reminder-downlink.json`：提醒下行、服务端修订和游标包装样例。
 
-这些文件必须和 Mac 端的正式 OpenAPI/JSON Schema 一起评审。Mac 端不能只依据路径名称推断生产字段；冻结前如需调整字段、包装或错误码，应同时更新 Android fixture 和两端契约测试。
+这些文件必须和拾遗端的正式 OpenAPI/JSON Schema 一起评审。拾遗端不能只依据路径名称推断生产字段；冻结前如需调整字段、包装或错误码，应同时更新 Android fixture 和两端契约测试。
 
 ## 后端必须提供的最小接口
 
@@ -27,8 +27,8 @@
 
 至少区分 `401/UNAUTHENTICATED`、`403/DEVICE_REVOKED`、`409/REVISION_CONFLICT`、`429/RATE_LIMITED`、5xx 临时故障、无效载荷和不支持命令。只有临时故障和限流进入退避重试；冲突、撤销和不支持命令要保留本地可处理状态。
 
-`operationId` 与 `clientInstanceId` 是幂等键；同键不同载荷必须拒绝。服务端修订和 journal 游标由服务端生成，不能使用 Android 或 Mac 的本地时间决定覆盖胜负。删除必须留下墓碑，旧设备离线上传不能复活已删除实体。
+`operationId` 与 `clientInstanceId` 是幂等键；同键不同载荷必须拒绝。服务端修订和 journal 游标由服务端生成，不能使用 Android 或拾遗的本地时间决定覆盖胜负。删除必须留下墓碑，旧设备离线上传不能复活已删除实体。
 
 ## 联调前仍缺少的输入
 
-当前 Windows 工程没有 Mac 目录、Supabase 项目、测试账号、可访问的 HTTPS 端点或真实 Android 设备。因此本分支只完成本地契约、持久队列、HTTPS 适配边界、提醒下行候选和周期触发；不能宣称账号、跨网络、RLS、服务端幂等、推送、恢复合并或 Gate 0 已通过。Mac 端交付后，先用上述 fixtures 做无 UI 的 push/pull/冲突测试，再进行真实手机与异网验收。
+当前 Windows 工程没有拾遗目录、Supabase 项目、测试账号、可访问的 HTTPS 端点或真实 Android 设备。因此本分支只完成本地契约、持久队列、HTTPS 适配边界、提醒下行候选和周期触发；不能宣称账号、跨网络、RLS、服务端幂等、推送、恢复合并或 Gate 0 已通过。拾遗 Windows 端交付后，先用上述 fixtures 做无 UI 的 push/pull/冲突测试，再进行真实手机与异网验收。
