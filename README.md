@@ -39,7 +39,7 @@ v1.5.1 及更早版本需先通过「设置 → 关于 → 检查更新」安装
 
 **开发与测试**
 
-Java Activity + WebView，界面使用 HTML、CSS 和 JavaScript。构建依赖 JDK 21、Android SDK 36 和 Build Tools 36.0.0，通过 JAVA_HOME 与 ANDROID_SDK_ROOT 指定路径。模型测试使用 Node.js，资料生成脚本使用 Python 3。
+Java Activity + WebView，界面使用 HTML、CSS 和 JavaScript。构建依赖 JDK 21、Android SDK 36 和 Build Tools 36.0.0，通过 JAVA_HOME 与 ANDROID_SDK_ROOT 指定路径。模型测试使用 Node.js，资料生成脚本使用 Python 3。构建脚本同时支持 Windows 和 macOS 的 PowerShell 7；Mac 接手步骤见[工作区迁移说明](docs/integration/mac-workspace-migration.md)。
 
 ```powershell
 & .\build.ps1
@@ -80,6 +80,7 @@ node tests/quantity-stability-ui.cjs
 - [v2.4.0 托管同步 R0 审计](docs/integration/v240-audit.md)
 - [Android 实际能力与数据字典（托管同步草案）](contracts/app-capabilities.md)
 - [Mac/Supabase 联调交接清单](docs/integration/mac-backend-handoff.md)
+- [macOS 工作区迁移与协同开发说明](docs/integration/mac-workspace-migration.md)
 - [v2.4.0 业务兼容矩阵](docs/integration/v240-compatibility-matrix.md)
 - [G0-01 至 G0-12 分阶段计划](docs/integration/g0-plan.md)
 - [v1.7.0 架构边界与规则契约](docs/ARCHITECTURE-v1.7.0.md)

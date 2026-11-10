@@ -57,3 +57,12 @@ test('the reminder downlink fixture keeps revision and cursor outside the operat
   assert.equal(fixture.operation.payload.reminderVersion, 3);
   assert.match(read('docs/integration/mac-backend-handoff.md'), /snapshot/);
 });
+
+test('the build entry selects SDK and native tool paths by host platform', () => {
+  const build = read('build.ps1');
+  assert.match(build, /ANDROID_SDK_ROOT/);
+  assert.match(build, /ANDROID_HOME/);
+  assert.match(build, /nativeSuffix/);
+  assert.match(build, /JAVA_HOME/);
+  assert.match(read('docs/integration/mac-workspace-migration.md'), /pwsh -NoProfile -File \.\/build\.ps1/);
+});
