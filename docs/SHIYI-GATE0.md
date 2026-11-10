@@ -1,38 +1,15 @@
-# 拾遗联动 Gate 0 前置接入
+# 拾遗托管同步 Gate 0 状态
 
-更新时间：2026年11月10日。本文记录每日学习侧已经落地的接口准备，以及仍需要拾遗桌面端和真实设备才能完成的验收项。
+更新时间：2026年11月10日。v2.4.0 的旧“拾遗连接”是局域网式前置占位，已不再作为当前托管同步协议。Windows Android 端现在维护托管契约草案、本地状态、加密会话存储和可重放 outbox；生产协议仍需 Mac Tauri/SQLite 与 Supabase 后端共同冻结。
 
-**已落地的前置工作**
+当前代码对应：
 
-- `contracts/shiyi-sync-v1.json` 固定协议版本、事件信封字段、实体类型、排序、去重、ACK、冲突和删除墓碑规则。
-- `contracts/fixtures/` 提供有效、重复、冲突和未知版本样例；`sync-contract.js` 提供稳定实体 ID、信封校验、去重键和显式冲突判断。
-- 任务、问题回顾、日记录和评估已有稳定的本地实体边界：`task:<planId>:<taskId>`、`review:<planId>:<reviewId>`、`record:<planId>:<date>`。计划 ID 由原生计划存储层提供，不能从标题推导。
-- `SyncStore` 使用 Android Keystore 中的 `shiyi-sync-device` EC 密钥别名，并以原子文件保存设备 ID、database epoch、设备序号、配对状态、outbox/inbox 游标、去重列表、手动同步状态和提醒列表。私钥不会进入 WebView 或同步载荷。
-- 设置页提供“拾遗连接”：自动准备同步、手动地址、配对信息、解除绑定和手动同步入口。未绑定或桌面端未连接时，状态分别显示“未绑定”或“等待拾遗启动”；手动同步不会伪造成功。
-- 已加入 `daily-study://today`、`daily-study://plan`、`daily-study://review` 等深链入口。未知目标会返回 `unsupportedTarget` 并回到今日页，不会使应用崩溃。
-- 已加入确认提醒的本地保存、非精确定时和通知深链准备。下行提醒落地后由 Android 本地调度；是否被用户看到需要真实设备验证。
+- `contracts/hosted-sync-v1.json`：逻辑信封、稳定 ID、支持命令、状态和服务端结果分类；明确标注待后端冻结。
+- `docs/integration/hosted-sync-capabilities.md`：Android 业务字段、支持命令、接口输入和验收边界。
+- `AuthSessionStore`：Android Keystore 保护的原生会话文件；凭证不进入 WebView、日志或普通备份。
+- `SyncStore`：账号/工作区、客户端实例代次、outbox/inbox、服务端修订号、游标、冲突和提醒状态。正式保存成功后才追加小实体操作；没有服务端 ACK 不清除 outbox。
+- 设置页：显示本机保存、待上传、云端确认、手机已应用、冲突、离线、会话失效和设备撤销等状态，不再要求配对码、IP、端口、指纹或保持同一 Wi-Fi。
 
-**同步边界**
+本轮能在 Windows 独立验证的是契约校验、稳定 ID、重复操作键、修订冲突判定、原生队列持久化和现有业务回归。当前没有 Mac 客户端、Supabase 测试后端、测试账号或真实 Android 设备，因此不能宣称账号隔离、跨网络传输、服务端幂等、提醒可见性或 Gate 0 通过。
 
-每日学习仍是本机优先的 Java/WebView/JSON 应用；本次没有引入云服务器、任意局域网文件访问、远程 Shell 或 AI 密钥接口。`SyncStore.syncNow()` 当前返回“等待拾遗桌面端”，直到桌面端协议客户端真正接入并返回 ACK，outbox 不会被清除。
-
-**Gate 0 验收清单**
-
-已准备：
-
-- 稳定 ID、数据字典、协议版本和 golden fixtures；
-- Android Keystore 设备身份别名；
-- 原子同步状态、outbox/inbox/cursor/去重字段；
-- 配对、解除绑定、手动地址和状态入口；
-- 本地提醒与 `daily-study://` 深链接收器。
-
-待真实拾遗桌面端和 Android 手机完成：
-
-- 同一 Wi-Fi 下首次配对和设备指纹校验；
-- 手机离线产生 20 条记录，重连后按事件 ID 幂等传输并收到 ACK；
-- 局域网地址变化后无需重新配对；应用、桌面端重启和电脑睡眠后恢复；
-- 未授权设备被拒绝；电脑关闭时手机仍能看到已调度的本地提醒；
-- 原有保存、计时、评估、备份和升级回归；
-- Android 17 的本地网络权限策略在目标 SDK 升级后重新评审。
-
-截至本文更新时间，没有真实手机和拾遗桌面端连接，因此上面的待验收项不计为完成。
+联合验收仍需覆盖真实旧数据、Mac 关机与异网、离线补传、崩溃恢复、丢 ACK 重发、并发冲突、删除传播、账号/设备撤销、提醒版本回执、旧备份恢复和 v2.4.0 覆盖升级。证据和未完成项记录在 [`docs/integration/v240-audit.md`](integration/v240-audit.md)。

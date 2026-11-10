@@ -1,0 +1,15 @@
+{
+  "protocolVersion": 1,
+  "workspaceId": "workspace_demo",
+  "deviceId": "device_demo",
+  "clientInstanceId": "instance_demo",
+  "operationId": "operation_demo_003",
+  "entityType": "record",
+  "entityId": "record:main:2026-11-10",
+  "command": "replace_database",
+  "baseServerRevision": 0,
+  "schemaVersion": 9,
+  "occurredAtUtc": "2026-11-10T08:02:00Z",
+  "businessTimeZone": "Asia/Shanghai",
+  "payload": { "database": {} }
+}

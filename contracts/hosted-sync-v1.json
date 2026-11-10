@@ -1,0 +1,75 @@
+{
+  "protocolVersion": 1,
+  "schemaVersion": 9,
+  "status": "client-draft-pending-backend-freeze",
+  "source": "拾遗开发策划案_v0.3",
+  "warning": "Logical client contract only. Routes, auth claims, RLS policies and server revisions require the Mac/Supabase backend to freeze this schema before production use.",
+  "operation": {
+    "required": [
+      "protocolVersion",
+      "workspaceId",
+      "deviceId",
+      "clientInstanceId",
+      "operationId",
+      "entityType",
+      "entityId",
+      "command",
+      "baseServerRevision",
+      "schemaVersion",
+      "occurredAtUtc",
+      "businessTimeZone",
+      "payload"
+    ],
+    "entityTypes": ["plan", "record", "task", "review", "evaluation", "reminder"],
+    "commands": {
+      "plan": ["upsert_plan", "delete_plan"],
+      "record": ["upsert_record", "delete_record"],
+      "task": ["upsert_task", "delete_task"],
+      "review": ["upsert_review", "delete_review"],
+      "evaluation": ["upsert_evaluation", "delete_evaluation"],
+      "reminder": ["upsert_reminder", "cancel_reminder"]
+    },
+    "ordering": "server revision and journal cursor; device time is not ordering",
+    "idempotency": "clientInstanceId + operationId",
+    "unknownCommand": "reject-without-applying"
+  },
+  "stateStatuses": [
+    "local_saved",
+    "pending_upload",
+    "cloud_confirmed",
+    "device_applied",
+    "conflict",
+    "offline",
+    "session_invalid",
+    "device_revoked",
+    "error"
+  ],
+  "serverResultClasses": [
+    "accepted",
+    "duplicate",
+    "conflict",
+    "invalid",
+    "unsupported",
+    "retryable"
+  ],
+  "logicalRoutes": [
+    "GET /api/v1/capabilities",
+    "POST /api/v1/devices/register",
+    "GET /api/v1/devices",
+    "POST /api/v1/devices/{id}/revoke",
+    "POST /api/v1/sync/push",
+    "POST /api/v1/sync/snapshot",
+    "GET /api/v1/sync/pull?cursor=",
+    "POST /api/v1/sync/ack",
+    "GET /api/v1/sync/status",
+    "POST /api/v1/conflicts/{id}/resolve",
+    "POST /api/v1/reminders/ack"
+  ],
+  "serverRequired": [
+    "Supabase Auth and RLS account isolation",
+    "persistent operation idempotency",
+    "transactional entity revision/history/tombstone/journal",
+    "cursor epoch and expiration response",
+    "formal OpenAPI/JSON Schema and test fixtures"
+  ]
+}

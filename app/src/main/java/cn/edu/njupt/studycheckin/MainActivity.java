@@ -115,7 +115,7 @@ public class MainActivity extends Activity {
     @Override protected void onDestroy(){pageReady=false;if(webView!=null){webView.removeJavascriptInterface("Native");webView.destroy();webView=null;}super.onDestroy();}
     private void show(String text){runOnUiThread(()->Toast.makeText(this,text==null?"操作失败":text,Toast.LENGTH_LONG).show());}
     private void recoverStorage()throws Exception{try{PlanStore.recover(this);BackupManager.recover(this);recoveryError=null;}catch(Exception e){recoveryError="上次恢复未完成，请重新读取";throw new Exception(recoveryError);}}
-    private void storageReady()throws Exception{if(recoveryError!=null||new File(getFilesDir(),"plan-switch-journal.json").exists()||new File(getFilesDir(),"plan-switch-journal.json.bak").exists()||new File(getFilesDir(),"restore-journal.json").exists()||new File(getFilesDir(),"restore-journal.json.bak").exists())recoverStorage();}
+    private void storageReady()throws Exception{if(recoveryError!=null||new File(getFilesDir(),"plan-switch-journal.json").exists()||new File(getFilesDir(),"plan-switch-journal.json.bak").exists()||new File(getFilesDir(),"restore-journal.json").exists()||new File(getFilesDir(),"restore-journal.json.bak").exists())recoverStorage();if(recoveryError==null)SyncStore.recoverPendingState(this,DataStore.load(this));}
     private void backupCheckFailed(Exception error){runOnUiThread(()->{
         if(isFinishing()||isDestroyed())return;
         new AlertDialog.Builder(this).setTitle("备份检查失败").setMessage(error.getMessage())
@@ -164,6 +164,7 @@ public class MainActivity extends Activity {
             public JSONObject execute(BridgeContract.Request request)throws Exception{
                 synchronized(DataStore.LOCK){storageReady();storage().requireReady();
                     if(!request.planId.equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开");
+                    JSONObject before=storage().readStable();SyncStore.prepareStateSave(MainActivity.this,request.planId,before);
                     if("state.save".equals(request.operation)){
                         if(request.payload.optLong("_revision",-1)!=request.expectedRevision)throw new Exception("请求修订号与记录不一致");
                         storage().saveState(request.payload);
@@ -171,6 +172,7 @@ public class MainActivity extends Activity {
                         JSONObject command=new JSONObject(request.payload.toString()).put("planId",request.planId).put("expectedRevision",request.expectedRevision);
                         storage().saveEvaluationSchedule(command);
                     }
+                    try{SyncStore.finishStateSave(MainActivity.this,request.planId,storage().readStable());}catch(Exception queueError){SyncStore.markQueueError(MainActivity.this,queueError.getMessage());}
                     refreshPlatforms(false);return storage().readStable();
                 }
             }
@@ -251,22 +253,21 @@ public class MainActivity extends Activity {
         @JavascriptInterface public String saveInspirationImage(String id){return makePoster(id,false);}
         @JavascriptInterface public String shareInspiration(String id){return makePoster(id,true);}
         @JavascriptInterface public String getSyncStatus(){try{return SyncStore.status(MainActivity.this).toString();}catch(Exception e){return error(e);}}
-        @JavascriptInterface public String saveSyncSettings(boolean autoSync,String manualAddress){try{return SyncStore.saveSettings(MainActivity.this,autoSync,manualAddress).toString();}catch(Exception e){return error(e);}}
-        @JavascriptInterface public String beginSyncPairing(String code){try{return SyncStore.beginPairing(MainActivity.this,code).toString();}catch(Exception e){return error(e);}}
-        @JavascriptInterface public String saveSyncPairing(String desktopId,String desktopName,String address,int port,String fingerprint){try{return SyncStore.savePairing(MainActivity.this,desktopId,desktopName,address,port,fingerprint).toString();}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String saveSyncSettings(boolean autoSync,String workspaceId){try{return SyncStore.saveSettings(MainActivity.this,autoSync,workspaceId).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String unpairSync(){try{return SyncStore.unpair(MainActivity.this).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String syncNow(){try{return SyncStore.syncNow(MainActivity.this).toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveSyncReminder(String raw){try{JSONObject reminder=new JSONObject(raw);JSONObject result=SyncStore.saveReminder(MainActivity.this,reminder);ShiyiReminderScheduler.schedule(MainActivity.this);return result.toString();}catch(Exception e){return error(e);}}
         @JavascriptInterface public String dispatch(String raw){return dispatchBridge(raw);}
         @JavascriptInterface public String getState(){try{synchronized(DataStore.LOCK){storageReady();return storage().readForUi().toString();}}catch(Exception e){return error(e);}}
-        @JavascriptInterface public String saveEvaluationSchedule(String raw){try{synchronized(DataStore.LOCK){storageReady();storage().requireReady();JSONObject command=new JSONObject(raw);if(!command.getString("planId").equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开日程");long revision=storage().saveEvaluationSchedule(command);refreshPlatforms();return success().put("revision",revision).toString();}}catch(Exception e){return error(e);}}
+        @JavascriptInterface public String saveEvaluationSchedule(String raw){try{synchronized(DataStore.LOCK){storageReady();storage().requireReady();JSONObject before=storage().readStable();JSONObject command=new JSONObject(raw);if(!command.getString("planId").equals(PlanStore.activeId(MainActivity.this)))throw new Exception("计划已切换，请重新打开日程");SyncStore.prepareStateSave(MainActivity.this,command.getString("planId"),before);long revision=storage().saveEvaluationSchedule(command);try{SyncStore.finishStateSave(MainActivity.this,command.getString("planId"),storage().readStable());}catch(Exception queueError){SyncStore.markQueueError(MainActivity.this,queueError.getMessage());}refreshPlatforms();return success().put("revision",revision).toString();}}catch(Exception e){return error(e);}}
         @JavascriptInterface public String saveState(String raw){
             try {
                 storageReady();
                 if(raw==null||raw.getBytes(StandardCharsets.UTF_8).length>DataStore.MAX_BYTES)throw new Exception("记录文件过大");
                 JSONObject s=new JSONObject(raw);
                 synchronized(DataStore.LOCK){
-                    storageReady();storage().requireReady();storage().saveState(s);
+                    storageReady();storage().requireReady();JSONObject before=storage().readStable();String planId=PlanStore.activeId(MainActivity.this);SyncStore.prepareStateSave(MainActivity.this,planId,before);storage().saveState(s);
+                    try{SyncStore.finishStateSave(MainActivity.this,planId,storage().readStable());}catch(Exception queueError){SyncStore.markQueueError(MainActivity.this,queueError.getMessage());}
                 }
                 refreshPlatforms(false);return success().put("revision",s.getLong("_revision")).put("state",s).toString();
             }catch(Exception e){return error(e);}
