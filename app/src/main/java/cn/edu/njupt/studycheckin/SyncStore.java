@@ -317,10 +317,24 @@ public final class SyncStore {
     /** Clears one operation only after an explicit server ACK has been received. */
     public static JSONObject acknowledge(Context c, String operationId, long serverRevision, long cursor, String serverEpoch) throws Exception {
         synchronized (LOCK) {
-            JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("outbox"); boolean found = false; String entityId = null, dedupe = null;
+            if (operationId == null || operationId.trim().isEmpty()) throw new Exception("待确认操作ID无效");
+            if (serverRevision < 0 || cursor < 0) throw new Exception("服务端确认序号无效");
+            JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("outbox"); JSONArray dedupes = state.getJSONArray("dedupe"); boolean found = false; String entityId = null;
+            String dedupe = state.getString("clientInstanceId") + "|" + operationId;
             for (int i = list.length() - 1; i >= 0; i--) { JSONObject entry = list.getJSONObject(i), operation = entry.getJSONObject("operation"); if (operationId.equals(operation.optString("operationId"))) { found = true; entityId = operation.getString("entityId"); dedupe = operation.getString("clientInstanceId") + "|" + operation.getString("operationId"); list.remove(i); break; } }
-            if (!found) throw new Exception("待确认操作不存在");
-            JSONArray dedupes = state.getJSONArray("dedupe"); if (!contains(dedupes, dedupe)) dedupes.put(dedupe); while (dedupes.length() > 4000) dedupes.remove(0);
+            if (!found) {
+                // A lost ACK can make the server answer duplicate after the
+                // original transaction was already committed locally. Treat
+                // that replay as success instead of turning a durable sync
+                // into an error; the first ACK already persisted the revision.
+                if (!contains(dedupes, dedupe)) throw new Exception("待确认操作不存在");
+                acceptServerEpoch(state, serverEpoch);
+                state.put("cursor", Math.max(state.getLong("cursor"), cursor));
+                if (serverEpoch != null && !serverEpoch.trim().isEmpty() && state.isNull("serverEpoch")) state.put("serverEpoch", serverEpoch);
+                writeLocked(c, state); return publicStatus(c, state);
+            }
+            acceptServerEpoch(state, serverEpoch);
+            if (!contains(dedupes, dedupe)) dedupes.put(dedupe); while (dedupes.length() > 4000) dedupes.remove(0);
             state.getJSONObject("serverRevisions").put(entityId, serverRevision); state.put("cursor", Math.max(state.getLong("cursor"), cursor)); if (serverEpoch != null && !serverEpoch.trim().isEmpty()) state.put("serverEpoch", serverEpoch);
             JSONObject sync = state.getJSONObject("sync"); sync.put("lastSuccessAt", now()).put("lastFailure", JSONObject.NULL).put("status", list.length() == 0 ? "cloud_confirmed" : "pending_upload"); writeLocked(c, state); return publicStatus(c, state);
         }
@@ -358,7 +372,7 @@ public final class SyncStore {
     public static JSONObject advanceCursor(Context c, long cursor, String serverEpoch) throws Exception {
         if (cursor < 0) throw new Exception("同步游标无效");
         synchronized (LOCK) {
-            JSONObject state = readLocked(c); state.put("cursor", Math.max(state.getLong("cursor"), cursor));
+            JSONObject state = readLocked(c); acceptServerEpoch(state, serverEpoch); state.put("cursor", Math.max(state.getLong("cursor"), cursor));
             if (serverEpoch != null && !serverEpoch.trim().isEmpty()) state.put("serverEpoch", serverEpoch);
             writeLocked(c, state); return publicStatus(c, state);
         }
@@ -370,7 +384,7 @@ public final class SyncStore {
 
     public static void markTransportFailure(Context c, String code, String message, boolean retryable) {
         try {
-            synchronized (LOCK) { JSONObject state = readLocked(c); String status = retryable ? "offline" : ("UNAUTHENTICATED".equals(code) ? "session_invalid" : "error"); state.getJSONObject("sync").put("status", status).put("lastFailure", message == null ? code : message); writeLocked(c, state); }
+            synchronized (LOCK) { JSONObject state = readLocked(c); String status = retryable ? "offline" : ("UNAUTHENTICATED".equals(code) ? "session_invalid" : ("DEVICE_REVOKED".equals(code) ? "device_revoked" : "error")); state.getJSONObject("sync").put("status", status).put("lastFailure", message == null ? code : message); writeLocked(c, state); }
         } catch (Exception ignored) { }
     }
 
@@ -404,6 +418,10 @@ public final class SyncStore {
     }
 
     private static JSONObject publicStatus(Context c, JSONObject state) throws Exception { return status(c); }
+    private static void acceptServerEpoch(JSONObject state, String serverEpoch) throws Exception {
+        if (serverEpoch == null || serverEpoch.trim().isEmpty()) return;
+        if (!state.isNull("serverEpoch") && !serverEpoch.equals(state.getString("serverEpoch"))) throw new Exception("服务端同步代次已变化，请先获取快照");
+    }
     private static boolean contains(JSONArray list, String value) { for (int i = 0; i < list.length(); i++) if (value.equals(list.optString(i, null))) return true; return false; }
     private static JSONObject without(JSONObject source, String key) throws Exception { if (source == null) return null; JSONObject value = new JSONObject(source.toString()); value.remove(key); return value; }
     private static boolean same(JSONObject a, JSONObject b) { return a == null ? b == null : b != null && a.toString().equals(b.toString()); }

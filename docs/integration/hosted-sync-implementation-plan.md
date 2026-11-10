@@ -23,8 +23,8 @@
 | G0-02 稳定 ID、迁移、账号隔离 | 计划/记录/任务/回顾/评估/提醒的 ID 和旧 LAN 元数据迁移已在本地 | 本地迁移可审查；首次云端合并和 RLS 隔离未实现 | 账号 claims、workspace/device 模型、快照比较规则 |
 | G0-03 Auth、设备会话、续期 | Keystore 加密会话容器和单飞刷新接口存在 | 客户端安全边界已有；无登录、注册、静默续期和设备撤销服务 | Supabase Auth 配置、设备 API、撤销错误 fixtures |
 | G0-04 HTTPS 传输 | HTTPS-only `HttpSyncTransport` 和错误映射存在 | 适配层可替换；端点为空，不能发起生产请求 | 能力协商、正式 URL、认证 claims、限流策略 |
-| G0-05 outbox/inbox/ACK | 正式保存恢复日志、实体 outbox、去重、ACK 和 inbox 结果已建模 | 本机可恢复；服务端事务 ACK、丢 ACK 重试未验证 | push/pull/ack 接口、幂等表和跨端 fixtures |
-| G0-06 修订、冲突、删除 | `baseServerRevision`、冲突状态和删除命令在客户端存在 | 不按本地时间覆盖；服务端 CAS、history、tombstone 未实现 | revision/history/tombstone/cursor/epoch 语义 |
+| G0-05 outbox/inbox/ACK | 正式保存恢复日志、实体 outbox、去重、ACK、duplicate ACK 重放和 inbox 结果已建模 | 本机可恢复；服务端事务 ACK、丢 ACK 重试未验证 | push/pull/ack 接口、幂等表和跨端 fixtures |
+| G0-06 修订、冲突、删除 | `baseServerRevision`、冲突状态、删除命令和 epoch 变化保护在客户端存在 | 不按本地时间覆盖；服务端 CAS、history、tombstone 未实现 | revision/history/tombstone/cursor/epoch 语义 |
 | G0-07 下行业务 | 下行校验和未知命令拒绝存在；提醒有本地适配 | 只有提醒可进入本地调度；任务、安排、回顾和更正未接入 | 正式领域载荷、合法操作入口、回退/撤销规则 |
 | G0-08 本地提醒与回执 | AlarmManager、提醒版本和本机回执已存在 | 本地链路可用；服务端回执、权限和送达证据未完成 | reminders API、版本冲突规则、真机通知测试 |
 | G0-09 触发、重试、离线 | 手动入口和联网 `JobScheduler` 周期机会存在 | 没有推送加速；真实后台同步、退避和断网恢复待联调 | 可访问端点、任务调度矩阵、跨网络测试 |

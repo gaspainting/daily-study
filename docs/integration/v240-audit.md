@@ -29,7 +29,7 @@
 
 ## 旧“拾遗连接”实际能力
 
-当前分支的 `SyncStore` 已把旧局域网字段迁移到私有 `legacyLanMetadata`，并维护设备/客户端实例、账号与工作区、可恢复提交日志、实体级 outbox、inbox 去重、服务端修订号、游标、冲突和提醒版本回执。正式保存会先写 `sync-commit-journal.json`，本地状态成功后再追加可重放操作；只有显式 ACK 才移除 outbox。
+当前分支的 `SyncStore` 已把旧局域网字段迁移到私有 `legacyLanMetadata`，并维护设备/客户端实例、账号与工作区、可恢复提交日志、实体级 outbox、inbox 去重、服务端修订号、游标、epoch 保护、冲突和提醒版本回执。正式保存会先写 `sync-commit-journal.json`，本地状态成功后再追加可重放操作；只有显式 ACK 才移除 outbox，已落盘的 ACK 收到 duplicate 重放时保持幂等。
 
 本地已有 `AuthSessionStore`（Keystore 加密会话容器）、HTTPS-only `HttpSyncTransport`、`HostedSyncService`、下行校验边界和 `JobScheduler` 触发器。构建没有托管端点元数据，因此周期任务只记录当前本机状态，不会发起伪造的云请求；收到正式端点后才会调用传输适配器。提醒的 `reminderVersion`、收到/已安排/已送达/已取消时间均在本地保存，旧版本提醒会补默认字段。
 
@@ -55,7 +55,7 @@
 | 稳定实体 ID / 数据字典 | 旧 `sync-contract.js` 有局部 ID 与信封校验 | 新增 `contracts/app-capabilities.md`、托管契约草案和 fixtures；后端冻结前仍是草案 |
 | 账号、设备、客户端代次 | 有 Keystore 设备密钥、加密会话容器和 client instance；无真实登录/撤销服务 | 本地会话刷新接口和代次状态已具备；真实 Auth/RLS/撤销待后端 |
 | HTTPS 传输 | 已有 HTTPS-only `SyncTransport`/`HttpSyncTransport`，构建未配置端点 | `HostedSyncService` 支持 push/pull 边界；未配置端点时只报告本机状态 |
-| outbox/inbox/ACK | 正式保存已接入恢复日志和实体级 outbox；inbox 拒绝/应用留痕已加入 | 只有显式 ACK 才移除 outbox；服务端事务和丢 ACK 重传仍待后端 |
+| outbox/inbox/ACK | 正式保存已接入恢复日志和实体级 outbox；inbox 拒绝/应用留痕已加入；duplicate ACK 可幂等重放 | 只有显式 ACK 才移除 outbox；服务端事务和丢 ACK 重传仍待后端 |
 | 修订、冲突、墓碑 | `baseServerRevision`、操作 ID、冲突状态已建模；未完成服务端墓碑 | 不按最后修改时间覆盖；条件写入和墓碑待后端 |
 | 下行任务/提醒 | 下行校验会拒绝未适配业务命令；提醒支持版本化接收/安排/取消/送达回执 | 仅提醒有本地适配；任务、记录、评估应用待正式命令清单 |
 | 触发机制 | `JobScheduler` 每 6 小时提供联网机会，前台/手动入口保留；无推送声明 | 周期执行和真实后端联调待完成，推送仍未验收 |
@@ -67,7 +67,7 @@
 
 以下是本仓库已有或本轮可重复的验证，不等同于真机/云端验收：
 
-- Node 合同与模型测试本轮完整运行通过（295 项，其中托管同步静态检查 13 项）。
+- Node 合同与模型测试本轮完整运行通过（296 项，其中托管同步静态检查 14 项）。
 - `build.ps1 -TestBuild` 本轮通过，APK 仍使用 v2.4.0 manifest、原有签名路径和现有 SDK；该构建不是发布版本。
 - v2.4.0 已完成签名构建并保存 APK 哈希；本轮不会覆盖基线文件。
 - 当前本地分支和回退标签存在，工作目录不做 reset/clean，不覆盖用户数据文件。

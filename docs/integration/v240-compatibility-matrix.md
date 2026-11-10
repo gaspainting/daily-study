@@ -4,7 +4,7 @@
 
 | 业务/数据边界 | v2.4.0 现状 | 托管接入处理 | 当前证据/限制 |
 | --- | --- | --- | --- |
-| 正式保存与草稿 | Java/WebView + JSON；桥接保存有修订检查 | 保留原入口；保存前写恢复点，保存后生成实体级 outbox | 295 项 Node 回归、TestBuild；尚无断电真机证据 |
+| 正式保存与草稿 | Java/WebView + JSON；桥接保存有修订检查 | 保留原入口；保存前写恢复点，保存后生成实体级 outbox | 296 项 Node 回归、TestBuild；尚无断电真机证据 |
 | 自动评估与依据 | schema 9，计划日程和历史依据已保存 | 不改评估口径；评估实体进入版本化命令清单 | 模型/规则测试通过；未做云端下行评估联调 |
 | 空白、0、单位、数量 | 现有校验和历史快照保留 | 同步 payload 按实体传输，不把参考值写成实际 | 现有模型测试通过 |
 | 多计划 | 原生 PlanStore 隔离计划 | ID 使用 `planId`，操作不以标题推导 | 本机测试；账号隔离待 RLS/真机 |
@@ -14,7 +14,7 @@
 | 备份/恢复 | ZIP、JSON、恢复日志和代际处理已存在 | 会话凭证不进入备份；首次云合并待差异预览协议 | 旧备份测试；云端恢复未验收 |
 | 账号/设备 | v2.4 无账号会话 | 新增 Keystore 会话存储、客户端实例代次和状态接口 | 未接 Supabase Auth，不能宣称登录/撤销完成 |
 | HTTPS 同步 | v2.4 无传输 | 新增 HTTPS-only `SyncTransport`、`HttpSyncTransport`、`HostedSyncService` | 端点与 OpenAPI 未冻结，未发起生产请求 |
-| outbox/inbox/ACK | 旧数组未接入正式保存 | 正式保存产生可重放实体操作；ACK 单独移除；下行结果留存 inbox | 本机静态/构建证据；服务端幂等未验证 |
+| outbox/inbox/ACK | 旧数组未接入正式保存 | 正式保存产生可重放实体操作；ACK 单独移除；已确认操作允许 duplicate ACK 重放；下行结果留存 inbox | 本机静态/构建证据；服务端幂等未验证 |
 | 冲突/删除 | 旧信封有局部冲突判断 | `baseServerRevision`、冲突状态、删除命令建模 | 未接服务端 revision/tombstone |
 | 更新/签名 | v2.4.0 code 33、原签名和 update.json | 保留旧路径；候选新版本必须 code>33 | 基线 APK hash 已核对；未发布新版本 |
 

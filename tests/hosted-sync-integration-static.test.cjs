@@ -58,6 +58,13 @@ test('the reminder downlink fixture keeps revision and cursor outside the operat
   assert.match(read('docs/integration/mac-backend-handoff.md'), /snapshot/);
 });
 
+test('ACK replay is idempotent and epoch rollover requires a snapshot', () => {
+  assert.match(store, /if \(!contains\(dedupes, dedupe\)\) throw new Exception\("待确认操作不存在"\)/);
+  assert.match(store, /acceptServerEpoch\(state, serverEpoch\)/);
+  assert.match(store, /服务端同步代次已变化，请先获取快照/);
+  assert.match(store, /DEVICE_REVOKED.*device_revoked/);
+});
+
 test('the build entry selects SDK and native tool paths by host platform', () => {
   const build = read('build.ps1');
   assert.match(build, /ANDROID_SDK_ROOT/);
