@@ -1,0 +1,35 @@
+{
+  "serverRevision": 12,
+  "journalCursor": 31,
+  "serverEpoch": "epoch_demo_1",
+  "operation": {
+    "protocolVersion": 1,
+    "workspaceId": "workspace_demo",
+    "deviceId": "device_demo",
+    "clientInstanceId": "mac_instance_demo",
+    "operationId": "operation_reminder_001",
+    "entityType": "reminder",
+    "entityId": "reminder:review_2026_11_10",
+    "command": "upsert_reminder",
+    "baseServerRevision": 11,
+    "schemaVersion": 9,
+    "occurredAtUtc": "2026-11-10T08:00:00Z",
+    "businessTimeZone": "Asia/Shanghai",
+    "payload": {
+      "eventId": "review_2026_11_10",
+      "title": "回顾提醒",
+      "atUtc": "2026-11-10T13:00:00Z",
+      "timezone": "Asia/Shanghai",
+      "deepLink": "daily-study://review",
+      "schemaVersion": 1,
+      "status": "received",
+      "reminderVersion": 3,
+      "receiptState": "received",
+      "receivedAtUtc": null,
+      "scheduledAtUtc": null,
+      "deliveredAtUtc": null,
+      "cancelledAtUtc": null,
+      "sourceRevision": 12
+    }
+  }
+}

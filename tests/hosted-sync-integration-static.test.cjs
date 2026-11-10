@@ -48,3 +48,12 @@ test('sync settings expose confirmed and attempted timestamps separately', () =>
   assert.match(app, /lastSuccessAt/);
   assert.match(app, /上次云端确认/);
 });
+
+test('the reminder downlink fixture keeps revision and cursor outside the operation payload', () => {
+  const fixture = JSON.parse(read('contracts/fixtures/hosted-reminder-downlink.json'));
+  assert.equal(fixture.serverRevision, 12);
+  assert.equal(fixture.journalCursor, 31);
+  assert.equal(fixture.operation.command, 'upsert_reminder');
+  assert.equal(fixture.operation.payload.reminderVersion, 3);
+  assert.match(read('docs/integration/mac-backend-handoff.md'), /snapshot/);
+});

@@ -79,6 +79,7 @@ node tests/quantity-stability-ui.cjs
 - [拾遗联动 Gate 0 前置接入](docs/SHIYI-GATE0.md)
 - [v2.4.0 托管同步 R0 审计](docs/integration/v240-audit.md)
 - [Android 实际能力与数据字典（托管同步草案）](contracts/app-capabilities.md)
+- [Mac/Supabase 联调交接清单](docs/integration/mac-backend-handoff.md)
 - [v2.4.0 业务兼容矩阵](docs/integration/v240-compatibility-matrix.md)
 - [G0-01 至 G0-12 分阶段计划](docs/integration/g0-plan.md)
 - [v1.7.0 架构边界与规则契约](docs/ARCHITECTURE-v1.7.0.md)
