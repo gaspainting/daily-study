@@ -53,7 +53,7 @@
 | 能力 | 代码现状 | 本轮处理 |
 | --- | --- | --- |
 | 稳定实体 ID / 数据字典 | 旧 `sync-contract.js` 有局部 ID 与信封校验 | 新增 `contracts/app-capabilities.md`、托管契约草案和 fixtures；后端冻结前仍是草案 |
-| 账号、设备、客户端代次 | 有 Keystore 设备密钥、加密会话容器和 client instance；无真实登录/撤销服务 | 本地会话刷新接口和代次状态已具备；真实 Auth/RLS/撤销待后端 |
+| 账号、设备、客户端代次 | 有 Keystore 设备密钥、加密会话容器和 client instance；无真实登录/撤销服务 | 本地会话刷新接口、作用域切换清理和代次状态已具备；真实 Auth/RLS/撤销待后端 |
 | HTTPS 传输 | 已有 HTTPS-only `SyncTransport`/`HttpSyncTransport`，构建未配置端点 | `HostedSyncService` 支持 push/pull 边界；未配置端点时只报告本机状态 |
 | outbox/inbox/ACK | 正式保存已接入恢复日志和实体级 outbox；inbox 拒绝/应用留痕已加入；duplicate ACK 可幂等重放 | 只有显式 ACK 才移除 outbox；服务端事务和丢 ACK 重传仍待后端 |
 | 修订、冲突、墓碑 | `baseServerRevision`、操作 ID、冲突状态已建模；未完成服务端墓碑 | 不按最后修改时间覆盖；条件写入和墓碑待后端 |
@@ -67,7 +67,7 @@
 
 以下是本仓库已有或本轮可重复的验证，不等同于真机/云端验收：
 
-- Node 合同与模型测试本轮完整运行通过（296 项，其中托管同步静态检查 14 项）。
+- Node 合同与模型测试本轮完整运行通过（297 项，其中托管同步静态检查 15 项）。
 - `build.ps1 -TestBuild` 本轮通过，APK 仍使用 v2.4.0 manifest、原有签名路径和现有 SDK；该构建不是发布版本。
 - v2.4.0 已完成签名构建并保存 APK 哈希；本轮不会覆盖基线文件。
 - 当前本地分支和回退标签存在，工作目录不做 reset/clean，不覆盖用户数据文件。

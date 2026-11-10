@@ -20,7 +20,7 @@
 | 任务 | 当前实际状态 | 本轮结论 | 下一依赖 |
 | --- | --- | --- | --- |
 | G0-01 基线、字段、契约 | Android 字段字典、稳定 ID 草案、协议信封和 fixtures 已提交 | 本地准备完成；`draft-pending-backend-freeze` | 拾遗/Supabase 提交正式 OpenAPI、Schema、错误码并共同冻结 |
-| G0-02 稳定 ID、迁移、账号隔离 | 计划/记录/任务/回顾/评估/提醒的 ID 和旧 LAN 元数据迁移已在本地 | 本地迁移可审查；首次云端合并和 RLS 隔离未实现 | 账号 claims、workspace/device 模型、快照比较规则 |
+| G0-02 稳定 ID、迁移、账号隔离 | 计划/记录/任务/回顾/评估/提醒的 ID、旧 LAN 元数据迁移和无待上传时的云端作用域清理已在本地 | 本地迁移可审查；首次云端合并和 RLS 隔离未实现 | 账号 claims、workspace/device 模型、快照比较规则 |
 | G0-03 Auth、设备会话、续期 | Keystore 加密会话容器和单飞刷新接口存在 | 客户端安全边界已有；无登录、注册、静默续期和设备撤销服务 | Supabase Auth 配置、设备 API、撤销错误 fixtures |
 | G0-04 HTTPS 传输 | HTTPS-only `HttpSyncTransport` 和错误映射存在 | 适配层可替换；端点为空，不能发起生产请求 | 能力协商、正式 URL、认证 claims、限流策略 |
 | G0-05 outbox/inbox/ACK | 正式保存恢复日志、实体 outbox、去重、ACK、duplicate ACK 重放和 inbox 结果已建模 | 本机可恢复；服务端事务 ACK、丢 ACK 重试未验证 | push/pull/ack 接口、幂等表和跨端 fixtures |

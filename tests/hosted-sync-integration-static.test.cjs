@@ -65,6 +65,14 @@ test('ACK replay is idempotent and epoch rollover requires a snapshot', () => {
   assert.match(store, /DEVICE_REVOKED.*device_revoked/);
 });
 
+test('account and workspace scope resets clear cloud metadata without dropping queued records', () => {
+  assert.match(store, /clearCloudScope\(state, false\)/);
+  assert.match(store, /clearCloudScope\(state, true\)/);
+  assert.match(store, /当前作用域还有待上传操作，请先完成同步/);
+  assert.match(store, /put\("inbox", new JSONArray\(\)\)/);
+  assert.match(store, /clientInstanceGeneration", state.getLong\("clientInstanceGeneration"\) \+ 1L/);
+});
+
 test('the build entry selects SDK and native tool paths by host platform', () => {
   const build = read('build.ps1');
   assert.match(build, /ANDROID_SDK_ROOT/);

@@ -175,6 +175,8 @@ public final class SyncStore {
             if (!workspace.isEmpty()) validId(workspace, "工作区ID");
             if (!state.isNull("workspaceId") && !workspace.isEmpty() && !workspace.equals(state.getString("workspaceId")) && state.getJSONArray("outbox").length() > 0)
                 throw new Exception("当前工作区还有待上传操作，请先完成同步");
+            String previousWorkspace = state.isNull("workspaceId") ? "" : state.getString("workspaceId");
+            if (!previousWorkspace.equals(workspace)) clearCloudScope(state, false);
             state.put("autoSync", autoSync && !workspace.isEmpty());
             state.put("workspaceId", workspace.isEmpty() ? JSONObject.NULL : workspace);
             JSONObject sync = state.getJSONObject("sync");
@@ -192,6 +194,8 @@ public final class SyncStore {
             String accountId = auth.getString("accountId"), workspaceId = auth.getString("workspaceId"); JSONObject state = readLocked(c);
             if (!state.isNull("accountId") && !accountId.equals(state.getString("accountId")) && state.getJSONArray("outbox").length() > 0) throw new Exception("当前账号还有待上传操作，请先完成同步");
             if (!state.isNull("workspaceId") && !workspaceId.equals(state.getString("workspaceId")) && state.getJSONArray("outbox").length() > 0) throw new Exception("当前工作区还有待上传操作，请先完成同步");
+            boolean scopeChanged = state.isNull("accountId") || !accountId.equals(state.getString("accountId")) || state.isNull("workspaceId") || !workspaceId.equals(state.getString("workspaceId"));
+            if (scopeChanged) clearCloudScope(state, false);
             state.put("accountId", accountId).put("workspaceId", workspaceId); writeLocked(c, state);
         }
     }
@@ -203,7 +207,7 @@ public final class SyncStore {
             AuthSessionStore.clear(c); JSONObject state = readLocked(c); state.put("autoSync", false);
             JSONObject sync = state.getJSONObject("sync");
             if (state.getJSONArray("outbox").length() > 0) sync.put("status", "session_invalid").put("lastFailure", "已退出账号，待上传操作仍保留在本机");
-            else { state.put("accountId", JSONObject.NULL).put("workspaceId", JSONObject.NULL); sync.put("status", "local_saved").put("lastFailure", JSONObject.NULL); }
+            else clearCloudScope(state, true);
             writeLocked(c, state); return publicStatus(c, state);
         }
     }
@@ -418,6 +422,17 @@ public final class SyncStore {
     }
 
     private static JSONObject publicStatus(Context c, JSONObject state) throws Exception { return status(c); }
+    /** Clears only cloud-scoped metadata; local learning JSON is never touched. */
+    private static void clearCloudScope(JSONObject state, boolean clearIdentity) throws Exception {
+        if (state.getJSONArray("outbox").length() > 0) throw new Exception("当前作用域还有待上传操作，请先完成同步");
+        state.put("inbox", new JSONArray()).put("dedupe", new JSONArray()).put("conflicts", new JSONArray())
+            .put("serverRevisions", new JSONObject()).put("cursor", 0L).put("serverEpoch", JSONObject.NULL)
+            .put("reminders", new JSONArray()).put("clientInstanceId", UUID.randomUUID().toString())
+            .put("clientInstanceGeneration", state.getLong("clientInstanceGeneration") + 1L);
+        if (clearIdentity) state.put("accountId", JSONObject.NULL).put("workspaceId", JSONObject.NULL);
+        state.getJSONObject("sync").put("lastAttemptAt", JSONObject.NULL).put("lastSuccessAt", JSONObject.NULL)
+            .put("lastFailure", JSONObject.NULL).put("status", "local_saved");
+    }
     private static void acceptServerEpoch(JSONObject state, String serverEpoch) throws Exception {
         if (serverEpoch == null || serverEpoch.trim().isEmpty()) return;
         if (!state.isNull("serverEpoch") && !serverEpoch.equals(state.getString("serverEpoch"))) throw new Exception("服务端同步代次已变化，请先获取快照");

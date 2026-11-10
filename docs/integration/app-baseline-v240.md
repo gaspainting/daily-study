@@ -40,7 +40,7 @@
 | --- | --- | --- |
 | 稳定 ID/信封 | `SyncStore`、`hosted-sync-contract.js`、`contracts/hosted-sync-v1.json` 和 fixtures 已有 schema 9 草案 | 本地契约准备；不是冻结的生产协议 |
 | 旧局域网数据 | `SyncStore.normalize` 把历史 `pair`、地址和旧状态迁移到私有 `legacyLanMetadata`，不再显示 LAN 表单 | 旧 LAN 仅作兼容迁移；当前没有可用 LAN 传输 |
-| 会话 | `AuthSessionStore` 用 Android Keystore 加密会话文件，并提供刷新接口边界 | 没有账号登录、静默续期服务、设备登记或撤销后端 |
+| 会话 | `AuthSessionStore` 用 Android Keystore 加密会话文件，并提供刷新接口边界；账号/工作区变更会清理云端作用域元数据并递增客户端实例代次 | 没有账号登录、静默续期服务、设备登记或撤销后端 |
 | HTTPS | `HttpSyncTransport` 强制 HTTPS、Bearer 会话和错误分类 | 端点元数据为空；没有真实请求 |
 | 本地可靠收发 | outbox/inbox、去重、ACK、ACK 重放幂等、冲突、cursor、server revision、epoch 保护和恢复日志已建模 | 可独立测试的本地接入层；服务端事务、幂等和游标语义未验证 |
 | 下行 | `HostedDownlink` 只对提醒进入本地调度；其他业务命令保留 `unsupported` 结果 | 不能宣称任务、记录、评估或回顾已经可以下行 |
@@ -55,8 +55,8 @@
 
 ## 已执行验证与证据边界
 
-- `node --test tests/*.test.cjs`：296 项通过。
-- 托管同步静态/契约检查：14 项通过。
+- `node --test tests/*.test.cjs`：297 项通过。
+- 托管同步静态/契约检查：15 项通过。
 - `node --check app/src/main/assets/app.js`：通过。
 - `git -c core.whitespace=cr-at-eol diff --check`：通过。
 - `build.ps1 -TestBuild`：Windows 测试 APK 构建通过，并完成 APK v2/v3 签名校验；该 APK 不是发布版本。
