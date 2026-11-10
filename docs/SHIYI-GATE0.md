@@ -7,7 +7,8 @@
 - `contracts/hosted-sync-v1.json`：逻辑信封、稳定 ID、支持命令、状态和服务端结果分类；明确标注待后端冻结。
 - `docs/integration/hosted-sync-capabilities.md`：Android 业务字段、支持命令、接口输入和验收边界。
 - `AuthSessionStore`：Android Keystore 保护的原生会话文件；凭证不进入 WebView、日志或普通备份。
-- `SyncStore`：账号/工作区、客户端实例代次、outbox/inbox、服务端修订号、游标、冲突和提醒状态。正式保存成功后才追加小实体操作；没有服务端 ACK 不清除 outbox。
+- `SyncStore`：账号/工作区、客户端实例代次、outbox/inbox、服务端修订号、游标、冲突和提醒版本回执。正式保存成功后才追加小实体操作；没有服务端 ACK 不清除 outbox。`HostedDownlink` 对未知业务命令保留拒绝结果，当前仅提醒进入本地调度适配。
+- `HostedSyncJobService`/`SyncScheduler`：使用系统周期任务提供联网机会；当前构建没有端点元数据，不会把周期执行写成云端成功，也没有声明推送加速。
 - 设置页：显示本机保存、待上传、云端确认、手机已应用、冲突、离线、会话失效和设备撤销等状态，不再要求配对码、IP、端口、指纹或保持同一 Wi-Fi。
 
 本轮能在 Windows 独立验证的是契约校验、稳定 ID、重复操作键、修订冲突判定、原生队列持久化和现有业务回归。当前没有 Mac 客户端、Supabase 测试后端、测试账号或真实 Android 设备，因此不能宣称账号隔离、跨网络传输、服务端幂等、提醒可见性或 Gate 0 通过。

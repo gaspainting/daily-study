@@ -98,6 +98,11 @@ public final class SyncStore {
         for (String key : new String[]{"outbox", "inbox", "dedupe", "reminders"}) {
             if (!state.has(key)) { state.put(key, new JSONArray()); changed = true; }
         }
+        JSONArray reminders = state.getJSONArray("reminders");
+        for (int i = 0; i < reminders.length(); i++) {
+            JSONObject reminder = reminders.optJSONObject(i);
+            if (reminder != null && normalizeReminder(reminder)) changed = true;
+        }
         if (!state.has("sync")) { state.put("sync", empty().getJSONObject("sync")); changed = true; }
 
         // Move the old LAN-only fields under a private legacy marker. They are
@@ -157,8 +162,9 @@ public final class SyncStore {
                 .put("lastSuccessAt", sync.opt("lastSuccessAt"))
                 .put("lastFailure", sync.opt("lastFailure"))
                 .put("reminderCount", state.getJSONArray("reminders").length())
-                .put("capabilities", new JSONObject().put("localOutbox", true).put("httpsTransport", false)
-                    .put("periodicSync", false).put("pushAccelerated", false));
+                 .put("capabilities", new JSONObject().put("localOutbox", true).put("httpsTransport", true)
+                     .put("periodicSync", true).put("pushAccelerated", false).put("downlinkReminders", true)
+                     .put("downlinkBusiness", false));
         }
     }
 
@@ -324,6 +330,40 @@ public final class SyncStore {
         synchronized (LOCK) { JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("conflicts"); list.put(new JSONObject(conflict.toString())); while (list.length() > 200) list.remove(0); state.getJSONObject("sync").put("status", "conflict").put("lastFailure", "有待处理的同步冲突"); writeLocked(c, state); return publicStatus(c, state); }
     }
 
+    /** Validates a hosted operation before a future downlink adapter can apply it. */
+    public static void validateHostedOperation(JSONObject operation) throws Exception {
+        if (operation == null) throw new Exception("下行操作缺失");
+        validateOperation(operation);
+    }
+
+    /** Persists a received downlink result before a cursor can be advanced. */
+    public static JSONObject recordInbox(Context c, JSONObject operation, String result, String error) throws Exception {
+        if (operation == null) throw new Exception("下行操作缺失");
+        if (!"applied".equals(result) && !"rejected".equals(result)) throw new Exception("下行结果无效");
+        synchronized (LOCK) {
+            JSONObject state = readLocked(c); JSONArray inbox = state.getJSONArray("inbox");
+            String key = operation.optString("clientInstanceId", "") + "|" + operation.optString("operationId", "");
+            for (int i = 0; i < inbox.length(); i++) if (key.equals(inbox.getJSONObject(i).optString("dedupeKey", ""))) return publicStatus(c, state);
+            JSONObject entry = new JSONObject().put("dedupeKey", key).put("operation", new JSONObject(operation.toString()))
+                .put("result", result).put("receivedAtUtc", now());
+            if (error != null && !error.trim().isEmpty()) entry.put("error", error);
+            inbox.put(entry); while (inbox.length() > 2000) inbox.remove(0);
+            state.getJSONObject("sync").put("status", "rejected".equals(result) ? "error" : (state.getJSONArray("outbox").length() == 0 ? "device_applied" : "pending_upload"));
+            if ("rejected".equals(result)) state.getJSONObject("sync").put("lastFailure", error == null ? "下行操作未应用" : error);
+            writeLocked(c, state); return publicStatus(c, state);
+        }
+    }
+
+    /** Advances the durable pull cursor only after the corresponding inbox entry is stored. */
+    public static JSONObject advanceCursor(Context c, long cursor, String serverEpoch) throws Exception {
+        if (cursor < 0) throw new Exception("同步游标无效");
+        synchronized (LOCK) {
+            JSONObject state = readLocked(c); state.put("cursor", Math.max(state.getLong("cursor"), cursor));
+            if (serverEpoch != null && !serverEpoch.trim().isEmpty()) state.put("serverEpoch", serverEpoch);
+            writeLocked(c, state); return publicStatus(c, state);
+        }
+    }
+
     public static JSONArray pendingOperations(Context c) throws Exception {
         synchronized (LOCK) { JSONObject state = readLocked(c); JSONArray result = new JSONArray(); JSONArray list = state.getJSONArray("outbox"); for (int i = 0; i < list.length(); i++) result.put(new JSONObject(list.getJSONObject(i).getJSONObject("operation").toString())); return result; }
     }
@@ -335,11 +375,33 @@ public final class SyncStore {
     }
 
     public static JSONObject saveReminder(Context c, JSONObject reminder) throws Exception {
-        synchronized (LOCK) { validateReminder(reminder); JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("reminders"); String eventId = reminder.getString("eventId"); for (int i = 0; i < list.length(); i++) if (eventId.equals(list.getJSONObject(i).getString("eventId"))) { list.put(i, new JSONObject(reminder.toString())); writeLocked(c, state); return publicStatus(c, state); } list.put(new JSONObject(reminder.toString())); writeLocked(c, state); return publicStatus(c, state); }
+        JSONObject normalized = new JSONObject(reminder == null ? "{}" : reminder.toString()); normalizeReminder(normalized); validateReminder(normalized);
+        synchronized (LOCK) { JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("reminders"); String eventId = normalized.getString("eventId"); for (int i = 0; i < list.length(); i++) if (eventId.equals(list.getJSONObject(i).getString("eventId"))) { list.put(i, new JSONObject(normalized.toString())); writeLocked(c, state); return publicStatus(c, state); } list.put(new JSONObject(normalized.toString())); writeLocked(c, state); return publicStatus(c, state); }
     }
 
     public static JSONArray reminders(Context c) throws Exception { synchronized (LOCK) { return new JSONArray(readLocked(c).getJSONArray("reminders").toString()); } }
-    public static void markReminderDelivered(Context c, String eventId) throws Exception { synchronized (LOCK) { JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("reminders"); for (int i = 0; i < list.length(); i++) if (eventId.equals(list.getJSONObject(i).getString("eventId"))) list.getJSONObject(i).put("status", "delivered"); writeLocked(c, state); } }
+    public static void markReminderReceived(Context c, String eventId, long version) throws Exception { updateReminderReceipt(c, eventId, version, "received"); }
+    public static void markReminderScheduled(Context c, String eventId, long version) throws Exception { updateReminderReceipt(c, eventId, version, "scheduled"); }
+    public static void markReminderDelivered(Context c, String eventId) throws Exception { markReminderDelivered(c, eventId, -1L); }
+    public static void markReminderDelivered(Context c, String eventId, long version) throws Exception { updateReminderReceipt(c, eventId, version, "delivered"); }
+    public static void cancelReminder(Context c, String eventId, long version) throws Exception { updateReminderReceipt(c, eventId, version, "cancelled"); }
+
+    private static void updateReminderReceipt(Context c, String eventId, long version, String receipt) throws Exception {
+        synchronized (LOCK) {
+            JSONObject state = readLocked(c); JSONArray list = state.getJSONArray("reminders"); boolean found = false;
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject reminder = list.getJSONObject(i); if (!eventId.equals(reminder.getString("eventId"))) continue;
+                long current = reminder.optLong("reminderVersion", 1L); if (version >= 0 && current != version) throw new Exception("提醒版本已更新");
+                String now = now(); reminder.put("receiptState", receipt);
+                if ("received".equals(receipt)) { reminder.put("status", "received").put("receivedAtUtc", now); }
+                else if ("scheduled".equals(receipt)) { reminder.put("status", "scheduled").put("scheduledAtUtc", now); }
+                else if ("delivered".equals(receipt)) { reminder.put("status", "delivered").put("deliveredAtUtc", now); }
+                else if ("cancelled".equals(receipt)) { reminder.put("status", "cancelled").put("cancelledAtUtc", now); }
+                found = true; break;
+            }
+            if (!found) throw new Exception("提醒不存在"); writeLocked(c, state);
+        }
+    }
 
     private static JSONObject publicStatus(Context c, JSONObject state) throws Exception { return status(c); }
     private static boolean contains(JSONArray list, String value) { for (int i = 0; i < list.length(); i++) if (value.equals(list.optString(i, null))) return true; return false; }
@@ -356,11 +418,22 @@ public final class SyncStore {
         String type = operation.getString("entityType"), command = operation.getString("command"); require(type.equals("plan") || type.equals("record") || type.equals("task") || type.equals("review") || type.equals("evaluation") || type.equals("reminder"), "实体类型不支持"); require(command.equals("upsert_" + type) || (type.equals("reminder") ? command.equals("cancel_reminder") : command.equals("delete_" + type)), "同步命令不支持"); require(operation.getLong("baseServerRevision") >= 0, "服务端修订号无效"); require(operation.optJSONObject("payload") != null, "同步载荷无效");
     }
     private static void validateQueueEntry(JSONObject entry) throws Exception { require(entry.getJSONObject("operation") != null, "待上传操作缺少信封"); validateOperation(entry.getJSONObject("operation")); require(entry.getLong("localRevision") >= 0 && entry.getInt("attempts") >= 0, "本地操作状态无效"); }
+    private static boolean normalizeReminder(JSONObject reminder) throws Exception {
+        boolean changed = false;
+        if (!reminder.has("reminderVersion")) { reminder.put("reminderVersion", 1L); changed = true; }
+        if (!reminder.has("receiptState")) { String status = reminder.optString("status", "received"); String receipt = "scheduled".equals(status) ? "scheduled" : "delivered".equals(status) ? "delivered" : "cancelled".equals(status) ? "cancelled" : "received"; reminder.put("receiptState", receipt); changed = true; }
+        for (String key : new String[]{"receivedAtUtc", "scheduledAtUtc", "deliveredAtUtc", "cancelledAtUtc"}) if (!reminder.has(key)) { reminder.put(key, JSONObject.NULL); changed = true; }
+        if (!reminder.has("sourceRevision")) { reminder.put("sourceRevision", 0L); changed = true; }
+        return changed;
+    }
     private static void validateReminder(JSONObject reminder) throws Exception {
-        Set<String> allowed = new HashSet<>(); for (String key : new String[]{"eventId", "title", "atUtc", "timezone", "deepLink", "schemaVersion", "status"}) allowed.add(key);
-        require(reminder.length() == allowed.size(), "拾遗提醒字段不完整"); Iterator<String> keys = reminder.keys(); while (keys.hasNext()) require(allowed.contains(keys.next()), "拾遗提醒含未知字段");
+        Set<String> required = new HashSet<>(); for (String key : new String[]{"eventId", "title", "atUtc", "timezone", "deepLink", "schemaVersion", "status"}) required.add(key);
+        Set<String> allowed = new HashSet<>(required); for (String key : new String[]{"reminderVersion", "receiptState", "receivedAtUtc", "scheduledAtUtc", "deliveredAtUtc", "cancelledAtUtc", "sourceRevision"}) allowed.add(key);
+        Iterator<String> keys = reminder.keys(); while (keys.hasNext()) { String key = keys.next(); require(allowed.contains(key), "拾遗提醒含未知字段"); } for (String key : required) require(reminder.has(key) && !reminder.isNull(key), "拾遗提醒字段不完整");
         require(reminder.getString("eventId").matches("[A-Za-z0-9._:-]{3,128}"), "拾遗提醒ID无效"); require(!reminder.getString("title").trim().isEmpty() && reminder.getString("title").length() <= 500, "拾遗提醒标题无效"); Instant.parse(reminder.getString("atUtc")); require(reminder.getInt("schemaVersion") == 1, "拾遗提醒版本不支持");
         String status = reminder.getString("status"); require("received".equals(status) || "confirmed".equals(status) || "scheduled".equals(status) || "delivered".equals(status) || "cancelled".equals(status), "拾遗提醒状态无效"); require(reminder.getString("deepLink").startsWith("daily-study://"), "拾遗提醒入口无效");
+        require(reminder.getLong("reminderVersion") > 0, "拾遗提醒版本无效"); require("received".equals(reminder.getString("receiptState")) || "scheduled".equals(reminder.getString("receiptState")) || "delivered".equals(reminder.getString("receiptState")) || "cancelled".equals(reminder.getString("receiptState")), "拾遗提醒回执状态无效"); require(reminder.getLong("sourceRevision") >= 0, "拾遗提醒来源修订无效");
+        for (String key : new String[]{"receivedAtUtc", "scheduledAtUtc", "deliveredAtUtc", "cancelledAtUtc"}) if (!reminder.isNull(key)) Instant.parse(reminder.getString(key));
     }
     private static void validate(JSONObject state) throws Exception {
         require(state.getInt("protocolVersion") == PROTOCOL_VERSION && state.getInt("stateSchemaVersion") == STATE_SCHEMA_VERSION, "同步状态版本不支持"); require(uuid(state.getString("deviceId")) && uuid(state.getString("clientInstanceId")), "设备身份无效"); require(state.getLong("clientInstanceGeneration") > 0 && state.getLong("deviceSequence") >= 0 && state.getLong("cursor") >= 0, "同步序号无效");

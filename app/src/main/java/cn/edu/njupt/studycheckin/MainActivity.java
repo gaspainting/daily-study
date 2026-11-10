@@ -104,9 +104,9 @@ public class MainActivity extends Activity {
         });
         webView.loadUrl("file:///android_asset/index.html");
         if(Build.VERSION.SDK_INT>=33)getOnBackInvokedDispatcher().registerOnBackInvokedCallback(OnBackInvokedDispatcher.PRIORITY_DEFAULT,()->handleBack());
-        if(recoveryError==null)try{ReminderScheduler.schedule(this);ShiyiReminderScheduler.schedule(this);}catch(Exception e){show(e.getMessage());}
+        if(recoveryError==null)try{ReminderScheduler.schedule(this);ShiyiReminderScheduler.schedule(this);SyncScheduler.schedule(this);}catch(Exception e){show(e.getMessage());}
     }
-    @Override protected void onResume(){super.onResume();updateInstallBusy.set(false);resumePage();if(recoveryError==null)try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);ShiyiReminderScheduler.schedule(this);BackupStatus.schedule(this);}catch(Exception ignored){}}
+    @Override protected void onResume(){super.onResume();updateInstallBusy.set(false);resumePage();if(recoveryError==null)try{StudyWidget.refreshAll(this);ReminderScheduler.schedule(this);ShiyiReminderScheduler.schedule(this);BackupStatus.schedule(this);SyncScheduler.schedule(this);}catch(Exception ignored){}}
     @Override protected void onPause(){synchronized(this){startupUpdateEligible=false;}startupConsumed=true;startupPending=false;hasPaused=true;foregroundUpdateEligible=true;if(webView!=null)webView.evaluateJavascript("window.InspirationUI && window.InspirationUI.background();window.onStartupUpdateBackground && window.onStartupUpdateBackground()",null);super.onPause();}
     @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);resumePage();}
     private void resumePage(){if(pageReady&&webView!=null)webView.evaluateJavascript((hasPaused?"window.InspirationUI && window.InspirationUI.background();":"")+"window.onNativeResume && window.onNativeResume()",null);}

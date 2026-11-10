@@ -13,11 +13,17 @@ public final class ShiyiReminderScheduler {
     public static void schedule(Context c) throws Exception {
         AlarmManager manager = c.getSystemService(AlarmManager.class);
         for (org.json.JSONObject reminder : toList(SyncStore.reminders(c))) {
-            if (!"confirmed".equals(reminder.optString("status")) && !"scheduled".equals(reminder.optString("status"))) continue;
+            if (!"received".equals(reminder.optString("status")) && !"confirmed".equals(reminder.optString("status")) && !"scheduled".equals(reminder.optString("status"))) continue;
             long at = Instant.parse(reminder.getString("atUtc")).toEpochMilli(); if (at <= System.currentTimeMillis()) continue;
-            int request = Math.abs(reminder.getString("eventId").hashCode()); Intent intent = new Intent(c, ShiyiReminderReceiver.class).setAction(ACTION).putExtra("eventId", reminder.getString("eventId")).putExtra("title", reminder.getString("title")).putExtra("deepLink", reminder.getString("deepLink"));
-            PendingIntent pending = PendingIntent.getBroadcast(c, request, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE); manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pending); reminder.put("status", "scheduled"); SyncStore.saveReminder(c, reminder);
+            int request = Math.abs(reminder.getString("eventId").hashCode()); long version = reminder.optLong("reminderVersion", 1L); Intent intent = new Intent(c, ShiyiReminderReceiver.class).setAction(ACTION).putExtra("eventId", reminder.getString("eventId")).putExtra("reminderVersion", version).putExtra("title", reminder.getString("title")).putExtra("deepLink", reminder.getString("deepLink"));
+            PendingIntent pending = PendingIntent.getBroadcast(c, request, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE); manager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, at, pending); SyncStore.markReminderScheduled(c, reminder.getString("eventId"), version);
         }
+    }
+    public static void cancel(Context c, String eventId, long version) throws Exception {
+        if (eventId == null || eventId.trim().isEmpty()) throw new Exception("提醒ID缺失");
+        Intent intent = new Intent(c, ShiyiReminderReceiver.class).setAction(ACTION).putExtra("eventId", eventId);
+        PendingIntent pending = PendingIntent.getBroadcast(c, Math.abs(eventId.hashCode()), intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        c.getSystemService(AlarmManager.class).cancel(pending); pending.cancel(); SyncStore.cancelReminder(c, eventId, version);
     }
     private static java.util.List<org.json.JSONObject> toList(org.json.JSONArray values) throws Exception { java.util.List<org.json.JSONObject> result = new java.util.ArrayList<>(); for (int i = 0; i < values.length(); i++) result.add(values.getJSONObject(i)); return result; }
 }

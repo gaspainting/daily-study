@@ -20,7 +20,7 @@ public final class ShiyiReminderReceiver extends BroadcastReceiver {
             NotificationManager manager = c.getSystemService(NotificationManager.class); manager.createNotificationChannel(new NotificationChannel("shiyi_reminders", "拾遗提醒", NotificationManager.IMPORTANCE_DEFAULT));
             String link = intent.getStringExtra("deepLink"); Intent open = new Intent(c, MainActivity.class).setData(link == null ? Uri.parse("daily-study://review") : Uri.parse(link)).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent pending = PendingIntent.getActivity(c, Math.abs(eventId.hashCode()), open, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-            Notification n = new Notification.Builder(c, "shiyi_reminders").setSmallIcon(R.drawable.ic_notification).setContentTitle(intent.getStringExtra("title") == null ? "拾遗回顾提醒" : intent.getStringExtra("title")).setContentText("打开每日学习查看回顾").setAutoCancel(true).setContentIntent(pending).build(); manager.notify(Math.abs(eventId.hashCode()), n); SyncStore.markReminderDelivered(c, eventId);
+            Notification n = new Notification.Builder(c, "shiyi_reminders").setSmallIcon(R.drawable.ic_notification).setContentTitle(intent.getStringExtra("title") == null ? "拾遗回顾提醒" : intent.getStringExtra("title")).setContentText("打开每日学习查看回顾").setAutoCancel(true).setContentIntent(pending).build(); manager.notify(Math.abs(eventId.hashCode()), n); SyncStore.markReminderDelivered(c, eventId, intent.getLongExtra("reminderVersion", -1L));
         } catch (Exception ignored) {}
     }
 }
