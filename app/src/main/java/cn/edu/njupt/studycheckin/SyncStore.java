@@ -111,8 +111,8 @@ public final class SyncStore {
         }
         JSONObject sync = state.getJSONObject("sync");
         String old = sync.optString("status", "signed_out");
-        if ("waiting_for_desktop".equals(old) || "pairing_pending".equals(old) || "not_paired".equals(old)) {
-            sync.put("status", "not_configured"); changed = true;
+        if ("waiting_for_desktop".equals(old) || "pairing_pending".equals(old) || "not_paired".equals(old) || "ready_to_pair".equals(old)) {
+            sync.put("status", "local_saved"); changed = true;
         }
         if (!sync.has("lastAttemptAt")) { sync.put("lastAttemptAt", JSONObject.NULL); changed = true; }
         if (!sync.has("lastSuccessAt")) { sync.put("lastSuccessAt", JSONObject.NULL); changed = true; }
